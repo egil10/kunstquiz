@@ -8,18 +8,29 @@ fetch('/data/paintings.json')
     })
     .then(data => {
         paintings = data;
+        console.log('Paintings loaded:', paintings);
         if (!paintings.length) throw new Error('No paintings in JSON');
-        loadQuiz();
+        loadQuiz(); // Force execution
     })
     .catch(error => {
-        console.error('Error:', error);
+        console.error('Fetch error:', error);
         alert('Error loading paintings: ' + error.message);
     });
 
 function loadQuiz() {
+    console.log('Loading quiz with paintings:', paintings); // Debug start
+    if (!paintings.length) {
+        console.error('No paintings to display');
+        return;
+    }
     const randomIndex = Math.floor(Math.random() * paintings.length);
     const correctPainting = paintings[randomIndex];
-    document.getElementById('painting').src = correctPainting.url;
+    const img = document.getElementById('painting');
+    img.src = correctPainting.url;
+    img.alt = correctPainting.title;
+    console.log('Setting image src to:', img.src); // Debug image set
+    img.onload = () => console.log('Image loaded:', correctPainting.url);
+    img.onerror = () => console.error('Image load failed:', correctPainting.url);
 
     const artists = [correctPainting.artist];
     while (artists.length < 4) {
@@ -30,6 +41,7 @@ function loadQuiz() {
 
     const optionsDiv = document.getElementById('options');
     optionsDiv.innerHTML = '';
+    console.log('Generating buttons for artists:', artists); // Debug buttons
     artists.forEach(artist => {
         const button = document.createElement('button');
         button.textContent = artist;
