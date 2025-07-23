@@ -1,7 +1,7 @@
 let streak = 0;
 let paintings = [];
 
-fetch('../../data/paintings.json')
+fetch('/data/paintings.json')
     .then(response => {
         if (!response.ok) throw new Error('Failed to load paintings.json: ' + response.status);
         return response.json();
@@ -47,4 +47,3 @@ function loadQuiz() {
         optionsDiv.appendChild(button);
     });
 }
-
