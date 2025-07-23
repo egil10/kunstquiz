@@ -1,0 +1,4 @@
+body { text-align: center; font-family: Arial, sans-serif; }
+#painting { max-width: 80%; height: auto; margin: 20px; }
+button { margin: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
+#streak { font-size: 20px; }

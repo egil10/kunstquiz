@@ -4,12 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Norwegian Art Challenge</title>
-    <style>
-        body { text-align: center; font-family: Arial, sans-serif; }
-        #painting { max-width: 80%; height: auto; margin: 20px; }
-        button { margin: 10px; padding: 10px 20px; font-size: 16px; cursor: pointer; }
-        #streak { font-size: 20px; }
-    </style>
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
     <h1>Norwegian Art Challenge</h1>
@@ -17,101 +12,6 @@
     <img id="painting" src="" alt="Norwegian Painting">
     <div id="options"></div>
     <p id="streak">Streak: 0</p>
-
-    <script>
-        const paintings = [
-            {
-                artist: "Edvard Munch",
-                title: "The Scream",
-                url: "https://upload.wikimedia.org/wikipedia/commons/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg"
-            },
-            {
-                artist: "Harald Sohlberg",
-                title: "Winter Night in the Mountains",
-                url: "https://upload.wikimedia.org/wikipedia/commons/3/30/Harald_Sohlberg-WinterNightInTheMountains.jpg"
-            },
-            {
-                artist: "Johan Christian Dahl",
-                title: "Burning Windmill at Stege",
-                url: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Johan_Christian_Claussen_Dahl_-_Brennende_m%C3%B8lle%2C_Stege.jpg"
-            },
-            {
-                artist: "Peder Balke",
-                title: "North Cape",
-                url: "https://upload.wikimedia.org/wikipedia/commons/9/9c/Balke_fra_nordkapp.jpg"
-            },
-            {
-                artist: "Hans Fredrik Gude",
-                title: "The Old Snow Plow at the Edge of the Forest",
-                url: "https://upload.wikimedia.org/wikipedia/commons/3/3f/Hans_Gude_-_Den_gamle_Sneplov_Ved_Skovkanten_%281893%29.jpg"
-            },
-            {
-                artist: "Harriet Backer",
-                title: "Interior from Vendelsborg",
-                url: "https://upload.wikimedia.org/wikipedia/commons/4/4f/Harriet_Backer_-_Interi%C3%B8r_fra_Vendelsborg%2C_Vollen_i_Asker.jpg"
-            },
-            {
-                artist: "Frits Thaulow",
-                title: "Watermill",
-                url: "https://upload.wikimedia.org/wikipedia/commons/0/0e/Fritz_Thaulow_Watermill_1892.jpg"
-            },
-            {
-                artist: "Christian Krohg",
-                title: "Three Reefs",
-                url: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Christian_Krohg_-_Tre_rev_-_TKM-102-1900_-_Trondheim_kunstmuseum.jpg"
-            },
-            {
-                artist: "Theodor Kittelsen",
-                title: "White-Bear-King Valemon",
-                url: "https://upload.wikimedia.org/wikipedia/commons/3/3a/TheodorKittelsen-Kvitebj%C3%B8rnKongValemon%281912%29.JPG"
-            },
-            {
-                artist: "Adolph Tidemand & Hans Gude",
-                title: "Bridal Procession on the Hardangerfjord",
-                url: "https://upload.wikimedia.org/wikipedia/commons/9/98/Brudeferden_i_Hardanger.jpg"
-            }
-        ];
-
-        let streak = 0;
-
-        function loadQuiz() {
-            const randomIndex = Math.floor(Math.random() * paintings.length);
-            const correctPainting = paintings[randomIndex];
-            document.getElementById('painting').src = correctPainting.url;
-
-            // Get unique artists for options (1 correct + 3 random)
-            const artists = [correctPainting.artist];
-            while (artists.length < 4) {
-                const randomArtist = paintings[Math.floor(Math.random() * paintings.length)].artist;
-                if (!artists.includes(randomArtist)) {
-                    artists.push(randomArtist);
-                }
-            }
-
-            // Shuffle options
-            artists.sort(() => Math.random() - 0.5);
-
-            const optionsDiv = document.getElementById('options');
-            optionsDiv.innerHTML = '';
-            artists.forEach(artist => {
-                const button = document.createElement('button');
-                button.textContent = artist;
-                button.onclick = () => {
-                    if (artist === correctPainting.artist) {
-                        streak++;
-                        alert('Correct! It\'s ' + correctPainting.title + ' by ' + artist);
-                    } else {
-                        streak = 0;
-                        alert('Wrong! It\'s ' + correctPainting.title + ' by ' + correctPainting.artist);
-                    }
-                    document.getElementById('streak').textContent = 'Streak: ' + streak;
-                    loadQuiz(); // Infinite loop
-                };
-                optionsDiv.appendChild(button);
-            });
-        }
-
-        loadQuiz();
-    </script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
