@@ -14,11 +14,14 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "https://www.pubhist.com/person/3776/edva",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "2000s"
+      "Expressionism",
+      "2100s"
     ]
   },
   {
@@ -36,11 +39,14 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "https://www.pubhist.com/person/3776/edva",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "2000s"
+      "Expressionism",
+      "2100s"
     ]
   },
   {
@@ -58,11 +64,14 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "National Library of Norway",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1900s"
+      "Expressionism",
+      "2000s"
     ]
   },
   {
@@ -80,11 +89,14 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Kulturmønstringer",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "2000s"
+      "Expressionism",
+      "2100s"
     ]
   },
   {
@@ -102,10 +114,13 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "National Library of Norway",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism"
+      "Expressionism"
     ]
   },
   {
@@ -123,10 +138,13 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "National Library of Norway",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism"
+      "Expressionism"
     ]
   },
   {
@@ -144,11 +162,14 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "https://sbirky.ngprague.cz/dielo/CZE:NG.",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1900s"
+      "Expressionism",
+      "2000s"
     ]
   },
   {
@@ -166,10 +187,13 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Oslo Museum: image no",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism"
+      "Expressionism"
     ]
   },
   {
@@ -187,10 +211,13 @@
     "artist_death": "1944-01-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Expressionism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://sbirky.ngprague.cz/dielo/CZE:NG.",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
+      "Expressionism",
       "1900s"
     ]
   },
@@ -209,10 +236,12 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Blomqvist Vårauksjonen 2005, 2-3 mai (Au",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -230,10 +259,12 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://polarbearstale.blogspot.com/2011/",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -251,10 +282,12 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Scanned from Dagfinn Døhl Dybvig &amp; M",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -272,11 +305,13 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Harvard Art Museums",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -294,10 +329,12 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Self-photographed; 12 September 2009.",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -315,10 +352,12 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": null,
+    "collection": "National Library of Norway",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -336,10 +375,12 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Scanned from Einar Skavlan: Gunnar Heibe",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -357,10 +398,12 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://hjem.get2net.dk/scandinavian_art/",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -378,11 +421,13 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -400,10 +445,12 @@
     "artist_death": "1925-10-16",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": null,
+    "collection": "National Library of Norway",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -421,10 +468,12 @@
     "artist_death": "1914-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://kittelsen.efenstor.net/",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -442,11 +491,13 @@
     "artist_death": "1914-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://www.facebook.com/photo/?fbid=465",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -464,11 +515,13 @@
     "artist_death": "1914-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Theodor Kittelsen",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -486,11 +539,13 @@
     "artist_death": "1914-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "https://snl.no/%C3%B8deg%C3%A5rd",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -508,11 +563,13 @@
     "artist_death": "1932-03-25",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -531,12 +588,14 @@
     "artist_death": "1932-03-25",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "http://www.the-athenaeum.org/art/detail.",
     "categories": [
       "Popular painters",
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -555,11 +614,13 @@
     "artist_death": "1932-03-25",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "gwpa",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1900s",
+      "2000s",
       "Women painters"
     ]
   },
@@ -578,11 +639,13 @@
     "artist_death": "1932-03-25",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://polarbearstale.blogspot.com/2011/",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -601,11 +664,13 @@
     "artist_death": "1932-03-25",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://polarbearstale.blogspot.com/2010/",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -624,12 +689,14 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": 19,
+    "collection": "https://www.millon.com/lot/111469/142273",
     "categories": [
       "Popular painters",
       "Portraits",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -647,11 +714,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Marit I. Lange og Anne-Berit Skaug: Pete",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -669,11 +738,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Peter Nicolai Arbo",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -691,11 +762,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -713,10 +786,12 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Painted as a sketch for a print for the",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -734,10 +809,12 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -755,11 +832,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -777,12 +856,14 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": 19,
+    "collection": "http://kulkul.xahoihoctap.net/kulkuls-bi",
     "categories": [
       "Popular painters",
       "Portraits",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -800,11 +881,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://portrettarkiv.ra.no/fotoweb/arch",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -822,11 +905,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Peter_Nicolai_Arbo-Haakon_den_gode.jpg,",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -844,11 +929,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://www.museumsyndicate.com/item.php?",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -866,11 +953,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -888,12 +977,14 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "National Museum of Art",
     "categories": [
       "Popular painters",
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "National Museum of Norway"
     ]
   },
@@ -912,11 +1003,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -934,11 +1027,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -956,12 +1051,14 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": 19,
+    "collection": "National Museum of Art",
     "categories": [
       "Popular painters",
       "Portraits",
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "National Museum of Norway"
     ]
   },
@@ -980,12 +1077,14 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": 19,
+    "collection": "National Museum of Art",
     "categories": [
       "Popular painters",
       "Portraits",
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "National Museum of Norway"
     ]
   },
@@ -1004,12 +1103,14 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": 19,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
       "Popular painters",
       "Portraits",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1027,12 +1128,14 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": 19,
+    "collection": "Oslo Museum: image no",
     "categories": [
       "Popular painters",
       "Portraits",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1050,11 +1153,13 @@
     "artist_death": "1892-10-14",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Oslo Museum: image no",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1072,11 +1177,13 @@
     "artist_death": "1903-08-17",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -1094,10 +1201,12 @@
     "artist_death": "1903-08-17",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Haverkamp, Frode (1992)    (in Norwegian",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1115,11 +1224,13 @@
     "artist_death": "1903-08-17",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Staatliche Kunsthalle Karlsruhe",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1137,10 +1248,12 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Kim G. Skytte",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1158,11 +1271,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Self-photographed",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1180,10 +1295,12 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Own work",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1201,11 +1318,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://gwpa.no/nb/lots/5375",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1223,10 +1342,12 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://gwpa.no/nb/lots/1297",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1244,10 +1365,12 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://webster.hibo.no/alu/seksjon/kunst",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1265,11 +1388,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "www.ub.uit.no/ northernlights/eng/balke0",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1287,11 +1412,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://webster.hibo.no/alu/seksjon/kunst",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1309,11 +1436,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Art UK",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1331,10 +1460,12 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Villa Grisebach, Berlin, 2. Dezember 202",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1352,12 +1483,14 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
       "Popular painters",
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1375,11 +1508,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1397,11 +1532,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1419,10 +1556,12 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Sotheby's, London, 22. November 2011, lo",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1440,11 +1579,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Museum Boijmans Van Beuningen",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1462,11 +1603,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Kunsthaus Zürich",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1484,10 +1627,12 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Grev Wedels Plass Auksjoner, Oslo, 21. n",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1505,11 +1650,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Metropolitan Museum of Art",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1527,10 +1674,12 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Villa Grisebach, Berlin, 31. Mai 2017, l",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1548,11 +1697,13 @@
     "artist_death": "1887-02-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "This file was provided to Wikimedia",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1570,10 +1721,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Gallery and Museums Collection)",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1591,10 +1744,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://archive.is/qsh6v",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1612,11 +1767,13 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "https://www.bukowskis.com/en/auctions/56",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -1634,10 +1791,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://www.sothebys.com/en/auctions/ecat",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1655,10 +1814,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1676,11 +1837,13 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1698,10 +1861,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Sotheby's London, 23 November 2010, auct",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1719,10 +1884,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://www.mfa.org/collections/object/s",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1740,11 +1907,13 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "https://www.flickr.com/photos/internetar",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -1762,11 +1931,13 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Landscape",
+    "century": null,
+    "collection": "The Hermitage, St. Petersburg",
     "categories": [
       "Popular painters",
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -1784,10 +1955,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://www.allpaintings.org/v/Impression",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1805,10 +1978,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://archive.li/VImYd",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1826,10 +2001,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Private collectioninstitution QS:P195,so",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1847,10 +2024,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://www.allartpainting.com/winter-at-",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1868,10 +2047,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "Collection of the Fine Arts Museum",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1889,11 +2070,13 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -1911,11 +2094,13 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "This file was provided to Wikimedia",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1933,10 +2118,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://www.kunstkopie.nl/a/thaulow-frits",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1954,11 +2141,13 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://pintores.vtrbandaancha.net/Thaulo",
     "categories": [
       "Popular painters",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -1976,10 +2165,12 @@
     "artist_death": "1906-11-05",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Impressionism",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://art-is-art-is-art.tumblr.com/post",
     "categories": [
-      "Popular painters",
-      "Historical/Nationalism"
+      "Popular painters"
     ]
   },
   {
@@ -1997,10 +2188,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2018,10 +2211,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2039,10 +2234,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2060,10 +2257,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2081,10 +2280,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -2102,10 +2303,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "http://www.the-athenaeum.org/art/detail.",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -2123,10 +2326,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2144,10 +2349,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "https://fineartamerica.com/featured/mids",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2165,10 +2372,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Øystein Løge: Tradisjon og overskridelse",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2186,10 +2395,11 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Øystein Løge: Tradisjon og overskridelse",
+    "categories": []
   },
   {
     "artist": "Nikolai Astrup",
@@ -2206,10 +2416,11 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Øystein Løge: Tradisjon og overskridelse",
+    "categories": []
   },
   {
     "artist": "Nikolai Astrup",
@@ -2226,10 +2437,11 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Øystein Løge: Tradisjon og overskridelse",
+    "categories": []
   },
   {
     "artist": "Nikolai Astrup",
@@ -2246,10 +2458,11 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Øystein Løge: Tradisjon og overskridelse",
+    "categories": []
   },
   {
     "artist": "Nikolai Astrup",
@@ -2266,10 +2479,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Øystein Løge: Tradisjon og overskridelse",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2287,10 +2502,11 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Øystein Løge: Tradisjon og overskridelse",
+    "categories": []
   },
   {
     "artist": "Nikolai Astrup",
@@ -2307,9 +2523,11 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://www.mohn-auksjon.no/",
     "categories": [
-      "Historical/Nationalism",
       "1900s"
     ]
   },
@@ -2328,10 +2546,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "https://arthur.io/art/nikolai-astrup/var",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2349,10 +2569,11 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Sally Liddell: Sotherby's Art at Auction",
+    "categories": []
   },
   {
     "artist": "Nikolai Astrup",
@@ -2369,10 +2590,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -2390,10 +2613,12 @@
     "artist_death": "1928-01-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -2411,10 +2636,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "http://nordicculturespot.blogspot.com/20",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2432,10 +2659,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "https://www.flickr.com/photos/rdhobbet/6",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2453,10 +2682,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2474,10 +2705,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2495,11 +2728,13 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 20,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2517,10 +2752,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -2538,10 +2775,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Harald Sohlberg",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2559,11 +2798,13 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 20,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2581,10 +2822,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Photograph of original painting",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2602,10 +2845,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Artdaily.com",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2623,10 +2868,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "http://arken.umb.no/~dagnly/npl/bilder/k",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2644,10 +2891,11 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "http://www.artnet.com/artists/harald-soh",
+    "categories": []
   },
   {
     "artist": "Harald Sohlberg",
@@ -2664,10 +2912,12 @@
     "artist_death": "1935-06-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Nationalmuseum",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -2685,10 +2935,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Edvard Grieg, painting",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -2706,10 +2958,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://www.oilpainting-frame.com/china/o",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2727,10 +2981,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Bridgeman Art Library:  Object 659588",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2748,10 +3004,11 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "DigitaltMuseum",
+    "categories": []
   },
   {
     "artist": "Erik Werenskiold",
@@ -2768,10 +3025,11 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "DigitaltMuseum",
+    "categories": []
   },
   {
     "artist": "Erik Werenskiold",
@@ -2788,10 +3046,11 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "DigitaltMuseum",
+    "categories": []
   },
   {
     "artist": "Erik Werenskiold",
@@ -2808,10 +3067,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Statens Museum for Kunst",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2829,10 +3090,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Nationalmuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2850,10 +3113,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Statens Museum for Kunst",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2871,10 +3136,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "http://kokoelmat.fng.fi/app?si=A-1998-51",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -2892,11 +3159,13 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "http://www.arthermitage.org/Erik-Werensk",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2914,10 +3183,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "This file was provided to Wikimedia",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2935,10 +3206,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Photo by Mattias Blomgren",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2956,10 +3229,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "This file was provided to Wikimedia",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2977,10 +3252,12 @@
     "artist_death": "1938-11-23",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://www.artexpertswebsite.com/pages/a",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -2998,10 +3275,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -3019,10 +3298,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Bridgeman Art Library:  Object 390588",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3040,10 +3321,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Museum Kunstpalast Taken on 6 December 2",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3061,10 +3344,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://www.rijksmuseum.nl/nl/collectie/",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3082,10 +3367,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "National Museum of Norway"
     ]
   },
@@ -3104,10 +3391,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "photograph of old painting",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3125,10 +3414,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3146,10 +3437,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "https://kulturminnebilder.ra.no/fotoweb/",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -3167,11 +3460,13 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "Haverkamp, Frode (1992)    (in norwegian",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3189,11 +3484,13 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "Grev Wedels Plass Auksjoner, 21. Novembe",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3211,10 +3508,12 @@
     "artist_death": "1876-08-25",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "romantic nationalism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Scan found at http://www.arkivverket.no/",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3232,10 +3531,12 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Oslo Museum: image no",
     "categories": [
-      "Historical/Nationalism",
-      "1900s",
+      "2000s",
       "Women painters"
     ]
   },
@@ -3254,9 +3555,11 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Hans Thorwid / Nationalmuseum",
     "categories": [
-      "Historical/Nationalism",
       "1900s",
       "Women painters"
     ]
@@ -3276,10 +3579,12 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Scanned from Einar Skavlan: Gunnar Heibe",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -3298,10 +3603,12 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Utdanningsdirektoratet. Photo by O.Værin",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -3320,9 +3627,11 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://cultured.com/image/2131/Accordion",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -3341,10 +3650,12 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://cultured.com/image/2130/Poor_Litt",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -3363,10 +3674,12 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Portrait",
+    "century": null,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
       "Portraits",
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -3385,10 +3698,12 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": 19,
+    "collection": "web search. Uploaded by User:Orland",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -3407,10 +3722,12 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": 19,
+    "collection": "web search. Uploaded by User:Orland",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -3429,10 +3746,12 @@
     "artist_death": "1935-10-19",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "Kristiania Bohemians",
     "genre": "Painting",
+    "century": 19,
+    "collection": "web search. Uploaded by User:Orland",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -3451,10 +3770,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3472,10 +3793,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3493,10 +3816,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "https://gwpa.no/en/lots/1317",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -3514,10 +3839,11 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "https://en.wahooart.com/@@/AQR64N-Hunter",
+    "categories": []
   },
   {
     "artist": "Eilif Peterssen",
@@ -3534,10 +3860,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://en.wahooart.com/@@/AQR644-Eilif-",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3555,10 +3883,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "1. Unknown sourceUnknown source2. Grev W",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -3576,10 +3906,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "1. Unknown sourceUnknown source2. Grev W",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3597,10 +3929,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3618,10 +3952,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3639,10 +3975,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Digitalt Museum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3660,10 +3998,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Blomqvist auksjon, Vårauksjon 2014, Obje",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3681,10 +4021,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "7AEbb_1VUcrmQA at Google Cultural Instit",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3702,10 +4044,11 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Own work; photograph taken on September",
+    "categories": []
   },
   {
     "artist": "Eilif Peterssen",
@@ -3722,10 +4065,11 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Own work; photograph taken on September",
+    "categories": []
   },
   {
     "artist": "Eilif Peterssen",
@@ -3742,10 +4086,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Digitalt Museum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3763,10 +4109,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://www.sothebys.com/en/auctions/ecat",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3784,10 +4132,11 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Offizieller Katalog der VIII. Internatio",
+    "categories": []
   },
   {
     "artist": "Eilif Peterssen",
@@ -3804,10 +4153,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://www.oslobilder.no/OMU/OB.F15192b?",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3825,10 +4176,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Own work Themightyquill",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3846,10 +4199,12 @@
     "artist_death": "1928-12-29",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "1. Sotheby's, London, 03.06.2009, lot 99",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -3867,11 +4222,13 @@
     "artist_death": "1937-07-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 20,
+    "collection": "http://www.artnet.com/artist/4740/hans-d",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -3889,10 +4246,11 @@
     "artist_death": "1937-07-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Google Books-USA*",
+    "categories": []
   },
   {
     "artist": "Hans Dahl",
@@ -3909,10 +4267,11 @@
     "artist_death": "1937-07-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Illustrierter Katalog der III. Internati",
+    "categories": []
   },
   {
     "artist": "Hans Dahl",
@@ -3929,10 +4288,12 @@
     "artist_death": "1937-07-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "art book",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -3950,10 +4311,12 @@
     "artist_death": "1937-07-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": null,
+    "collection": "Bonhams Oxford, 3 Oct 2012, lot 24",
     "categories": [
-      "Portraits",
-      "Historical/Nationalism"
+      "Portraits"
     ]
   },
   {
@@ -3971,10 +4334,12 @@
     "artist_death": "1937-07-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Kunsthaus Lempertz",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -3992,10 +4357,12 @@
     "artist_death": "1937-07-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "https://cdnhistorybits.wordpress.com/201",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -4013,10 +4380,12 @@
     "artist_death": "1965-03-03",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Interior",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -4034,10 +4403,12 @@
     "artist_death": "1965-03-03",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Kulturmønstringer",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -4055,10 +4426,11 @@
     "artist_death": "1965-03-03",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": null,
+    "categories": []
   },
   {
     "artist": "Per Krohg",
@@ -4075,10 +4447,11 @@
     "artist_death": "1965-03-03",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Own work",
+    "categories": []
   },
   {
     "artist": "Per Krohg",
@@ -4095,10 +4468,11 @@
     "artist_death": "1965-03-03",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "File:UN-Sicherheitsrat - UN Security Cou",
+    "categories": []
   },
   {
     "artist": "Per Krohg",
@@ -4115,10 +4489,11 @@
     "artist_death": "1965-03-03",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Transferred from lb.wikipedia to Commons",
+    "categories": []
   },
   {
     "artist": "Per Krohg",
@@ -4135,10 +4510,11 @@
     "artist_death": "1965-03-03",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Own work",
+    "categories": []
   },
   {
     "artist": "Per Krohg",
@@ -4155,10 +4531,11 @@
     "artist_death": "1965-03-03",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Photo taken by Mr Bullitt from Sweden",
+    "categories": []
   },
   {
     "artist": "August Cappelen",
@@ -4175,10 +4552,11 @@
     "artist_death": "1852-07-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Own work",
+    "categories": []
   },
   {
     "artist": "Asta Nørregaard",
@@ -4195,10 +4573,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://www.tumblr.com/search/Asta+N%C3%",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -4217,10 +4597,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Interior",
+    "century": 19,
+    "collection": "http://curiator.com/art/asta-norregaard/",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -4239,10 +4621,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Portrait",
+    "century": null,
+    "collection": "https://www.liveinternet.ru/users/anabel",
     "categories": [
       "Portraits",
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4261,9 +4645,11 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://www.liveinternet.ru/users/anabel",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4282,10 +4668,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Interior",
+    "century": 19,
+    "collection": "sold to individual at an auction Grev We",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -4304,10 +4692,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Portrait",
+    "century": 19,
+    "collection": "Belongs to Hydro company, Oslo",
     "categories": [
       "Portraits",
-      "Historical/Nationalism",
       "1900s",
       "Women painters"
     ]
@@ -4327,9 +4717,11 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://www.liveinternet.ru/users/anabel",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4348,9 +4740,11 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "sold at auction in Oslo, 2004",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4369,10 +4763,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Portrait",
+    "century": null,
+    "collection": "mechanical reproduction of 2D image",
     "categories": [
       "Portraits",
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4391,9 +4787,11 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://www.tumblr.com/search/Asta+N%C3%",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4412,9 +4810,11 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://www.tumblr.com/search/Asta+N%C3%",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4433,9 +4833,11 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "https://www.nb.no/items/7e7ea32249263184",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4454,10 +4856,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Norsk portrettarkiv, Riksantikvaren",
     "categories": [
-      "Historical/Nationalism",
-      "1800s",
+      "1900s",
       "Women painters"
     ]
   },
@@ -4476,9 +4880,11 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Norsk Kvinnesaksforening",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4497,9 +4903,11 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Norsk Kvinnesaksforening",
     "categories": [
-      "Historical/Nationalism",
       "Women painters"
     ]
   },
@@ -4518,10 +4926,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Norsk portrettarkiv - Riksantikvaren",
     "categories": [
-      "Historical/Nationalism",
-      "1900s",
+      "2000s",
       "Women painters"
     ]
   },
@@ -4540,10 +4950,12 @@
     "artist_death": "1933-03-23",
     "country_of_origin": "Norway",
     "artist_gender": "female",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "https://portrettarkiv.ra.no/fotoweb/arch",
     "categories": [
-      "Historical/Nationalism",
-      "2000s",
+      "2100s",
       "Women painters"
     ]
   },
@@ -4562,10 +4974,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Grev Weddels, Oslo, 07.06.2012, lot 104",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4583,10 +4997,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -4604,10 +5020,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Grev Weddels, Oslo, 30.05.2012, lot 5 vi",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4625,10 +5043,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Landscape",
+    "century": null,
+    "collection": "www.blomqvist.no",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -4646,10 +5066,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Grev Weddels, Oslo, 03.12.2012, lot 113",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4667,10 +5089,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4688,10 +5112,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4709,10 +5135,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Grev Weddels, Oslo, 28.11.2011, lot 33 v",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -4730,10 +5158,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Christiana, Oslo, 21.04.2015, lot 850",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -4751,10 +5181,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Grev Weddels, Oslo, 03.12.2012, lot 114",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4772,11 +5204,13 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "Grev Weddels, Oslo, 03.12.2012, lot 108",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4794,10 +5228,12 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Uppsala Auction, Uppsala, 12.06.2012, lo",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4815,10 +5251,11 @@
     "artist_death": "1932-12-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "realism",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Own work, Bjoertvedt, 2008-07-10",
+    "categories": []
   },
   {
     "artist": "Christian Skredsvig",
@@ -4835,10 +5272,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4856,10 +5295,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Christophe.Finot",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -4877,10 +5318,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -4898,10 +5341,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Statens Museum for Kunst",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4919,10 +5364,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Nationalmuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -4940,10 +5387,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -4961,10 +5410,11 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "http://www.ringerikes.museum.no/misc/kun",
+    "categories": []
   },
   {
     "artist": "Christian Skredsvig",
@@ -4981,10 +5431,11 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Musée de Normandie",
+    "categories": []
   },
   {
     "artist": "Christian Skredsvig",
@@ -5001,10 +5452,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Oslo Museum: image no",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -5022,10 +5475,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Own work, Daderot, 2012-05-08 09:01:02",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5043,10 +5498,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Scanned from a book; unknown.",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5064,10 +5521,12 @@
     "artist_death": "1924-01-19",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Neo-romanticism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "National Gallery of Norway",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5085,9 +5544,12 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Own work Themightyquill",
     "categories": [
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5105,7 +5567,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Blomqvist Vårauksjonen 2005, 2-3 mai (Au",
     "categories": []
   },
   {
@@ -5123,10 +5588,13 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "Art UK",
     "categories": [
       "Landscapes",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5144,7 +5612,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "National Museum of Art",
     "categories": [
       "National Museum of Norway"
     ]
@@ -5164,7 +5635,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "National Museum of Art",
     "categories": [
       "Landscapes",
       "National Museum of Norway"
@@ -5185,9 +5659,12 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Gunnar Berg",
     "categories": [
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5205,7 +5682,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Own work; I took this photograph on Sept",
     "categories": []
   },
   {
@@ -5223,7 +5703,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Own work; I took this photograph on Sept",
     "categories": []
   },
   {
@@ -5241,7 +5724,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://home.online.no/~leande/berg0.htm",
     "categories": []
   },
   {
@@ -5259,7 +5745,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "University Library of Tromsø - online",
     "categories": [
       "Landscapes"
     ]
@@ -5279,7 +5768,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://home.online.no/~leande/berg0.htm",
     "categories": []
   },
   {
@@ -5297,7 +5789,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://home.online.no/~leande/berg0.htm",
     "categories": []
   },
   {
@@ -5315,7 +5810,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "http://home.online.no/~leande/berg0.htm",
     "categories": []
   },
   {
@@ -5333,7 +5831,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Not necessary, PD by age.",
     "categories": []
   },
   {
@@ -5351,7 +5852,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "http://home.online.no/~leande/berg0.htm",
     "categories": [
       "Landscapes"
     ]
@@ -5371,7 +5875,10 @@
     "artist_death": "Unknown",
     "country_of_origin": "Norway",
     "artist_gender": "unknown",
+    "movement": "",
     "genre": "Painting",
+    "century": null,
+    "collection": "Nordland Museum",
     "categories": []
   },
   {
@@ -5389,10 +5896,13 @@
     "artist_death": "1899-02-02",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Symbolism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://digitaltmuseum.no/021047844075/f",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "Symbolism",
+      "1900s"
     ]
   },
   {
@@ -5410,10 +5920,13 @@
     "artist_death": "1899-02-02",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Symbolism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://digitaltmuseum.no/021047844075/f",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "Symbolism",
+      "1900s"
     ]
   },
   {
@@ -5431,10 +5944,13 @@
     "artist_death": "1899-02-02",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "Symbolism",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://collection.smk.dk/#/en/detail/DEP",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "Symbolism",
+      "1900s"
     ]
   },
   {
@@ -5452,10 +5968,11 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Found at http://www.wendelboe.no/kunst/a",
+    "categories": []
   },
   {
     "artist": "Thorolf Holmboe",
@@ -5472,10 +5989,12 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Oslo Museum: accession number JWC",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -5493,10 +6012,12 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5514,10 +6035,12 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5535,10 +6058,12 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -5556,10 +6081,12 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -5577,10 +6104,12 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work; I took this photograph on Sept",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -5598,10 +6127,12 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work; I took this photograph on Sept",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -5619,10 +6150,12 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Still Life",
+    "century": 20,
+    "collection": "https://gwpa.no/nb/lots/7582",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -5640,11 +6173,13 @@
     "artist_death": "1935-03-08",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": 20,
+    "collection": "www.nnkm.no",
     "categories": [
       "Portraits",
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -5662,10 +6197,11 @@
     "artist_death": "1792-06-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Norsk portrettarkiv, Riksantikvaren",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5682,9 +6218,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "1. artvalue.com2. Blomqvist, Oslo, 04.06",
     "categories": [
-      "Historical/Nationalism",
       "1900s"
     ]
   },
@@ -5703,10 +6241,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Blomqvist, Oslo, June 03. 2008, lot 2016",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5723,10 +6262,12 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "1. artvalue.com2. Christie's, LotFinder:",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -5744,10 +6285,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "1. artvalue.com2. Bruun Rasmussen, Copen",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5764,10 +6306,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "artvalue.com",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5784,10 +6327,12 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -5805,10 +6350,12 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -5826,10 +6373,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Stadsauktion Frihamnen, Landskrona, 13.0",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5846,10 +6394,12 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "I took this photograph on September 12,",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -5867,10 +6417,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Grev Wedels, Oslo, 05.12.2011, lot 176 v",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5887,10 +6438,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Lilla Bukowskis, Stockholm, 24.09.2007,",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5907,10 +6459,12 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Grev Wedels, Oslo, 05.12.2011, lot 175 v",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5928,10 +6482,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Lilla Bukowskis, Stockholm, 24.09.2007,",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5948,10 +6503,11 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Lawrences, Crewkerne UK, 15.04.2011, lot",
+    "categories": []
   },
   {
     "artist": "Martin Aagaard",
@@ -5968,10 +6524,12 @@
     "artist_death": "1913-01-01",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Blomqvist, Oslo, 08.12.2009, lot 89 via",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -5989,10 +6547,11 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "https://fargerogpigmenter.weebly.com/blo",
+    "categories": []
   },
   {
     "artist": "Johannes Flintoe",
@@ -6009,10 +6568,11 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Ludvig Ludvigsen Daae: Det gamle Christi",
+    "categories": []
   },
   {
     "artist": "Johannes Flintoe",
@@ -6029,10 +6589,12 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Christopher Hansteen: Reise-Erindringer.",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -6050,10 +6612,11 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Originally from en.wikipedia; descriptio",
+    "categories": []
   },
   {
     "artist": "Johannes Flintoe",
@@ -6070,10 +6633,11 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "http://www.krundalen.no/ User:Orland",
+    "categories": []
   },
   {
     "artist": "Johannes Flintoe",
@@ -6090,10 +6654,11 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "http://www.krundalen.no/ User:Orland",
+    "categories": []
   },
   {
     "artist": "Johannes Flintoe",
@@ -6110,10 +6675,11 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "http://www.nb.no/nbvev/eksternvev/html/f",
+    "categories": []
   },
   {
     "artist": "Johannes Flintoe",
@@ -6130,10 +6696,12 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Scan of picture postcard",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6151,10 +6719,12 @@
     "artist_death": "1870-01-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Oslo Museum: image no",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6172,10 +6742,12 @@
     "artist_death": "1912-08-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6193,10 +6765,12 @@
     "artist_death": "1912-08-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6214,10 +6788,12 @@
     "artist_death": "1912-08-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6235,10 +6811,12 @@
     "artist_death": "1912-08-21",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "http://www.gwpa.no/kataloger/2002/24/jub",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -6256,10 +6834,11 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Unknown sourceUnknown source",
+    "categories": []
   },
   {
     "artist": "Gustav Wentzel",
@@ -6276,10 +6855,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6297,10 +6878,11 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Unknown sourceUnknown source",
+    "categories": []
   },
   {
     "artist": "Gustav Wentzel",
@@ -6317,10 +6899,11 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Unknown sourceUnknown source",
+    "categories": []
   },
   {
     "artist": "Gustav Wentzel",
@@ -6337,10 +6920,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6358,10 +6943,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6379,10 +6966,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6400,9 +6989,11 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "DigitaltMuseum",
     "categories": [
-      "Historical/Nationalism",
       "1900s"
     ]
   },
@@ -6421,10 +7012,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6442,10 +7035,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -6463,10 +7058,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Unknown sourceUnknown source",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -6484,10 +7081,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://www.wendelboe.no/kunst/auksjoner/",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6505,10 +7104,11 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Art UK",
+    "categories": []
   },
   {
     "artist": "Gustav Wentzel",
@@ -6525,10 +7125,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "http://asker-skiklubb.net/index.php?cat=",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -6546,10 +7148,12 @@
     "artist_death": "1927-02-10",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Aftenposten (O. Væring)",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -6567,10 +7171,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Galleri Nor Tilvekstnummer: NF.W 03570 I",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6587,10 +7192,12 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 20,
+    "collection": "Oslo Museum: accession number OB",
     "categories": [
-      "Historical/Nationalism",
-      "1900s"
+      "2000s"
     ]
   },
   {
@@ -6608,10 +7215,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "http://www.artnet.com/artists/oscar-arno",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6628,10 +7236,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Scan from the original work",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6648,10 +7257,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Scan from the original work",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6668,10 +7278,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Scan from the original work",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6688,10 +7299,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Scan from the original work",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6708,10 +7320,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Scan from the original work",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6728,10 +7341,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Scan from the original work",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6748,10 +7362,12 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Fisker malt av Oscar Wergeland",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -6769,10 +7385,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "see below",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6789,10 +7406,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Illustrierter Katalog der Münchener Jahr",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6809,10 +7427,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Guerber, H. A. (Hélène Adeline) (1909).",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6829,10 +7448,12 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work; I took this photograph on Sept",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -6850,10 +7471,12 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work; I took this photograph on Sept",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -6871,10 +7494,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "DigitaltMuseum",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6891,10 +7515,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "DigitaltMuseum",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6911,10 +7536,12 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Portrait",
+    "century": 19,
+    "collection": "Oslo Museum: image no",
     "categories": [
       "Portraits",
-      "Historical/Nationalism",
       "1900s"
     ]
   },
@@ -6933,10 +7560,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Oslo Museum: image no",
+    "categories": []
   },
   {
     "artist": "Oscar Wergeland",
@@ -6953,10 +7581,11 @@
     "artist_death": "1910-05-20",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Self-photographed",
+    "categories": []
   },
   {
     "artist": "Carl Sundt-Hansen",
@@ -6973,10 +7602,11 @@
     "artist_death": "1907-08-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Unknown sourceUnknown source",
+    "categories": []
   },
   {
     "artist": "Carl Sundt-Hansen",
@@ -6993,10 +7623,12 @@
     "artist_death": "1907-08-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Nationalmuseum",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -7014,10 +7646,11 @@
     "artist_death": "1907-08-27",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "This file comes from Polona Digital Library and is available under the URL: https://polona2",
+    "categories": []
   },
   {
     "artist": "Adelsteen Normann",
@@ -7034,11 +7667,13 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "Own work",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -7056,10 +7691,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "originally uploaded to en.wikipedia by",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7077,11 +7714,13 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "Art UK",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -7099,11 +7738,13 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "Art UK",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -7121,10 +7762,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Art UK",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7142,10 +7785,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "Van Ham Kunstauktionen, Köln, 16.05.2014",
     "categories": [
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -7163,10 +7808,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "https://www.flickr.com/photos/hauksven/6",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7184,10 +7831,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "https://www.dorotheum.com/en/auctions/cu",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7205,10 +7854,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Kunsthaus Lempertz",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7226,10 +7877,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Düsseldorfer Auktionshaus",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7247,10 +7900,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "http://images.artnet.com/WebServices/pic",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7268,11 +7923,13 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": 19,
+    "collection": "Deutsches Historisches Museum",
     "categories": [
       "Landscapes",
-      "Historical/Nationalism",
-      "1800s"
+      "1900s"
     ]
   },
   {
@@ -7290,10 +7947,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Own work; photograph taken on September",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7311,10 +7970,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "https://www.mfa.org/collections/object/n",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7332,10 +7993,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "https://www.auktionshaus-stahl.de/de/art",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   },
   {
@@ -7353,10 +8016,11 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Kim G. Skytte",
+    "categories": []
   },
   {
     "artist": "Adelsteen Normann",
@@ -7373,9 +8037,11 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 19,
+    "collection": "https://www.sothebys.com/en/buy/auction/",
     "categories": [
-      "Historical/Nationalism",
       "1900s"
     ]
   },
@@ -7394,10 +8060,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
     "categories": [
-      "Historical/Nationalism",
-      "2000s"
+      "2100s"
     ]
   },
   {
@@ -7415,10 +8083,11 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Painting",
-    "categories": [
-      "Historical/Nationalism"
-    ]
+    "century": null,
+    "collection": "Photographer and uploader was Hajotthu a",
+    "categories": []
   },
   {
     "artist": "Adelsteen Normann",
@@ -7435,10 +8104,12 @@
     "artist_death": "1918-12-26",
     "country_of_origin": "Norway",
     "artist_gender": "male",
+    "movement": "",
     "genre": "Landscape",
+    "century": null,
+    "collection": "Liveauctioneers.com",
     "categories": [
-      "Landscapes",
-      "Historical/Nationalism"
+      "Landscapes"
     ]
   }
 ]

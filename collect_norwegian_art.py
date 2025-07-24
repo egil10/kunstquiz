@@ -2,6 +2,7 @@ import requests
 import json
 import time
 from datetime import datetime
+import re
 
 # List of Norwegian artists to collect data for
 artists = [
@@ -130,12 +131,13 @@ def fetch_artist_metadata(artist):
         "wikidata_id": wikidata_id
     }
 
-# Helper to fetch artist gender and country from Wikidata (skip movement and image for speed)
+# Helper to fetch artist movement, gender, and country from Wikidata
 def fetch_artist_extra_metadata(wikidata_id):
     sparql_query = f"""
-    SELECT ?genderLabel ?countryLabel WHERE {{
+    SELECT ?genderLabel ?countryLabel ?movementLabel WHERE {{
       OPTIONAL {{ wd:{wikidata_id} wdt:P21 ?gender. }}
       OPTIONAL {{ wd:{wikidata_id} wdt:P27 ?country. }}
+      OPTIONAL {{ wd:{wikidata_id} wdt:P135 ?movement. }}
       SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }}
     }}
     """
@@ -143,12 +145,13 @@ def fetch_artist_extra_metadata(wikidata_id):
     params = {"query": sparql_query, "format": "json"}
     response = safe_get(wikidata_url, params=params, headers=HEADERS)
     results = response.json()["results"]["bindings"]
-    gender = country = None
+    gender = country = movement = None
     if results:
         res = results[0]
         gender = res.get("genderLabel", {}).get("value", None)
         country = res.get("countryLabel", {}).get("value", None)
-    return gender, country
+        movement = res.get("movementLabel", {}).get("value", None)
+    return gender, country, movement
 
 # Helper to guess genre from title/metadata
 
@@ -168,21 +171,29 @@ def guess_genre(title, medium):
         return "Etching"
     return "Painting"
 
-# Helper to guess century from year
-
-def guess_century(year):
+# Helper to compute century as integer (e.g., 19 for 1893)
+def compute_century(year):
     if not year or not year[:4].isdigit():
         return None
     y = int(year[:4])
-    if 1700 <= y < 1800:
-        return "1700s"
-    if 1800 <= y < 1900:
-        return "1800s"
-    if 1900 <= y < 2000:
-        return "1900s"
-    if 2000 <= y < 2100:
-        return "2000s"
-    return None
+    return (y - 1) // 100 + 1
+
+# Helper to clean collection/museum name from location
+def extract_collection(location):
+    if not location:
+        return None
+    # Try to extract museum/institution name from location string
+    # Remove HTML tags
+    text = re.sub('<[^<]+?>', '', location)
+    # Look for common museum/institution keywords
+    for word in ["Museum", "Gallery", "National", "Samling", "Collection", "Kunsthall", "Kunstmuseum", "Institutt", "Library"]:
+        if word.lower() in text.lower():
+            # Return the phrase containing the keyword
+            match = re.search(r'([A-Z][^.,;\n]*' + word + '[^.,;\n]*)', text)
+            if match:
+                return match.group(1).strip()
+    # Fallback: return first 40 chars as a guess
+    return text[:40].strip()
 
 # Popular painters (top 10 by your list)
 POPULAR_PAINTERS = set([
@@ -242,7 +253,7 @@ for artist in artists:
         print(f"  Skipping {artist}: No metadata found.")
         continue
     # Fetch extra metadata
-    gender, country = fetch_artist_extra_metadata(artist_meta["wikidata_id"])
+    gender, country, movement = fetch_artist_extra_metadata(artist_meta["wikidata_id"])
     paintings = fetch_paintings_for_artist(artist, limit=20)
     # Attach artist metadata to each painting
     for painting in paintings:
@@ -251,10 +262,13 @@ for artist in artists:
         painting["artist_death"] = artist_meta["death"]
         painting["country_of_origin"] = country or "Norway"
         painting["artist_gender"] = gender or "unknown"
+        painting["movement"] = movement or ""
         # Guess genre
         painting["genre"] = guess_genre(painting["title"], painting.get("medium", ""))
-        # Guess century
-        century = guess_century(painting.get("year", ""))
+        # Compute century
+        painting["century"] = compute_century(painting.get("year", ""))
+        # Clean collection
+        painting["collection"] = extract_collection(painting.get("location", ""))
         # Assign categories
         categories = []
         if artist in POPULAR_PAINTERS:
@@ -263,15 +277,22 @@ for artist in artists:
             categories.append("Landscapes")
         if painting["genre"] == "Portrait":
             categories.append("Portraits")
-        if painting["genre"] == "Historical/Nationalism" or (country and "Norway" in country):
+        if movement and movement in ["Romanticism", "Expressionism", "Symbolism"]:
+            categories.append(movement)
+        if painting["genre"] == "Historical/Nationalism" or (movement and "National" in movement):
             categories.append("Historical/Nationalism")
-        if century:
-            categories.append(century)
-        if painting.get("location", "").lower().find("national museum") != -1:
+        if painting["century"]:
+            categories.append(f"{painting['century']}00s")
+        collection = painting.get("collection") or ""
+        if "national museum" in collection.lower():
             categories.append("National Museum of Norway")
         if gender and gender.lower() == "female":
             categories.append("Women painters")
         painting["categories"] = categories
+        # Remove unnecessary fields
+        for k in list(painting.keys()):
+            if k.startswith("imageinfo") or k in ["user", "size", "extmetadata", "geocoordinates", "filemetadata"]:
+                del painting[k]
     all_paintings.extend(paintings)
     time.sleep(2)  # Be nice to the API
 
