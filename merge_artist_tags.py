@@ -40,10 +40,9 @@ for painting in paintings:
     categories = {c for c in categories if c and c != 'Unknown'}
 
     # Add 'Women painters' category if artist is female
-    gender_val = (painting.get('artist_gender') or tags.get('artist_gender') or painting.get('gender') or tags.get('gender'))
-    if gender_val and gender_val.lower() == 'female':
+    gender_val = (painting.get('artist_gender') or painting.get('gender') or tags.get('artist_gender') or tags.get('gender'))
+    if gender_val and str(gender_val).lower() == 'female':
         categories.add('Women painters')
-        # Debug print
         print(f"Added 'Women painters' to: {painting.get('artist')}")
 
     # Add 'Portraits' category if genre or movement contains 'portrait'
@@ -51,8 +50,14 @@ for painting in paintings:
         val = (painting.get(key) or tags.get(key) or '')
         if isinstance(val, str) and 'portrait' in val.lower():
             categories.add('Portraits')
-            # Debug print
             print(f"Added 'Portraits' to: {painting.get('title')} by {painting.get('artist')}")
+
+    # Add 'Landscapes' category if genre or movement contains 'landscape'
+    for key in ['genre', 'movement']:
+        val = (painting.get(key) or tags.get(key) or '')
+        if isinstance(val, str) and 'landscape' in val.lower():
+            categories.add('Landscapes')
+            print(f"Added 'Landscapes' to: {painting.get('title')} by {painting.get('artist')}")
 
     painting['categories'] = sorted(categories)
 
