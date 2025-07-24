@@ -9,7 +9,12 @@ artists = [
     "Johan Christian Dahl",
     "Hans Gude",
     "Christian Krohg",
-    "Odd Nerdrum"
+    "Harald Sohlberg",
+    "Frits Thaulow",
+    "Theodor Kittelsen",
+    "Adolph Tidemand",
+    "Odd Nerdrum",
+    "Nikolai Astrup"
 ]
 
 # Output file
