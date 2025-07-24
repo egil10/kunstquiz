@@ -6,20 +6,20 @@
     <title>Norwegian Art Challenge</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <meta name="description" content="A fun quiz where you guess the artist behind famous Norwegian paintings.">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="left">
-            <h1>Norwegian Art Challenge</h1>
-            <p>Guess the artist of the painting!</p>
+    <div class="top-bar">
+        <span class="title">Kunstquiz</span>
+    </div>
+    <div class="main-flex">
+        <div class="img-col">
             <img id="painting" src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg" alt="The Scream by Edvard Munch">
+            <div id="streak-bar"></div>
+        </div>
+        <div class="btn-col">
             <div id="options"></div>
             <div id="message"></div>
-            <div id="streak-bar"></div>
-            <p id="streak">Streak: 0</p>
-        </div>
-        <div class="right">
-            <div id="options"></div>
         </div>
     </div>
     <script src="assets/js/script.js"></script>

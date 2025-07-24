@@ -39,19 +39,19 @@ function loadQuiz() {
                 streak++;
                 if (streak > 10) streak = 10;
                 selectedBtn.classList.add('correct');
-                showMessage(`✅ Correct! "${painting.title}" is by ${artist}.`, '#388e3c');
+                showMessage('Riktig!', '#388e3c');
             } else {
                 streak = 0;
                 selectedBtn.classList.add('wrong');
                 correctBtn.classList.add('correct');
-                showMessage(`❌ Wrong! It was "${painting.title}" by ${painting.artist}.`, '#e53935');
+                showMessage('Feil!', '#e53935');
             }
             document.getElementById('streak').textContent = 'Streak: ' + streak;
             updateStreakBar();
             setTimeout(() => {
-                showMessage('', '');
+                hideMessage();
                 loadQuiz();
-            }, 1200);
+            }, 1000);
         };
         optionsDiv.appendChild(btn);
     });
@@ -85,4 +85,10 @@ function showMessage(text, color) {
     const msg = document.getElementById('message');
     msg.textContent = text;
     msg.style.color = color;
+    msg.classList.add('visible');
+}
+
+function hideMessage() {
+    const msg = document.getElementById('message');
+    msg.classList.remove('visible');
 }
