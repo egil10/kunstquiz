@@ -11,18 +11,32 @@ HEADERS = {
     "User-Agent": "kunstquiz/1.0 (your_email@example.com) Python requests"
 }
 
-artist_tags = {}
-women_count = 0
-for artist in artists:
-    print(f"Fetching tags for {artist}...")
+# Simple translation mapping for common Norwegian terms
+TRANSLATE = {
+    'Kvinne': 'Female', 'kvinne': 'Female', 'mann': 'Male', 'Mann': 'Male',
+    'Impresjonisme': 'Impressionism', 'Ekspresjonisme': 'Expressionism',
+    'Romantikk': 'Romanticism', 'Nasjonalromantikk': 'National Romanticism',
+    'Portrett': 'Portrait', 'Landskap': 'Landscape',
+    'Billedkunstner': 'Visual artist', 'Maleri': 'Painting',
+    'Kunstner': 'Artist', 'Kunst': 'Art', 'Kunstmaler': 'Painter',
+    'Norge': 'Norway', 'norsk': 'Norwegian', 'Norsk': 'Norwegian',
+}
+
+def translate(val):
+    if not val: return val
+    for k, v in TRANSLATE.items():
+        if val.strip().lower() == k.lower():
+            return v
+    return val
+
+def fetch_tags_from_wikipedia(artist, lang='en'):
     tags = {}
-    # Step 1: Get Wikipedia page
-    wiki_api_url = "https://en.wikipedia.org/w/api.php"
+    wiki_api_url = f"https://{lang}.wikipedia.org/w/api.php"
     params = {
         "action": "query",
         "format": "json",
         "titles": artist,
-        "prop": "pageprops|extracts|revisions|categories|info|links|langlinks|templates|images|extlinks|iwlinks|coordinates|pageimages|pageterms|description|categories|revisions",
+        "prop": "pageprops|extracts",
         "exintro": True,
         "explaintext": True,
         "redirects": 1
@@ -33,21 +47,20 @@ for artist in artists:
         pages = response.json()["query"]["pages"]
         page_id = list(pages.keys())[0]
         if page_id == "-1":
-            print(f"  Skipping {artist}: Wikipedia page not found.")
-            continue
+            return {"not_found": True}
         page = pages[page_id]
-        # Extract birth/death from Wikidata if available
         wikidata_id = page.get("pageprops", {}).get("wikibase_item", None)
         if wikidata_id:
             sparql_query = f"""
-            SELECT ?birth ?death ?movementLabel ?genreLabel ?countryLabel ?placeLabel WHERE {{
+            SELECT ?birth ?death ?movementLabel ?genreLabel ?countryLabel ?placeLabel ?genderLabel WHERE {{
               OPTIONAL {{ wd:{wikidata_id} wdt:P569 ?birth. }}
               OPTIONAL {{ wd:{wikidata_id} wdt:P570 ?death. }}
               OPTIONAL {{ wd:{wikidata_id} wdt:P135 ?movement. }}
               OPTIONAL {{ wd:{wikidata_id} wdt:P136 ?genre. }}
               OPTIONAL {{ wd:{wikidata_id} wdt:P27 ?country. }}
               OPTIONAL {{ wd:{wikidata_id} wdt:P19 ?place. }}
-              SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }}
+              OPTIONAL {{ wd:{wikidata_id} wdt:P21 ?gender. }}
+              SERVICE wikibase:label {{ bd:serviceParam wikibase:language '{lang},en'. }}
             }}
             """
             wikidata_url = "https://query.wikidata.org/sparql"
@@ -59,19 +72,13 @@ for artist in artists:
                 res = results[0]
                 tags["birth"] = res.get("birth", {}).get("value", None)
                 tags["death"] = res.get("death", {}).get("value", None)
-                tags["movement"] = res.get("movementLabel", {}).get("value", None)
-                tags["genre"] = res.get("genreLabel", {}).get("value", None)
-                tags["country"] = res.get("countryLabel", {}).get("value", None)
+                tags["movement"] = translate(res.get("movementLabel", {}).get("value", None))
+                tags["genre"] = translate(res.get("genreLabel", {}).get("value", None))
+                tags["country"] = translate(res.get("countryLabel", {}).get("value", None))
                 tags["birthplace"] = res.get("placeLabel", {}).get("value", None)
-                # Extract gender from Wikidata
                 gender = res.get("genderLabel", {}).get("value", None)
-                tags["gender"] = gender
-                if gender and gender.lower() == "female":
-                    tags["is_female"] = True
-                    women_count += 1
-                else:
-                    tags["is_female"] = False
-        # Extract summary/description
+                tags["gender"] = translate(gender)
+                tags["is_female"] = (gender and gender.lower() in ["female", "kvinne"])
         tags["summary"] = page.get("extract", "")
         # Notable works (from Wikidata)
         if wikidata_id:
@@ -79,7 +86,7 @@ for artist in artists:
             SELECT ?workLabel ?workYear WHERE {{
               wd:{wikidata_id} wdt:P800 ?work.
               OPTIONAL {{ ?work wdt:P571 ?workYear. }}
-              SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }}
+              SERVICE wikibase:label {{ bd:serviceParam wikibase:language '{lang},en'. }}
             }}
             """
             params3 = {"query": sparql_query2, "format": "json"}
@@ -92,9 +99,26 @@ for artist in artists:
                 works.append({"title": work, "year": year})
             if works:
                 tags["notable_works"] = works
-        artist_tags[artist] = tags
+        return tags
     except Exception as e:
-        print(f"  Error fetching for {artist}: {e}")
+        print(f"  Error fetching for {artist} ({lang}): {e}")
+        return {"not_found": True}
+
+artist_tags = {}
+women_count = 0
+for artist in artists:
+    print(f"Fetching tags for {artist}...")
+    tags_en = fetch_tags_from_wikipedia(artist, lang='en')
+    tags_no = fetch_tags_from_wikipedia(artist, lang='no')
+    tags = {}
+    # Merge, prefer Norwegian for missing/empty fields
+    for k in set(tags_en.keys()).union(tags_no.keys()):
+        v_en = tags_en.get(k)
+        v_no = tags_no.get(k)
+        tags[k] = v_en if v_en else v_no
+    # Count women
+    if tags.get("is_female"): women_count += 1
+    artist_tags[artist] = tags
     time.sleep(1)
 
 output_path = "data/artist_tags.json"
