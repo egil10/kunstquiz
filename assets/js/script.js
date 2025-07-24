@@ -32,8 +32,8 @@ function updateCategoryDropdown() {
     }
 }
 
-// Call updateCategoryDropdown after paintings are loaded
-fetch('./data/paintings.json')
+// Use the merged data file
+fetch('./data/paintings_merged.json')
     .then(res => res.json())
     .then(data => {
         paintings = data;
@@ -199,18 +199,28 @@ function showArtistPopup(painting) {
             document.body.appendChild(popup);
         }
     }
+    // Standardized info: Full Name, Born-Death, movement, painting title (year)
+    const name = painting.artist || '';
+    const birth = painting.artist_birth || '';
+    const death = painting.artist_death || '';
+    const movement = painting.movement || '';
+    const paintingTitle = painting.title ? stripHtml(painting.title) : '';
+    const year = painting.year || '';
     let imgHtml = '';
     if (painting.artist_image) {
-        imgHtml = `<img src="${painting.artist_image}" alt="${painting.artist}" class="artist-portrait">`;
+        imgHtml = `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait">`;
     }
-    let bio = painting.artist_bio || '';
-    let shortBio = bio.split('.').slice(0,2).join('.') + '.';
+    let lifeSpan = (birth && death && birth !== 'Unknown' && death !== 'Unknown') ? `${birth} – ${death}` : '';
+    let movementLine = movement ? `<div><b>Movement:</b> ${movement}</div>` : '';
+    let paintingLine = paintingTitle ? `<div><b>Work:</b> ${paintingTitle}${year ? ` (${year})` : ''}</div>` : '';
     popup.innerHTML = `
         <div class="artist-popup-content">
             ${imgHtml}
             <div class="artist-popup-text">
-                <strong>${painting.artist}</strong><br>
-                <span>${shortBio}</span>
+                <strong>${name}</strong><br>
+                ${lifeSpan ? `<span>${lifeSpan}</span><br>` : ''}
+                ${movementLine}
+                ${paintingLine}
             </div>
         </div>
     `;
@@ -219,7 +229,7 @@ function showArtistPopup(painting) {
     setTimeout(() => {
         popup.style.opacity = 0;
         setTimeout(() => { popup.style.display = 'none'; }, 400);
-    }, 2200);
+    }, 2000); // 2 seconds
 }
 
 // Make logo/title clickable to reset

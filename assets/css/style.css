@@ -80,6 +80,8 @@ body {
     justify-content: center;
     min-width: 320px;
     gap: 18px;
+    width: 100%;
+    max-width: 400px;
 }
 
 #options {
@@ -87,6 +89,7 @@ body {
     flex-direction: column;
     gap: 18px;
     width: 100%;
+    max-width: 400px;
 }
 
 button {
@@ -103,6 +106,7 @@ button {
     transition: background 0.2s, border-color 0.2s, color 0.2s;
     cursor: pointer;
     outline: none;
+    margin: 0;
 }
 button:hover:not(:disabled) {
     background: #e6f7ee;
@@ -221,7 +225,8 @@ button:disabled {
     box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
     padding: 12px 18px 12px 12px;
     min-width: 180px;
-    max-width: 340px;
+    max-width: 400px;
+    width: 100%;
     opacity: 0;
     display: none;
     transition: opacity 0.4s;

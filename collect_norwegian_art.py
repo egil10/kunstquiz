@@ -147,10 +147,9 @@ def extract_collection(location):
     # Fallback: return first 40 chars as a guess
     return text[:40].strip()
 
-# Popular painters (top 10 by your list)
+# Top 15 popular painters (as provided)
 POPULAR_PAINTERS = set([
-    "Edvard Munch", "Johan Christian Dahl", "Christian Krohg", "Theodor Kittelsen", "Harriet Backer",
-    "Kitty Lange Kielland", "Peter Nicolai Arbo", "Hans Gude", "Peder Balke", "Frits Thaulow"
+    "Edvard Munch", "Harald Sohlberg", "Christian Krohg", "Frits Thaulow", "Erik Werenskiold", "Theodor Kittelsen", "Adolph Tidemand", "Hans Gude", "Kitty Lange Kielland", "Lars Hertervig", "Nikolai Astrup", "Oda Krohg", "Thorvald Erichsen", "Rolf Nesch", "Håkon Bleken"
 ])
 
 # Helper to fetch paintings from Wikimedia Commons
@@ -210,6 +209,7 @@ if os.path.exists(OUTPUT_FILE):
 # Build a set of unique keys for fast lookup
 existing_keys = set((p['artist'], p['title'], p['url']) for p in existing_paintings)
 
+# Fetch up to 100 paintings per artist
 for artist in artists:
     print(f"Processing {artist}...")
     artist_meta = fetch_artist_metadata(artist)
@@ -218,7 +218,8 @@ for artist in artists:
         continue
     # Fetch extra metadata
     gender, country, movement = fetch_artist_extra_metadata(artist_meta["wikidata_id"])
-    paintings = fetch_paintings_for_artist(artist, limit=20)
+    paintings = fetch_paintings_for_artist(artist, limit=100)  # Increased to 100
+    # Note: Filtering out images that are photos of paintings (with frames, etc.) is not reliably possible with current Wikimedia metadata. Most images are direct scans or photos of the artwork, but some may include frames or gallery context. Manual curation or advanced image analysis would be needed for perfect filtering.
     # Attach artist metadata to each painting
     for painting in paintings:
         key = (painting['artist'], painting['title'], painting['url'])
@@ -236,17 +237,21 @@ for artist in artists:
         painting["century"] = compute_century(painting.get("year", ""))
         # Clean collection
         painting["collection"] = extract_collection(painting.get("location", ""))
-        # Assign categories
+        # Assign categories (improved logic)
         categories = []
         if artist in POPULAR_PAINTERS:
             categories.append("Popular painters")
-        if painting["genre"] == "Landscape":
+        if painting["genre"] == "Landscape" or (painting["title"] and any(word in painting["title"].lower() for word in ["landscape", "fjord", "mountain", "nature", "skog", "natt", "vann", "elv", "river", "lake", "forest", "fjell", "hav", "sea", "coast", "øy", "island"])):
             categories.append("Landscapes")
-        if painting["genre"] == "Portrait":
+        if painting["genre"] == "Portrait" or (painting["title"] and any(word in painting["title"].lower() for word in ["portrait", "self-portrait", "portrett", "kvinne", "mann", "barn", "girl", "boy", "woman", "man", "child"])):
             categories.append("Portraits")
-        if movement and movement in ["Romanticism", "Expressionism", "Symbolism"]:
-            categories.append(movement)
-        if painting["genre"] == "Historical/Nationalism" or (movement and "National" in movement):
+        if movement and movement in ["Romanticism", "Neo-Romanticism", "Romantic Nationalism"]:
+            categories.append("Romanticism")
+        if movement and "Expressionism" in movement:
+            categories.append("Expressionism")
+        if movement and "Impressionism" in movement:
+            categories.append("Impressionism")
+        if painting["genre"] == "Historical/Nationalism" or (movement and "National" in movement) or (painting["title"] and any(word in painting["title"].lower() for word in ["myth", "legend", "national", "event", "history", "historisk", "nasjonal", "saga", "eventyr", "folk"])):
             categories.append("Historical/Nationalism")
         if painting["century"]:
             categories.append(f"{painting['century']}00s")
@@ -255,6 +260,10 @@ for artist in artists:
             categories.append("National Museum of Norway")
         if gender and gender.lower() == "female":
             categories.append("Women painters")
+        # Fallback: tag as 'Other' if no categories
+        if not categories:
+            categories.append("Other")
+            print(f"  WARNING: Painting '{painting['title']}' by {artist} has no categories!")
         painting["categories"] = categories
         # Remove unnecessary fields
         for k in list(painting.keys()):
