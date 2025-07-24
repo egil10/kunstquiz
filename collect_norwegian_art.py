@@ -147,22 +147,31 @@ def extract_collection(location):
     # Fallback: return first 40 chars as a guess
     return text[:40].strip()
 
-# Top 15 popular painters (as provided)
-POPULAR_PAINTERS = set([
-    "Edvard Munch", "Harald Sohlberg", "Christian Krohg", "Frits Thaulow", "Erik Werenskiold", "Theodor Kittelsen", "Adolph Tidemand", "Hans Gude", "Kitty Lange Kielland", "Lars Hertervig", "Nikolai Astrup", "Oda Krohg", "Thorvald Erichsen", "Rolf Nesch", "Håkon Bleken"
-])
+# Define artist tiers
+POPULAR_PAINTERS = [
+    "Edvard Munch", "Johan Christian Dahl", "Christian Krohg", "Theodor Kittelsen", "Harriet Backer", "Kitty Lange Kielland", "Peter Nicolai Arbo", "Hans Gude", "Peder Balke", "Frits Thaulow", "Nikolai Astrup", "Odd Nerdrum", "Harald Sohlberg", "Erik Werenskiold", "Adolph Tidemand"
+]
+SEMI_POPULAR_PAINTERS = [
+    "Lars Hertervig", "Oda Krohg", "Eilif Peterssen", "Hans Dahl", "Per Krohg", "August Cappelen", "Asta Nørregaard", "Amaldus Nielsen", "Christian Skredsvig", "Gunnar Berg", "Halfdan Egedius", "Thorolf Holmboe", "Jakob Weidemann", "Peder Aadnes", "Martin Aagaard"
+]
+MID_PAINTERS = [
+    "Rolf Aamot", "Johannes Flintoe", "Rolf Groven", "Konrad Knudsen", "Wilhelm Peters", "Halvard Storm", "Jacob Gløersen", "Gustav Wentzel", "Oscar Wergeland", "Carl Sundt-Hansen", "Adelsteen Normann", "Axel Revold", "Jean Heiberg", "Olav Christopher Jenssen", "Bjarne Melgaard", "Fredrik Værslev", "Charlotte Wankel", "Inger Sitter", "Cora Sandel", "Paul René Gauguin", "Peder Severin Krøyer", "Thomas Fearnley", "Knud Baade", "Joachim Frich", "Morten Müller", "Johan Fredrik Eckersberg", "Otto Sinding", "Nils Hansteen", "Eyolf Soot", "Ludvig Karsten", "Thorvald Erichsen"
+]
+BOTTOM_PAINTERS = [
+    "Henrik Lund", "Henrik Sørensen", "Pola Gauguin", "Rolf Nesch", "Olaf Gulbransson", "Bjarne Ness", "Ludvig Eikaas", "Kåre Tveter", "Kjell Aukrust", "Kåre Espolin Johnson", "Frans Widerberg", "Håkon Bleken", "Knut Rose", "Knut Rumohr", "Kjartan Slettemark", "Vebjørn Sand", "Håkon Gullvåg", "Ørnulf Opdahl", "Kjell Pahr-Iversen", "Lisa Aisato", "Gerhard Munthe", "Kjell Nupen", "Pushwagner", "Bjørn Ransve", "Arne Ekeland", "Kai Fjell", "Reidar Aulie", "Arne Texnes Kavli", "Søren Onsager", "Helge Ulving", "Nils Gude", "Bernt Lund", "Nils Elias Kristi", "Oluf Wold-Torne", "Sigurd Dancke", "Alf Lundeby", "Thorleif Stadheim", "Ida Lorentzen", "Marianne Aulie"
+]
 
 # Helper to fetch paintings from Wikimedia Commons
 API_ENDPOINT = "https://commons.wikimedia.org/w/api.php"
 def extract_metadata(metadata, key):
     return metadata.get(key, {}).get("value", "").strip()
 
-# Helper to recursively fetch all images from a category and its subcategories
-def fetch_images_from_category(category, limit=100):
+# Helper to recursively fetch all images from a category and its subcategories (with max depth)
+def fetch_images_from_category(category, limit=100, max_depth=2):
     images = set()
     visited = set()
-    def recurse(cat):
-        if cat in visited:
+    def recurse(cat, depth):
+        if cat in visited or depth > max_depth:
             return
         visited.add(cat)
         params = {
@@ -182,8 +191,8 @@ def fetch_images_from_category(category, limit=100):
                 images.add(member["title"])
             elif member["ns"] == 14:  # Subcategory
                 subcat = member["title"].replace("Category:", "")
-                recurse(subcat)
-    recurse(category)
+                recurse(subcat, depth + 1)
+    recurse(category, 0)
     # Now get imageinfo for each file
     entries = []
     batch = list(images)
@@ -272,7 +281,20 @@ existing_keys = set((p['artist'], p['title'], p['url']) for p in existing_painti
 
 # Fetch up to 100 paintings per artist
 for artist in artists:
-    print(f"Processing {artist}...")
+    # Tiered limits
+    if artist in POPULAR_PAINTERS:
+        limit = 100
+        tier = "Popular"
+    elif artist in SEMI_POPULAR_PAINTERS:
+        limit = 50
+        tier = "Semi-Popular"
+    elif artist in MID_PAINTERS:
+        limit = 30
+        tier = "Mid"
+    else:
+        limit = 15
+        tier = "Bottom"
+    print(f"Processing {artist} [{tier}, limit={limit}]...")
     artist_meta = fetch_artist_metadata(artist)
     if not artist_meta:
         print(f"  Skipping {artist}: No metadata found.")
@@ -281,10 +303,13 @@ for artist in artists:
     gender, country, movement = fetch_artist_extra_metadata(artist_meta["wikidata_id"])
     # Try recursive Commons category search first
     cat_name = f"Paintings by {artist}"
-    paintings = fetch_images_from_category(cat_name, limit=100)
-    if len(paintings) < 30:
+    paintings = fetch_images_from_category(cat_name, limit=limit, max_depth=2)
+    if len(paintings) < limit // 2:
         print(f"  Only {len(paintings)} paintings found in Commons categories for {artist}, supplementing with Wikidata...")
-        paintings += fetch_paintings_from_wikidata(artist, limit=100-len(paintings))
+        paintings += fetch_paintings_from_wikidata(artist, limit=limit-len(paintings))
+    # After fetching paintings, ensure each has 'artist' field
+    for p in paintings:
+        p['artist'] = artist
     # Deduplicate by url
     seen_urls = set()
     unique_paintings = []
@@ -294,7 +319,7 @@ for artist in artists:
             seen_urls.add(p["url"])
     paintings = unique_paintings
     print(f"  Found {len(paintings)} paintings for {artist}.")
-    if len(paintings) < 100:
+    if len(paintings) < limit:
         print(f"  WARNING: Only {len(paintings)} paintings found for {artist}!")
     # Note: Filtering out images that are photos of paintings (with frames, etc.) is not reliably possible with current Wikimedia metadata. Most images are direct scans or photos of the artwork, but some may include frames or gallery context. Manual curation or advanced image analysis would be needed for perfect filtering.
     # Attach artist metadata to each painting
