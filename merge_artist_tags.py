@@ -38,6 +38,18 @@ for painting in paintings:
                 categories.add(work['title'])
     # Remove empty/None categories
     categories = {c for c in categories if c and c != 'Unknown'}
+
+    # Add 'Women painters' category if artist is female
+    gender_val = (painting.get('artist_gender') or tags.get('artist_gender') or painting.get('gender') or tags.get('gender'))
+    if gender_val and gender_val.lower() == 'female':
+        categories.add('Women painters')
+
+    # Add 'Portraits' category if genre or movement contains 'portrait'
+    for key in ['genre', 'movement']:
+        val = (painting.get(key) or tags.get(key) or '')
+        if isinstance(val, str) and 'portrait' in val.lower():
+            categories.add('Portraits')
+
     painting['categories'] = sorted(categories)
 
 # Output merged file
