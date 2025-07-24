@@ -17,3 +17,13 @@ Try it live on GitHub Pages:
 
 ## 📁 Project Structure
 
+
+## 🛠️ Data Collection & Update Workflow
+
+To update or expand the quiz's dataset:
+1. Run the provided Python script (`collect_norwegian_art.py`) in the project root.
+2. The script will fetch and merge artist bios and paintings from Wikidata, Wikipedia, and Wikimedia Commons.
+3. The output is a single `paintings.json` file in the `data/` directory, which is used directly by the game.
+
+This workflow is repeatable and can be run any time you want to refresh or expand the dataset.
+
