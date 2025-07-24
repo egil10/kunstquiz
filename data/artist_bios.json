@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Edvard Munch",
+    "birth_year": "1863",
+    "death_year": "1944",
+    "bio": "Expressionist; emotional themes, anxiety, death. Known for *The Scream*.",
+    "self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Munch_-_Self-Portrait_with_Palette%2C_1926%2C_Lot_114.jpg"
+  },
+  {
+    "name": "Johan Christian Dahl",
+    "birth_year": "1788",
+    "death_year": "1857",
+    "bio": "Romantic landscape pioneer; dramatic fjords, national motifs.",
+    "self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/1/17/Carl_Christian_Vogel_von_Vogelstein_-_Johan_Christian_Clausen_Dahl.jpg"
+  },
+  {
+    "name": "Christian Krohg",
+    "birth_year": "1852",
+    "death_year": "1925",
+    "bio": "Realist; social commentary, urban poverty, journalism influence.",
+    "self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/b/b2/Christian_Krohg_av_Oda_Lasson_Krohg_OB.01508.jpg"
+  },
+  {
+    "name": "Theodor Kittelsen",
+    "birth_year": "1857",
+    "death_year": "1914",
+    "bio": "Fairy tales, trolls, dark forests. Iconic folklore illustrator.",
+    "self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/Theodor_Kittelsen_-_Self-Portrait_-_NG.M.03478_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg"
+  },
+  {
+    "name": "Harriet Backer",
+    "birth_year": "1845",
+    "death_year": "1932",
+    "bio": "Interior scenes, soft light, rich color. Female artist pioneer.",
+    "self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/8/83/Portrett_av_Harriet_Backer_%281845-1932%29_%289390378423%29.jpg"
+  },
+  {
+    "name": "Kitty Lange Kielland",
+    "birth_year": "1843",
+    "death_year": "1914",
+    "bio": "Impressionist landscapes; moody bogs, tonal minimalism.",
+    "self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/b/bf/Harriet_Backer_Portrett_av_Kitty_Kielland_OB.00498.jpg"
+  },
+  {
+    "name": "Peter Nicolai Arbo",
+    "birth_year": "1831",
+    "death_year": "1892",
+    "bio": "Historical scenes; Norse mythology, Viking legends, allegory.",
+    "self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Arbopeternicolai.jpg"
+  },
+  {
+    "name": "Hans Gude",
+    "birth_year": "1825",
+    "death_year": "1903",
+    "bio": "Romantic landscapes; dramatic nature, national identity.",
+    "self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/4/47/Hans_Gude%2C_by_Julius_Amatus_Roeting.jpg"
+  }
+] 

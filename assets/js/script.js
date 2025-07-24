@@ -2,6 +2,7 @@ let streak = 0;
 let paintings = [];
 let lastPaintingIndex = -1;
 let selectedCategory = 'all';
+let artistBios = [];
 
 function getYearOnly(dateStr) {
     if (!dateStr) return '';
@@ -156,7 +157,8 @@ fetch('./data/paintings_merged.json')
         updateCollectionInfo();
         renderCategorySelector();
         loadQuiz();
-        setupArtistModal(); // <-- ensure modal works after paintings are loaded
+        setupArtistModal();
+        return loadArtistBios();
     });
 
 function getValidPaintings() {
@@ -308,6 +310,17 @@ function cleanWorkTitle(title) {
     return title.replace(/label QS:[^\s,]+,[^\n"]+"/g, '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 }
 
+function loadArtistBios() {
+    return fetch('./data/artist_bios.json')
+        .then(res => res.json())
+        .then(data => { artistBios = data; });
+}
+
+function getArtistBioInfo(name) {
+    if (!artistBios || !artistBios.length) return null;
+    return artistBios.find(b => b.name === name) || null;
+}
+
 function showArtistPopup(painting) {
     let popup = document.getElementById('artist-popup');
     if (!popup) {
@@ -323,19 +336,31 @@ function showArtistPopup(painting) {
         }
     }
     const name = painting.artist || '';
-    const birth = getYearOnly(painting.artist_birth);
-    const death = getYearOnly(painting.artist_death);
+    const bioInfo = getArtistBioInfo(name);
+    let heading = name;
+    let bio = '';
     let imgHtml = '';
-    if (painting.artist_image) {
-        imgHtml = `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait">`;
+    if (bioInfo) {
+        heading = `${bioInfo.name} (${bioInfo.birth_year}–${bioInfo.death_year})`;
+        bio = bioInfo.bio;
+        if (bioInfo.self_portrait_url) {
+            imgHtml = `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait">`;
+        }
+    } else {
+        // fallback to old logic if not found, or show empty
+        const birth = getYearOnly(painting.artist_birth);
+        const death = getYearOnly(painting.artist_death);
+        let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
+        heading = `${name}${lifeSpan ? ` (${lifeSpan})` : ''}`;
+        imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait">` : '';
+        bio = '';
     }
-    let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
-    let line1 = `${name}${lifeSpan ? ` (${lifeSpan})` : ''}`;
     popup.innerHTML = `
         <div class="artist-popup-content">
             ${imgHtml}
             <div class="artist-popup-text">
-                <strong>${line1}</strong>
+                <strong>${heading}</strong><br>
+                <span>${bio}</span>
             </div>
         </div>
     `;
@@ -344,7 +369,7 @@ function showArtistPopup(painting) {
     setTimeout(() => {
         popup.style.opacity = 0;
         setTimeout(() => { popup.style.display = 'none'; }, 400);
-    }, 1000); // 1 second
+    }, 2500);
 }
 
 // Make logo/title clickable to reset
