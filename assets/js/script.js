@@ -89,7 +89,6 @@ function renderCategorySelector() {
     const catSelect = document.getElementById('category-select');
     const selectorDiv = document.querySelector('.category-selector');
     if (!catSelect || !selectorDiv) return;
-    // Remove the native select
     catSelect.style.display = 'none';
     let custom = document.getElementById('custom-category-link');
     if (!custom) {
@@ -98,26 +97,25 @@ function renderCategorySelector() {
         custom.className = 'custom-category-link';
         selectorDiv.appendChild(custom);
     }
-    // Build the menu
-    const { counts, painterSets } = getCategoryCounts();
-    const sortedCats = Object.keys(counts)
-        .filter(cat => cat !== 'all')
-        .sort((a, b) => counts[b] - counts[a])
-        .slice(0, 9);
-    const options = [
+    // Only show these categories
+    const CATEGORY_ORDER = [
         { value: 'all', label: 'Full collection' },
-        ...sortedCats.map(cat => ({ value: cat, label: cat }))
+        { value: 'Popular painters', label: 'Popular painters' },
+        { value: 'National Museum of Norway', label: 'National Museum of Norway' },
+        { value: 'Women painters', label: 'Female painters' },
+        { value: 'Landscapes', label: 'Landscapes' },
+        { value: 'Portraits', label: 'Portraits' }
     ];
+    // Filter to only those that exist in the data
+    const { counts } = getCategoryCounts();
+    const options = CATEGORY_ORDER.filter(opt => opt.value === 'all' || counts[opt.value]);
     // Set current
     const current = catSelect.value || 'all';
     custom.textContent = options.find(o => o.value === current)?.label || 'Full collection';
-    // Add underline
     custom.style.textDecoration = 'underline';
     custom.style.cursor = 'pointer';
-    // Remove any old menu
     let menu = document.getElementById('custom-category-menu');
     if (menu) menu.remove();
-    // Click to open menu
     custom.onclick = function(e) {
         e.stopPropagation();
         if (document.getElementById('custom-category-menu')) return;
@@ -141,7 +139,6 @@ function renderCategorySelector() {
             menu.appendChild(item);
         });
         custom.appendChild(menu);
-        // Close menu on click outside
         document.addEventListener('click', function handler() {
             if (menu) menu.remove();
             document.removeEventListener('click', handler);
