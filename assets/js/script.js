@@ -5,8 +5,15 @@ let selectedCategory = 'all';
 
 function getYearOnly(dateStr) {
     if (!dateStr) return '';
-    const match = dateStr.match(/\d{4}/);
+    // Try to find the first 4-digit year in the string
+    const match = dateStr.match(/\b(17|18|19|20|21)\d{2}\b/);
     return match ? match[0] : '';
+}
+
+function getCenturyFromYear(yearStr) {
+    const year = parseInt(getYearOnly(yearStr), 10);
+    if (!year || isNaN(year)) return null;
+    return Math.floor((year - 1) / 100) + 1;
 }
 
 function getCategoryCounts() {
@@ -42,10 +49,11 @@ function updateCategoryDropdown() {
     const catSelect = document.getElementById('category-select');
     if (!catSelect) return;
     const { counts, painterSets } = getCategoryCounts();
-    // Get all categories except 'all', sort alphabetically
+    // Get top 9 categories (excluding 'all'), sorted by number of paintings
     const sortedCats = Object.keys(counts)
         .filter(cat => cat !== 'all')
-        .sort((a, b) => a.localeCompare(b));
+        .sort((a, b) => counts[b] - counts[a])
+        .slice(0, 9);
     // Always include 'all' as first option
     const options = [
         { value: 'all', label: 'Full collection' },
@@ -159,7 +167,7 @@ function loadQuiz() {
             setTimeout(() => {
                 hideMessage();
                 loadQuiz();
-            }, 2500);
+            }, 1000);
         };
         optionsDiv.appendChild(btn);
     });
@@ -276,7 +284,7 @@ function showArtistPopup(painting) {
     setTimeout(() => {
         popup.style.opacity = 0;
         setTimeout(() => { popup.style.display = 'none'; }, 400);
-    }, 2500); // 2.5 seconds
+    }, 1000); // 1 second
 }
 
 // Make logo/title clickable to reset

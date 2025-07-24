@@ -130,6 +130,20 @@ def compute_century(year):
     y = int(year[:4])
     return (y - 1) // 100 + 1
 
+def get_year_only(date_str):
+    if not date_str:
+        return None
+    import re
+    match = re.search(r'\b(17|18|19|20|21)\d{2}\b', date_str)
+    return match.group(0) if match else None
+
+def get_century_from_year(year_str):
+    year = get_year_only(year_str)
+    if not year:
+        return None
+    year = int(year)
+    return f"{(year - 1) // 100 + 1}00s"
+
 # Helper to clean collection/museum name from location
 def extract_collection(location):
     if not location:
@@ -335,8 +349,8 @@ for artist in artists:
         painting["movement"] = movement or ""
         # Guess genre
         painting["genre"] = guess_genre(painting["title"], painting.get("medium", ""))
-        # Compute century
-        painting["century"] = compute_century(painting.get("year", ""))
+        # Compute century from actual painting year
+        painting["century"] = get_century_from_year(painting.get("year", ""))
         # Clean collection
         painting["collection"] = extract_collection(painting.get("location", ""))
         # Assign categories (improved logic)
@@ -356,7 +370,7 @@ for artist in artists:
         if painting["genre"] == "Historical/Nationalism" or (movement and "National" in movement) or (painting["title"] and any(word in painting["title"].lower() for word in ["myth", "legend", "national", "event", "history", "historisk", "nasjonal", "saga", "eventyr", "folk"])):
             categories.append("Historical/Nationalism")
         if painting["century"]:
-            categories.append(f"{painting['century']}00s")
+            categories.append(painting["century"])
         collection = painting.get("collection") or ""
         if "national museum" in collection.lower():
             categories.append("National Museum of Norway")
