@@ -8,9 +8,8 @@ fetch('./data/paintings.json')
     })
     .then(data => {
         paintings = data;
-        console.log('Paintings loaded:', paintings);
         if (!paintings.length) throw new Error('No paintings in JSON');
-        loadQuiz(); // Force execution
+        loadQuiz();
     })
     .catch(error => {
         console.error('Fetch error:', error);
@@ -18,44 +17,51 @@ fetch('./data/paintings.json')
     });
 
 function loadQuiz() {
-    console.log('Loading quiz with paintings:', paintings); // Debug start
-    if (!paintings.length) {
-        console.error('No paintings to display');
-        return;
-    }
-    const randomIndex = Math.floor(Math.random() * paintings.length);
-    const correctPainting = paintings[randomIndex];
+    const painting = getRandomPainting();
+    if (!painting) return;
+
+    // Set painting image
     const img = document.getElementById('painting');
-    img.src = correctPainting.url;
-    img.alt = correctPainting.title;
-    console.log('Setting image src to:', img.src); // Debug image set
-    img.onload = () => console.log('Image loaded:', correctPainting.url);
-    img.onerror = () => console.error('Image load failed:', correctPainting.url);
+    img.src = painting.url;
+    img.alt = painting.title;
 
-    const artists = [correctPainting.artist];
-    while (artists.length < 4) {
-        const randomArtist = paintings[Math.floor(Math.random() * paintings.length)].artist;
-        if (!artists.includes(randomArtist)) artists.push(randomArtist);
-    }
-    artists.sort(() => Math.random() - 0.5);
-
+    // Generate options
     const optionsDiv = document.getElementById('options');
     optionsDiv.innerHTML = '';
-    console.log('Generating buttons for artists:', artists); // Debug buttons
+
+    const artists = generateOptions(painting.artist);
     artists.forEach(artist => {
-        const button = document.createElement('button');
-        button.textContent = artist;
-        button.onclick = () => {
-            if (artist === correctPainting.artist) {
+        const btn = document.createElement('button');
+        btn.textContent = artist;
+        btn.onclick = () => {
+            if (artist === painting.artist) {
                 streak++;
-                alert('Correct! It\'s ' + correctPainting.title + ' by ' + artist);
+                alert(`✅ Correct!\n"${painting.title}" is by ${artist}.`);
             } else {
                 streak = 0;
-                alert('Wrong! It\'s ' + correctPainting.title + ' by ' + correctPainting.artist);
+                alert(`❌ Wrong!\nIt was "${painting.title}" by ${painting.artist}.`);
             }
             document.getElementById('streak').textContent = 'Streak: ' + streak;
-            loadQuiz();
+            loadQuiz(); // loop continues
         };
-        optionsDiv.appendChild(button);
+        optionsDiv.appendChild(btn);
     });
+}
+
+function getRandomPainting() {
+    if (!paintings.length) return null;
+    return paintings[Math.floor(Math.random() * paintings.length)];
+}
+
+function generateOptions(correctArtist) {
+    const artistSet = new Set();
+    artistSet.add(correctArtist);
+
+    while (artistSet.size < 4) {
+        const randomArtist = paintings[Math.floor(Math.random() * paintings.length)].artist;
+        artistSet.add(randomArtist);
+    }
+
+    // Shuffle the options
+    return Array.from(artistSet).sort(() => Math.random() - 0.5);
 }
