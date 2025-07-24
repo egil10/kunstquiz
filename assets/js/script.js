@@ -9,20 +9,39 @@ fetch('./data/paintings.json')
         loadQuiz();
     });
 
+function getValidPaintings() {
+    // Only paintings with a valid artist and url
+    return paintings.filter(p => p.artist && p.url);
+}
+
 function loadQuiz() {
-    const painting = getRandomPainting();
-    if (!painting) return;
+    const validPaintings = getValidPaintings();
+    if (!validPaintings.length) {
+        document.getElementById('options').innerHTML = '<p>Ingen gyldige malerier funnet.</p>';
+        return;
+    }
+    let painting;
+    // Try up to 10 times to get a valid painting
+    for (let i = 0; i < 10; i++) {
+        painting = getRandomPainting(validPaintings);
+        if (painting && painting.artist && painting.url) break;
+    }
+    if (!painting || !painting.artist || !painting.url) return;
 
     // Set painting image
     const img = document.getElementById('painting');
     img.src = painting.url;
-    img.alt = painting.title;
+    img.alt = stripHtml(painting.title);
 
     // Generate options
     const optionsDiv = document.getElementById('options');
     optionsDiv.innerHTML = '';
 
-    const artists = generateOptions(painting.artist);
+    const artists = generateOptions(painting.artist, validPaintings);
+    if (artists.length < 2) {
+        optionsDiv.innerHTML = '<p>Ikke nok kunstnere for quiz.</p>';
+        return;
+    }
     artists.forEach(artist => {
         const btn = document.createElement('button');
         btn.textContent = artist;
@@ -64,23 +83,38 @@ function loadQuiz() {
     updateStreakBar();
 }
 
-function getRandomPainting() {
-    if (paintings.length <= 1) return paintings[0];
+function getRandomPainting(validPaintings) {
+    if (!validPaintings || validPaintings.length <= 1) return validPaintings[0];
     let idx;
     do {
-        idx = Math.floor(Math.random() * paintings.length);
+        idx = Math.floor(Math.random() * validPaintings.length);
     } while (idx === lastPaintingIndex);
     lastPaintingIndex = idx;
-    return paintings[idx];
+    return validPaintings[idx];
 }
 
-function generateOptions(correct) {
+function generateOptions(correct, validPaintings) {
+    // Get all unique artists in the dataset
+    const uniqueArtists = Array.from(new Set(validPaintings.map(p => p.artist)));
+    // If less than 4 unique artists, just use all of them
+    if (uniqueArtists.length <= 4) {
+        return uniqueArtists.sort(() => Math.random() - 0.5);
+    }
+    // Otherwise, pick 3 random others + correct
     const set = new Set([correct]);
-    while (set.size < 4) {
-        const random = paintings[Math.floor(Math.random() * paintings.length)].artist;
+    let safety = 0;
+    while (set.size < 4 && safety < 20) {
+        const random = uniqueArtists[Math.floor(Math.random() * uniqueArtists.length)];
         set.add(random);
+        safety++;
     }
     return Array.from(set).sort(() => Math.random() - 0.5);
+}
+
+function stripHtml(html) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return div.textContent || div.innerText || '';
 }
 
 function updateStreakBar() {
