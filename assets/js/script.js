@@ -328,12 +328,14 @@ function showArtistPopup(painting, onDone) {
     }
     const name = painting.artist || '';
     const bioInfo = getArtistBioInfo(name);
-    let heading = name;
-    let bio = '';
+    let nameHtml = '';
+    let yearsHtml = '';
+    let bioHtml = '';
     let imgHtml = '';
     if (bioInfo) {
-        heading = `<strong>${bioInfo.name} (${bioInfo.birth_year}–${bioInfo.death_year})</strong>`;
-        bio = bioInfo.bio;
+        nameHtml = `<span class='artist-name'>${bioInfo.name}</span>`;
+        yearsHtml = `<span class='artist-years'>${bioInfo.birth_year}–${bioInfo.death_year}</span>`;
+        bioHtml = `<span class='artist-bio'>${bioInfo.bio}</span>`;
         if (bioInfo.self_portrait_url) {
             imgHtml = `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait toast-portrait">`;
         }
@@ -341,16 +343,18 @@ function showArtistPopup(painting, onDone) {
         const birth = getYearOnly(painting.artist_birth);
         const death = getYearOnly(painting.artist_death);
         let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
-        heading = `<strong>${name}${lifeSpan ? ` (${lifeSpan})` : ''}</strong>`;
+        nameHtml = `<span class='artist-name'>${name}</span>`;
+        yearsHtml = lifeSpan ? `<span class='artist-years'>${lifeSpan}</span>` : '';
         imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait toast-portrait">` : '';
-        bio = '';
+        bioHtml = '';
     }
     popup.innerHTML = `
         <div class="artist-popup-content toast-content">
             ${imgHtml}
             <div class="artist-popup-text toast-text">
-                ${heading}
-                <span>${bio}</span>
+                ${nameHtml}
+                ${yearsHtml}
+                ${bioHtml}
             </div>
         </div>
     `;
