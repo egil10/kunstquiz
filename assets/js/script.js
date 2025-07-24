@@ -103,8 +103,6 @@ function renderCategorySelector() {
         { value: 'all', label: 'Full collection' },
         { value: 'Popular painters', label: 'Popular painters' },
         { value: 'National Museum of Norway', label: 'National Museum of Norway' },
-        { value: 'Women painters', label: 'Female painters' },
-        { value: 'Landscapes', label: 'Landscapes' },
         { value: 'Portraits', label: 'Portraits' }
     ];
     // Filter to only those that exist in the data
@@ -218,7 +216,7 @@ function loadQuiz() {
                     setTimeout(() => {
                         showCongratsModal();
                     }, 500);
-                    showArtistPopup(painting);
+                    showArtistPopup(painting, null);
                     return;
                 }
                 selectedBtn.classList.add('correct');
@@ -229,12 +227,11 @@ function loadQuiz() {
                 correctBtn.classList.add('correct');
                 showMessage('Feil!', '#e53935');
             }
-            showArtistPopup(painting);
             updateStreakBar();
-            setTimeout(() => {
+            showArtistPopup(painting, () => {
                 hideMessage();
                 loadQuiz();
-            }, 1000);
+            });
         };
         optionsDiv.appendChild(btn);
     });
@@ -321,16 +318,16 @@ function getArtistBioInfo(name) {
     return artistBios.find(b => b.name === name) || null;
 }
 
-function showArtistPopup(painting) {
+function showArtistPopup(painting, onDone) {
     let popup = document.getElementById('artist-popup');
     if (!popup) {
         popup = document.createElement('div');
         popup.id = 'artist-popup';
-        popup.className = 'artist-popup';
-        // Insert after #message
-        const msg = document.getElementById('message');
-        if (msg && msg.parentNode) {
-            msg.parentNode.insertBefore(popup, msg.nextSibling);
+        popup.className = 'artist-popup large-popup';
+        // Place in btn-col, covering the options
+        const btnCol = document.querySelector('.btn-col');
+        if (btnCol) {
+            btnCol.appendChild(popup);
         } else {
             document.body.appendChild(popup);
         }
@@ -344,32 +341,31 @@ function showArtistPopup(painting) {
         heading = `${bioInfo.name} (${bioInfo.birth_year}–${bioInfo.death_year})`;
         bio = bioInfo.bio;
         if (bioInfo.self_portrait_url) {
-            imgHtml = `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait">`;
+            imgHtml = `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait large-portrait">`;
         }
     } else {
-        // fallback to old logic if not found, or show empty
         const birth = getYearOnly(painting.artist_birth);
         const death = getYearOnly(painting.artist_death);
         let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
         heading = `${name}${lifeSpan ? ` (${lifeSpan})` : ''}`;
-        imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait">` : '';
+        imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait large-portrait">` : '';
         bio = '';
     }
     popup.innerHTML = `
-        <div class="artist-popup-content">
+        <div class="artist-popup-content large-content">
             ${imgHtml}
-            <div class="artist-popup-text">
+            <div class="artist-popup-text large-text">
                 <strong>${heading}</strong><br>
                 <span>${bio}</span>
             </div>
         </div>
     `;
-    popup.style.display = 'block';
-    setTimeout(() => { popup.style.opacity = 1; }, 10);
+    popup.style.display = 'flex';
+    popup.style.opacity = 1;
     setTimeout(() => {
         popup.style.opacity = 0;
-        setTimeout(() => { popup.style.display = 'none'; }, 400);
-    }, 2500);
+        setTimeout(() => { popup.style.display = 'none'; if (onDone) onDone(); }, 400);
+    }, 3000);
 }
 
 // Make logo/title clickable to reset
