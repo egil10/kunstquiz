@@ -12,6 +12,7 @@ HEADERS = {
 }
 
 artist_tags = {}
+women_count = 0
 for artist in artists:
     print(f"Fetching tags for {artist}...")
     tags = {}
@@ -62,6 +63,14 @@ for artist in artists:
                 tags["genre"] = res.get("genreLabel", {}).get("value", None)
                 tags["country"] = res.get("countryLabel", {}).get("value", None)
                 tags["birthplace"] = res.get("placeLabel", {}).get("value", None)
+                # Extract gender from Wikidata
+                gender = res.get("genderLabel", {}).get("value", None)
+                tags["gender"] = gender
+                if gender and gender.lower() == "female":
+                    tags["is_female"] = True
+                    women_count += 1
+                else:
+                    tags["is_female"] = False
         # Extract summary/description
         tags["summary"] = page.get("extract", "")
         # Notable works (from Wikidata)
@@ -92,4 +101,5 @@ output_path = "data/artist_tags.json"
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(artist_tags, f, indent=2, ensure_ascii=False)
 
-print(f"✅ Saved artist tags to {output_path}") 
+print(f"✅ Saved artist tags to {output_path}")
+print(f"\nTotal women painters found: {women_count}") 

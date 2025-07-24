@@ -219,6 +219,8 @@ for artist in artists:
     # Fetch extra metadata
     gender, country, movement = fetch_artist_extra_metadata(artist_meta["wikidata_id"])
     paintings = fetch_paintings_for_artist(artist, limit=100)  # Increased to 100
+    if len(paintings) < 100:
+        print(f"  WARNING: Only {len(paintings)} paintings found for {artist}!")
     # Note: Filtering out images that are photos of paintings (with frames, etc.) is not reliably possible with current Wikimedia metadata. Most images are direct scans or photos of the artwork, but some may include frames or gallery context. Manual curation or advanced image analysis would be needed for perfect filtering.
     # Attach artist metadata to each painting
     for painting in paintings:

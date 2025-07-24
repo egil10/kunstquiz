@@ -5,31 +5,52 @@ let selectedCategory = 'all';
 
 function getCategoryCounts() {
     const counts = {};
+    const painterSets = {};
     paintings.forEach(p => {
         if (Array.isArray(p.categories)) {
             p.categories.forEach(cat => {
                 counts[cat] = (counts[cat] || 0) + 1;
+                if (!painterSets[cat]) painterSets[cat] = new Set();
+                if (p.artist) painterSets[cat].add(p.artist);
             });
         }
     });
-    return counts;
+    // For full collection
+    painterSets['all'] = new Set(paintings.map(p => p.artist));
+    counts['all'] = paintings.length;
+    return { counts, painterSets };
 }
 
 function updateCategoryDropdown() {
     const catSelect = document.getElementById('category-select');
     if (!catSelect) return;
-    const counts = getCategoryCounts();
-    for (let i = 0; i < catSelect.options.length; i++) {
-        const opt = catSelect.options[i];
+    const { counts, painterSets } = getCategoryCounts();
+    // Get top 10 categories (excluding 'all')
+    const sortedCats = Object.keys(counts)
+        .filter(cat => cat !== 'all')
+        .sort((a, b) => counts[b] - counts[a])
+        .slice(0, 10);
+    // Always include 'all' as first option
+    const options = [
+        { value: 'all', label: 'Full collection' },
+        ...sortedCats.map(cat => ({ value: cat, label: cat }))
+    ];
+    // Rebuild dropdown
+    catSelect.innerHTML = '';
+    options.forEach(opt => {
+        const count = counts[opt.value] || 0;
+        const painterCount = painterSets[opt.value] ? painterSets[opt.value].size : 0;
+        const option = document.createElement('option');
+        option.value = opt.value;
         if (opt.value === 'all') {
-            opt.textContent = 'Full collection';
-            opt.title = 'All paintings in the dataset';
+            option.textContent = `Full collection (${count} paintings, ${painterCount} painters)`;
+            option.title = 'All paintings and painters in the dataset';
         } else {
-            const count = counts[opt.value] || 0;
-            opt.textContent = `${opt.value} (${count})`;
-            opt.title = `${count} paintings in this category`;
+            option.textContent = `${opt.label} (${count} paintings, ${painterCount} painters)`;
+            option.title = `${count} paintings, ${painterCount} painters in this category`;
         }
-    }
+        catSelect.appendChild(option);
+    });
 }
 
 // Use the merged data file
@@ -184,7 +205,12 @@ function hideCongratsModal() {
     document.getElementById('congrats-modal').style.display = 'none';
 }
 
-// Artist info pop-up
+function cleanWorkTitle(title) {
+    // Remove label QS:... and HTML tags
+    if (!title) return '';
+    return title.replace(/label QS:[^\s,]+,[^\n"]+"/g, '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+}
+
 function showArtistPopup(painting) {
     let popup = document.getElementById('artist-popup');
     if (!popup) {
@@ -199,28 +225,25 @@ function showArtistPopup(painting) {
             document.body.appendChild(popup);
         }
     }
-    // Standardized info: Full Name, Born-Death, movement, painting title (year)
+    // Format: {Name} (Year-Year) \n {Work name} (Year)
     const name = painting.artist || '';
     const birth = painting.artist_birth || '';
     const death = painting.artist_death || '';
-    const movement = painting.movement || '';
-    const paintingTitle = painting.title ? stripHtml(painting.title) : '';
+    const paintingTitle = cleanWorkTitle(painting.title ? stripHtml(painting.title) : '');
     const year = painting.year || '';
     let imgHtml = '';
     if (painting.artist_image) {
         imgHtml = `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait">`;
     }
     let lifeSpan = (birth && death && birth !== 'Unknown' && death !== 'Unknown') ? `${birth} – ${death}` : '';
-    let movementLine = movement ? `<div><b>Movement:</b> ${movement}</div>` : '';
-    let paintingLine = paintingTitle ? `<div><b>Work:</b> ${paintingTitle}${year ? ` (${year})` : ''}</div>` : '';
+    let line1 = `${name}${lifeSpan ? ` (${lifeSpan})` : ''}`;
+    let line2 = paintingTitle ? `${paintingTitle}${year ? ` (${year})` : ''}` : '';
     popup.innerHTML = `
         <div class="artist-popup-content">
             ${imgHtml}
             <div class="artist-popup-text">
-                <strong>${name}</strong><br>
-                ${lifeSpan ? `<span>${lifeSpan}</span><br>` : ''}
-                ${movementLine}
-                ${paintingLine}
+                <strong>${line1}</strong><br>
+                ${line2 ? `<span>${line2}</span>` : ''}
             </div>
         </div>
     `;
