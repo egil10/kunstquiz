@@ -84,13 +84,79 @@ function setupCategoryChangeInfoBar() {
     }
 }
 
-// Use the merged data file
+// Custom category selector as clickable text
+function renderCategorySelector() {
+    const catSelect = document.getElementById('category-select');
+    const selectorDiv = document.querySelector('.category-selector');
+    if (!catSelect || !selectorDiv) return;
+    // Remove the native select
+    catSelect.style.display = 'none';
+    let custom = document.getElementById('custom-category-link');
+    if (!custom) {
+        custom = document.createElement('span');
+        custom.id = 'custom-category-link';
+        custom.className = 'custom-category-link';
+        selectorDiv.appendChild(custom);
+    }
+    // Build the menu
+    const { counts, painterSets } = getCategoryCounts();
+    const sortedCats = Object.keys(counts)
+        .filter(cat => cat !== 'all')
+        .sort((a, b) => counts[b] - counts[a])
+        .slice(0, 9);
+    const options = [
+        { value: 'all', label: 'Full collection' },
+        ...sortedCats.map(cat => ({ value: cat, label: cat }))
+    ];
+    // Set current
+    const current = catSelect.value || 'all';
+    custom.textContent = options.find(o => o.value === current)?.label || 'Full collection';
+    // Add underline
+    custom.style.textDecoration = 'underline';
+    custom.style.cursor = 'pointer';
+    // Remove any old menu
+    let menu = document.getElementById('custom-category-menu');
+    if (menu) menu.remove();
+    // Click to open menu
+    custom.onclick = function(e) {
+        e.stopPropagation();
+        if (document.getElementById('custom-category-menu')) return;
+        menu = document.createElement('div');
+        menu.id = 'custom-category-menu';
+        menu.className = 'custom-category-menu';
+        options.forEach(opt => {
+            const item = document.createElement('div');
+            item.className = 'custom-category-item';
+            item.textContent = opt.label;
+            item.onclick = function(ev) {
+                catSelect.value = opt.value;
+                selectedCategory = opt.value;
+                streak = 0;
+                updateStreakBar();
+                updateCollectionInfo();
+                loadQuiz();
+                renderCategorySelector();
+                menu.remove();
+            };
+            menu.appendChild(item);
+        });
+        custom.appendChild(menu);
+        // Close menu on click outside
+        document.addEventListener('click', function handler() {
+            if (menu) menu.remove();
+            document.removeEventListener('click', handler);
+        });
+    };
+}
+
+// Call renderCategorySelector after paintings are loaded and on category change
 fetch('./data/paintings_merged.json')
     .then(res => res.json())
     .then(data => {
         paintings = data;
         updateCategoryDropdown();
         updateCollectionInfo();
+        renderCategorySelector();
         loadQuiz();
     });
 
@@ -257,25 +323,20 @@ function showArtistPopup(painting) {
             document.body.appendChild(popup);
         }
     }
-    // Format: {Name} (YEAR–YEAR) \n {Work name} (YEAR)
     const name = painting.artist || '';
     const birth = getYearOnly(painting.artist_birth);
     const death = getYearOnly(painting.artist_death);
-    const paintingTitle = cleanWorkTitle(painting.title ? stripHtml(painting.title) : '');
-    const year = getYearOnly(painting.year);
     let imgHtml = '';
     if (painting.artist_image) {
         imgHtml = `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait">`;
     }
     let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
     let line1 = `${name}${lifeSpan ? ` (${lifeSpan})` : ''}`;
-    let line2 = paintingTitle ? `${paintingTitle}${year ? ` (${year})` : ''}` : '';
     popup.innerHTML = `
         <div class="artist-popup-content">
             ${imgHtml}
             <div class="artist-popup-text">
-                <strong>${line1}</strong><br>
-                ${line2 ? `<span>${line2}</span>` : ''}
+                <strong>${line1}</strong>
             </div>
         </div>
     `;
@@ -315,4 +376,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     setupLogoReset();
     setupCategoryChangeInfoBar();
+    renderCategorySelector();
 });

@@ -6,6 +6,15 @@ body {
     color: #222;
 }
 
+html, body {
+    width: 100vw;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background: #fafbfc;
+}
+
 .top-bar {
     width: 100vw;
     padding: 18px 0 0 32px;
@@ -82,7 +91,7 @@ body {
     gap: 18px;
     width: 100%;
     max-width: 400px;
-    margin-top: 32px;
+    margin-top: 48px;
 }
 
 #options {
@@ -197,27 +206,52 @@ button:disabled {
     right: 32px;
     top: 18px;
     z-index: 10;
+    min-width: 120px;
+    background: none;
 }
 #category-select {
-    font-family: inherit;
-    font-size: 0.98rem;
-    padding: 7px 22px 7px 10px;
-    border-radius: 8px;
-    border: 1.5px solid #d0d0d0;
-    background: #fff;
-    color: #222;
-    box-shadow: 0 1px 4px 0 rgba(0,0,0,0.03);
-    cursor: pointer;
-    outline: none;
-    margin-left: 18px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    min-width: 140px;
-    max-width: 180px;
-    height: 32px;
+    display: none;
 }
-#category-select:focus, #category-select:hover {
-    border-color: #4caf50;
-    box-shadow: 0 2px 8px 0 rgba(76,175,80,0.08);
+.custom-category-link {
+    font-size: 0.98rem;
+    color: #388e3c;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 2px 8px;
+    margin: 0;
+    outline: none;
+    transition: color 0.2s;
+}
+.custom-category-link:hover {
+    color: #222;
+}
+.custom-category-menu {
+    position: absolute;
+    top: 28px;
+    right: 0;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px 0 rgba(0,0,0,0.08);
+    min-width: 160px;
+    z-index: 100;
+    padding: 4px 0;
+}
+.custom-category-item {
+    padding: 7px 18px 7px 16px;
+    font-size: 0.97rem;
+    color: #444;
+    cursor: pointer;
+    background: none;
+    border: none;
+    text-align: left;
+    transition: background 0.15s, color 0.15s;
+}
+.custom-category-item:hover {
+    background: #e6f7ee;
+    color: #222;
 }
 
 /* Tooltip for category dropdown (optional, for custom look) */
@@ -279,28 +313,29 @@ button:disabled {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 28px;
-    padding: 24px 0 18px 0;
+    gap: 24px;
+    padding: 18px 0 12px 0;
     background: none;
-    font-size: 0.98em;
+    font-size: 0.97em;
     color: #888;
     margin-top: 32px;
 }
 .social-link {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
+    color: #888;
+    font-size: 0.97em;
+    text-decoration: underline;
     background: none;
-    transition: background 0.2s;
-    text-decoration: none;
+    border: none;
+    padding: 0 4px;
+    margin: 0;
+    transition: color 0.2s;
+    cursor: pointer;
+    font-weight: 400;
+    letter-spacing: 0.01em;
 }
-.social-link:hover svg path,
-.social-link:hover svg rect,
-.social-link:hover svg circle {
-    fill: #4caf50;
+.social-link:hover {
+    color: #4caf50;
+    text-decoration: underline;
 }
 .social-link:focus {
     outline: 2px solid #4caf50;
