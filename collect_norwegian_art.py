@@ -60,6 +60,21 @@ artists = [
 # Output file
 OUTPUT_FILE = "data/paintings.json"
 
+HEADERS = {
+    "User-Agent": "kunstquiz/1.0 (your_email@example.com) Python requests"
+}
+
+def safe_get(url, params=None, headers=None, max_retries=5):
+    for attempt in range(max_retries):
+        r = requests.get(url, params=params, headers=headers)
+        if r.status_code == 429:
+            print("Rate limited, sleeping 10s...")
+            time.sleep(10)
+            continue
+        r.raise_for_status()
+        return r
+    raise Exception("Too many 429 errors")
+
 # Helper to fetch artist metadata from Wikipedia/Wikidata
 def fetch_artist_metadata(artist):
     wiki_api_url = "https://en.wikipedia.org/w/api.php"
@@ -72,8 +87,7 @@ def fetch_artist_metadata(artist):
         "explaintext": True,
         "redirects": 1
     }
-    response = requests.get(wiki_api_url, params=params)
-    response.raise_for_status()
+    response = safe_get(wiki_api_url, params=params, headers=HEADERS)
     pages = response.json()["query"]["pages"]
     page_id = list(pages.keys())[0]
     if page_id == "-1":
@@ -93,8 +107,7 @@ def fetch_artist_metadata(artist):
     """
     wikidata_url = "https://query.wikidata.org/sparql"
     params = {"query": sparql_query, "format": "json"}
-    response = requests.get(wikidata_url, params=params)
-    response.raise_for_status()
+    response = safe_get(wikidata_url, params=params, headers=HEADERS)
     results = response.json()["results"]["bindings"]
     birth = death = "Unknown"
     if results:
@@ -117,6 +130,66 @@ def fetch_artist_metadata(artist):
         "wikidata_id": wikidata_id
     }
 
+# Helper to fetch artist gender and country from Wikidata (skip movement and image for speed)
+def fetch_artist_extra_metadata(wikidata_id):
+    sparql_query = f"""
+    SELECT ?genderLabel ?countryLabel WHERE {{
+      OPTIONAL {{ wd:{wikidata_id} wdt:P21 ?gender. }}
+      OPTIONAL {{ wd:{wikidata_id} wdt:P27 ?country. }}
+      SERVICE wikibase:label {{ bd:serviceParam wikibase:language 'en'. }}
+    }}
+    """
+    wikidata_url = "https://query.wikidata.org/sparql"
+    params = {"query": sparql_query, "format": "json"}
+    response = safe_get(wikidata_url, params=params, headers=HEADERS)
+    results = response.json()["results"]["bindings"]
+    gender = country = None
+    if results:
+        res = results[0]
+        gender = res.get("genderLabel", {}).get("value", None)
+        country = res.get("countryLabel", {}).get("value", None)
+    return gender, country
+
+# Helper to guess genre from title/metadata
+
+def guess_genre(title, medium):
+    t = title.lower()
+    if "portrait" in t or "self-portrait" in t:
+        return "Portrait"
+    if "landscape" in t or "fjord" in t or "mountain" in t or "nature" in t:
+        return "Landscape"
+    if "interior" in t:
+        return "Interior"
+    if "myth" in t or "legend" in t or "national" in t:
+        return "Historical/Nationalism"
+    if "still life" in t:
+        return "Still Life"
+    if medium and "etching" in medium.lower():
+        return "Etching"
+    return "Painting"
+
+# Helper to guess century from year
+
+def guess_century(year):
+    if not year or not year[:4].isdigit():
+        return None
+    y = int(year[:4])
+    if 1700 <= y < 1800:
+        return "1700s"
+    if 1800 <= y < 1900:
+        return "1800s"
+    if 1900 <= y < 2000:
+        return "1900s"
+    if 2000 <= y < 2100:
+        return "2000s"
+    return None
+
+# Popular painters (top 10 by your list)
+POPULAR_PAINTERS = set([
+    "Edvard Munch", "Johan Christian Dahl", "Christian Krohg", "Theodor Kittelsen", "Harriet Backer",
+    "Kitty Lange Kielland", "Peter Nicolai Arbo", "Hans Gude", "Peder Balke", "Frits Thaulow"
+])
+
 # Helper to fetch paintings from Wikimedia Commons
 API_ENDPOINT = "https://commons.wikimedia.org/w/api.php"
 def extract_metadata(metadata, key):
@@ -133,7 +206,7 @@ def fetch_paintings_for_artist(artist, limit=20):
         "prop": "imageinfo",
         "iiprop": "url|user|size|extmetadata"
     }
-    response = requests.get(API_ENDPOINT, params=params)
+    response = safe_get(API_ENDPOINT, params=params, headers=HEADERS)
     if response.status_code != 200:
         return []
     data = response.json()
@@ -168,14 +241,39 @@ for artist in artists:
     if not artist_meta:
         print(f"  Skipping {artist}: No metadata found.")
         continue
+    # Fetch extra metadata
+    gender, country = fetch_artist_extra_metadata(artist_meta["wikidata_id"])
     paintings = fetch_paintings_for_artist(artist, limit=20)
     # Attach artist metadata to each painting
     for painting in paintings:
         painting["artist_bio"] = artist_meta["bio"]
         painting["artist_birth"] = artist_meta["birth"]
         painting["artist_death"] = artist_meta["death"]
+        painting["country_of_origin"] = country or "Norway"
+        painting["artist_gender"] = gender or "unknown"
+        # Guess genre
+        painting["genre"] = guess_genre(painting["title"], painting.get("medium", ""))
+        # Guess century
+        century = guess_century(painting.get("year", ""))
+        # Assign categories
+        categories = []
+        if artist in POPULAR_PAINTERS:
+            categories.append("Popular painters")
+        if painting["genre"] == "Landscape":
+            categories.append("Landscapes")
+        if painting["genre"] == "Portrait":
+            categories.append("Portraits")
+        if painting["genre"] == "Historical/Nationalism" or (country and "Norway" in country):
+            categories.append("Historical/Nationalism")
+        if century:
+            categories.append(century)
+        if painting.get("location", "").lower().find("national museum") != -1:
+            categories.append("National Museum of Norway")
+        if gender and gender.lower() == "female":
+            categories.append("Women painters")
+        painting["categories"] = categories
     all_paintings.extend(paintings)
-    time.sleep(1)  # Be nice to the API
+    time.sleep(2)  # Be nice to the API
 
 # Remove duplicates by (artist, title, url)
 unique = {}

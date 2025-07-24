@@ -1,6 +1,7 @@
 let streak = 0;
 let paintings = [];
 let lastPaintingIndex = -1;
+let selectedCategory = 'all';
 
 fetch('./data/paintings.json')
     .then(res => res.json())
@@ -10,8 +11,12 @@ fetch('./data/paintings.json')
     });
 
 function getValidPaintings() {
-    // Only paintings with a valid artist and url
-    return paintings.filter(p => p.artist && p.url);
+    // Only paintings with a valid artist and url, and matching the selected category
+    let filtered = paintings.filter(p => p.artist && p.url);
+    if (selectedCategory && selectedCategory !== 'all') {
+        filtered = filtered.filter(p => Array.isArray(p.categories) && p.categories.includes(selectedCategory));
+    }
+    return filtered;
 }
 
 function loadQuiz() {
@@ -62,6 +67,7 @@ function loadQuiz() {
                     setTimeout(() => {
                         showCongratsModal();
                     }, 500);
+                    showArtistPopup(painting);
                     return;
                 }
                 selectedBtn.classList.add('correct');
@@ -72,6 +78,7 @@ function loadQuiz() {
                 correctBtn.classList.add('correct');
                 showMessage('Feil!', '#e53935');
             }
+            showArtistPopup(painting);
             updateStreakBar();
             setTimeout(() => {
                 hideMessage();
@@ -146,6 +153,38 @@ function hideCongratsModal() {
     document.getElementById('congrats-modal').style.display = 'none';
 }
 
+// Artist info pop-up
+function showArtistPopup(painting) {
+    let popup = document.getElementById('artist-popup');
+    if (!popup) {
+        popup = document.createElement('div');
+        popup.id = 'artist-popup';
+        popup.className = 'artist-popup';
+        document.body.appendChild(popup);
+    }
+    let imgHtml = '';
+    if (painting.artist_image) {
+        imgHtml = `<img src="${painting.artist_image}" alt="${painting.artist}" class="artist-portrait">`;
+    }
+    let bio = painting.artist_bio || '';
+    let shortBio = bio.split('.').slice(0,2).join('.') + '.';
+    popup.innerHTML = `
+        <div class="artist-popup-content">
+            ${imgHtml}
+            <div class="artist-popup-text">
+                <strong>${painting.artist}</strong><br>
+                <span>${shortBio}</span>
+            </div>
+        </div>
+    `;
+    popup.style.display = 'block';
+    setTimeout(() => { popup.style.opacity = 1; }, 10);
+    setTimeout(() => {
+        popup.style.opacity = 0;
+        setTimeout(() => { popup.style.display = 'none'; }, 400);
+    }, 2200);
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
@@ -153,6 +192,15 @@ document.addEventListener('DOMContentLoaded', function() {
             streak = 0;
             updateStreakBar();
             hideCongratsModal();
+            loadQuiz();
+        };
+    }
+    const catSelect = document.getElementById('category-select');
+    if (catSelect) {
+        catSelect.onchange = function() {
+            selectedCategory = catSelect.value;
+            streak = 0;
+            updateStreakBar();
             loadQuiz();
         };
     }
