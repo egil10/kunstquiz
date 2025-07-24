@@ -1,5 +1,6 @@
 let streak = 0;
 let paintings = [];
+let lastPaintingIndex = -1;
 
 fetch('./data/paintings.json')
     .then(res => res.json())
@@ -59,7 +60,13 @@ function loadQuiz() {
 }
 
 function getRandomPainting() {
-    return paintings[Math.floor(Math.random() * paintings.length)];
+    if (paintings.length <= 1) return paintings[0];
+    let idx;
+    do {
+        idx = Math.floor(Math.random() * paintings.length);
+    } while (idx === lastPaintingIndex);
+    lastPaintingIndex = idx;
+    return paintings[idx];
 }
 
 function generateOptions(correct) {
