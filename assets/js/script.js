@@ -47,7 +47,6 @@ function loadQuiz() {
                 correctBtn.classList.add('correct');
                 showMessage('Feil!', '#e53935');
             }
-            document.getElementById('streak').textContent = 'Streak: ' + streak;
             updateStreakBar();
             setTimeout(() => {
                 hideMessage();
