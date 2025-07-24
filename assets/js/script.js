@@ -10,49 +10,52 @@ fetch('./data/paintings.json')
 
 function loadQuiz() {
     const painting = getRandomPainting();
+    if (!painting) return;
+
+    // Set painting image
     const img = document.getElementById('painting');
     img.src = painting.url;
     img.alt = painting.title;
 
-    const artists = generateOptions(painting.artist);
+    // Generate options
     const optionsDiv = document.getElementById('options');
     optionsDiv.innerHTML = '';
 
+    const artists = generateOptions(painting.artist);
     artists.forEach(artist => {
-        const button = document.createElement('button');
-        button.textContent = artist;
-
-        button.onclick = () => {
-            const buttons = document.querySelectorAll('#options button');
-            buttons.forEach(btn => {
-                if (btn.textContent === painting.artist) {
-                    btn.classList.add('correct');
-                } else {
-                    btn.classList.add('wrong');
-                }
-                btn.disabled = true;
+        const btn = document.createElement('button');
+        btn.textContent = artist;
+        btn.className = '';
+        btn.onclick = () => {
+            // Disable all buttons
+            Array.from(optionsDiv.children).forEach(b => b.disabled = true);
+            // Find correct and selected buttons
+            let correctBtn, selectedBtn;
+            Array.from(optionsDiv.children).forEach(b => {
+                if (b.textContent === painting.artist) correctBtn = b;
+                if (b.textContent === artist) selectedBtn = b;
             });
-
             if (artist === painting.artist) {
                 streak++;
+                if (streak > 10) streak = 10;
+                selectedBtn.classList.add('correct');
+                showMessage(`✅ Correct! "${painting.title}" is by ${artist}.`, '#388e3c');
             } else {
                 streak = 0;
+                selectedBtn.classList.add('wrong');
+                correctBtn.classList.add('correct');
+                showMessage(`❌ Wrong! It was "${painting.title}" by ${painting.artist}.`, '#e53935');
             }
-
+            document.getElementById('streak').textContent = 'Streak: ' + streak;
             updateStreakBar();
-
             setTimeout(() => {
-                if (streak >= 10) {
-                    alert("🏆 You're on fire! 10 in a row!");
-                    streak = 0;
-                    updateStreakBar();
-                }
+                showMessage('', '');
                 loadQuiz();
             }, 1200);
         };
-
-        optionsDiv.appendChild(button);
+        optionsDiv.appendChild(btn);
     });
+    updateStreakBar();
 }
 
 function getRandomPainting() {
@@ -69,11 +72,17 @@ function generateOptions(correct) {
 }
 
 function updateStreakBar() {
-    const bar = document.getElementById('streak-bar');
-    bar.innerHTML = '';
+    const streakBar = document.getElementById('streak-bar');
+    streakBar.innerHTML = '';
     for (let i = 0; i < 10; i++) {
-        const box = document.createElement('div');
-        box.className = 'streak-box' + (i < streak ? ' filled' : '');
-        bar.appendChild(box);
+        const circle = document.createElement('div');
+        circle.className = 'streak-circle' + (i < streak ? ' filled' : '');
+        streakBar.appendChild(circle);
     }
+}
+
+function showMessage(text, color) {
+    const msg = document.getElementById('message');
+    msg.textContent = text;
+    msg.style.color = color;
 }
