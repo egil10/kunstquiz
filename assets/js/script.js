@@ -103,7 +103,7 @@ function renderCategorySelector() {
         { value: 'all', label: 'Full collection' },
         { value: 'Popular painters', label: 'Popular painters' },
         { value: 'National Museum of Norway', label: 'National Museum of Norway' },
-        { value: 'Portraits', label: 'Portraits' }
+        { value: 'Landscapes', label: 'Landscapes' }
     ];
     // Filter to only those that exist in the data
     const { counts } = getCategoryCounts();
@@ -323,14 +323,8 @@ function showArtistPopup(painting, onDone) {
     if (!popup) {
         popup = document.createElement('div');
         popup.id = 'artist-popup';
-        popup.className = 'artist-popup large-popup';
-        // Place in btn-col, covering the options
-        const btnCol = document.querySelector('.btn-col');
-        if (btnCol) {
-            btnCol.appendChild(popup);
-        } else {
-            document.body.appendChild(popup);
-        }
+        popup.className = 'artist-popup toast';
+        document.body.appendChild(popup);
     }
     const name = painting.artist || '';
     const bioInfo = getArtistBioInfo(name);
@@ -338,34 +332,34 @@ function showArtistPopup(painting, onDone) {
     let bio = '';
     let imgHtml = '';
     if (bioInfo) {
-        heading = `${bioInfo.name} (${bioInfo.birth_year}–${bioInfo.death_year})`;
+        heading = `<strong>${bioInfo.name} (${bioInfo.birth_year}–${bioInfo.death_year})</strong>`;
         bio = bioInfo.bio;
         if (bioInfo.self_portrait_url) {
-            imgHtml = `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait large-portrait">`;
+            imgHtml = `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait toast-portrait">`;
         }
     } else {
         const birth = getYearOnly(painting.artist_birth);
         const death = getYearOnly(painting.artist_death);
         let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
-        heading = `${name}${lifeSpan ? ` (${lifeSpan})` : ''}`;
-        imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait large-portrait">` : '';
+        heading = `<strong>${name}${lifeSpan ? ` (${lifeSpan})` : ''}</strong>`;
+        imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait toast-portrait">` : '';
         bio = '';
     }
     popup.innerHTML = `
-        <div class="artist-popup-content large-content">
+        <div class="artist-popup-content toast-content">
             ${imgHtml}
-            <div class="artist-popup-text large-text">
-                <strong>${heading}</strong><br>
+            <div class="artist-popup-text toast-text">
+                ${heading}
                 <span>${bio}</span>
             </div>
         </div>
     `;
-    popup.style.display = 'flex';
-    popup.style.opacity = 1;
+    popup.classList.add('visible');
     setTimeout(() => {
-        popup.style.opacity = 0;
+        popup.classList.remove('visible');
         setTimeout(() => { popup.style.display = 'none'; if (onDone) onDone(); }, 400);
     }, 3000);
+    popup.style.display = 'flex';
 }
 
 // Make logo/title clickable to reset
