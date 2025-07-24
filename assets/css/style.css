@@ -222,7 +222,7 @@ button:disabled {
     margin: 18px 0 0 0;
     background: #fff;
     border-radius: 10px;
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
     padding: 12px 18px 12px 12px;
     min-width: 180px;
     max-width: 400px;
