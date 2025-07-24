@@ -38,7 +38,13 @@ function loadQuiz() {
             });
             if (artist === painting.artist) {
                 streak++;
-                if (streak > 10) streak = 10;
+                if (streak >= 10) {
+                    updateStreakBar();
+                    setTimeout(() => {
+                        showCongratsModal();
+                    }, 500);
+                    return;
+                }
                 selectedBtn.classList.add('correct');
                 showMessage('Riktig!', '#388e3c');
             } else {
@@ -98,3 +104,22 @@ function hideMessage() {
     const msg = document.getElementById('message');
     msg.classList.remove('visible');
 }
+
+function showCongratsModal() {
+    document.getElementById('congrats-modal').style.display = 'flex';
+}
+function hideCongratsModal() {
+    document.getElementById('congrats-modal').style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const resetBtn = document.getElementById('reset-btn');
+    if (resetBtn) {
+        resetBtn.onclick = function() {
+            streak = 0;
+            updateStreakBar();
+            hideCongratsModal();
+            loadQuiz();
+        };
+    }
+});
