@@ -361,6 +361,52 @@ function setupLogoReset() {
     }
 }
 
+function showArtistsModal() {
+    // Only artists with paintings in the dataset
+    const artistSet = new Set(paintings.map(p => p.artist).filter(Boolean));
+    const artists = Array.from(artistSet).sort((a, b) => a.localeCompare(b));
+    // Split into columns (3 columns)
+    const numCols = 3;
+    const perCol = Math.ceil(artists.length / numCols);
+    const columns = [];
+    for (let i = 0; i < numCols; i++) {
+        columns.push(artists.slice(i * perCol, (i + 1) * perCol));
+    }
+    // Build HTML
+    const container = document.getElementById('artist-list-columns');
+    container.innerHTML = '';
+    columns.forEach(col => {
+        const div = document.createElement('div');
+        div.className = 'artist-list-col';
+        const ul = document.createElement('ul');
+        col.forEach(name => {
+            const li = document.createElement('li');
+            li.textContent = name;
+            ul.appendChild(li);
+        });
+        div.appendChild(ul);
+        container.appendChild(div);
+    });
+    document.getElementById('artists-modal').style.display = 'flex';
+}
+
+// Modal open/close logic
+window.addEventListener('DOMContentLoaded', function() {
+    const showLink = document.getElementById('show-artists-link');
+    const closeBtn = document.getElementById('close-artists-modal');
+    if (showLink) {
+        showLink.onclick = function(e) {
+            e.preventDefault();
+            showArtistsModal();
+        };
+    }
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            document.getElementById('artists-modal').style.display = 'none';
+        };
+    }
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
