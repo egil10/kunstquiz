@@ -6,6 +6,8 @@ Try it live on GitHub Pages:
 👉 [Play the game](https://<your-username>.github.io/<your-repo-name>/)
 
 ---
+---
+---
 
 ## 🎨 Example Artwork
 
