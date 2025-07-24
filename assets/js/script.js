@@ -3,6 +3,12 @@ let paintings = [];
 let lastPaintingIndex = -1;
 let selectedCategory = 'all';
 
+function getYearOnly(dateStr) {
+    if (!dateStr) return '';
+    const match = dateStr.match(/\d{4}/);
+    return match ? match[0] : '';
+}
+
 function getCategoryCounts() {
     const counts = {};
     const painterSets = {};
@@ -21,15 +27,25 @@ function getCategoryCounts() {
     return { counts, painterSets };
 }
 
+function updateCollectionInfo() {
+    const catSelect = document.getElementById('category-select');
+    const infoBar = document.getElementById('collection-info');
+    if (!catSelect || !infoBar) return;
+    const { counts, painterSets } = getCategoryCounts();
+    const selected = catSelect.value || 'all';
+    const count = counts[selected] || 0;
+    const painterCount = painterSets[selected] ? painterSets[selected].size : 0;
+    infoBar.textContent = `${count} paintings, ${painterCount} painters`;
+}
+
 function updateCategoryDropdown() {
     const catSelect = document.getElementById('category-select');
     if (!catSelect) return;
     const { counts, painterSets } = getCategoryCounts();
-    // Get top 10 categories (excluding 'all')
+    // Get all categories except 'all', sort alphabetically
     const sortedCats = Object.keys(counts)
         .filter(cat => cat !== 'all')
-        .sort((a, b) => counts[b] - counts[a])
-        .slice(0, 10);
+        .sort((a, b) => a.localeCompare(b));
     // Always include 'all' as first option
     const options = [
         { value: 'all', label: 'Full collection' },
@@ -38,19 +54,26 @@ function updateCategoryDropdown() {
     // Rebuild dropdown
     catSelect.innerHTML = '';
     options.forEach(opt => {
-        const count = counts[opt.value] || 0;
-        const painterCount = painterSets[opt.value] ? painterSets[opt.value].size : 0;
         const option = document.createElement('option');
         option.value = opt.value;
-        if (opt.value === 'all') {
-            option.textContent = `Full collection (${count} paintings, ${painterCount} painters)`;
-            option.title = 'All paintings and painters in the dataset';
-        } else {
-            option.textContent = `${opt.label} (${count} paintings, ${painterCount} painters)`;
-            option.title = `${count} paintings, ${painterCount} painters in this category`;
-        }
+        option.textContent = opt.label;
         catSelect.appendChild(option);
     });
+    updateCollectionInfo();
+}
+
+// Update info bar on category change
+function setupCategoryChangeInfoBar() {
+    const catSelect = document.getElementById('category-select');
+    if (catSelect) {
+        catSelect.onchange = function() {
+            selectedCategory = catSelect.value;
+            streak = 0;
+            updateStreakBar();
+            updateCollectionInfo();
+            loadQuiz();
+        };
+    }
 }
 
 // Use the merged data file
@@ -59,6 +82,7 @@ fetch('./data/paintings_merged.json')
     .then(data => {
         paintings = data;
         updateCategoryDropdown();
+        updateCollectionInfo();
         loadQuiz();
     });
 
@@ -135,7 +159,7 @@ function loadQuiz() {
             setTimeout(() => {
                 hideMessage();
                 loadQuiz();
-            }, 1000);
+            }, 2500);
         };
         optionsDiv.appendChild(btn);
     });
@@ -225,17 +249,17 @@ function showArtistPopup(painting) {
             document.body.appendChild(popup);
         }
     }
-    // Format: {Name} (Year-Year) \n {Work name} (Year)
+    // Format: {Name} (YEAR–YEAR) \n {Work name} (YEAR)
     const name = painting.artist || '';
-    const birth = painting.artist_birth || '';
-    const death = painting.artist_death || '';
+    const birth = getYearOnly(painting.artist_birth);
+    const death = getYearOnly(painting.artist_death);
     const paintingTitle = cleanWorkTitle(painting.title ? stripHtml(painting.title) : '');
-    const year = painting.year || '';
+    const year = getYearOnly(painting.year);
     let imgHtml = '';
     if (painting.artist_image) {
         imgHtml = `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait">`;
     }
-    let lifeSpan = (birth && death && birth !== 'Unknown' && death !== 'Unknown') ? `${birth} – ${death}` : '';
+    let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
     let line1 = `${name}${lifeSpan ? ` (${lifeSpan})` : ''}`;
     let line2 = paintingTitle ? `${paintingTitle}${year ? ` (${year})` : ''}` : '';
     popup.innerHTML = `
@@ -252,7 +276,7 @@ function showArtistPopup(painting) {
     setTimeout(() => {
         popup.style.opacity = 0;
         setTimeout(() => { popup.style.display = 'none'; }, 400);
-    }, 2000); // 2 seconds
+    }, 2500); // 2.5 seconds
 }
 
 // Make logo/title clickable to reset
@@ -281,14 +305,6 @@ document.addEventListener('DOMContentLoaded', function() {
             loadQuiz();
         };
     }
-    const catSelect = document.getElementById('category-select');
-    if (catSelect) {
-        catSelect.onchange = function() {
-            selectedCategory = catSelect.value;
-            streak = 0;
-            updateStreakBar();
-            loadQuiz();
-        };
-    }
     setupLogoReset();
+    setupCategoryChangeInfoBar();
 });

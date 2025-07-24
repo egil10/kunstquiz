@@ -256,6 +256,16 @@ button:disabled {
     color: #388e3c;
 }
 
+.collection-info {
+    display: inline-block;
+    margin-left: 18px;
+    font-size: 1.01rem;
+    color: #888;
+    font-weight: 400;
+    vertical-align: middle;
+    letter-spacing: 0.01em;
+}
+
 @media (max-width: 900px) {
     .main-flex {
         flex-direction: column;
