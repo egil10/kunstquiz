@@ -157,42 +157,103 @@ API_ENDPOINT = "https://commons.wikimedia.org/w/api.php"
 def extract_metadata(metadata, key):
     return metadata.get(key, {}).get("value", "").strip()
 
-def fetch_paintings_for_artist(artist, limit=20):
-    params = {
-        "action": "query",
-        "format": "json",
-        "generator": "search",
-        "gsrsearch": f'filetype:bitmap incategory:"Paintings by {artist}"',
-        "gsrlimit": limit,
-        "gsrnamespace": 6,
-        "prop": "imageinfo",
-        "iiprop": "url|user|size|extmetadata"
-    }
-    response = safe_get(API_ENDPOINT, params=params, headers=HEADERS)
-    if response.status_code != 200:
-        return []
-    data = response.json()
-    pages = data.get("query", {}).get("pages", {})
-    entries = []
-    for page_id, page in pages.items():
-        info = page.get("imageinfo", [{}])[0]
-        metadata = info.get("extmetadata", {})
-        url = info.get("url")
-        raw_title = extract_metadata(metadata, "ObjectName") or page.get("title", "")
-        title = raw_title.replace("File:", "").replace("_", " ").strip()
-        entry = {
-            "artist": artist,
-            "title": title,
-            "url": url,
-            "year": extract_metadata(metadata, "DateTimeOriginal") or extract_metadata(metadata, "DateCreated"),
-            "medium": extract_metadata(metadata, "Medium"),
-            "dimensions": extract_metadata(metadata, "Dimensions"),
-            "location": extract_metadata(metadata, "Credit"),
-            "license": extract_metadata(metadata, "LicenseShortName"),
-            "source": "Wikimedia Commons"
+# Helper to recursively fetch all images from a category and its subcategories
+def fetch_images_from_category(category, limit=100):
+    images = set()
+    visited = set()
+    def recurse(cat):
+        if cat in visited:
+            return
+        visited.add(cat)
+        params = {
+            "action": "query",
+            "format": "json",
+            "list": "categorymembers",
+            "cmtitle": f"Category:{cat}",
+            "cmtype": "file|subcat",
+            "cmlimit": 500
         }
-        if url:
-            entries.append(entry)
+        r = requests.get(API_ENDPOINT, params=params, headers=HEADERS)
+        if r.status_code != 200:
+            return
+        data = r.json()
+        for member in data.get("query", {}).get("categorymembers", []):
+            if member["ns"] == 6:  # File
+                images.add(member["title"])
+            elif member["ns"] == 14:  # Subcategory
+                subcat = member["title"].replace("Category:", "")
+                recurse(subcat)
+    recurse(category)
+    # Now get imageinfo for each file
+    entries = []
+    batch = list(images)
+    for i in range(0, len(batch), 50):
+        titles = "|".join(batch[i:i+50])
+        params = {
+            "action": "query",
+            "format": "json",
+            "titles": titles,
+            "prop": "imageinfo",
+            "iiprop": "url|user|size|extmetadata"
+        }
+        r = requests.get(API_ENDPOINT, params=params, headers=HEADERS)
+        if r.status_code != 200:
+            continue
+        pages = r.json().get("query", {}).get("pages", {})
+        for page_id, page in pages.items():
+            info = page.get("imageinfo", [{}])[0]
+            metadata = info.get("extmetadata", {})
+            url = info.get("url")
+            raw_title = metadata.get("ObjectName", {}).get("value", page.get("title", ""))
+            title = raw_title.replace("File:", "").replace("_", " ").strip()
+            entry = {
+                "title": title,
+                "url": url,
+                "year": metadata.get("DateTimeOriginal", {}).get("value", "") or metadata.get("DateCreated", {}).get("value", ""),
+                "medium": metadata.get("Medium", {}).get("value", ""),
+                "dimensions": metadata.get("Dimensions", {}).get("value", ""),
+                "location": metadata.get("Credit", {}).get("value", ""),
+                "license": metadata.get("LicenseShortName", {}).get("value", ""),
+                "source": "Wikimedia Commons"
+            }
+            if url:
+                entries.append(entry)
+    return entries[:limit]
+
+# Helper to fetch paintings from Wikidata if Commons is sparse
+def fetch_paintings_from_wikidata(artist_name, limit=100):
+    # Get Wikidata ID for artist
+    search_url = "https://www.wikidata.org/w/api.php"
+    params = {"action": "wbsearchentities", "search": artist_name, "language": "en", "format": "json", "type": "item"}
+    r = requests.get(search_url, params=params, headers=HEADERS)
+    r.raise_for_status()
+    results = r.json().get("search", [])
+    if not results:
+        return []
+    qid = results[0]["id"]
+    # SPARQL for paintings by this artist with Commons images
+    sparql = f'''
+    SELECT ?painting ?paintingLabel ?image ?inception WHERE {{
+      ?painting wdt:P31 wd:Q3305213; wdt:P170 wd:{qid}; wdt:P18 ?image.
+      OPTIONAL {{ ?painting wdt:P571 ?inception. }}
+      SERVICE wikibase:label {{ bd:serviceParam wikibase:language "en". }}
+    }} LIMIT {limit}
+    '''
+    url = "https://query.wikidata.org/sparql"
+    r2 = requests.get(url, params={"query": sparql, "format": "json"}, headers=HEADERS)
+    r2.raise_for_status()
+    entries = []
+    for item in r2.json()["results"]["bindings"]:
+        entries.append({
+            "title": item.get("paintingLabel", {}).get("value", ""),
+            "url": item.get("image", {}).get("value", ""),
+            "year": item.get("inception", {}).get("value", ""),
+            "medium": "",
+            "dimensions": "",
+            "location": "",
+            "license": "",
+            "source": "Wikidata"
+        })
     return entries
 
 # Main collection and merge logic
@@ -218,7 +279,21 @@ for artist in artists:
         continue
     # Fetch extra metadata
     gender, country, movement = fetch_artist_extra_metadata(artist_meta["wikidata_id"])
-    paintings = fetch_paintings_for_artist(artist, limit=100)  # Increased to 100
+    # Try recursive Commons category search first
+    cat_name = f"Paintings by {artist}"
+    paintings = fetch_images_from_category(cat_name, limit=100)
+    if len(paintings) < 30:
+        print(f"  Only {len(paintings)} paintings found in Commons categories for {artist}, supplementing with Wikidata...")
+        paintings += fetch_paintings_from_wikidata(artist, limit=100-len(paintings))
+    # Deduplicate by url
+    seen_urls = set()
+    unique_paintings = []
+    for p in paintings:
+        if p["url"] and p["url"] not in seen_urls:
+            unique_paintings.append(p)
+            seen_urls.add(p["url"])
+    paintings = unique_paintings
+    print(f"  Found {len(paintings)} paintings for {artist}.")
     if len(paintings) < 100:
         print(f"  WARNING: Only {len(paintings)} paintings found for {artist}!")
     # Note: Filtering out images that are photos of paintings (with frames, etc.) is not reliably possible with current Wikimedia metadata. Most images are direct scans or photos of the artwork, but some may include frames or gallery context. Manual curation or advanced image analysis would be needed for perfect filtering.
