@@ -3,59 +3,11 @@ import json
 import time
 from datetime import datetime
 import re
+import os
 
-# List of Norwegian artists to collect data for
+# Expanded list of 100 Norwegian painters
 artists = [
-    "Edvard Munch",
-    "Johan Christian Dahl",
-    "Christian Krohg",
-    "Theodor Kittelsen",
-    "Harriet Backer",
-    "Kitty Lange Kielland",
-    "Peter Nicolai Arbo",
-    "Hans Gude",
-    "Peder Balke",
-    "Frits Thaulow",
-    "Nikolai Astrup",
-    "Odd Nerdrum",
-    "Harald Sohlberg",
-    "Erik Werenskiold",
-    "Adolph Tidemand",
-    "Lars Hertervig",
-    "Oda Krohg",
-    "Eilif Peterssen",
-    "Hans Dahl",
-    "Per Krohg",
-    "August Cappelen",
-    "Asta Nørregaard",
-    "Amaldus Nielsen",
-    "Christian Skredsvig",
-    "Gunnar Berg",
-    "Halfdan Egedius",
-    "Thorolf Holmboe",
-    "Jakob Weidemann",
-    "Peder Aadnes",
-    "Martin Aagaard",
-    "Rolf Aamot",
-    "Johannes Flintoe",
-    "Rolf Groven",
-    "Konrad Knudsen",
-    "Wilhelm Peters",
-    "Halvard Storm",
-    "Jacob Gløersen",
-    "Gustav Wentzel",
-    "Oscar Wergeland",
-    "Carl Sundt-Hansen",
-    "Adelsteen Normann",
-    "Axel Revold",
-    "Jean Heiberg",
-    "Olav Christopher Jenssen",
-    "Bjarne Melgaard",
-    "Fredrik Værslev",
-    "Charlotte Wankel",
-    "Inger Sitter",
-    "Cora Sandel",
-    "Paul René Gauguin"
+    "Edvard Munch", "Johan Christian Dahl", "Christian Krohg", "Theodor Kittelsen", "Harriet Backer", "Kitty Lange Kielland", "Peter Nicolai Arbo", "Hans Gude", "Peder Balke", "Frits Thaulow", "Nikolai Astrup", "Odd Nerdrum", "Harald Sohlberg", "Erik Werenskiold", "Adolph Tidemand", "Lars Hertervig", "Oda Krohg", "Eilif Peterssen", "Hans Dahl", "Per Krohg", "August Cappelen", "Asta Nørregaard", "Amaldus Nielsen", "Christian Skredsvig", "Gunnar Berg", "Halfdan Egedius", "Thorolf Holmboe", "Jakob Weidemann", "Peder Aadnes", "Martin Aagaard", "Rolf Aamot", "Johannes Flintoe", "Rolf Groven", "Konrad Knudsen", "Wilhelm Peters", "Halvard Storm", "Jacob Gløersen", "Gustav Wentzel", "Oscar Wergeland", "Carl Sundt-Hansen", "Adelsteen Normann", "Axel Revold", "Jean Heiberg", "Olav Christopher Jenssen", "Bjarne Melgaard", "Fredrik Værslev", "Charlotte Wankel", "Inger Sitter", "Cora Sandel", "Paul René Gauguin", "Peder Severin Krøyer", "Thomas Fearnley", "Knud Baade", "Joachim Frich", "Morten Müller", "Johan Fredrik Eckersberg", "Otto Sinding", "Nils Hansteen", "Eyolf Soot", "Ludvig Karsten", "Thorvald Erichsen", "Henrik Lund", "Henrik Sørensen", "Pola Gauguin", "Rolf Nesch", "Olaf Gulbransson", "Bjarne Ness", "Ludvig Eikaas", "Kåre Tveter", "Kjell Aukrust", "Kåre Espolin Johnson", "Frans Widerberg", "Håkon Bleken", "Knut Rose", "Knut Rumohr", "Kjartan Slettemark", "Vebjørn Sand", "Håkon Gullvåg", "Ørnulf Opdahl", "Kjell Pahr-Iversen", "Lisa Aisato", "Gerhard Munthe", "Kjell Nupen", "Pushwagner", "Bjørn Ransve", "Arne Ekeland", "Kai Fjell", "Reidar Aulie", "Arne Texnes Kavli", "Søren Onsager", "Helge Ulving", "Nils Gude", "Bernt Lund", "Nils Elias Kristi", "Oluf Wold-Torne", "Sigurd Dancke", "Alf Lundeby", "Thorleif Stadheim", "Ida Lorentzen", "Marianne Aulie"
 ]
 
 # Output file
@@ -246,6 +198,18 @@ def fetch_paintings_for_artist(artist, limit=20):
 
 # Main collection and merge logic
 all_paintings = []
+# Read existing paintings.json if it exists
+existing_paintings = []
+if os.path.exists(OUTPUT_FILE):
+    with open(OUTPUT_FILE, 'r', encoding='utf-8') as f:
+        try:
+            existing_paintings = json.load(f)
+        except Exception:
+            existing_paintings = []
+
+# Build a set of unique keys for fast lookup
+existing_keys = set((p['artist'], p['title'], p['url']) for p in existing_paintings)
+
 for artist in artists:
     print(f"Processing {artist}...")
     artist_meta = fetch_artist_metadata(artist)
@@ -257,6 +221,9 @@ for artist in artists:
     paintings = fetch_paintings_for_artist(artist, limit=20)
     # Attach artist metadata to each painting
     for painting in paintings:
+        key = (painting['artist'], painting['title'], painting['url'])
+        if key in existing_keys:
+            continue  # skip duplicates
         painting["artist_bio"] = artist_meta["bio"]
         painting["artist_birth"] = artist_meta["birth"]
         painting["artist_death"] = artist_meta["death"]
@@ -293,8 +260,25 @@ for artist in artists:
         for k in list(painting.keys()):
             if k.startswith("imageinfo") or k in ["user", "size", "extmetadata", "geocoordinates", "filemetadata"]:
                 del painting[k]
-    all_paintings.extend(paintings)
+        all_paintings.append(painting)
+        existing_keys.add(key)
     time.sleep(2)  # Be nice to the API
+
+# At the end, print a summary of paintings per category
+from collections import Counter
+cat_counter = Counter()
+for p in all_paintings:
+    for cat in p.get('categories', []):
+        cat_counter[cat] += 1
+print("\nPaintings per category:")
+for cat, count in cat_counter.most_common():
+    print(f"  {cat}: {count}")
+
+# After category summary, print warnings for underrepresented categories
+print("\nCategories with fewer than 5 paintings:")
+for cat, count in cat_counter.items():
+    if count < 5:
+        print(f"  WARNING: {cat} only has {count} paintings!")
 
 # Remove duplicates by (artist, title, url)
 unique = {}

@@ -3,10 +3,41 @@ let paintings = [];
 let lastPaintingIndex = -1;
 let selectedCategory = 'all';
 
+function getCategoryCounts() {
+    const counts = {};
+    paintings.forEach(p => {
+        if (Array.isArray(p.categories)) {
+            p.categories.forEach(cat => {
+                counts[cat] = (counts[cat] || 0) + 1;
+            });
+        }
+    });
+    return counts;
+}
+
+function updateCategoryDropdown() {
+    const catSelect = document.getElementById('category-select');
+    if (!catSelect) return;
+    const counts = getCategoryCounts();
+    for (let i = 0; i < catSelect.options.length; i++) {
+        const opt = catSelect.options[i];
+        if (opt.value === 'all') {
+            opt.textContent = 'Full collection';
+            opt.title = 'All paintings in the dataset';
+        } else {
+            const count = counts[opt.value] || 0;
+            opt.textContent = `${opt.value} (${count})`;
+            opt.title = `${count} paintings in this category`;
+        }
+    }
+}
+
+// Call updateCategoryDropdown after paintings are loaded
 fetch('./data/paintings.json')
     .then(res => res.json())
     .then(data => {
         paintings = data;
+        updateCategoryDropdown();
         loadQuiz();
     });
 
@@ -160,7 +191,13 @@ function showArtistPopup(painting) {
         popup = document.createElement('div');
         popup.id = 'artist-popup';
         popup.className = 'artist-popup';
-        document.body.appendChild(popup);
+        // Insert after #message
+        const msg = document.getElementById('message');
+        if (msg && msg.parentNode) {
+            msg.parentNode.insertBefore(popup, msg.nextSibling);
+        } else {
+            document.body.appendChild(popup);
+        }
     }
     let imgHtml = '';
     if (painting.artist_image) {
@@ -185,6 +222,22 @@ function showArtistPopup(painting) {
     }, 2200);
 }
 
+// Make logo/title clickable to reset
+function setupLogoReset() {
+    const logo = document.querySelector('.title');
+    if (logo) {
+        logo.style.cursor = 'pointer';
+        logo.onclick = function() {
+            selectedCategory = 'all';
+            const catSelect = document.getElementById('category-select');
+            if (catSelect) catSelect.value = 'all';
+            streak = 0;
+            updateStreakBar();
+            loadQuiz();
+        };
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) {
@@ -204,4 +257,5 @@ document.addEventListener('DOMContentLoaded', function() {
             loadQuiz();
         };
     }
+    setupLogoReset();
 });

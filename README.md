@@ -7,7 +7,7 @@ Try it live on GitHub Pages:
 
 ---
 
-## 🎨 Example Artwork Oh Yeah
+## 🎨 Example Artwork 
 
 ![The Scream by Edvard Munch](https://upload.wikimedia.org/wikipedia/commons/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg)
 
@@ -28,7 +28,6 @@ This workflow is repeatable and can be run any time you want to refresh or expan
 ## 🇳🇴 Featured Norwegian Painters
 
 This quiz features works from 50 of Norway's most important and influential painters, including:
-
 - Edvard Munch
 - Johan Christian Dahl
 - Christian Krohg

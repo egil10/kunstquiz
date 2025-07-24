@@ -19,6 +19,11 @@ body {
     letter-spacing: 0.12em;
     font-weight: 700;
     color: #888;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.title:hover {
+    color: #222;
 }
 
 .main-flex {
@@ -203,22 +208,25 @@ button:disabled {
     box-shadow: 0 2px 8px 0 rgba(76,175,80,0.08);
 }
 
+/* Tooltip for category dropdown (optional, for custom look) */
+#category-select option[title] {
+    /* Browsers use native tooltips, but you can style here if using a custom dropdown */
+}
+
 .artist-popup {
-    position: fixed;
-    left: 50%;
-    top: 30%;
-    transform: translate(-50%, -50%);
+    position: static;
+    margin: 18px 0 0 0;
     background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 32px 0 rgba(0,0,0,0.13);
-    padding: 18px 28px 18px 18px;
-    min-width: 220px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+    padding: 12px 18px 12px 12px;
+    min-width: 180px;
     max-width: 340px;
-    z-index: 2000;
     opacity: 0;
     display: none;
     transition: opacity 0.4s;
     pointer-events: none;
+    font-size: 0.98em;
 }
 .artist-popup-content {
     display: flex;
