@@ -147,6 +147,7 @@ function renderCategorySelector() {
 }
 
 // Call renderCategorySelector after paintings are loaded and on category change
+// After paintings are loaded:
 fetch('./data/paintings_merged.json')
     .then(res => res.json())
     .then(data => {
@@ -155,6 +156,7 @@ fetch('./data/paintings_merged.json')
         updateCollectionInfo();
         renderCategorySelector();
         loadQuiz();
+        setupArtistModal(); // <-- ensure modal works after paintings are loaded
     });
 
 function getValidPaintings() {
@@ -391,7 +393,7 @@ function showArtistsModal() {
 }
 
 // Modal open/close logic
-window.addEventListener('DOMContentLoaded', function() {
+function setupArtistModal() {
     const showLink = document.getElementById('show-artists-link');
     const closeBtn = document.getElementById('close-artists-modal');
     if (showLink) {
@@ -405,7 +407,7 @@ window.addEventListener('DOMContentLoaded', function() {
             document.getElementById('artists-modal').style.display = 'none';
         };
     }
-});
+}
 
 document.addEventListener('DOMContentLoaded', function() {
     const resetBtn = document.getElementById('reset-btn');
