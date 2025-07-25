@@ -504,14 +504,25 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     popup.style.display = 'flex';
     setTimeout(() => { popup.style.opacity = 1; }, 10);
     if (!persistent) {
-        // Overlay: fixed, centered over the options
-        popup.style.position = 'fixed';
-        popup.style.left = '50%';
-        popup.style.top = '50%';
-        popup.style.transform = 'translate(-50%, -50%)';
+        const buttonCol = document.getElementById('btn-col'); // make sure your .btn-col div has id="btn-col"
+        const buttonRect = buttonCol.getBoundingClientRect();
+    
+        // Position the popup absolutely inside buttonCol
+        popup.style.position = 'absolute';
+        popup.style.left = '0';
+        popup.style.top = '0';
+        popup.style.transform = 'none';
         popup.style.zIndex = '3000';
-        popup.style.maxWidth = '520px';
-        popup.style.minWidth = '320px';
+        popup.style.width = `${buttonCol.offsetWidth}px`;
+        popup.style.height = `${buttonCol.offsetHeight}px`;
+        popup.style.maxWidth = `${buttonCol.offsetWidth}px`;
+        popup.style.maxHeight = `${buttonCol.offsetHeight}px`;
+        popup.style.overflow = 'visible';
+    
+        // Ensure popup is inside the button column
+        buttonCol.appendChild(popup);
+    
+        // Optional: remove overlay
         let overlay = document.getElementById('artist-popup-overlay');
         if (overlay) overlay.classList.remove('visible');
     } else {

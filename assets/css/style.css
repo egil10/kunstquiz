@@ -83,16 +83,18 @@ html, body {
 }
 
 .btn-col {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    min-width: 320px;
-    gap: 18px;
-    width: 100%;
-    max-width: 400px;
-    margin-top: 48px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  position: relative; /* 🟢 ADD THIS */
+  min-width: 320px;
+  gap: 18px;
+  width: 100%;
+  max-width: 400px;
+  margin-top: 48px;
 }
+
 
 #options {
     display: flex;
