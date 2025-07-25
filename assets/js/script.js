@@ -49,18 +49,15 @@ function updateCollectionInfo() {
 function updateCategoryDropdown() {
     const catSelect = document.getElementById('category-select');
     if (!catSelect) return;
-    const { counts, painterSets } = getCategoryCounts();
-    // Get top 9 categories (excluding 'all'), sorted by number of paintings
-    const sortedCats = Object.keys(counts)
-        .filter(cat => cat !== 'all')
-        .sort((a, b) => counts[b] - counts[a])
-        .slice(0, 9);
-    // Always include 'all' as first option
-    const options = [
-        { value: 'all', label: 'Full collection' },
-        ...sortedCats.map(cat => ({ value: cat, label: cat }))
-    ];
-    // Rebuild dropdown
+    // Only show categories that have at least 1 painting
+    const options = CATEGORY_DEFS.filter(cat => {
+        if (cat.value === 'all') return true;
+        const prev = selectedCategory;
+        selectedCategory = cat.value;
+        const count = getValidPaintings().length;
+        selectedCategory = prev;
+        return count > 0;
+    });
     catSelect.innerHTML = '';
     options.forEach(opt => {
         const option = document.createElement('option');
@@ -99,18 +96,17 @@ function renderCategorySelector() {
         selectorDiv.appendChild(custom);
     }
     // Only show these categories
-    const CATEGORY_ORDER = [
-        { value: 'all', label: 'Full collection' },
-        { value: 'Popular painters', label: 'Popular painters' },
-        { value: 'National Museum of Norway', label: 'National Museum of Norway' },
-        { value: 'Landscapes', label: 'Landscapes' }
-    ];
-    // Filter to only those that exist in the data
-    const { counts } = getCategoryCounts();
-    const options = CATEGORY_ORDER.filter(opt => opt.value === 'all' || counts[opt.value]);
+    const options = CATEGORY_DEFS.filter(cat => {
+        if (cat.value === 'all') return true;
+        const prev = selectedCategory;
+        selectedCategory = cat.value;
+        const count = getValidPaintings().length;
+        selectedCategory = prev;
+        return count > 0;
+    });
     // Set current
     const current = catSelect.value || 'all';
-    custom.textContent = options.find(o => o.value === current)?.label || 'Full collection';
+    custom.textContent = options.find(o => o.value === current)?.label || 'Full Collection';
     custom.style.textDecoration = 'underline';
     custom.style.cursor = 'pointer';
     let menu = document.getElementById('custom-category-menu');
@@ -159,11 +155,83 @@ fetch('./data/paintings_merged.json')
         return loadArtistBios();
     });
 
+// Helper to get artist bios by name
+function getArtistBioMap() {
+    if (!artistBios || !artistBios.length) return {};
+    const map = {};
+    artistBios.forEach(b => { map[b.name] = b; });
+    return map;
+}
+
+// List of new categories
+const CATEGORY_DEFS = [
+    { value: 'all', label: 'Full Collection' },
+    { value: 'popular', label: 'Popular Painters' },
+    { value: 'landscape', label: 'Landscape' },
+    { value: 'romanticism', label: 'Romanticism' },
+    { value: 'expressionism', label: 'Expressionism' },
+    { value: 'impressionism', label: 'Impressionism' },
+    { value: 'postimpressionism', label: 'Post-Impressionism' },
+    { value: '19thcentury', label: '19th century' },
+    { value: '20thcentury', label: '20th century' },
+    { value: 'stolav', label: 'Ridder av St. Olavs' }
+];
+
 function getValidPaintings() {
-    // Only paintings with a valid artist and url, and matching the selected category
     let filtered = paintings.filter(p => p.artist && p.url);
-    if (selectedCategory && selectedCategory !== 'all') {
-        filtered = filtered.filter(p => Array.isArray(p.categories) && p.categories.includes(selectedCategory));
+    if (!selectedCategory || selectedCategory === 'all') return filtered;
+    const artistMap = getArtistBioMap();
+    if (selectedCategory === 'popular') {
+        // Top 10 artists by number of paintings
+        const artistCounts = {};
+        paintings.forEach(p => { if (p.artist) artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1; });
+        const topArtists = Object.entries(artistCounts)
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 10)
+            .map(([name]) => name);
+        filtered = filtered.filter(p => topArtists.includes(p.artist));
+    } else if (selectedCategory === 'landscape') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && bio.genre && bio.genre.some(g => g.toLowerCase().includes('landscape'));
+        });
+    } else if (selectedCategory === 'romanticism') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('romanticism'));
+        });
+    } else if (selectedCategory === 'expressionism') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('expressionism'));
+        });
+    } else if (selectedCategory === 'impressionism') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('impressionism'));
+        });
+    } else if (selectedCategory === 'postimpressionism') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('post-impressionism') || m.toLowerCase().includes('postimpressionism'));
+        });
+    } else if (selectedCategory === '19thcentury') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            const y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
+            return y && y >= 1800 && y < 1900;
+        });
+    } else if (selectedCategory === '20thcentury') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            const y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
+            return y && y >= 1900 && y < 2000;
+        });
+    } else if (selectedCategory === 'stolav') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && bio.awards && bio.awards.some(a => a.toLowerCase().includes('st. olav'));
+        });
     }
     return filtered;
 }
@@ -318,7 +386,7 @@ function getArtistBioInfo(name) {
     return artistBios.find(b => b.name === name) || null;
 }
 
-function showArtistPopup(painting, onDone) {
+function showArtistPopup(paintingOrName, onDone) {
     let popup = document.getElementById('artist-popup');
     if (!popup) {
         popup = document.createElement('div');
@@ -326,41 +394,49 @@ function showArtistPopup(painting, onDone) {
         popup.className = 'artist-popup toast';
         document.body.appendChild(popup);
     }
-    const name = painting.artist || '';
+    // Accept either a painting object or a string name
+    let name = typeof paintingOrName === 'string' ? paintingOrName : (paintingOrName.artist || '');
     const bioInfo = getArtistBioInfo(name);
     // Count paintings for this artist
     const numPaintings = paintings.filter(p => p.artist === name).length;
-    let nameHtml = '';
     let yearsHtml = '';
-    let bioHtml = '';
     let imgHtml = '';
+    let bioHtml = '';
+    let tagsHtml = '';
     if (bioInfo) {
-        nameHtml = `<span class='artist-name'>${bioInfo.name}</span>`;
+        // Modern, clean layout
         yearsHtml = `<span class='artist-years'>${bioInfo.birth_year}–${bioInfo.death_year}</span>`;
+        imgHtml = bioInfo.self_portrait_url ? `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait toast-portrait">` : '';
         bioHtml = `<span class='artist-bio'>${bioInfo.bio}</span>`;
-        if (bioInfo.self_portrait_url) {
-            imgHtml = `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait toast-portrait">`;
+        // Tags: awards, movement, genre
+        let tagList = [];
+        if (bioInfo.awards && bioInfo.awards.length) tagList = tagList.concat(bioInfo.awards);
+        if (bioInfo.movement && bioInfo.movement.length) tagList = tagList.concat(bioInfo.movement);
+        if (bioInfo.genre && bioInfo.genre.length) tagList = tagList.concat(bioInfo.genre);
+        if (tagList.length) {
+            tagsHtml = `<div class='artist-tags'>${tagList.map(tag => `<span class='artist-tag'>${tag}</span>`).join('')}</div>`;
         }
         // Add number of paintings at the end of the bio
         bioHtml += ` <span class='artist-painting-count'>(${numPaintings} painting${numPaintings === 1 ? '' : 's'})</span>`;
     } else {
-        const birth = getYearOnly(painting.artist_birth);
-        const death = getYearOnly(painting.artist_death);
+        // Fallback for missing bio
+        const birth = getYearOnly(paintingOrName.artist_birth);
+        const death = getYearOnly(paintingOrName.artist_death);
         let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
-        nameHtml = `<span class='artist-name'>${name}</span>`;
         yearsHtml = lifeSpan ? `<span class='artist-years'>${lifeSpan}</span>` : '';
-        imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait toast-portrait">` : '';
+        imgHtml = paintingOrName.artist_image ? `<img src="${paintingOrName.artist_image}" alt="${name}" class="artist-portrait toast-portrait">` : '';
         bioHtml = '';
+        tagsHtml = '';
     }
-    // Remove the number of paintings from the nameHtml
-    nameHtml = nameHtml.replace(/ \(.*painting.*\)$/, '');
+    // Modern, clean popup layout
     popup.innerHTML = `
         <div class="artist-popup-content toast-content">
             ${imgHtml}
             <div class="artist-popup-text toast-text">
-                ${nameHtml}
+                <span class='artist-name'>${name}</span>
                 ${yearsHtml}
                 ${bioHtml}
+                ${tagsHtml}
             </div>
         </div>
     `;
@@ -368,7 +444,7 @@ function showArtistPopup(painting, onDone) {
     setTimeout(() => {
         popup.classList.remove('visible');
         setTimeout(() => { popup.style.display = 'none'; if (onDone) onDone(); }, 400);
-    }, 3000);
+    }, 3500);
     popup.style.display = 'flex';
 }
 
@@ -410,7 +486,15 @@ function showArtistsModal() {
             const li = document.createElement('li');
             // Count paintings for this artist
             const numPaintings = paintings.filter(p => p.artist === name).length;
-            li.textContent = `${name} (${numPaintings})`;
+            // Make artist name clickable
+            const a = document.createElement('a');
+            a.href = '#';
+            a.textContent = `${name} (${numPaintings})`;
+            a.onclick = (e) => {
+                e.preventDefault();
+                showArtistPopup(name);
+            };
+            li.appendChild(a);
             ul.appendChild(li);
         });
         div.appendChild(ul);
