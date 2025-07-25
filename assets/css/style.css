@@ -697,6 +697,8 @@ button:disabled {
   text-align: center;
   max-height: 90vh;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 #gallery-collage {
@@ -706,10 +708,12 @@ button:disabled {
 
 .gallery-collage-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr;
   gap: 16px;
   width: 100%;
   margin-top: 8px;
+  max-height: 65vh;
+  overflow-y: auto;
 }
 
 .gallery-collage-img {

@@ -455,10 +455,8 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   popup.classList.add('visible');
   setTimeout(() => popup.style.opacity = '1', 10);
   if (persistent) {
-    // Make any links in the popup not navigate
-    Array.from(popup.querySelectorAll('a')).forEach(link => {
-      link.onclick = e => e.preventDefault();
-    });
+    // Remove all <a> links in the popup (if any)
+    Array.from(popup.querySelectorAll('a')).forEach(link => link.remove());
     popup.className = 'artist-popup persistent';
     const overlay = ensureArtistPopupOverlay();
     overlay.classList.add('visible');
