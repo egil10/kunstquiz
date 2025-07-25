@@ -225,16 +225,35 @@ def main():
                         artist_name = artist_name.split(' in ')[0]
                     img['artist'] = artist_name
                 else:
-                    # Extract artist name from main Commons page URL
-                    m = re.search(r'wiki/([^/]+)$', url)
+                    # Try other category patterns
+                    m = re.search(r'Category:([^/]+)', url)
                     if m:
-                        artist_name = m.group(1).replace('_', ' ')
-                        # Handle museum-specific URLs
-                        if ' in ' in artist_name:
-                            artist_name = artist_name.split(' in ')[0]
+                        category_name = m.group(1).replace('_', ' ')
+                        # Extract artist name from various category patterns
+                        if ' by ' in category_name:
+                            artist_name = category_name.split(' by ')[-1]
+                        elif ' from ' in category_name:
+                            artist_name = category_name.split(' from ')[0]
+                        else:
+                            artist_name = category_name
                         img['artist'] = artist_name
                     else:
-                        img['artist'] = 'Unknown'
+                        # Extract artist name from main Commons page URL
+                        m = re.search(r'wiki/([^/]+)$', url)
+                        if m:
+                            artist_name = m.group(1).replace('_', ' ')
+                            # Handle museum-specific URLs
+                            if ' in ' in artist_name:
+                                artist_name = artist_name.split(' in ')[0]
+                            # Handle "Artworks by" patterns
+                            elif artist_name.startswith('Artworks_by_'):
+                                artist_name = artist_name.replace('Artworks_by_', '')
+                            # Handle life and works patterns
+                            elif ', ' in artist_name and '_life_and_works' in artist_name:
+                                artist_name = artist_name.split(', ')[0]
+                            img['artist'] = artist_name
+                        else:
+                            img['artist'] = 'Unknown'
         all_new_paintings.extend(imgs)
         
         # Show results for this URL

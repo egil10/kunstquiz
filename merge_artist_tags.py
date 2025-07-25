@@ -26,12 +26,39 @@ except FileNotFoundError:
 for painting in paintings:
     artist = painting.get('artist')
     
-    # Fix museum-specific artist names (e.g., "Nikolai Astrup in Sogn og Fjordane Kunstmuseum" -> "Nikolai Astrup")
-    if artist and ' in ' in artist:
+    # Fix various artist name variations
+    if artist:
         original_artist = artist
-        artist = artist.split(' in ')[0]
-        painting['artist'] = artist
-        print(f"Fixed artist name: '{original_artist}' -> '{artist}'")
+        
+        # Fix museum-specific artist names (e.g., "Nikolai Astrup in Sogn og Fjordane Kunstmuseum" -> "Nikolai Astrup")
+        if ' in ' in artist:
+            artist = artist.split(' in ')[0]
+        
+        # Fix category prefixes (e.g., "Category:Drawings by Hans Gude" -> "Hans Gude")
+        elif artist.startswith('Category:'):
+            artist = artist.replace('Category:', '').strip()
+            # Extract artist name after "by" or "from"
+            if ' by ' in artist:
+                artist = artist.split(' by ')[-1]
+            elif ' from ' in artist:
+                artist = artist.split(' from ')[0]
+        
+        # Fix "Artworks by" prefixes (e.g., "Artworks by Edvard Munch" -> "Edvard Munch")
+        elif artist.startswith('Artworks by '):
+            artist = artist.replace('Artworks by ', '')
+        
+        # Fix life and works suffixes (e.g., "Johan Christian Dahl, 1788-1857: life and works" -> "Johan Christian Dahl")
+        elif ', ' in artist and ': life and works' in artist:
+            artist = artist.split(', ')[0]
+        
+        # Fix "Dahl and Friedrich" type names (e.g., "Dahl and Friedrich. Romantic Landscapes" -> "Johan Christian Dahl")
+        elif 'Dahl and Friedrich' in artist:
+            artist = 'Johan Christian Dahl'
+        
+        # Update the painting if the artist name changed
+        if artist != original_artist:
+            painting['artist'] = artist
+            print(f"Fixed artist name: '{original_artist}' -> '{artist}'")
     
     tags = artist_tags.get(artist, {})
     bio = artist_bios.get(artist, {})
