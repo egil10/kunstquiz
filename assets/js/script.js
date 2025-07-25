@@ -17,28 +17,28 @@ function getCenturyFromYear(yearStr) {
     return Math.floor((year - 1) / 100) + 1;
 }
 
-function getCategoryCounts() {
-    const counts = {};
-    const painterSets = {};
-    CATEGORY_DEFS.forEach(cat => {
+function getCategoryCounts(categoryValue) {
+    // Returns {count, painterCount} for a given category value
+    let filtered;
+    if (!categoryValue || categoryValue === 'all') {
+        filtered = paintings.filter(p => p.artist && p.url);
+    } else {
         const prev = selectedCategory;
-        selectedCategory = cat.value;
-        const valid = getValidPaintings();
-        counts[cat.value] = valid.length;
-        painterSets[cat.value] = new Set(valid.map(p => p.artist));
+        selectedCategory = categoryValue;
+        filtered = getValidPaintings();
         selectedCategory = prev;
-    });
-    return { counts, painterSets };
+    }
+    const count = filtered.length;
+    const painterCount = new Set(filtered.map(p => p.artist)).size;
+    return { count, painterCount };
 }
 
 function updateCollectionInfo() {
     const catSelect = document.getElementById('category-select');
     const infoBar = document.getElementById('collection-info');
     if (!catSelect || !infoBar) return;
-    const { counts, painterSets } = getCategoryCounts();
     const selected = catSelect.value || 'all';
-    const count = counts[selected] || 0;
-    const painterCount = painterSets[selected] ? painterSets[selected].size : 0;
+    const { count, painterCount } = getCategoryCounts(selected);
     infoBar.textContent = `${count} paintings, ${painterCount} painters`;
 }
 
@@ -47,12 +47,8 @@ function updateCategoryDropdown() {
     if (!catSelect) return;
     // Only show categories that have at least 1 painting
     const options = CATEGORY_DEFS.filter(cat => {
-        if (cat.value === 'all') return true;
-        const prev = selectedCategory;
-        selectedCategory = cat.value;
-        const count = getValidPaintings().length;
-        selectedCategory = prev;
-        return count > 0;
+        const { count } = getCategoryCounts(cat.value);
+        return cat.value === 'all' || count > 0;
     });
     catSelect.innerHTML = '';
     options.forEach(opt => {
@@ -424,25 +420,18 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
             document.body.appendChild(popup);
         }
     } else {
-        // In-game popup: render above the answer buttons and cover them
-        let optionsDiv = document.getElementById('options');
-        let container = document.getElementById('artist-popup-container');
-        if (!container) {
-            container = document.createElement('div');
-            container.id = 'artist-popup-container';
-            optionsDiv.parentNode.insertBefore(container, optionsDiv);
+        // In-game popup: overlay the answer options, centered
+        popup = document.getElementById('artist-popup');
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.id = 'artist-popup';
+            popup.className = 'artist-popup toast artist-popup-overlay';
+            document.body.appendChild(popup);
         }
-        // Remove any previous popup
-        container.innerHTML = '';
-        popup = document.createElement('div');
-        popup.id = 'artist-popup';
-        popup.className = 'artist-popup toast artist-popup-cover';
-        container.appendChild(popup);
     }
     // Accept either a painting object or a string name
     let name = typeof paintingOrName === 'string' ? paintingOrName : (paintingOrName.artist || '');
     const bioInfo = getArtistBioInfo(name);
-    // Count paintings for this artist
     const artistPaintings = paintings.filter(p => p.artist === name);
     const numPaintings = artistPaintings.length;
     let yearsHtml = '';
@@ -474,7 +463,6 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     if (persistent) {
         closeBtnHtml = `<button class='artist-popup-close' aria-label='Close'>&times;</button>`;
     }
-    // Persistent: right side is only images (no titles/years)
     let paintingsHtml = '';
     if (persistent && artistPaintings.length > 0) {
         paintingsHtml = `<div class='artist-paintings-grid only-images'>` +
@@ -485,11 +473,10 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
             ).join('') +
             `</div>`;
     }
-    // In-game: 2-column layout, image left, info right, covers answer options
     let contentHtml = '';
     if (!persistent) {
         contentHtml = `
-        <div class="artist-popup-columns in-game-cover">
+        <div class="artist-popup-columns in-game-overlay">
             <div class="artist-popup-left">
                 ${imgHtml}
             </div>
@@ -528,12 +515,13 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     popup.style.display = 'flex';
     setTimeout(() => { popup.style.opacity = 1; }, 10);
     if (!persistent) {
-        popup.style.position = 'static';
-        popup.style.top = '';
-        popup.style.left = '';
-        popup.style.transform = '';
-        popup.style.zIndex = '';
-        popup.style.maxWidth = '100%';
+        // Overlay: fixed, centered over the options
+        popup.style.position = 'fixed';
+        popup.style.left = '50%';
+        popup.style.top = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.zIndex = '3000';
+        popup.style.maxWidth = '520px';
         popup.style.minWidth = '320px';
         let overlay = document.getElementById('artist-popup-overlay');
         if (overlay) overlay.classList.remove('visible');

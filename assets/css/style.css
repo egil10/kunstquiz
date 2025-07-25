@@ -986,3 +986,52 @@ button:disabled {
     height: 50px;
   }
 }
+
+.artist-popup-overlay {
+  position: fixed !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 3000 !important;
+  max-width: 520px;
+  min-width: 320px;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 4px 16px 0 rgba(0,0,0,0.10);
+  border-radius: 14px;
+  padding: 18px 24px 14px 24px;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+.artist-popup-columns.in-game-overlay {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  width: 100%;
+  align-items: center;
+}
+.artist-popup-columns.in-game-overlay .artist-popup-left {
+  flex: 0 0 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.artist-popup-columns.in-game-overlay .artist-popup-right {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+@media (max-width: 700px) {
+  .artist-popup-overlay {
+    max-width: 98vw;
+    padding: 10px 6px 10px 6px;
+  }
+  .artist-popup-columns.in-game-overlay {
+    flex-direction: column;
+    gap: 18px;
+  }
+}

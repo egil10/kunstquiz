@@ -1,8 +1,8 @@
 import json
 import os
 
-# Load paintings
-with open('data/paintings.json', 'r', encoding='utf-8') as f:
+# Load paintings (now from paintings_appended.json)
+with open('data/paintings_appended.json', 'r', encoding='utf-8') as f:
     paintings = json.load(f)
 
 # Load artist tags
