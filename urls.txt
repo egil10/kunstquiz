@@ -1,105 +1,131 @@
-# Hans Gude  
-https://commons.wikimedia.org/wiki/Category:Paintings_by_Hans_Gude_in_Statens_Museum_for_Kunst
+#Hans Gude
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Hans_Gude
-https://commons.wikimedia.org/wiki/Category:Illustrations_by_Hans_Gude
-https://commons.wikimedia.org/wiki/Category:Google_Art_Project_works_by_Hans_Gude
-https://commons.wikimedia.org/wiki/Category:Drawings_by_Hans_Gude
-https://commons.wikimedia.org/wiki/Category:Drawings_by_Hans_Gude_from_Af_Hans_Gudes_liv_og_v%C3%A6rker
-# Johan Christian Dahl  
-https://commons.wikimedia.org/wiki/Dahl_and_Friedrich._Romantic_Landscapes
-https://commons.wikimedia.org/wiki/Johan_Christian_Dahl,_1788-1857:_life_and_works
-# Edvard Munch  
-https://commons.wikimedia.org/wiki/Artworks_by_Edvard_Munch
-https://commons.wikimedia.org/wiki/Edvard_Munch
-# Erik Werenskiold  
-https://commons.wikimedia.org/wiki/Category:Postcards_by_Erik_Werenskiold
-https://commons.wikimedia.org/wiki/Category:Portrait_paintings_by_Erik_Werenskiold
-https://commons.wikimedia.org/wiki/Category:Paintings_by_Erik_Werenskiold_in_the_Nasjonalmuseet_for_kunst,_arkitektur_og_design
-https://commons.wikimedia.org/wiki/Category:Paintings_by_Erik_Werenskiold_in_Lillehammer_kunstmuseum
-https://commons.wikimedia.org/wiki/Category:Paintings_by_Erik_Werenskiold_in_KODE_Art_Museums_and_Composer_Homes
+#Johan Christian Dahl
+#Edvard Munch
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Edvard_Munch
+#Erik Werenskiold
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Erik_Werenskiold
-https://commons.wikimedia.org/wiki/Category:Illustrations_by_Erik_Werenskiold
-https://commons.wikimedia.org/wiki/Category:Google_Art_Project_works_by_Erik_Werenskiold
-https://commons.wikimedia.org/wiki/Category:Drawings_by_Erik_Werenskiold
-# Christian Krohg
-https://commons.wikimedia.org/wiki/Category:Christian_Krohg._Pictures_that_captivate
-https://commons.wikimedia.org/wiki/Category:Self-portraits_by_Christian_Krohg
-https://commons.wikimedia.org/wiki/Category:Oil_paintings_by_Christian_Krohg
+#Christian Krohg
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg
-# Adolph Tidemand
+#Adolph Tidemand
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Adolph_Tidemand
-# Eilif Peterssen  
-# Frits Thaulow  
-# Nikolai Astrup  
-# Harald Sohlberg  
-# Amaldus Nielsen  
-# Harriet Backer  
-# Asta Nørregaard  
-# Peder Balke  
-# August Cappelen  
-# Lars Hertervig  
-# Peter Nicolai Arbo  
-# Knud Baade  
-# Adelsteen Normann  
-# Joachim Frich  
-# Theodor Kittelsen  
-# Peder Severin Krøyer  
-# Ludvig Karsten  
-# Thomas Fearnley  
-# Christian Skredsvig  
-# Oscar Wergeland  
-# Kitty Lange Kielland  
-# Thorvald Erichsen  
-# Carl Sundt-Hansen  
-# Thorolf Holmboe  
-# Hans Dahl  
-# Johannes Flintoe  
-# Jacob Gløersen  
-# Gerhard Munthe  
-# Oda Krohg  
-# Otto Sinding  
-# Gustav Wentzel  
-# Morten Müller  
-# Johan Fredrik Eckersberg  
-# Henrik Lund  
-# Martin Aagaard  
-# Halfdan Egedius  
-# Eyolf Soot  
-# Axel Revold  
-# Peder Aadnes  
-# Gunnar Berg  
-# Henrik Sørensen  
-# Bjarne Ness  
-# Oluf Wold-Torne  
-# Kjell Aukrust  
-# Vebjørn Sand  
-# Nils Hansteen  
-# Olaf Gulbransson  
-# Per Krohg  
-# Bernt Lund  
-# Håkon Gullvåg  
-# Søren Onsager  
-# Nils Gude  
-# Cora Sandel  
-# Inger Sitter  
-# Håkon Bleken  
-# Kjell Pahr-Iversen  
-# Pushwagner  
-# Arne Ekeland  
-# Alf Lundeby  
-# Jakob Weidemann  
-# Rolf Groven  
-# Frans Widerberg  
-# Kjartan Slettemark  
-# Kai Fjell  
-# Marianne Aulie  
-# Odd Nerdrum  
-# Rolf Aamot  
-# Jean Heiberg  
-# Paul René Gauguin  
-# Pola Gauguin  
-# Rolf Nesch  
-# Ludvig Eikaas  
-# Reidar Aulie  
-# Kjell Nupen  
-# Ida Lorentzen  
+#Eilif Peterssen
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Eilif_Peterssen
+#Frits Thaulow
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Frits_Thaulow
+#Nikolai Astrup
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Nikolai_Astrup
+#Harald Sohlberg
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Harald_Sohlberg
+#Amaldus Nielsen
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Amaldus_Nielsen
+#Harriet Backer
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Harriet_Backer
+#Asta Nørregaard
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Asta_Nørregaard
+#Peder Balke
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Peder_Balke
+#August Cappelen
+https://commons.wikimedia.org/wiki/Category:Paintings_by_August_Cappelen
+#Lars Hertervig
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Lars_Hertervig
+#Peter Nicolai Arbo
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Peter_Nicolai_Arbo
+#Knud Baade
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Knud_Baade
+#Adelsteen Normann
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Adelsteen_Normann
+#Joachim Frich
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Joachim_Frich
+#Theodor Kittelsen
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Theodor_Kittelsen
+#Peder Severin Krøyer
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Peder_Severin_Krøyer
+#Ludvig Karsten
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Ludvig_Karsten
+#Thomas Fearnley
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Thomas_Fearnley
+#Christian Skredsvig
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Skredsvig
+#Oscar Wergeland
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Oscar_Wergeland
+#Kitty Lange Kielland
+#Thorvald Erichsen
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Thorvald_Erichsen
+#Carl Sundt-Hansen
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Carl_Sundt-Hansen
+#Thorolf Holmboe
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Thorolf_Holmboe
+#Hans Dahl
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Hans_Dahl
+#Johannes Flintoe
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Johannes_Flintoe
+#Jacob Gløersen
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Jacob_Gløersen
+#Gerhard Munthe
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Gerhard_Munthe
+#Oda Krohg
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Oda_Krohg
+#Otto Sinding
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Otto_Sinding
+#Gustav Wentzel
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Gustav_Wentzel
+#Morten Müller
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Morten_Müller
+#Johan Fredrik Eckersberg
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Johan_Fredrik_Eckersberg
+#Henrik Lund
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Henrik_Lund
+#Martin Aagaard
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Martin_Aagaard
+#Halfdan Egedius
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Halfdan_Egedius
+#Eyolf Soot
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Eyolf_Soot
+#Axel Revold
+#Peder Aadnes
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Peder_Aadnes
+#Gunnar Berg
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Gunnar_Berg
+#Henrik Sørensen
+#Bjarne Ness
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Bjarne_Ness
+#Oluf Wold-Torne
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Oluf_Wold-Torne
+#Kjell Aukrust
+#Vebjørn Sand
+#Nils Hansteen
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Nils_Hansteen
+#Olaf Gulbransson
+#Per Krohg
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Per_Krohg
+#Bernt Lund
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Bernt_Lund
+#Håkon Gullvåg
+#Søren Onsager
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Søren_Onsager
+#Nils Gude
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Nils_Gude
+#Cora Sandel
+#Inger Sitter
+#Håkon Bleken
+#Kjell Pahr-Iversen
+#Pushwagner
+#Arne Ekeland
+#Alf Lundeby
+#Jakob Weidemann
+#Rolf Groven
+#Frans Widerberg
+#Kjartan Slettemark
+#Kai Fjell
+#Marianne Aulie
+#Odd Nerdrum
+#Rolf Aamot
+#Jean Heiberg
+#Paul René Gauguin
+#Pola Gauguin
+#Rolf Nesch
+#Ludvig Eikaas
+#Reidar Aulie
+#Kjell Nupen
+#Ida Lorentzen
