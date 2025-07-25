@@ -307,7 +307,7 @@ function loadQuiz() {
                 streak = 0;
                 selectedBtn.classList.add('wrong');
                 correctBtn.classList.add('correct');
-                showMessage('Not correct!', '#e53935');
+                showMessage('Incorrect!', '#e53935');
             }
             updateStreakBar();
             setTimeout(() => {
