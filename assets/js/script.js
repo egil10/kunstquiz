@@ -419,12 +419,13 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
             document.body.appendChild(popup);
         }
     } else {
-        // In-game popup: render inside the container
+        // In-game popup: render above the answer buttons
+        let optionsDiv = document.getElementById('options');
         let container = document.getElementById('artist-popup-container');
         if (!container) {
             container = document.createElement('div');
             container.id = 'artist-popup-container';
-            document.body.appendChild(container);
+            optionsDiv.parentNode.insertBefore(container, optionsDiv);
         }
         // Remove any previous popup
         container.innerHTML = '';
@@ -444,11 +445,9 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     let bioHtml = '';
     let tagsHtml = '';
     if (bioInfo) {
-        // Modern, clean layout
         yearsHtml = `<span class='artist-years'>${bioInfo.birth_year}–${bioInfo.death_year}</span>`;
         imgHtml = bioInfo.self_portrait_url ? `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait toast-portrait">` : '';
         bioHtml = `<span class='artist-bio'>${bioInfo.bio}</span>`;
-        // Tags: awards, movement, genre
         let tagList = [];
         if (bioInfo.awards && bioInfo.awards.length) tagList = tagList.concat(bioInfo.awards);
         if (bioInfo.movement && bioInfo.movement.length) tagList = tagList.concat(bioInfo.movement);
@@ -456,10 +455,8 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         if (tagList.length) {
             tagsHtml = `<div class='artist-tags'>${tagList.map(tag => `<span class='artist-tag'>${tag}</span>`).join('')}</div>`;
         }
-        // Add number of paintings at the end of the bio
         bioHtml += ` <span class='artist-painting-count'>(${numPaintings} painting${numPaintings === 1 ? '' : 's'})</span>`;
     } else {
-        // Fallback for missing bio
         const birth = getYearOnly(paintingOrName.artist_birth);
         const death = getYearOnly(paintingOrName.artist_death);
         let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
@@ -468,28 +465,26 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         bioHtml = '';
         tagsHtml = '';
     }
-    // Add close button if persistent
     let closeBtnHtml = '';
     if (persistent) {
         closeBtnHtml = `<button class='artist-popup-close' aria-label='Close'>&times;</button>`;
     }
-    // Collage/grid of paintings (right column)
+    // Persistent: vertical list of paintings (one per row)
     let paintingsHtml = '';
     if (persistent && artistPaintings.length > 0) {
-        paintingsHtml = `<div class='artist-paintings-grid'>` +
+        paintingsHtml = `<div class='artist-paintings-list'>` +
             artistPaintings.map(p =>
-                `<div class='artist-painting-thumb'>
+                `<div class='artist-painting-row'>
                     <img src="${p.url}" alt="${p.title}" title="${p.title}${p.year ? ' (' + p.year + ')' : ''}" />
                     <div class='artist-painting-title'>${p.title || ''}${p.year ? ' (' + p.year + ')' : ''}</div>
                 </div>`
             ).join('') +
             `</div>`;
     }
-    // Two-column layout for persistent popup
     let contentHtml = '';
     if (persistent) {
         contentHtml = `
-        <div class="artist-popup-columns">
+        <div class="artist-popup-columns vertical-list">
             <div class="artist-popup-left">
                 ${imgHtml}
                 <div class="artist-popup-text toast-text">
@@ -499,7 +494,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
                     ${tagsHtml}
                 </div>
             </div>
-            <div class="artist-popup-right">
+            <div class="artist-popup-right vertical-list">
                 ${paintingsHtml}
             </div>
             ${closeBtnHtml}
@@ -520,14 +515,11 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         `;
     }
     popup.innerHTML = contentHtml;
-    // Fade in effect
     popup.style.opacity = 0;
     popup.classList.add('visible');
     popup.style.display = 'flex';
     setTimeout(() => { popup.style.opacity = 1; }, 10);
-    // Positioning logic
     if (!persistent) {
-        // In-game: let CSS handle layout in the container
         popup.style.position = 'static';
         popup.style.top = '';
         popup.style.left = '';
@@ -535,24 +527,21 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         popup.style.zIndex = '';
         popup.style.maxWidth = '420px';
         popup.style.minWidth = '320px';
-        // Hide overlay if present
         let overlay = document.getElementById('artist-popup-overlay');
         if (overlay) overlay.classList.remove('visible');
     } else {
         popup.classList.remove('toast');
         popup.classList.add('persistent');
         popup.style.position = 'fixed';
-        popup.style.top = '50%';
+        popup.style.top = '12vh';
         popup.style.left = '50%';
-        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.transform = 'translateX(-50%)';
         popup.style.zIndex = '2000';
-        popup.style.maxWidth = '';
-        popup.style.minWidth = '';
-        // Show overlay
+        popup.style.maxWidth = '700px';
+        popup.style.minWidth = '320px';
         let overlay = ensureArtistPopupOverlay();
         overlay.classList.add('visible');
     }
-    // Persistent: close on button or click outside
     if (persistent) {
         const closeBtn = popup.querySelector('.artist-popup-close');
         if (closeBtn) {
@@ -562,7 +551,6 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
                 setTimeout(() => { popup.style.display = 'none'; let overlay = document.getElementById('artist-popup-overlay'); if (overlay) overlay.classList.remove('visible'); if (onDone) onDone(); }, 400);
             };
         }
-        // Click outside to close
         setTimeout(() => {
             function outsideClick(e) {
                 if (!popup.contains(e.target)) {
