@@ -1035,3 +1035,65 @@ button:disabled {
     gap: 18px;
   }
 }
+
+.persistent-modal-better {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  max-width: 700px;
+  min-width: 320px;
+  max-height: 80vh;
+  height: auto;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px 0 rgba(0,0,0,0.18);
+  overflow: auto;
+  align-items: flex-start;
+}
+.artist-popup-right.only-images.better-grid {
+  flex: 1 1 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  min-width: 180px;
+  max-height: 70vh;
+}
+.artist-paintings-better-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 12px;
+  width: 100%;
+  margin-top: 8px;
+}
+.artist-painting-thumb img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+}
+@media (max-width: 900px) {
+  .persistent-modal-better {
+    flex-direction: column;
+    max-width: 98vw;
+    gap: 18px;
+    max-height: 90vh;
+  }
+  .artist-popup-left, .artist-popup-right.only-images.better-grid {
+    max-width: 100vw;
+    min-width: 0;
+  }
+  .artist-popup-right.only-images.better-grid {
+    max-height: 40vh;
+  }
+  .artist-paintings-better-grid {
+    grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+    gap: 8px;
+  }
+  .artist-painting-thumb img {
+    width: 50px;
+    height: 50px;
+  }
+}

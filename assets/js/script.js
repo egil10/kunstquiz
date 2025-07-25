@@ -498,7 +498,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         `;
     } else {
         contentHtml = `
-        <div class="artist-popup-columns persistent-modal">
+        <div class="artist-popup-columns persistent-modal-better">
             <div class="artist-popup-left">
                 ${imgHtml}
                 <div class="artist-popup-text toast-text">
@@ -508,8 +508,14 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
                     ${tagsHtml}
                 </div>
             </div>
-            <div class="artist-popup-right only-images">
-                ${paintingsHtml}
+            <div class="artist-popup-right only-images better-grid">
+                <div class="artist-paintings-better-grid">
+                ${artistPaintings.map(p =>
+                    `<div class='artist-painting-thumb'>
+                        <img src="${p.url}" alt="${p.title}" />
+                    </div>`
+                ).join('')}
+                </div>
             </div>
             ${closeBtnHtml}
         </div>
@@ -535,12 +541,15 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         popup.classList.remove('toast');
         popup.classList.add('persistent');
         popup.style.position = 'fixed';
-        popup.style.top = '12vh';
+        popup.style.top = '10vh';
         popup.style.left = '50%';
         popup.style.transform = 'translateX(-50%)';
         popup.style.zIndex = '2000';
         popup.style.maxWidth = '700px';
         popup.style.minWidth = '320px';
+        popup.style.height = 'auto';
+        popup.style.maxHeight = '80vh';
+        popup.style.overflow = 'auto';
         let overlay = ensureArtistPopupOverlay();
         overlay.classList.add('visible');
     }
