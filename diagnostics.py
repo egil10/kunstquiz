@@ -14,13 +14,16 @@ CATEGORY_DEFS = [
     { 'value': 'all', 'label': 'Full Collection' },
     { 'value': 'popular', 'label': 'Popular Painters' },
     { 'value': 'landscape', 'label': 'Landscape Painting' },
-    { 'value': 'romanticism', 'label': 'Romanticism' },
+    { 'value': 'portraits', 'label': 'Portraits' },
+    { 'value': 'marine', 'label': 'Marine Painting' },
+    { 'value': 'historical', 'label': 'Historical Painting' },
+    { 'value': 'norwegian_romantic', 'label': 'Norwegian Romantic Nationalism' },
     { 'value': 'impressionism', 'label': 'Impressionism' },
     { 'value': 'expressionism', 'label': 'Expressionism' },
-    { 'value': 'portraits', 'label': 'Portraits' },
-    { 'value': 'historical', 'label': 'Historical/Nationalism' },
     { 'value': '19thcentury', 'label': '19th Century' },
-    { 'value': '20thcentury', 'label': '20th Century' }
+    { 'value': '20thcentury', 'label': '20th Century' },
+    { 'value': 'genre_painting', 'label': 'Genre Painting' },
+    { 'value': 'religious', 'label': 'Religious Painting' }
 ]
 
 def arr(val):
@@ -249,20 +252,26 @@ def main():
             filtered = [p for p in paintings if p.get('artist') in top_artists]
         elif cat['value'] == 'landscape':
             filtered = [p for p in paintings if any('landscape' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
-        elif cat['value'] == 'romanticism':
-            filtered = [p for p in paintings if any('romanticism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
+        elif cat['value'] == 'portraits':
+            filtered = [p for p in paintings if any('portrait' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
+        elif cat['value'] == 'marine':
+            filtered = [p for p in paintings if any('marine' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
+        elif cat['value'] == 'historical':
+            filtered = [p for p in paintings if any(any(x in (g or '').lower() for x in ['historical','history']) for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
+        elif cat['value'] == 'norwegian_romantic':
+            filtered = [p for p in paintings if any(any(x in (m or '').lower() for x in ['nasjonalromantikk','norwegian romantic nationalism','romantic nationalism']) for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
         elif cat['value'] == 'impressionism':
             filtered = [p for p in paintings if any('impressionism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
         elif cat['value'] == 'expressionism':
             filtered = [p for p in paintings if any('expressionism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
-        elif cat['value'] == 'portraits':
-            filtered = [p for p in paintings if any('portrait' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
-        elif cat['value'] == 'historical':
-            filtered = [p for p in paintings if any(any(x in (g or '').lower() for x in ['historical','nationalism','mythology']) for g in arr(p.get('artist_genre')) + arr(p.get('genre')) + arr(p.get('artist_movement')) + arr(p.get('movement')))]
         elif cat['value'] == '19thcentury':
             filtered = [p for p in paintings if bios_by_name.get(p.get('artist')) and bios_by_name[p['artist']].get('birth_year') and 1800 <= int(bios_by_name[p['artist']]['birth_year']) < 1900]
         elif cat['value'] == '20thcentury':
             filtered = [p for p in paintings if bios_by_name.get(p.get('artist')) and bios_by_name[p['artist']].get('birth_year') and 1900 <= int(bios_by_name[p['artist']]['birth_year']) < 2000]
+        elif cat['value'] == 'genre_painting':
+            filtered = [p for p in paintings if any('genre' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
+        elif cat['value'] == 'religious':
+            filtered = [p for p in paintings if any('religious' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
         else:
             filtered = []
         unique_painters = set(p['artist'] for p in filtered if p.get('artist'))

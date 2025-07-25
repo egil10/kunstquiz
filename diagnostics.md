@@ -3,7 +3,7 @@
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
 - **Paintings (Appended):** 8.46 MB (95,440 lines)
-- **Paintings (Merged):** 12.3 MB (243,321 lines)
+- **Paintings (Merged):** 12.38 MB (245,957 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
@@ -26,7 +26,7 @@
 
 ### 🔗 Merged Data Health
 - **Merged paintings:** 5,101
-- **Merged file size:** 12.3 MB (243,321 lines)
+- **Merged file size:** 12.38 MB (245,957 lines)
 - **Merged file status:** 🟢 Good
 - **Total unique artists in paintings:** 99
 
@@ -45,13 +45,16 @@
 - **Full Collection:** 5101 paintings, 99 painters
 - **Popular Painters:** 2301 paintings, 10 painters
 - **Landscape Painting:** 352 paintings, 35 painters
-- **Romanticism:** 48 paintings, 1 painters
+- **Portraits:** 314 paintings, 32 painters
+- **Marine Painting:** 0 paintings, 0 painters
+- **Historical Painting:** 20 paintings, 7 painters
+- **Norwegian Romantic Nationalism:** 149 paintings, 1 painters
 - **Impressionism:** 189 paintings, 2 painters
 - **Expressionism:** 199 paintings, 2 painters
-- **Portraits:** 314 paintings, 32 painters
-- **Historical/Nationalism:** 169 paintings, 8 painters
 - **19th Century:** 4103 paintings, 53 painters
 - **20th Century:** 120 paintings, 20 painters
+- **Genre Painting:** 0 paintings, 0 painters
+- **Religious Painting:** 0 paintings, 0 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33

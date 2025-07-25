@@ -34,13 +34,16 @@ The `diagnostics.py` script checks for data consistency, category coverage, and 
   - Full Collection: 5101 paintings, 99 painters
   - Popular Painters: 2301 paintings, 10 painters
   - Landscape Painting: 352 paintings, 35 painters
-  - Romanticism: 48 paintings, 1 painters
+  - Portraits: 314 paintings, 32 painters
+  - Marine Painting: 0 paintings, 0 painters
+  - Historical Painting: 0 paintings, 0 painters
+  - Norwegian Romantic Nationalism: 0 paintings, 0 painters
   - Impressionism: 189 paintings, 2 painters
   - Expressionism: 199 paintings, 2 painters
-  - Portraits: 314 paintings, 32 painters
-  - Historical/Nationalism: 0 paintings, 0 painters
   - 19th Century: 0 paintings, 0 painters
   - 20th Century: 0 paintings, 0 painters
+  - Genre Painting: 0 paintings, 0 painters
+  - Religious Painting: 0 paintings, 0 painters
 <!-- STATS_END -->
 
 ## 🗂️ Categories
