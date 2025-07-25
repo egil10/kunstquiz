@@ -11,8 +11,11 @@ USAGE EXAMPLES:
 # Collect from a single URL (recommended for testing)
 python collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg" --max 50
 
-# Collect from multiple URLs in a file
+# Collect from multiple URLs in a file (max 30 per subcategory)
 python collect_art.py --file urls.txt --max 30 --quiet --merge
+
+# Control total collection size across all subcategories
+python collect_art.py --file urls.txt --max 30 --total-max 100 --quiet --merge
 
 # Collect from specific artist categories (gets ALL paintings from ALL museums automatically)
 python collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg_by_museum" --max 100
@@ -21,7 +24,7 @@ python collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintin
 python collect_art.py --url "main_category_url" --no-subcategories
 
 # Full workflow with diagnostics
-python collect_art.py --file urls.txt --max 50 --quiet --merge --diagnose
+python collect_art.py --file urls.txt --max 50 --total-max 200 --quiet --merge --diagnose
 
 URL STRATEGY:
 ============
@@ -34,11 +37,18 @@ ARGUMENTS:
 ==========
 --url: Single URL to collect from
 --file: Text file with URLs (one per line, # for comments)
---max: Maximum paintings per URL
+--max: Maximum paintings per URL/subcategory (default: no limit)
+--total-max: Maximum total paintings across all subcategories (default: no limit)
 --quiet: Reduce verbose output
 --no-subcategories: Skip subcategory processing
 --merge: Run merge script after collection
 --diagnose: Run diagnostics after merge
+
+LIMIT EXAMPLES:
+==============
+--max 30: Get up to 30 paintings from each subcategory (could be 300+ total)
+--total-max 100: Get maximum 100 paintings total across all subcategories
+--max 30 --total-max 100: Get up to 30 per subcategory, but stop at 100 total
 """
 
 import argparse
@@ -82,7 +92,7 @@ def fetch_wikipedia_gallery(url):
             })
     return images
 
-def fetch_commons_unified(url, max_images=None, follow_subcategories=True):
+def fetch_commons_unified(url, max_images=None, total_max=None, follow_subcategories=True, quiet=False):
     """Unified function to fetch images from any Commons page (category, artist page, etc.)"""
     images = []
     session = requests.Session()
@@ -118,22 +128,31 @@ def fetch_commons_unified(url, max_images=None, follow_subcategories=True):
             total_found = 0
             
             for subcategory_url, subcategory_title in subcategory_links:
-                if max_images and total_found >= max_images:
+                # Check total_max limit
+                if total_max and total_found >= total_max:
+                    if not quiet:
+                        print(f'  Reached total limit of {total_max}, stopping subcategory collection')
                     break
                     
                 print(f'  Fetching subcategory: {subcategory_title}')
-                remaining = max_images - total_found if max_images else None
-                subcategory_images = fetch_commons_unified(subcategory_url, remaining, follow_subcategories=False)
+                
+                # Calculate remaining limit for this subcategory
+                if total_max:
+                    remaining = min(max_images or float('inf'), total_max - total_found)
+                else:
+                    remaining = max_images
+                
+                subcategory_images = fetch_commons_unified(subcategory_url, remaining, total_max=None, follow_subcategories=False, quiet=quiet)
                 
                 # Add subcategory images to our collection
                 for img in subcategory_images:
-                    if max_images and total_found >= max_images:
+                    if total_max and total_found >= total_max:
                         break
                     images.append(img)
                     total_found += 1
                 
-                if not args.quiet:
-                    print(f'    Found {len(subcategory_images)} images from {subcategory_title}')
+                if not quiet:
+                    print(f'    Found {len(subcategory_images)} images from {subcategory_title} (Total: {total_found})')
             
             # Remove duplicates and return
             seen_urls = set()
@@ -236,12 +255,12 @@ def fetch_commons_unified(url, max_images=None, follow_subcategories=True):
     # Strategy 3: Handle pagination for category pages
     if 'Category:' in url and gallery_images and not (max_images and len(gallery_images) >= max_images):
         # Look for next page links
-        nextlink = soup.find('a', text=re.compile(r'next page', re.I))
+        nextlink = soup.find('a', string=re.compile(r'next page', re.I))
         if nextlink and nextlink.get('href'):
             next_url = 'https://commons.wikimedia.org' + nextlink['href']
             print(f'Found next page, fetching: {next_url}')
             remaining = max_images - len(gallery_images) if max_images else None
-            next_images = fetch_commons_unified(next_url, remaining)
+            next_images = fetch_commons_unified(next_url, remaining, total_max=None, follow_subcategories=False, quiet=quiet)
             gallery_images.extend(next_images)
     
     # Remove duplicates based on URL
@@ -279,7 +298,8 @@ def main():
     parser.add_argument('--artist', action='append', help='Artist name to collect paintings for (can be used multiple times)')
     parser.add_argument('--url', action='append', help='URL to Wikimedia Commons or Wikipedia page to collect paintings from (can be used multiple times)')
     parser.add_argument('--file', help='File with artist names or URLs (one per line)')
-    parser.add_argument('--max', type=int, help='Maximum number of paintings to collect per URL')
+    parser.add_argument('--max', type=int, help='Maximum number of paintings to collect per URL/subcategory')
+    parser.add_argument('--total-max', type=int, help='Maximum total paintings to collect across all subcategories')
     parser.add_argument('--quiet', action='store_true', help='Reduce verbose output')
     parser.add_argument('--no-subcategories', action='store_true', help='Skip subcategories and only fetch from main category')
     parser.add_argument('--merge', action='store_true', help='Run merge script after appending')
@@ -306,7 +326,7 @@ def main():
     for url in urls:
         if 'commons.wikimedia.org' in url:
             follow_subcategories = not args.no_subcategories
-            imgs = fetch_commons_unified(url, args.max, follow_subcategories)
+            imgs = fetch_commons_unified(url, args.max, args.total_max, follow_subcategories, args.quiet)
         elif 'wikipedia.org' in url:
             imgs = fetch_wikipedia_gallery(url)
         else:
