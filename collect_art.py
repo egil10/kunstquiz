@@ -39,14 +39,69 @@ def fetch_wikipedia_gallery(url):
             })
     return images
 
-def fetch_commons_unified(url, max_images=None):
+def fetch_commons_unified(url, max_images=None, follow_subcategories=True):
     """Unified function to fetch images from any Commons page (category, artist page, etc.)"""
     images = []
     session = requests.Session()
     print(f'Fetching: {url}')
     r = session.get(url)
     soup = BeautifulSoup(r.text, 'html.parser')
-    
+
+    # Check if this is a category page with subcategories
+    if follow_subcategories and 'Category:' in url:
+        subcategory_links = []
+        
+        # Look for subcategory links in the category page
+        subcategory_selectors = [
+            '.mw-category-group a[href*="/wiki/Category:"]',
+            '.CategoryTreeItem a[href*="/wiki/Category:"]',
+            '.mw-category a[href*="/wiki/Category:"]'
+        ]
+        
+        for selector in subcategory_selectors:
+            links = soup.select(selector)
+            for link in links:
+                href = link.get('href')
+                if href and '/wiki/Category:' in href:
+                    subcategory_url = 'https://commons.wikimedia.org' + href
+                    subcategory_title = link.get_text(strip=True)
+                    # Skip meta-categories and administrative categories
+                    if not any(skip in subcategory_title.lower() for skip in ['good pictures', 'featured pictures', 'quality images', 'valued images']):
+                        subcategory_links.append((subcategory_url, subcategory_title))
+        
+        # If we found subcategories, fetch from them instead
+        if subcategory_links:
+            print(f'Found {len(subcategory_links)} subcategories, fetching from them...')
+            total_found = 0
+            
+            for subcategory_url, subcategory_title in subcategory_links:
+                if max_images and total_found >= max_images:
+                    break
+                    
+                print(f'  Fetching subcategory: {subcategory_title}')
+                remaining = max_images - total_found if max_images else None
+                subcategory_images = fetch_commons_unified(subcategory_url, remaining, follow_subcategories=False)
+                
+                # Add subcategory images to our collection
+                for img in subcategory_images:
+                    if max_images and total_found >= max_images:
+                        break
+                    images.append(img)
+                    total_found += 1
+                
+                if not args.quiet:
+                    print(f'    Found {len(subcategory_images)} images from {subcategory_title}')
+            
+            # Remove duplicates and return
+            seen_urls = set()
+            unique_images = []
+            for img in images:
+                if img['url'] not in seen_urls:
+                    seen_urls.add(img['url'])
+                    unique_images.append(img)
+            
+            return unique_images
+
     # Strategy 1: Try category-style gallery first (most reliable for paintings)
     gallery_selectors = [
         '.gallery, .mw-category, .CategoryGallery',
@@ -183,6 +238,7 @@ def main():
     parser.add_argument('--file', help='File with artist names or URLs (one per line)')
     parser.add_argument('--max', type=int, help='Maximum number of paintings to collect per URL')
     parser.add_argument('--quiet', action='store_true', help='Reduce verbose output')
+    parser.add_argument('--no-subcategories', action='store_true', help='Skip subcategories and only fetch from main category')
     parser.add_argument('--merge', action='store_true', help='Run merge script after appending')
     parser.add_argument('--diagnose', action='store_true', help='Run diagnostics after merge')
     args = parser.parse_args()
@@ -206,7 +262,8 @@ def main():
     # --- Manual mode: URLs ---
     for url in urls:
         if 'commons.wikimedia.org' in url:
-            imgs = fetch_commons_unified(url, args.max)
+            follow_subcategories = not args.no_subcategories
+            imgs = fetch_commons_unified(url, args.max, follow_subcategories)
         elif 'wikipedia.org' in url:
             imgs = fetch_wikipedia_gallery(url)
         else:
