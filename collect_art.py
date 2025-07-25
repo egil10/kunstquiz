@@ -321,12 +321,23 @@ def main():
                     artists.append(line)
 
     all_new_paintings = []
+    total_collected = 0
 
     # --- Manual mode: URLs ---
     for url in urls:
+        # Check if we've reached the total limit
+        if args.total_max and total_collected >= args.total_max:
+            if not args.quiet:
+                print(f'Reached total limit of {args.total_max}, stopping collection')
+            break
+            
         if 'commons.wikimedia.org' in url:
             follow_subcategories = not args.no_subcategories
-            imgs = fetch_commons_unified(url, args.max, args.total_max, follow_subcategories, args.quiet)
+            # Calculate remaining limit for this URL
+            remaining_for_url = None
+            if args.total_max:
+                remaining_for_url = args.total_max - total_collected
+            imgs = fetch_commons_unified(url, args.max, remaining_for_url, follow_subcategories, args.quiet)
         elif 'wikipedia.org' in url:
             imgs = fetch_wikipedia_gallery(url)
         else:
