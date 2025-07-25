@@ -1,11 +1,11 @@
 # Art Data Diagnostics
 
-- **Total paintings:** 3574
-- **Total unique artists in paintings:** 81
+- **Total paintings:** 3579
+- **Total unique artists in paintings:** 82
 - **Total artists in bios:** 91
 
 ## Quiz Categories
-- **Full Collection:** 3574 paintings, 81 painters
+- **Full Collection:** 3579 paintings, 82 painters
 - **Popular Painters:** 1646 paintings, 10 painters
 - **Landscape Painting:** 353 paintings, 36 painters
 - **Romanticism:** 48 paintings, 1 painters
@@ -235,6 +235,7 @@ Smallest genres:
 - Håkon Bleken: 6
 - Kjell Pahr-Iversen: 5
 - Pushwagner: 5
+- Artworks by Edvard Munch: 5
 - Arne Ekeland: 4
 - Alf Lundeby: 4
 - Jakob Weidemann: 3

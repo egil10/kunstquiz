@@ -85,17 +85,14 @@ for painting in paintings:
     gender_val = (painting.get('artist_gender') or painting.get('gender') or tags.get('artist_gender') or tags.get('gender'))
     if gender_val and str(gender_val).lower() == 'female':
         categories.add('Women painters')
-        print(f"Added 'Women painters' to: {painting.get('artist')}")
     for key in ['genre', 'movement']:
         val = (painting.get(key) or tags.get(key) or '')
         if isinstance(val, str) and 'portrait' in val.lower():
             categories.add('Portraits')
-            print(f"Added 'Portraits' to: {painting.get('title')} by {painting.get('artist')}")
     for key in ['genre', 'movement']:
         val = (painting.get(key) or tags.get(key) or '')
         if isinstance(val, str) and 'landscape' in val.lower():
             categories.add('Landscapes')
-            print(f"Added 'Landscapes' to: {painting.get('title')} by {painting.get('artist')}")
     painting['categories'] = sorted(categories)
 
 # Output merged file
