@@ -1,0 +1,6 @@
+# URLs to remove from the art collection
+# Add one URL per line
+# Lines starting with # or // are ignored
+# Lines without http are ignored
+
+https://upload.wikimedia.org/wikipedia/commons/b/b5/Da_Vinci_Bridge.jpg
