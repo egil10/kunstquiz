@@ -38,7 +38,7 @@ ARGUMENTS:
 --url: Single URL to collect from
 --file: Text file with URLs (one per line, # for comments)
 --max: Maximum paintings per URL/subcategory (default: no limit)
---total-max: Maximum total paintings across all subcategories (default: no limit)
+--total-max: Maximum total paintings for entire script run (default: no limit)
 --quiet: Reduce verbose output
 --no-subcategories: Skip subcategory processing
 --merge: Run merge script after collection
@@ -46,9 +46,9 @@ ARGUMENTS:
 
 LIMIT EXAMPLES:
 ==============
---max 30: Get up to 30 paintings from each subcategory (could be 300+ total)
---total-max 100: Get maximum 100 paintings total across all subcategories
---max 30 --total-max 100: Get up to 30 per subcategory, but stop at 100 total
+--max 30: Get up to 30 paintings from each URL/subcategory
+--total-max 100: Get maximum 100 paintings total for entire script run
+--max 30 --total-max 100: Get up to 30 per URL, but stop at 100 total across all URLs
 """
 
 import argparse
@@ -386,13 +386,14 @@ def main():
                         else:
                             img['artist'] = 'Unknown'
         all_new_paintings.extend(imgs)
+        total_collected += len(imgs)
         
         # Show results for this URL
         if not args.quiet:
             # Extract a clean URL name for display
             url_name = url.split('/')[-1].replace('_', ' ')
             if len(imgs) > 0:
-                print(f'  ✅ Found {len(imgs)} paintings from {url_name}')
+                print(f'  ✅ Found {len(imgs)} paintings from {url_name} (Total: {total_collected})')
             else:
                 print(f'  ⚠️  No paintings found in {url_name}')
 
