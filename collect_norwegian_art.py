@@ -391,6 +391,8 @@ def fetch_paintings_from_wikidata(artist_name, limit=100):
     return entries
 
 # Main collection and merge logic
+# Always define these before loading existing paintings
+existing_keys = set()
 all_paintings = []
 # Load artist bios for aliases
 with open('data/artist_bios.json', 'r', encoding='utf-8') as f:

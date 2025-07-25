@@ -163,14 +163,14 @@ function getArtistBioMap() {
 const CATEGORY_DEFS = [
     { value: 'all', label: 'Full Collection' },
     { value: 'popular', label: 'Popular Painters' },
-    { value: 'landscape', label: 'Landscape' },
+    { value: 'landscape', label: 'Landscape Painting' },
     { value: 'romanticism', label: 'Romanticism' },
-    { value: 'expressionism', label: 'Expressionism' },
     { value: 'impressionism', label: 'Impressionism' },
-    { value: 'postimpressionism', label: 'Post-Impressionism' },
-    { value: '19thcentury', label: '19th century' },
-    { value: '20thcentury', label: '20th century' },
-    { value: 'stolav', label: 'Ridder av St. Olavs' }
+    { value: 'expressionism', label: 'Expressionism' },
+    { value: 'portraits', label: 'Portraits' },
+    { value: 'historical', label: 'Historical/Nationalism' },
+    { value: '19thcentury', label: '19th Century' },
+    { value: '20thcentury', label: '20th Century' }
 ];
 
 function getValidPaintings() {
@@ -199,23 +199,28 @@ function getValidPaintings() {
             const bio = artistMap[p.artist];
             return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('romanticism'));
         });
-    } else if (selectedCategory === 'expressionism') {
-        filtered = filtered.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && (
-                (bio.movement && bio.movement.some(m => m.toLowerCase().includes('expressionism')))
-                || (bio.genre && bio.genre.some(g => g.toLowerCase().includes('expressionism')))
-            );
-        });
     } else if (selectedCategory === 'impressionism') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
             return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('impressionism'));
         });
-    } else if (selectedCategory === 'postimpressionism') {
+    } else if (selectedCategory === 'expressionism') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
-            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('post-impressionism') || m.toLowerCase().includes('postimpressionism'));
+            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('expressionism'));
+        });
+    } else if (selectedCategory === 'portraits') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && bio.genre && bio.genre.some(g => g.toLowerCase().includes('portrait'));
+        });
+    } else if (selectedCategory === 'historical') {
+        filtered = filtered.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && (
+                (bio.genre && bio.genre.some(g => g.toLowerCase().includes('historical') || g.toLowerCase().includes('nationalism') || g.toLowerCase().includes('mythology')))
+                || (bio.movement && bio.movement.some(m => m.toLowerCase().includes('historical') || m.toLowerCase().includes('nationalism') || m.toLowerCase().includes('mythology')))
+            );
         });
     } else if (selectedCategory === '19thcentury') {
         filtered = filtered.filter(p => {
@@ -227,19 +232,12 @@ function getValidPaintings() {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
             let y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
-            // Fallback: if no birth_year, try death_year
             if (!y && bio && bio.death_year) y = parseInt(bio.death_year);
-            // Also include if movement or genre includes "20th-century" or "modern"
             const isModern = bio && (
                 (bio.movement && bio.movement.some(m => m.toLowerCase().includes('modern')))
                 || (bio.genre && bio.genre.some(g => g.toLowerCase().includes('modern')))
             );
             return (y && y >= 1900 && y < 2000) || isModern;
-        });
-    } else if (selectedCategory === 'stolav') {
-        filtered = filtered.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && bio.awards && bio.awards.some(a => a.toLowerCase().includes('st. olav'));
         });
     }
     return filtered;
