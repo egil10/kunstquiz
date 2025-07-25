@@ -129,58 +129,70 @@ def safe_get(url, params=None, headers=None, max_retries=5):
 
 # Helper to fetch artist metadata from Wikipedia/Wikidata
 def fetch_artist_metadata(artist):
-    wiki_api_url = "https://en.wikipedia.org/w/api.php"
-    params = {
-        "action": "query",
-        "format": "json",
-        "titles": artist,
-        "prop": "pageprops|extracts",
-        "exintro": True,
-        "explaintext": True,
-        "redirects": 1
-    }
-    response = safe_get(wiki_api_url, params=params, headers=HEADERS)
-    pages = response.json()["query"]["pages"]
-    page_id = list(pages.keys())[0]
-    if page_id == "-1":
-        return None
-    bio = pages[page_id].get("extract", "No bio available.").strip()
-    bio_sentences = bio.split('.')[:3]
-    bio = '. '.join(bio_sentences) + '.' if bio_sentences else bio
-    if "pageprops" not in pages[page_id]:
-        return None
-    wikidata_id = pages[page_id]["pageprops"]["wikibase_item"]
-    # Get birth/death from Wikidata
-    sparql_query = f"""
-    SELECT ?birth ?death WHERE {{
-      wd:{wikidata_id} wdt:P569 ?birth .
-      OPTIONAL {{ wd:{wikidata_id} wdt:P570 ?death }}
-    }}
-    """
-    wikidata_url = "https://query.wikidata.org/sparql"
-    params = {"query": sparql_query, "format": "json"}
-    response = safe_get(wikidata_url, params=params, headers=HEADERS)
-    results = response.json()["results"]["bindings"]
-    birth = death = "Unknown"
-    if results:
-        res = results[0]
-        birth_raw = res.get("birth", {}).get("value", "Unknown")
-        death_raw = res.get("death", {}).get("value", "Unknown")
+    # Try English, Bokmål, and Nynorsk Wikipedias in order
+    wikis = [
+        ("en", "https://en.wikipedia.org/w/api.php"),
+        ("no", "https://no.wikipedia.org/w/api.php"),
+        ("nn", "https://nn.wikipedia.org/w/api.php")
+    ]
+    for lang, wiki_api_url in wikis:
+        params = {
+            "action": "query",
+            "format": "json",
+            "titles": artist,
+            "prop": "pageprops|extracts",
+            "exintro": True,
+            "explaintext": True,
+            "redirects": 1
+        }
         try:
-            birth = datetime.fromisoformat(birth_raw.rstrip('Z')).strftime("%Y-%m-%d") if birth_raw != "Unknown" else "Unknown"
-        except:
-            birth = birth_raw.split('T')[0] if birth_raw != "Unknown" else "Unknown"
-        try:
-            death = datetime.fromisoformat(death_raw.rstrip('Z')).strftime("%Y-%m-%d") if death_raw != "Unknown" else "Unknown"
-        except:
-            death = death_raw.split('T')[0] if death_raw != "Unknown" else "Unknown"
-    return {
-        "artist": artist,
-        "bio": bio,
-        "birth": birth,
-        "death": death,
-        "wikidata_id": wikidata_id
-    }
+            response = safe_get(wiki_api_url, params=params, headers=HEADERS)
+            pages = response.json()["query"]["pages"]
+            page_id = list(pages.keys())[0]
+            if page_id == "-1":
+                continue
+            bio = pages[page_id].get("extract", "No bio available.").strip()
+            bio_sentences = bio.split('.')[:3]
+            bio = '. '.join(bio_sentences) + '.' if bio_sentences else bio
+            if "pageprops" not in pages[page_id]:
+                continue
+            wikidata_id = pages[page_id]["pageprops"].get("wikibase_item")
+            if not wikidata_id:
+                continue
+            # Get birth/death from Wikidata
+            sparql_query = f"""
+            SELECT ?birth ?death WHERE {{
+              wd:{wikidata_id} wdt:P569 ?birth .
+              OPTIONAL {{ wd:{wikidata_id} wdt:P570 ?death }}
+            }}
+            """
+            wikidata_url = "https://query.wikidata.org/sparql"
+            params2 = {"query": sparql_query, "format": "json"}
+            response2 = safe_get(wikidata_url, params=params2, headers=HEADERS)
+            results = response2.json()["results"]["bindings"]
+            birth = death = "Unknown"
+            if results:
+                res = results[0]
+                birth_raw = res.get("birth", {}).get("value", "Unknown")
+                death_raw = res.get("death", {}).get("value", "Unknown")
+                try:
+                    birth = datetime.fromisoformat(birth_raw.rstrip('Z')).strftime("%Y-%m-%d") if birth_raw != "Unknown" else "Unknown"
+                except:
+                    birth = birth_raw.split('T')[0] if birth_raw != "Unknown" else "Unknown"
+                try:
+                    death = datetime.fromisoformat(death_raw.rstrip('Z')).strftime("%Y-%m-%d") if death_raw != "Unknown" else "Unknown"
+                except:
+                    death = death_raw.split('T')[0] if death_raw != "Unknown" else "Unknown"
+            return {
+                "artist": artist,
+                "bio": bio,
+                "birth": birth,
+                "death": death,
+                "wikidata_id": wikidata_id
+            }
+        except Exception as e:
+            print(f"  [WARN] {lang}wiki lookup failed for {artist}: {e}")
+    return None
 
 # Helper to fetch artist movement, gender, and country from Wikidata
 def fetch_artist_extra_metadata(wikidata_id):
@@ -380,17 +392,25 @@ def fetch_paintings_from_wikidata(artist_name, limit=100):
 
 # Main collection and merge logic
 all_paintings = []
-# Read existing paintings.json if it exists
-existing_paintings = []
+# Load artist bios for aliases
+with open('data/artist_bios.json', 'r', encoding='utf-8') as f:
+    artist_bios = json.load(f)
+artist_alias_map = {b['name']: [b['name']] + b.get('aliases', []) for b in artist_bios}
+
+# Load existing paintings for appending
 if os.path.exists(OUTPUT_FILE):
     with open(OUTPUT_FILE, 'r', encoding='utf-8') as f:
         try:
             existing_paintings = json.load(f)
-        except Exception:
-            existing_paintings = []
+            for p in existing_paintings:
+                key = (p["artist"], p["title"], p["url"])
+                existing_keys.add(key)
+                all_paintings.append(p)
+        except Exception as e:
+            print(f"Warning: Could not load existing paintings: {e}")
 
 # Build a set of unique keys for fast lookup
-existing_keys = set((p['artist'], p['title'], p['url']) for p in existing_paintings)
+# existing_keys = set((p['artist'], p['title'], p['url']) for p in existing_paintings) # This line is now redundant as keys are added directly
 
 # Fetch up to 100 paintings per artist
 for artist in artists:
@@ -414,19 +434,32 @@ for artist in artists:
         continue
     # Fetch extra metadata
     gender, country, movement = fetch_artist_extra_metadata(artist_meta["wikidata_id"])
-    # Try recursive Commons category search first
-    cat_name = f"Paintings by {artist}"
-    paintings = fetch_images_from_category(cat_name, limit=limit, max_depth=2)
-    if len(paintings) < limit // 2:
-        print(f"  Only {len(paintings)} paintings found in Commons categories for {artist}, supplementing with Wikidata...")
-        paintings += fetch_paintings_from_wikidata(artist, limit=limit-len(paintings))
-    # After fetching paintings, ensure each has 'artist' field
-    for p in paintings:
-        p['artist'] = artist
-    # Deduplicate by url
+    # Use aliases for search
+    aliases = artist_alias_map.get(artist, [artist])
+    found_paintings = []
+    for alias in aliases:
+        print(f"  Searching for paintings by alias: {alias}")
+        commons_patterns = [
+            f"Paintings by {alias}",
+            f"Art by {alias}",
+            f"Works by {alias}",
+            f"{alias}"
+        ]
+        alias_paintings = []
+        for cat_name in commons_patterns:
+            print(f"    Trying Commons category: {cat_name}")
+            paintings = fetch_images_from_category(cat_name, limit=limit, max_depth=2)
+            alias_paintings += paintings
+        # Always supplement with Wikidata for this alias
+        print(f"    Supplementing with Wikidata for {alias}...")
+        alias_paintings += fetch_paintings_from_wikidata(alias, limit=limit-len(alias_paintings))
+        for p in alias_paintings:
+            p['artist'] = artist  # Always use canonical name
+        found_paintings += alias_paintings
+    # Deduplicate by url within this artist
     seen_urls = set()
     unique_paintings = []
-    for p in paintings:
+    for p in found_paintings:
         if p["url"] and p["url"] not in seen_urls:
             unique_paintings.append(p)
             seen_urls.add(p["url"])
@@ -488,6 +521,39 @@ for artist in artists:
         existing_keys.add(key)
     time.sleep(2)  # Be nice to the API
 
+# After main loop, fetch 10 more paintings for each popular painter
+for artist in POPULAR_PAINTERS:
+    aliases = artist_alias_map.get(artist, [artist])
+    for alias in aliases:
+        print(f"[EXTRA] Fetching 10 more paintings for popular painter: {alias}")
+        commons_patterns = [
+            f"Paintings by {alias}",
+            f"Art by {alias}",
+            f"Works by {alias}",
+            f"{alias}"
+        ]
+        extra_paintings = []
+        for cat_name in commons_patterns:
+            print(f"    Trying Commons category: {cat_name}")
+            paintings = fetch_images_from_category(cat_name, limit=10, max_depth=2)
+            extra_paintings += paintings
+        print(f"    Supplementing with Wikidata for {alias}...")
+        extra_paintings += fetch_paintings_from_wikidata(alias, limit=10-len(extra_paintings))
+        for p in extra_paintings:
+            p['artist'] = artist
+        # Deduplicate and append
+        seen_urls = set()
+        unique_paintings = []
+        for p in extra_paintings:
+            if p["url"] and p["url"] not in seen_urls:
+                unique_paintings.append(p)
+                seen_urls.add(p["url"])
+        for painting in unique_paintings:
+            key = (painting['artist'], painting['title'], painting['url'])
+            if key not in existing_keys:
+                all_paintings.append(painting)
+                existing_keys.add(key)
+
 # At the end, print a summary of paintings per category
 from collections import Counter
 cat_counter = Counter()
@@ -513,8 +579,8 @@ for p in all_paintings:
 
 final_paintings = list(unique.values())
 
-# Save to JSON
-with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+# Save to a new file for safety
+output_appended = OUTPUT_FILE.replace('.json', '_appended.json')
+with open(output_appended, "w", encoding="utf-8") as f:
     json.dump(final_paintings, f, indent=2, ensure_ascii=False)
-
-print(f"✅ Saved {len(final_paintings)} paintings to {OUTPUT_FILE}") 
+print(f"✅ Appended and saved {len(final_paintings)} paintings to {output_appended}") 

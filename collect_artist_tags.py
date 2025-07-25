@@ -1,6 +1,7 @@
 import requests
 import json
 import time
+import os
 
 # List of artists (should match your main script)
 artists = [
@@ -122,8 +123,28 @@ for artist in artists:
     time.sleep(1)
 
 output_path = "data/artist_tags.json"
-with open(output_path, "w", encoding="utf-8") as f:
-    json.dump(artist_tags, f, indent=2, ensure_ascii=False)
+appended_path = "data/artist_tags_appended.json"
 
-print(f"✅ Saved artist tags to {output_path}")
+# Load existing tags if present
+if os.path.exists(output_path):
+    with open(output_path, "r", encoding="utf-8") as f:
+        try:
+            existing_tags = json.load(f)
+        except Exception as e:
+            print(f"Warning: Could not load existing tags: {e}")
+            existing_tags = {}
+else:
+    existing_tags = {}
+
+# Merge new tags with existing, prefer new data for updated fields
+for artist, tags in artist_tags.items():
+    if artist in existing_tags:
+        existing_tags[artist].update(tags)
+    else:
+        existing_tags[artist] = tags
+
+with open(appended_path, "w", encoding="utf-8") as f:
+    json.dump(existing_tags, f, indent=2, ensure_ascii=False)
+
+print(f"✅ Appended and saved artist tags to {appended_path}")
 print(f"\nTotal women painters found: {women_count}") 
