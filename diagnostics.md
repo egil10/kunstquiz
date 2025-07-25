@@ -46,15 +46,12 @@
 - **Popular Painters:** 2301 paintings, 10 painters
 - **Landscape Painting:** 352 paintings, 35 painters
 - **Portraits:** 314 paintings, 32 painters
-- **Marine Painting:** 0 paintings, 0 painters
-- **Historical Painting:** 20 paintings, 7 painters
-- **Norwegian Romantic Nationalism:** 149 paintings, 1 painters
-- **Impressionism:** 189 paintings, 2 painters
-- **Expressionism:** 199 paintings, 2 painters
+- **Women Painters:** 290 paintings, 8 painters
 - **19th Century:** 4103 paintings, 53 painters
 - **20th Century:** 120 paintings, 20 painters
-- **Genre Painting:** 0 paintings, 0 painters
-- **Religious Painting:** 0 paintings, 0 painters
+- **Impressionism:** 189 paintings, 2 painters
+- **Expressionism:** 199 paintings, 2 painters
+- **Norwegian Romantic:** 149 paintings, 1 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33

@@ -6,19 +6,18 @@ let lastPaintingIndex = -1;
 let selectedCategory = 'all';
 let artistBios = [];
 
-// List of categories with consistent labels
+// List of categories with consistent labels - Updated based on actual data
 const CATEGORY_DEFS = [
   { value: 'all', label: 'Full Collection' },
   { value: 'popular', label: 'Popular Painters' },
   { value: 'landscape', label: 'Landscape Painting' },
   { value: 'portraits', label: 'Portraits' },
-  { value: 'romanticism', label: 'Romanticism' },
-  { value: 'expressionism', label: 'Expressionism' },
-  { value: 'mountains_nature', label: 'Mountains & Nature' },
-  { value: 'historical', label: 'Historical/Nationalism' },
+  { value: 'women_painters', label: 'Women Painters' },
   { value: '19thcentury', label: '19th Century' },
   { value: '20thcentury', label: '20th Century' },
-  { value: 'women_painters', label: 'Women Painters' }
+  { value: 'impressionism', label: 'Impressionism' },
+  { value: 'expressionism', label: 'Expressionism' },
+  { value: 'norwegian_romantic', label: 'Norwegian Romantic' }
 ];
 
 function getYearOnly(dateStr) {
@@ -205,10 +204,7 @@ const categoryFilters = {
   },
   landscape: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('landscape')),
   portraits: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('portrait')),
-  romanticism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('romanticism')),
-  expressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('expressionism')),
-  mountains_nature: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('mountain') || g?.toLowerCase().includes('nature')),
-  historical: p => [...(p.artist_genre || []), ...(p.genre || []), ...(p.artist_movement || []), ...(p.movement || [])].some(g => g?.toLowerCase().includes('historical') || g?.toLowerCase().includes('nationalism') || g?.toLowerCase().includes('mythology')),
+  women_painters: p => p.artist_gender === 'female',
   '19thcentury': (p, artistMap) => {
     const bio = artistMap[p.artist];
     const y = bio?.birth_year ? parseInt(bio.birth_year) : null;
@@ -223,10 +219,13 @@ const categoryFilters = {
     );
     return (y && y >= 1900 && y < 2000) || isModern;
   },
-  women_painters: (p, artistMap) => {
-    const bio = artistMap[p.artist];
-    return bio && (bio.gender === 'female' || bio.is_female === true);
-  }
+  impressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('impressionism')),
+  expressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('expressionism')),
+  norwegian_romantic: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    m?.toLowerCase().includes('nasjonalromantikk') || 
+    m?.toLowerCase().includes('norwegian romantic nationalism') || 
+    m?.toLowerCase().includes('romantic nationalism')
+  )
 };
 
 function getValidPaintings() {
@@ -235,7 +234,7 @@ function getValidPaintings() {
   const artistMap = getArtistBioMap();
   const filterFn = categoryFilters[selectedCategory];
   if (filterFn) {
-    if (selectedCategory.endsWith('century') || selectedCategory === 'women_painters') {
+    if (selectedCategory.endsWith('century')) {
       filtered = filtered.filter(p => filterFn(p, artistMap));
     } else if (selectedCategory === 'popular') {
       filtered = filterFn(filtered);

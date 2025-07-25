@@ -244,6 +244,14 @@ button:disabled {
   margin: 0;
   outline: none;
   transition: color 0.2s;
+  position: relative;
+}
+
+.custom-category-link::after {
+  content: '▼';
+  margin-left: 0.5rem;
+  font-size: 0.8rem;
+  opacity: 0.6;
 }
 
 .custom-category-link:hover {
@@ -433,6 +441,10 @@ button:disabled {
   font-weight: 400;
   vertical-align: middle;
   letter-spacing: 0.01em;
+  background: rgba(76, 175, 80, 0.1);
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(76, 175, 80, 0.2);
 }
 
 .footer-social {
