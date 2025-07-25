@@ -341,6 +341,8 @@ function showArtistPopup(painting, onDone) {
         if (bioInfo.self_portrait_url) {
             imgHtml = `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait toast-portrait">`;
         }
+        // Add number of paintings at the end of the bio
+        bioHtml += ` <span class='artist-painting-count'>(${numPaintings} painting${numPaintings === 1 ? '' : 's'})</span>`;
     } else {
         const birth = getYearOnly(painting.artist_birth);
         const death = getYearOnly(painting.artist_death);
@@ -350,8 +352,8 @@ function showArtistPopup(painting, onDone) {
         imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait toast-portrait">` : '';
         bioHtml = '';
     }
-    // Add number of paintings after the name
-    nameHtml += ` <span class='artist-painting-count'>(${numPaintings} painting${numPaintings === 1 ? '' : 's'} in quiz)</span>`;
+    // Remove the number of paintings from the nameHtml
+    nameHtml = nameHtml.replace(/ \(.*painting.*\)$/, '');
     popup.innerHTML = `
         <div class="artist-popup-content toast-content">
             ${imgHtml}
@@ -406,7 +408,9 @@ function showArtistsModal() {
         const ul = document.createElement('ul');
         col.forEach(name => {
             const li = document.createElement('li');
-            li.textContent = name;
+            // Count paintings for this artist
+            const numPaintings = paintings.filter(p => p.artist === name).length;
+            li.textContent = `${name} (${numPaintings})`;
             ul.appendChild(li);
         });
         div.appendChild(ul);
