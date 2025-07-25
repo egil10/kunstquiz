@@ -521,11 +521,11 @@ for artist in artists:
         existing_keys.add(key)
     time.sleep(2)  # Be nice to the API
 
-# After main loop, fetch 10 more paintings for each popular painter
+# After main loop, fetch 5 more paintings for each popular painter
 for artist in POPULAR_PAINTERS:
     aliases = artist_alias_map.get(artist, [artist])
     for alias in aliases:
-        print(f"[EXTRA] Fetching 10 more paintings for popular painter: {alias}")
+        print(f"[EXTRA] Fetching 5 more paintings for popular painter: {alias}")
         commons_patterns = [
             f"Paintings by {alias}",
             f"Art by {alias}",
@@ -535,10 +535,10 @@ for artist in POPULAR_PAINTERS:
         extra_paintings = []
         for cat_name in commons_patterns:
             print(f"    Trying Commons category: {cat_name}")
-            paintings = fetch_images_from_category(cat_name, limit=10, max_depth=2)
+            paintings = fetch_images_from_category(cat_name, limit=5, max_depth=2)
             extra_paintings += paintings
         print(f"    Supplementing with Wikidata for {alias}...")
-        extra_paintings += fetch_paintings_from_wikidata(alias, limit=10-len(extra_paintings))
+        extra_paintings += fetch_paintings_from_wikidata(alias, limit=5-len(extra_paintings))
         for p in extra_paintings:
             p['artist'] = artist
         # Deduplicate and append

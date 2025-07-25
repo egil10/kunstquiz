@@ -20,18 +20,14 @@ function getCenturyFromYear(yearStr) {
 function getCategoryCounts() {
     const counts = {};
     const painterSets = {};
-    paintings.forEach(p => {
-        if (Array.isArray(p.categories)) {
-            p.categories.forEach(cat => {
-                counts[cat] = (counts[cat] || 0) + 1;
-                if (!painterSets[cat]) painterSets[cat] = new Set();
-                if (p.artist) painterSets[cat].add(p.artist);
-            });
-        }
+    CATEGORY_DEFS.forEach(cat => {
+        const prev = selectedCategory;
+        selectedCategory = cat.value;
+        const valid = getValidPaintings();
+        counts[cat.value] = valid.length;
+        painterSets[cat.value] = new Set(valid.map(p => p.artist));
+        selectedCategory = prev;
     });
-    // For full collection
-    painterSets['all'] = new Set(paintings.map(p => p.artist));
-    counts['all'] = paintings.length;
     return { counts, painterSets };
 }
 
@@ -193,7 +189,10 @@ function getValidPaintings() {
     } else if (selectedCategory === 'landscape') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
-            return bio && bio.genre && bio.genre.some(g => g.toLowerCase().includes('landscape'));
+            return bio && (
+                (bio.genre && bio.genre.some(g => g.toLowerCase().includes('landscape')))
+                || (bio.movement && bio.movement.some(m => m.toLowerCase().includes('landscape')))
+            );
         });
     } else if (selectedCategory === 'romanticism') {
         filtered = filtered.filter(p => {
@@ -203,7 +202,10 @@ function getValidPaintings() {
     } else if (selectedCategory === 'expressionism') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
-            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('expressionism'));
+            return bio && (
+                (bio.movement && bio.movement.some(m => m.toLowerCase().includes('expressionism')))
+                || (bio.genre && bio.genre.some(g => g.toLowerCase().includes('expressionism')))
+            );
         });
     } else if (selectedCategory === 'impressionism') {
         filtered = filtered.filter(p => {
@@ -224,8 +226,15 @@ function getValidPaintings() {
     } else if (selectedCategory === '20thcentury') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
-            const y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
-            return y && y >= 1900 && y < 2000;
+            let y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
+            // Fallback: if no birth_year, try death_year
+            if (!y && bio && bio.death_year) y = parseInt(bio.death_year);
+            // Also include if movement or genre includes "20th-century" or "modern"
+            const isModern = bio && (
+                (bio.movement && bio.movement.some(m => m.toLowerCase().includes('modern')))
+                || (bio.genre && bio.genre.some(g => g.toLowerCase().includes('modern')))
+            );
+            return (y && y >= 1900 && y < 2000) || isModern;
         });
     } else if (selectedCategory === 'stolav') {
         filtered = filtered.filter(p => {
@@ -386,7 +395,18 @@ function getArtistBioInfo(name) {
     return artistBios.find(b => b.name === name) || null;
 }
 
-function showArtistPopup(paintingOrName, onDone) {
+// Add overlay for persistent popup
+function ensureArtistPopupOverlay() {
+    let overlay = document.getElementById('artist-popup-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.id = 'artist-popup-overlay';
+        document.body.appendChild(overlay);
+    }
+    return overlay;
+}
+
+function showArtistPopup(paintingOrName, onDone, persistent = false) {
     let popup = document.getElementById('artist-popup');
     if (!popup) {
         popup = document.createElement('div');
@@ -428,6 +448,11 @@ function showArtistPopup(paintingOrName, onDone) {
         bioHtml = '';
         tagsHtml = '';
     }
+    // Add close button if persistent
+    let closeBtnHtml = '';
+    if (persistent) {
+        closeBtnHtml = `<button class='artist-popup-close' aria-label='Close'>&times;</button>`;
+    }
     // Modern, clean popup layout
     popup.innerHTML = `
         <div class="artist-popup-content toast-content">
@@ -438,14 +463,67 @@ function showArtistPopup(paintingOrName, onDone) {
                 ${bioHtml}
                 ${tagsHtml}
             </div>
+            ${closeBtnHtml}
         </div>
     `;
+    // Fade in effect
+    popup.style.opacity = 0;
     popup.classList.add('visible');
-    setTimeout(() => {
-        popup.classList.remove('visible');
-        setTimeout(() => { popup.style.display = 'none'; if (onDone) onDone(); }, 400);
-    }, 3500);
     popup.style.display = 'flex';
+    setTimeout(() => { popup.style.opacity = 1; }, 10);
+    // Move popup to top center if in-game (not persistent)
+    if (!persistent) {
+        popup.classList.remove('persistent');
+        popup.classList.add('toast');
+        popup.style.position = 'fixed';
+        popup.style.top = '32px';
+        popup.style.left = '50%';
+        popup.style.transform = 'translateX(-50%)';
+        popup.style.zIndex = '1000';
+        // Hide overlay if present
+        let overlay = document.getElementById('artist-popup-overlay');
+        if (overlay) overlay.classList.remove('visible');
+    } else {
+        popup.classList.remove('toast');
+        popup.classList.add('persistent');
+        popup.style.position = 'fixed';
+        popup.style.top = '50%';
+        popup.style.left = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.zIndex = '2000';
+        // Show overlay
+        let overlay = ensureArtistPopupOverlay();
+        overlay.classList.add('visible');
+    }
+    // Persistent: close on button or click outside
+    if (persistent) {
+        const closeBtn = popup.querySelector('.artist-popup-close');
+        if (closeBtn) {
+            closeBtn.onclick = function() {
+                popup.classList.remove('visible');
+                popup.style.opacity = 0;
+                setTimeout(() => { popup.style.display = 'none'; let overlay = document.getElementById('artist-popup-overlay'); if (overlay) overlay.classList.remove('visible'); if (onDone) onDone(); }, 400);
+            };
+        }
+        // Click outside to close
+        setTimeout(() => {
+            function outsideClick(e) {
+                if (!popup.contains(e.target)) {
+                    popup.classList.remove('visible');
+                    popup.style.opacity = 0;
+                    setTimeout(() => { popup.style.display = 'none'; let overlay = document.getElementById('artist-popup-overlay'); if (overlay) overlay.classList.remove('visible'); if (onDone) onDone(); }, 400);
+                    document.removeEventListener('mousedown', outsideClick);
+                }
+            }
+            document.addEventListener('mousedown', outsideClick);
+        }, 100);
+    } else {
+        setTimeout(() => {
+            popup.classList.remove('visible');
+            popup.style.opacity = 0;
+            setTimeout(() => { popup.style.display = 'none'; if (onDone) onDone(); }, 400);
+        }, 3500);
+    }
 }
 
 // Make logo/title clickable to reset
@@ -492,7 +570,7 @@ function showArtistsModal() {
             a.textContent = `${name} (${numPaintings})`;
             a.onclick = (e) => {
                 e.preventDefault();
-                showArtistPopup(name);
+                showArtistPopup(name, null, true);
             };
             li.appendChild(a);
             ul.appendChild(li);
