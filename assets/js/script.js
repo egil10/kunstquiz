@@ -220,12 +220,12 @@ function loadQuiz() {
                     return;
                 }
                 selectedBtn.classList.add('correct');
-                showMessage('Riktig!', '#388e3c');
+                showMessage('Correct!', '#388e3c');
             } else {
                 streak = 0;
                 selectedBtn.classList.add('wrong');
                 correctBtn.classList.add('correct');
-                showMessage('Feil!', '#e53935');
+                showMessage('Not correct!', '#e53935');
             }
             updateStreakBar();
             showArtistPopup(painting, () => {
