@@ -133,6 +133,46 @@ function renderCategorySelector() {
     };
 }
 
+// Shuffle paintings on page load for gallery
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
+
+function showGalleryModal() {
+    const modal = document.getElementById('gallery-modal');
+    const collage = document.getElementById('gallery-collage');
+    if (!modal || !collage) return;
+    collage.innerHTML = '';
+    // Show a grid of all paintings, shuffled
+    const shuffled = paintings.slice();
+    shuffleArray(shuffled);
+    collage.innerHTML = `<div class='gallery-collage-grid'>` +
+        shuffled.map(p => `<img src="${p.url}" alt="" class="gallery-collage-img" />`).join('') +
+        `</div>`;
+    modal.style.display = 'flex';
+}
+function hideGalleryModal() {
+    const modal = document.getElementById('gallery-modal');
+    if (modal) modal.style.display = 'none';
+}
+function setupGalleryModal() {
+    const showLink = document.getElementById('show-gallery-link');
+    const closeBtn = document.getElementById('close-gallery-modal');
+    if (showLink) {
+        showLink.onclick = function(e) {
+            e.preventDefault();
+            showGalleryModal();
+        };
+    }
+    if (closeBtn) {
+        closeBtn.onclick = function() {
+            hideGalleryModal();
+        };
+    }
+}
 // Call renderCategorySelector after paintings are loaded and on category change
 // After paintings are loaded:
 fetch('./data/paintings_merged.json')
@@ -144,6 +184,7 @@ fetch('./data/paintings_merged.json')
         renderCategorySelector();
         loadQuiz();
         setupArtistModal();
+        setupGalleryModal();
         return loadArtistBios();
     });
 
@@ -464,24 +505,23 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     if (!persistent) {
         // In-game overlay positioning
         popup.className = 'artist-popup toast artist-popup-overlay';
-        popup.style.position = 'fixed';
-        popup.style.left = '50%';
-        popup.style.top = '50%';
-        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.position = 'absolute';
+        popup.style.left = '0';
+        popup.style.top = '0';
+        popup.style.transform = 'none';
         popup.style.zIndex = '3000';
-        popup.style.maxWidth = '520px';
-        popup.style.width = '520px';
-        popup.style.height = 'auto';
+        popup.style.width = `${buttonCol.offsetWidth}px`;
+        popup.style.height = `${buttonCol.offsetHeight}px`;
+        popup.style.maxWidth = `${buttonCol.offsetWidth}px`;
+        popup.style.maxHeight = `${buttonCol.offsetHeight}px`;
         popup.style.overflow = 'visible';
-        contentHtml = `
-        <div class="artist-popup-columns in-game-overlay no-scroll">
-            <div class="artist-popup-left">${imgHtml}</div>
-            <div class="artist-popup-right">
-                <div class="artist-popup-text toast-text">
-                    <span class='artist-name'>${name}</span>${yearsHtml}${bioHtml}${tagsHtml}
-                </div>
-            </div>
-        </div>`;
+    
+        // Ensure popup is inside the button column
+        buttonCol.appendChild(popup);
+    
+        // Optional: remove overlay
+        let overlay = document.getElementById('artist-popup-overlay');
+        if (overlay) overlay.classList.remove('visible');
     } else {
         // Persistent modal positioning and content
         popup.className = 'artist-popup persistent persistent-modal-vertical';
