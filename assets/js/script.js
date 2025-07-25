@@ -10,15 +10,15 @@ let artistBios = [];
 const CATEGORY_DEFS = [
   { value: 'all', label: 'Full Collection' },
   { value: 'popular', label: 'Popular Painters' },
-  { value: 'landscape', label: 'Landscapes' },
+  { value: 'landscape', label: 'Landscape Painting' },
   { value: 'portraits', label: 'Portraits' },
   { value: 'romanticism', label: 'Romanticism' },
   { value: 'expressionism', label: 'Expressionism' },
   { value: 'mountains_nature', label: 'Mountains & Nature' },
-  { value: 'historical_nationalism', label: 'Historical / Nationalism' },
-  { value: '1800s', label: '1800s' },
-  { value: 'national_museum', label: 'National Museum of Norway' },
-  { value: 'women_painters', label: 'Women Painters' },
+  { value: 'historical', label: 'Historical/Nationalism' },
+  { value: '19thcentury', label: '19th Century' },
+  { value: '20thcentury', label: '20th Century' },
+  { value: 'women_painters', label: 'Women Painters' }
 ];
 
 function getYearOnly(dateStr) {
@@ -156,6 +156,16 @@ function showGalleryModal() {
   collage.appendChild(grid);
   modal.style.display = 'flex';
   modal.focus();
+  // Add click outside to close
+  setTimeout(() => {
+    function outsideClick(e) {
+      if (!modal.querySelector('.gallery-modal-content').contains(e.target)) {
+        hideGalleryModal();
+        document.removeEventListener('mousedown', outsideClick);
+      }
+    }
+    document.addEventListener('mousedown', outsideClick);
+  }, 100);
 }
 
 function hideGalleryModal() {
@@ -195,9 +205,10 @@ const categoryFilters = {
   },
   landscape: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('landscape')),
   portraits: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('portrait')),
-  impressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('impressionism')),
+  romanticism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('romanticism')),
   expressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('expressionism')),
-  abstract: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('abstract')),
+  mountains_nature: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('mountain') || g?.toLowerCase().includes('nature')),
+  historical: p => [...(p.artist_genre || []), ...(p.genre || []), ...(p.artist_movement || []), ...(p.movement || [])].some(g => g?.toLowerCase().includes('historical') || g?.toLowerCase().includes('nationalism') || g?.toLowerCase().includes('mythology')),
   '19thcentury': (p, artistMap) => {
     const bio = artistMap[p.artist];
     const y = bio?.birth_year ? parseInt(bio.birth_year) : null;
@@ -212,8 +223,10 @@ const categoryFilters = {
     );
     return (y && y >= 1900 && y < 2000) || isModern;
   },
-  historical: p => [...(p.artist_genre || []), ...(p.genre || []), ...(p.artist_movement || []), ...(p.movement || [])].some(g => g?.toLowerCase().includes('historical') || g?.toLowerCase().includes('nationalism') || g?.toLowerCase().includes('mythology')),
-  // Add more for other categories like 'romanticism', 'mountains_nature', etc., following similar patterns
+  women_painters: (p, artistMap) => {
+    const bio = artistMap[p.artist];
+    return bio && (bio.gender === 'female' || bio.is_female === true);
+  }
 };
 
 function getValidPaintings() {
@@ -222,7 +235,7 @@ function getValidPaintings() {
   const artistMap = getArtistBioMap();
   const filterFn = categoryFilters[selectedCategory];
   if (filterFn) {
-    if (selectedCategory.endsWith('century')) {
+    if (selectedCategory.endsWith('century') || selectedCategory === 'women_painters') {
       filtered = filtered.filter(p => filterFn(p, artistMap));
     } else if (selectedCategory === 'popular') {
       filtered = filterFn(filtered);
@@ -447,9 +460,15 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     overlay.classList.add('visible');
     const closeBtn = popup.querySelector('.artist-popup-close');
     if (closeBtn) closeBtn.addEventListener('click', () => hidePopup(popup, onDone));
-    document.addEventListener('mousedown', e => {
-      if (!popup.contains(e.target)) hidePopup(popup, onDone);
-    }, { once: true });
+    setTimeout(() => {
+      function outsideClick(e) {
+        if (!popup.contains(e.target)) {
+          hidePopup(popup, onDone);
+          document.removeEventListener('mousedown', outsideClick);
+        }
+      }
+      document.addEventListener('mousedown', outsideClick);
+    }, 100);
   } else {
     popup.className = 'artist-popup toast';
     setTimeout(() => hidePopup(popup, onDone), 3500);
@@ -515,6 +534,16 @@ function showArtistsModal() {
   const modal = document.getElementById('artists-modal');
   modal.style.display = 'flex';
   modal.focus();
+  // Add click outside to close
+  setTimeout(() => {
+    function outsideClick(e) {
+      if (!modal.querySelector('.artists-modal-content').contains(e.target)) {
+        document.getElementById('artists-modal').style.display = 'none';
+        document.removeEventListener('mousedown', outsideClick);
+      }
+    }
+    document.addEventListener('mousedown', outsideClick);
+  }, 100);
 }
 
 function setupArtistModal() {

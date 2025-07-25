@@ -17,7 +17,7 @@ html, body {
 
 .top-bar {
   width: 100vw;
-  padding: 1.125rem 0 0 2rem;
+  padding: 32px 0 0 32px; /* Increased top padding */
   position: absolute;
   top: 0;
   left: 0;
@@ -28,9 +28,13 @@ html, body {
   font-size: 1.3rem;
   letter-spacing: 0.12em;
   font-weight: 700;
-  color: #666;
+  color: #888;
   cursor: pointer;
   transition: color 0.2s;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  background: none;
+  z-index: 20;
 }
 
 .title:hover {
@@ -43,7 +47,7 @@ html, body {
   justify-content: center;
   align-items: flex-start;
   min-height: 100vh;
-  padding-top: 3.75rem;
+  padding-top: 80px; /* Increased to ensure logo is visible */
   gap: 3.75rem;
 }
 
@@ -677,12 +681,13 @@ button:disabled {
 
 .gallery-modal-content {
   background: #fff;
-  border-radius: 1rem;
-  padding: 2.25rem 2rem 1.75rem 2rem;
-  box-shadow: 0 0.25rem 2rem 0 rgba(0,0,0,0.13);
+  border-radius: 16px;
+  padding: 36px 32px 28px 32px;
+  box-shadow: 0 4px 32px 0 rgba(0,0,0,0.13);
   text-align: center;
-  min-width: 16.25rem;
-  max-width: 90vw;
+  min-width: 320px;
+  max-width: 700px;
+  width: 100%;
   max-height: 90vh;
   overflow-y: auto;
 }
