@@ -471,15 +471,36 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     popup.classList.add('visible');
     popup.style.display = 'flex';
     setTimeout(() => { popup.style.opacity = 1; }, 10);
-    // Move popup to top center if in-game (not persistent)
+    // Positioning logic
     if (!persistent) {
-        popup.classList.remove('persistent');
-        popup.classList.add('toast');
-        popup.style.position = 'fixed';
-        popup.style.top = '32px';
-        popup.style.left = '50%';
-        popup.style.transform = 'translateX(-50%)';
-        popup.style.zIndex = '1000';
+        // Try to position to the right of the painting
+        const paintingImg = document.getElementById('painting');
+        if (paintingImg) {
+            const rect = paintingImg.getBoundingClientRect();
+            // Only do this on wide screens
+            if (window.innerWidth > 900) {
+                popup.classList.remove('persistent');
+                popup.classList.add('toast');
+                popup.style.position = 'fixed';
+                popup.style.top = `${rect.top + window.scrollY}px`;
+                popup.style.left = `${rect.right + 32}px`;
+                popup.style.transform = 'none';
+                popup.style.zIndex = '1000';
+                popup.style.maxWidth = '420px';
+                popup.style.minWidth = '320px';
+            } else {
+                // Fallback to top center for small screens
+                popup.classList.remove('persistent');
+                popup.classList.add('toast');
+                popup.style.position = 'fixed';
+                popup.style.top = '32px';
+                popup.style.left = '50%';
+                popup.style.transform = 'translateX(-50%)';
+                popup.style.zIndex = '1000';
+                popup.style.maxWidth = '';
+                popup.style.minWidth = '';
+            }
+        }
         // Hide overlay if present
         let overlay = document.getElementById('artist-popup-overlay');
         if (overlay) overlay.classList.remove('visible');
@@ -491,6 +512,8 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         popup.style.left = '50%';
         popup.style.transform = 'translate(-50%, -50%)';
         popup.style.zIndex = '2000';
+        popup.style.maxWidth = '';
+        popup.style.minWidth = '';
         // Show overlay
         let overlay = ensureArtistPopupOverlay();
         overlay.classList.add('visible');

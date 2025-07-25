@@ -521,11 +521,11 @@ for artist in artists:
         existing_keys.add(key)
     time.sleep(2)  # Be nice to the API
 
-# After main loop, fetch 5 more paintings for each popular painter
-for artist in POPULAR_PAINTERS:
+# After main loop, fetch 5 more paintings for every painter (not just popular ones)
+for artist in artists:
     aliases = artist_alias_map.get(artist, [artist])
     for alias in aliases:
-        print(f"[EXTRA] Fetching 5 more paintings for popular painter: {alias}")
+        print(f"[EXTRA] Fetching 5 more paintings for {alias}")
         commons_patterns = [
             f"Paintings by {alias}",
             f"Art by {alias}",
