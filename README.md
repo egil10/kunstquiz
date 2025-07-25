@@ -89,3 +89,22 @@ All paintings and artist information are sourced from open data repositories, pr
 
 The dataset is designed to be scalable and is regularly updated by running the included Python script. This ensures the quiz always features a rich, diverse, and growing collection of Norwegian art, ready for filtering by artist, period, style, and more.
 
+
+
+<!-- STATS_START -->
+**Latest Art Quiz Stats**
+- Total paintings: 3574
+- Total unique artists in paintings: 81
+- Total artists in bios: 91
+- Categories:
+  - Full Collection: 3574 paintings, 81 painters
+  - Popular Painters: 1646 paintings, 10 painters
+  - Landscape Painting: 353 paintings, 36 painters
+  - Romanticism: 48 paintings, 1 painters
+  - Impressionism: 189 paintings, 2 painters
+  - Expressionism: 199 paintings, 2 painters
+  - Portraits: 314 paintings, 32 painters
+  - Historical/Nationalism: 172 paintings, 8 painters
+  - 19th Century: 3173 paintings, 53 painters
+  - 20th Century: 103 paintings, 20 painters
+<!-- STATS_END -->

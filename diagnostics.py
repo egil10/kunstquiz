@@ -1,6 +1,7 @@
 import json
 from collections import Counter, defaultdict
 import os
+import re
 
 PAINTINGS_FILE = 'data/paintings_appended.json'
 BIOS_FILE = 'data/artist_bios.json'
@@ -29,6 +30,23 @@ def write_report(lines):
     with open(REPORT_FILE, 'w', encoding='utf-8') as f:
         f.write('\n'.join(lines))
     print(f'\nMarkdown report written to {REPORT_FILE}')
+
+def update_readme_with_stats(stats_md):
+    readme_path = 'README.md'
+    try:
+        with open(readme_path, 'r', encoding='utf-8') as f:
+            readme = f.read()
+    except FileNotFoundError:
+        readme = ''
+    start_marker = '<!-- STATS_START -->'
+    end_marker = '<!-- STATS_END -->'
+    stats_block = f'{start_marker}\n{stats_md}\n{end_marker}'
+    if start_marker in readme and end_marker in readme:
+        readme = re.sub(f'{start_marker}.*?{end_marker}', stats_block, readme, flags=re.DOTALL)
+    else:
+        readme += f'\n\n{stats_block}\n'
+    with open(readme_path, 'w', encoding='utf-8') as f:
+        f.write(readme)
 
 def main():
     if not os.path.exists(PAINTINGS_FILE):
@@ -147,10 +165,47 @@ def main():
 
     lines.append('\nDiagnostics complete.')
 
-    # Print to terminal and write to file
+    # Write diagnostics report
     for line in lines:
         print(line)
     write_report(lines)
+
+    # Prepare and update README.md with summary stats
+    summary_lines = []
+    summary_lines.append('**Latest Art Quiz Stats**')
+    summary_lines.append(f'- Total paintings: {len(paintings)}')
+    summary_lines.append(f'- Total unique artists in paintings: {len(all_artists)}')
+    summary_lines.append(f'- Total artists in bios: {len(bios_by_name)}')
+    summary_lines.append('- Categories:')
+    for cat in CATEGORY_DEFS:
+        if cat['value'] == 'all':
+            filtered = [p for p in paintings if p.get('artist') and p.get('url')]
+        elif cat['value'] == 'popular':
+            artist_counts = Counter(p['artist'] for p in paintings if p.get('artist'))
+            top_artists = set(a for a, _ in artist_counts.most_common(10))
+            filtered = [p for p in paintings if p.get('artist') in top_artists]
+        elif cat['value'] == 'landscape':
+            filtered = [p for p in paintings if any('landscape' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
+        elif cat['value'] == 'romanticism':
+            filtered = [p for p in paintings if any('romanticism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
+        elif cat['value'] == 'impressionism':
+            filtered = [p for p in paintings if any('impressionism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
+        elif cat['value'] == 'expressionism':
+            filtered = [p for p in paintings if any('expressionism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
+        elif cat['value'] == 'portraits':
+            filtered = [p for p in paintings if any('portrait' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
+        elif cat['value'] == 'historical':
+            filtered = [p for p in paintings if any(any(x in (g or '').lower() for x in ['historical','nationalism','mythology']) for g in arr(p.get('artist_genre')) + arr(p.get('genre')) + arr(p.get('artist_movement')) + arr(p.get('movement')))]
+        elif cat['value'] == '19thcentury':
+            filtered = [p for p in paintings if bios_by_name.get(p.get('artist')) and bios_by_name[p['artist']].get('birth_year') and 1800 <= int(bios_by_name[p['artist']]['birth_year']) < 1900]
+        elif cat['value'] == '20thcentury':
+            filtered = [p for p in paintings if bios_by_name.get(p.get('artist')) and bios_by_name[p['artist']].get('birth_year') and 1900 <= int(bios_by_name[p['artist']]['birth_year']) < 2000]
+        else:
+            filtered = []
+        unique_painters = set(p['artist'] for p in filtered if p.get('artist'))
+        summary_lines.append(f'  - {cat["label"]}: {len(filtered)} paintings, {len(unique_painters)} painters')
+    stats_md = '\n'.join(summary_lines)
+    update_readme_with_stats(stats_md)
 
 if __name__ == '__main__':
     main() 
