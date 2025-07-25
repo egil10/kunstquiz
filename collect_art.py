@@ -212,8 +212,6 @@ def main():
         else:
             print(f'Unknown URL type: {url}')
             continue
-        if not args.quiet:
-            print(f'Found {len(imgs)} images in {url}')
         # Optionally, you could prompt for artist name or infer from URL
         for img in imgs:
             if not img.get('artist'):
@@ -238,6 +236,15 @@ def main():
                     else:
                         img['artist'] = 'Unknown'
         all_new_paintings.extend(imgs)
+        
+        # Show results for this URL
+        if not args.quiet:
+            # Extract a clean URL name for display
+            url_name = url.split('/')[-1].replace('_', ' ')
+            if len(imgs) > 0:
+                print(f'  ✅ Found {len(imgs)} paintings from {url_name}')
+            else:
+                print(f'  ⚠️  No paintings found in {url_name}')
 
     # --- Artist name mode (stub: you can expand this to use your current Wikidata/Commons logic) ---
     for artist in artists:
@@ -249,7 +256,19 @@ def main():
     if all_new_paintings:
         append_paintings(all_new_paintings)
         if not args.quiet:
+            print(f'\n🎨 COLLECTION SUMMARY:')
             print(f'Total new paintings collected: {len(all_new_paintings)}')
+            
+            # Show breakdown by artist
+            artist_counts = {}
+            for painting in all_new_paintings:
+                artist = painting.get('artist', 'Unknown')
+                artist_counts[artist] = artist_counts.get(artist, 0) + 1
+            
+            if artist_counts:
+                print(f'Breakdown by artist:')
+                for artist, count in sorted(artist_counts.items(), key=lambda x: x[1], reverse=True):
+                    print(f'  • {artist}: {count} paintings')
     else:
         print('No new paintings to append.')
 
