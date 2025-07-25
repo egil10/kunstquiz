@@ -2,17 +2,17 @@
 
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
-- **Paintings (Appended):** 7.84 MB (89,276 lines)
-- **Paintings (Merged):** 10.6 MB (201,605 lines)
+- **Paintings (Appended):** 8.46 MB (95,440 lines)
+- **Paintings (Merged):** 12.3 MB (243,321 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
 
 ### 🎨 Paintings Collection Health
-- **File size:** 7.84 MB (89,276 lines)
+- **File size:** 8.46 MB (95,440 lines)
 - **File size status:** 🟢 Good
 - **Line count status:** 🟢 Good
-- **Total paintings:** 4,053
+- **Total paintings:** 5,101
 - **Collection size status:** 🟢 Good
 
 ### 👨‍🎨 Artist Data Health
@@ -25,33 +25,33 @@
 - **Tags (Appended) status:** 🟢 Good
 
 ### 🔗 Merged Data Health
-- **Merged paintings:** 4,053
-- **Merged file size:** 10.6 MB (201,605 lines)
+- **Merged paintings:** 5,101
+- **Merged file size:** 12.3 MB (243,321 lines)
 - **Merged file status:** 🟢 Good
-- **Total unique artists in paintings:** 98
+- **Total unique artists in paintings:** 99
 
 ### 🔍 Data Consistency Checks
-- **Artists without bios:** 22
-- **Missing bios status:** 🟡 Warning - 22 artists need bios
+- **Artists without bios:** 23
+- **Missing bios status:** 🟡 Warning - 23 artists need bios
 - **Bios without paintings:** 15
 - **Orphaned bios status:** 🟡 Warning - 15 bios without paintings
-- **Merged vs Appended:** 4,053 merged / 4,053 appended
+- **Merged vs Appended:** 5,101 merged / 5,101 appended
 - **Merge consistency:** 🟢 Good - Counts match
 
 ### 💡 Performance Recommendations
-- 💡 **Good collection size:** Continue collecting for variety
+- 💡 **Large collection:** Focus on quality over quantity
 
 ## Quiz Categories
-- **Full Collection:** 4053 paintings, 98 painters
-- **Popular Painters:** 1821 paintings, 10 painters
-- **Landscape Painting:** 353 paintings, 36 painters
+- **Full Collection:** 5101 paintings, 99 painters
+- **Popular Painters:** 2301 paintings, 10 painters
+- **Landscape Painting:** 352 paintings, 35 painters
 - **Romanticism:** 48 paintings, 1 painters
 - **Impressionism:** 189 paintings, 2 painters
 - **Expressionism:** 199 paintings, 2 painters
 - **Portraits:** 314 paintings, 32 painters
-- **Historical/Nationalism:** 172 paintings, 8 painters
-- **19th Century:** 3387 paintings, 53 painters
-- **20th Century:** 103 paintings, 20 painters
+- **Historical/Nationalism:** 169 paintings, 8 painters
+- **19th Century:** 4103 paintings, 53 painters
+- **20th Century:** 120 paintings, 20 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33
@@ -195,14 +195,10 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 ## 🔍 Duplicate Analysis
 - **Exact duplicates:** 0
 - **Duplicate status:** 🟢 Good - No exact duplicates
-- **URL duplicates:** 151 (same image in multiple categories)
-- **URL duplicate status:** 🟡 Warning - 151 images appear multiple times
-- **Sample URL duplicates:**
-  - https://upload.wikimedia.org/wikipedia/commons/a/a8/Hans_Gude_%26_Adolph_Tidemand_-_Lystring_p%C3%A5_Kr%C3%B8deren.jpg: 2 times
-  - https://upload.wikimedia.org/wikipedia/commons/f/f9/Hans_Gude_%26_Adolph_Tidemand_-_Lystring_p%C3%A5_Kr%C3%B8deren_-_Google_Art_Project.jpg: 2 times
-  - https://upload.wikimedia.org/wikipedia/commons/1/1a/Hans_Gude--Likferd_Pa_Sognefjorden--1853.jpg: 2 times
-- **Title duplicates:** 540 (same painting, different sources)
-- **Title duplicate status:** 🟡 Warning - 540 titles appear multiple times
+- **URL duplicates:** 0 (same image in multiple categories)
+- **URL duplicate status:** 🟢 Good - No URL duplicates
+- **Title duplicates:** 396 (same painting, different sources)
+- **Title duplicate status:** 🟡 Warning - 396 titles appear multiple times
 - **Sample title duplicates:**
   - "<div class="fn">
 <div style="font-weight:bold;display:inline-block;"><div style="display:inline-block" dir="ltr" lang="en"><i>Winter in Kragerø <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891404#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span></i></div></div><div style="display: none;">title QS:P1476,en:"Winter in Kragerø <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891404#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span>"</div>
@@ -224,88 +220,89 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
-- Painting: 2824
-- Landscape: 353
+- Painting: 2818
+- Landscape: 352
 - Portrait: 314
 - Interior: 56
 - Historical/Nationalism: 20
 Smallest genres:
-- Landscape: 353
+- Landscape: 352
 - Portrait: 314
 - Interior: 56
 - Historical/Nationalism: 20
 - Still Life: 2
 
 ## All Painters and Number of Paintings
-- Erik Werenskiold: 323
-- Hans Gude: 278
-- Edvard Munch: 207
+- Hans Gude: 392
+- Edvard Munch: 306
+- Erik Werenskiold: 291
+- Johan Christian Dahl, 1788-1857: life and works: 268
+- Christian Krohg: 215
 - Johan Christian Dahl: 198
-- Christian Krohg: 162
-- Adolph Tidemand: 152
-- Eilif Peterssen: 137
-- Frits Thaulow: 134
-- Nikolai Astrup: 115
-- Harald Sohlberg: 115
-- Amaldus Nielsen: 115
+- Eilif Peterssen: 178
+- Frits Thaulow: 156
+- Adolph Tidemand: 149
+- Amaldus Nielsen: 148
+- Harald Sohlberg: 133
+- Nikolai Astrup: 113
+- Asta Nørregaard: 111
 - Harriet Backer: 103
-- Asta Nørregaard: 93
+- Lars Hertervig: 102
+- August Cappelen: 93
+- Peter Nicolai Arbo: 91
 - Peder Balke: 89
-- August Cappelen: 84
-- Lars Hertervig: 78
-- Peter Nicolai Arbo: 71
-- Knud Baade: 68
-- Adelsteen Normann: 59
-- Joachim Frich: 56
-- Theodor Kittelsen: 55
-- Peder Severin Krøyer: 55
-- Ludvig Karsten: 55
-- Thomas Fearnley: 52
+- Knud Baade: 81
+- Ludvig Karsten: 73
+- Adelsteen Normann: 68
+- Oscar Wergeland: 65
+- Joachim Frich: 65
+- Theodor Kittelsen: 64
+- Peder Severin Krøyer: 64
+- Thomas Fearnley: 61
+- Thorvald Erichsen: 59
+- Carl Sundt-Hansen: 55
+- Johannes Flintoe: 52
+- Gerhard Munthe: 51
+- Thorolf Holmboe: 49
 - Christian Skredsvig: 48
-- Oscar Wergeland: 47
+- Henrik Lund: 47
+- Hans Dahl: 45
+- Johan Fredrik Eckersberg: 45
 - Kitty Lange Kielland: 44
-- Thorvald Erichsen: 41
-- Carl Sundt-Hansen: 40
-- Thorolf Holmboe: 39
-- Hans Dahl: 36
-- Johannes Flintoe: 35
-- Jacob Gløersen: 35
-- Gerhard Munthe: 34
-- Oda Krohg: 33
-- Otto Sinding: 33
-- Gustav Wentzel: 32
-- Morten Müller: 30
-- Johan Fredrik Eckersberg: 30
-- Henrik Lund: 30
-- Martin Aagaard: 29
+- Jacob Gløersen: 44
+- Oda Krohg: 42
+- Gustav Wentzel: 41
+- Hans Gude from Af Hans Gudes liv og v%C3%A6rker: 41
+- Otto Sinding: 39
+- Martin Aagaard: 38
+- Halfdan Egedius: 37
+- Morten Müller: 34
+- Bjarne Ness: 33
 - Category:Drawings by Hans Gude from Af Hans Gudes liv og v%C3%A6rker: 29
-- Johan Christian Dahl, 1788-1857: life and works: 29
 - Category:Portrait paintings by Erik Werenskiold: 29
 - Category:Illustrations by Erik Werenskiold: 29
-- Hans Gude from Af Hans Gudes liv og v%C3%A6rker: 29
-- Halfdan Egedius: 28
-- Dahl and Friedrich. Romantic Landscapes: 25
-- Category:Drawings by Erik Werenskiold: 21
-- Eyolf Soot: 20
+- Christian Krohg. Pictures that captivate: 29
+- Eyolf Soot: 28
+- Dahl and Friedrich. Romantic Landscapes: 28
+- Peder Aadnes: 25
+- Gunnar Berg: 25
+- Oluf Wold-Torne: 24
+- Nils Hansteen: 22
 - Axel Revold: 20
 - Nikolai Astrup in the Nasjonalmuseet for kunst, arkitektur og design: 20
-- Peder Aadnes: 17
-- Gunnar Berg: 16
+- Category:Drawings by Erik Werenskiold: 20
+- Per Krohg: 18
+- Bernt Lund: 18
 - Henrik Sørensen: 16
-- Bjarne Ness: 15
-- Oluf Wold-Torne: 15
 - Kjell Aukrust: 15
-- Vebjørn Sand: 15
 - Category:Illustrations by Hans Gude: 15
-- Nils Hansteen: 13
+- Nils Gude: 14
+- Vebjørn Sand: 14
 - Olaf Gulbransson: 11
-- Per Krohg: 10
-- Bernt Lund: 10
+- Søren Onsager: 10
 - Håkon Gullvåg: 10
 - Nikolai Astrup in Sogn og Fjordane Kunstmuseum: 9
 - Category:Google Art Project works by Hans Gude: 8
-- Søren Onsager: 7
-- Nils Gude: 7
 - Cora Sandel: 7
 - Inger Sitter: 6
 - Håkon Bleken: 6
@@ -323,7 +320,6 @@ Smallest genres:
 - Kai Fjell: 3
 - Marianne Aulie: 3
 - Category:Postcards by Erik Werenskiold: 3
-- Category:Google Art Project works by Erik Werenskiold: 3
 - Odd Nerdrum: 2
 - Rolf Aamot: 2
 - Jean Heiberg: 2
@@ -333,6 +329,7 @@ Smallest genres:
 - Ludvig Eikaas: 2
 - Reidar Aulie: 2
 - Hans Gude in Statens Museum for Kunst: 2
+- Category:Google Art Project works by Erik Werenskiold: 2
 - Kjell Nupen: 1
 - Ida Lorentzen: 1
 
