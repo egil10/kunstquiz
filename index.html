@@ -1,75 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Norwegian Art Challenge</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <meta name="description" content="A fun quiz where you guess the artist behind famous Norwegian paintings.">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Norwegian Art Challenge</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="description" content="A fun quiz where you guess the artist behind famous Norwegian paintings.">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="top-bar">
-        <span class="title">Kunstquiz</span>
-        <span id="collection-info" class="collection-info"></span>
-        <div class="category-selector">
-            <select id="category-select">
-                <option value="all">Full collection</option>
-                <option value="Popular painters">Popular painters</option>
-                <option value="Landscapes">Landscapes</option>
-                <option value="Portraits">Portraits</option>
-                <option value="Romanticism">Romanticism</option>
-                <option value="Expressionism">Expressionism</option>
-                <option value="Mountains & Nature">Mountains & Nature</option>
-                <option value="Historical/Nationalism">Historical / Nationalism</option>
-                <option value="1800s">1800s</option>
-                <option value="National Museum of Norway">National Museum of Norway</option>
-                <option value="Women painters">Women painters</option>
-            </select>
-        </div>
+  <div class="top-bar">
+    <span class="title">Kunstquiz</span>
+    <span id="collection-info" class="collection-info"></span>
+    <div class="category-selector">
+      <select id="category-select" aria-label="Select quiz category"></select>
     </div>
-    <div class="main-flex">
-        <div class="img-col">
-            <img id="painting" src="https://upload.wikimedia.org/wikipedia/commons/c/c5/Edvard_Munch%2C_1893%2C_The_Scream%2C_oil%2C_tempera_and_pastel_on_cardboard%2C_91_x_73_cm%2C_National_Gallery_of_Norway.jpg" alt="The Scream by Edvard Munch">
-            <div id="streak-bar"></div>
-        </div>
-        <div class="btn-col" id="btn-col">
-            <div id="options"></div>
-            <div id="message"></div>
-        </div>        
-        <div id="artist-popup-container"></div>
+  </div>
+  <div class="main-flex">
+    <div class="img-col">
+      <img id="painting" src="" alt="">
+      <div id="streak-bar"></div>
     </div>
-    <div id="congrats-modal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <h2>Gratulerer!</h2>
-            <p>Du klarte 10 på rad!</p>
-            <button id="reset-btn">Spill igjen</button>
-        </div>
+    <div class="btn-col" id="btn-col">
+      <div id="options"></div>
+      <div id="message"></div>
+    </div>        
+    <div id="artist-popup-container"></div>
+  </div>
+  <div id="congrats-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="congrats-title">
+    <div class="modal-content">
+      <h2 id="congrats-title">Gratulerer!</h2>
+      <p>Du klarte 10 på rad!</p>
+      <button id="reset-btn">Spill igjen</button>
     </div>
-    <!-- Modern social footer -->
-    <footer class="footer-social">
-      <div class="footer-links">
-        <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-        <a href="#" class="social-link">Instagram</a>
-        <a href="#" class="social-link">TikTok</a>
-        <a href="#" id="show-artists-link" class="social-link">Artists</a>
-        <a href="#" id="show-gallery-link" class="footer-link">Gallery</a>
-      </div>
-    </footer>
-    <div id="artists-modal" class="modal" style="display:none;">
-        <div class="modal-content artist-list-modal">
-            <h2>All Artists</h2>
-            <div id="artist-list-columns"></div>
-            <button id="close-artists-modal">Close</button>
-        </div>
+  </div>
+  <!-- Modern social footer -->
+  <footer class="footer-social">
+    <div class="footer-links">
+      <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="footer-link">GitHub</a>
+      <a href="#" class="social-link" aria-disabled="true">Instagram (coming soon)</a>
+      <a href="#" class="social-link" aria-disabled="true">TikTok (coming soon)</a>
+      <a href="#" id="show-artists-link" class="social-link">Artists</a>
+      <a href="#" id="show-gallery-link" class="footer-link">Gallery</a>
     </div>
-    <div id="gallery-modal" class="modal" style="display:none;">
-      <div class="modal-content gallery-modal-content">
-        <h2>Gallery</h2>
-        <div id="gallery-collage"></div>
-        <button id="close-gallery-modal">Close</button>
-      </div>
+  </footer>
+  <div id="artists-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="artists-title">
+    <div class="modal-content artist-list-modal">
+      <h2 id="artists-title">All Artists</h2>
+      <div id="artist-list-columns"></div>
+      <button id="close-artists-modal">Close</button>
     </div>
-    <script src="assets/js/script.js"></script>
+  </div>
+  <div id="gallery-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
+    <div class="modal-content gallery-modal-content">
+      <h2 id="gallery-title">Gallery</h2>
+      <div id="gallery-collage"></div>
+      <button id="close-gallery-modal">Close</button>
+    </div>
+  </div>
+  <script src="assets/js/script.js"></script>
 </body>
 </html>

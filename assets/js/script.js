@@ -1,698 +1,565 @@
+'use strict';
+
 let streak = 0;
 let paintings = [];
 let lastPaintingIndex = -1;
 let selectedCategory = 'all';
 let artistBios = [];
 
-function getYearOnly(dateStr) {
-    if (!dateStr) return '';
-    // Try to find the first 4-digit year in the string
-    const match = dateStr.match(/\b(17|18|19|20|21)\d{2}\b/);
-    return match ? match[0] : '';
-}
+// List of categories with consistent labels
+const CATEGORY_DEFS = [
+  { value: 'all', label: 'Full Collection' },
+  { value: 'popular', label: 'Popular Painters' },
+  { value: 'landscape', label: 'Landscapes' },
+  { value: 'portraits', label: 'Portraits' },
+  { value: 'romanticism', label: 'Romanticism' },
+  { value: 'expressionism', label: 'Expressionism' },
+  { value: 'mountains_nature', label: 'Mountains & Nature' },
+  { value: 'historical_nationalism', label: 'Historical / Nationalism' },
+  { value: '1800s', label: '1800s' },
+  { value: 'national_museum', label: 'National Museum of Norway' },
+  { value: 'women_painters', label: 'Women Painters' },
+];
 
-function getCenturyFromYear(yearStr) {
-    const year = parseInt(getYearOnly(yearStr), 10);
-    if (!year || isNaN(year)) return null;
-    return Math.floor((year - 1) / 100) + 1;
+function getYearOnly(dateStr) {
+  if (!dateStr) return '';
+  const match = dateStr.match(/\b(17|18|19|20|21)\d{2}\b/);
+  return match ? match[0] : '';
 }
 
 function getCategoryCounts(categoryValue) {
-    // Returns {count, painterCount} for a given category value
-    let filtered;
-    if (!categoryValue || categoryValue === 'all') {
-        filtered = paintings.filter(p => p.artist && p.url);
-    } else {
-        const prev = selectedCategory;
-        selectedCategory = categoryValue;
-        filtered = getValidPaintings();
-        selectedCategory = prev;
-    }
-    const count = filtered.length;
-    const painterCount = new Set(filtered.map(p => p.artist)).size;
-    return { count, painterCount };
+  let filtered = paintings.filter(p => p.artist && p.url);
+  if (categoryValue && categoryValue !== 'all') {
+    const prev = selectedCategory;
+    selectedCategory = categoryValue;
+    filtered = getValidPaintings();
+    selectedCategory = prev;
+  }
+  const count = filtered.length;
+  const painterCount = new Set(filtered.map(p => p.artist)).size;
+  return { count, painterCount };
 }
 
 function updateCollectionInfo() {
-    const catSelect = document.getElementById('category-select');
-    const infoBar = document.getElementById('collection-info');
-    if (!catSelect || !infoBar) return;
-    const selected = catSelect.value || 'all';
-    const { count, painterCount } = getCategoryCounts(selected);
-    infoBar.textContent = `${count} paintings, ${painterCount} painters`;
+  const catSelect = document.getElementById('category-select');
+  const infoBar = document.getElementById('collection-info');
+  if (!catSelect || !infoBar) return;
+  const selected = catSelect.value || 'all';
+  const { count, painterCount } = getCategoryCounts(selected);
+  infoBar.textContent = `${count} paintings, ${painterCount} painters`;
 }
 
 function updateCategoryDropdown() {
-    const catSelect = document.getElementById('category-select');
-    if (!catSelect) return;
-    // Only show categories that have at least 1 painting
-    const options = CATEGORY_DEFS.filter(cat => {
-        const { count } = getCategoryCounts(cat.value);
-        return cat.value === 'all' || count > 0;
-    });
-    catSelect.innerHTML = '';
-    options.forEach(opt => {
-        const option = document.createElement('option');
-        option.value = opt.value;
-        option.textContent = opt.label;
-        catSelect.appendChild(option);
-    });
-    updateCollectionInfo();
+  const catSelect = document.getElementById('category-select');
+  if (!catSelect) return;
+  const options = CATEGORY_DEFS.filter(cat => {
+    const { count } = getCategoryCounts(cat.value);
+    return cat.value === 'all' || count > 0;
+  });
+  catSelect.innerHTML = '';
+  options.forEach(opt => {
+    const option = document.createElement('option');
+    option.value = opt.value;
+    option.textContent = opt.label;
+    catSelect.appendChild(option);
+  });
+  updateCollectionInfo();
 }
 
-// Update info bar on category change
 function setupCategoryChangeInfoBar() {
-    const catSelect = document.getElementById('category-select');
-    if (catSelect) {
-        catSelect.onchange = function() {
-            selectedCategory = catSelect.value;
-            streak = 0;
-            updateStreakBar();
-            updateCollectionInfo();
-            loadQuiz();
-        };
-    }
-}
-
-// Custom category selector as clickable text
-function renderCategorySelector() {
-    const catSelect = document.getElementById('category-select');
-    const selectorDiv = document.querySelector('.category-selector');
-    if (!catSelect || !selectorDiv) return;
-    catSelect.style.display = 'none';
-    let custom = document.getElementById('custom-category-link');
-    if (!custom) {
-        custom = document.createElement('span');
-        custom.id = 'custom-category-link';
-        custom.className = 'custom-category-link';
-        selectorDiv.appendChild(custom);
-    }
-    // Only show these categories
-    const options = CATEGORY_DEFS.filter(cat => {
-        if (cat.value === 'all') return true;
-        const prev = selectedCategory;
-        selectedCategory = cat.value;
-        const count = getValidPaintings().length;
-        selectedCategory = prev;
-        return count > 0;
+  const catSelect = document.getElementById('category-select');
+  if (catSelect) {
+    catSelect.addEventListener('change', () => {
+      selectedCategory = catSelect.value;
+      streak = 0;
+      updateStreakBar();
+      updateCollectionInfo();
+      loadQuiz();
     });
-    // Set current
-    const current = catSelect.value || 'all';
-    custom.textContent = options.find(o => o.value === current)?.label || 'Full Collection';
-    custom.style.textDecoration = 'underline';
-    custom.style.cursor = 'pointer';
-    let menu = document.getElementById('custom-category-menu');
-    if (menu) menu.remove();
-    custom.onclick = function(e) {
-        e.stopPropagation();
-        if (document.getElementById('custom-category-menu')) return;
-        menu = document.createElement('div');
-        menu.id = 'custom-category-menu';
-        menu.className = 'custom-category-menu';
-        options.forEach(opt => {
-            const item = document.createElement('div');
-            item.className = 'custom-category-item';
-            item.textContent = opt.label;
-            item.onclick = function(ev) {
-                catSelect.value = opt.value;
-                selectedCategory = opt.value;
-                streak = 0;
-                updateStreakBar();
-                updateCollectionInfo();
-                loadQuiz();
-                renderCategorySelector();
-                menu.remove();
-            };
-            menu.appendChild(item);
-        });
-        custom.appendChild(menu);
-        document.addEventListener('click', function handler() {
-            if (menu) menu.remove();
-            document.removeEventListener('click', handler);
-        });
-    };
+  }
 }
 
-// Shuffle paintings on page load for gallery
+function renderCategorySelector() {
+  const catSelect = document.getElementById('category-select');
+  const selectorDiv = document.querySelector('.category-selector');
+  if (!catSelect || !selectorDiv) return;
+  catSelect.style.display = 'none';
+  let custom = document.getElementById('custom-category-link');
+  if (!custom) {
+    custom = document.createElement('span');
+    custom.id = 'custom-category-link';
+    custom.className = 'custom-category-link';
+    selectorDiv.appendChild(custom);
+  }
+  const options = CATEGORY_DEFS.filter(cat => {
+    if (cat.value === 'all') return true;
+    const { count } = getCategoryCounts(cat.value);
+    return count > 0;
+  });
+  const current = catSelect.value || 'all';
+  custom.textContent = options.find(o => o.value === current)?.label || 'Full Collection';
+  custom.onclick = e => {
+    e.stopPropagation();
+    let menu = document.getElementById('custom-category-menu');
+    if (menu) return;
+    menu = document.createElement('div');
+    menu.id = 'custom-category-menu';
+    menu.className = 'custom-category-menu';
+    options.forEach(opt => {
+      const item = document.createElement('div');
+      item.className = 'custom-category-item';
+      item.textContent = opt.label;
+      item.onclick = ev => {
+        ev.stopPropagation();
+        catSelect.value = opt.value;
+        selectedCategory = opt.value;
+        streak = 0;
+        updateStreakBar();
+        updateCollectionInfo();
+        loadQuiz();
+        renderCategorySelector();
+        menu.remove();
+      };
+      menu.appendChild(item);
+    });
+    custom.appendChild(menu);
+    document.addEventListener('click', () => {
+      if (menu) menu.remove();
+    }, { once: true });
+  };
+}
+
 function shuffleArray(array) {
-    for (let i = array.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
-    }
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
 }
 
 function showGalleryModal() {
-    const modal = document.getElementById('gallery-modal');
-    const collage = document.getElementById('gallery-collage');
-    if (!modal || !collage) return;
-    collage.innerHTML = '';
-    // Show a grid of all paintings, shuffled
-    const shuffled = paintings.slice();
-    shuffleArray(shuffled);
-    collage.innerHTML = `<div class='gallery-collage-grid'>` +
-        shuffled.map(p => `<img src="${p.url}" alt="" class="gallery-collage-img" />`).join('') +
-        `</div>`;
-    modal.style.display = 'flex';
+  const modal = document.getElementById('gallery-modal');
+  const collage = document.getElementById('gallery-collage');
+  if (!modal || !collage) return;
+  collage.innerHTML = '';
+  const shuffled = [...paintings];
+  shuffleArray(shuffled);
+  const grid = document.createElement('div');
+  grid.className = 'gallery-collage-grid';
+  shuffled.forEach(p => {
+    const img = document.createElement('img');
+    img.src = p.url;
+    img.alt = p.title || '';
+    img.className = 'gallery-collage-img';
+    img.loading = 'lazy';
+    grid.appendChild(img);
+  });
+  collage.appendChild(grid);
+  modal.style.display = 'flex';
+  modal.focus();
 }
+
 function hideGalleryModal() {
-    const modal = document.getElementById('gallery-modal');
-    if (modal) modal.style.display = 'none';
+  const modal = document.getElementById('gallery-modal');
+  if (modal) modal.style.display = 'none';
 }
+
 function setupGalleryModal() {
-    const showLink = document.getElementById('show-gallery-link');
-    const closeBtn = document.getElementById('close-gallery-modal');
-    if (showLink) {
-        showLink.onclick = function(e) {
-            e.preventDefault();
-            showGalleryModal();
-        };
-    }
-    if (closeBtn) {
-        closeBtn.onclick = function() {
-            hideGalleryModal();
-        };
-    }
+  const showLink = document.getElementById('show-gallery-link');
+  const closeBtn = document.getElementById('close-gallery-modal');
+  if (showLink) showLink.addEventListener('click', e => {
+    e.preventDefault();
+    showGalleryModal();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', hideGalleryModal);
 }
-// Call renderCategorySelector after paintings are loaded and on category change
-// After paintings are loaded:
-fetch('./data/paintings_merged.json')
-    .then(res => res.json())
-    .then(data => {
-        paintings = data;
-        updateCategoryDropdown();
-        updateCollectionInfo();
-        renderCategorySelector();
-        loadQuiz();
-        setupArtistModal();
-        setupGalleryModal();
-        return loadArtistBios();
-    });
 
-// Helper to get artist bios by name
 function getArtistBioMap() {
-    if (!artistBios || !artistBios.length) return {};
-    const map = {};
-    artistBios.forEach(b => { map[b.name] = b; });
+  if (!Array.isArray(artistBios)) return {};
+  return artistBios.reduce((map, b) => {
+    map[b.name] = b;
     return map;
+  }, {});
 }
 
-// List of new categories
-const CATEGORY_DEFS = [
-    { value: 'all', label: 'Full Collection' },
-    { value: 'popular', label: 'Popular Painters' },
-    { value: 'landscape', label: 'Landscape Painting' },
-    { value: 'portraits', label: 'Portraits' },
-    { value: 'impressionism', label: 'Impressionism' },
-    { value: 'expressionism', label: 'Expressionism' },
-    { value: 'abstract', label: 'Abstract Painting' },
-    { value: '19thcentury', label: '19th Century' },
-    { value: '20thcentury', label: '20th Century' },
-    { value: 'historical', label: 'Historical/Nationalism' }
-];
+const categoryFilters = {
+  popular: validPaintings => {
+    const artistCounts = validPaintings.reduce((counts, p) => {
+      if (p.artist) counts[p.artist] = (counts[p.artist] || 0) + 1;
+      return counts;
+    }, {});
+    const topArtists = Object.entries(artistCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([name]) => name);
+    return validPaintings.filter(p => topArtists.includes(p.artist));
+  },
+  landscape: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('landscape')),
+  portraits: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('portrait')),
+  impressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('impressionism')),
+  expressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('expressionism')),
+  abstract: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('abstract')),
+  '19thcentury': (p, artistMap) => {
+    const bio = artistMap[p.artist];
+    const y = bio?.birth_year ? parseInt(bio.birth_year) : null;
+    return y && y >= 1800 && y < 1900;
+  },
+  '20thcentury': (p, artistMap) => {
+    const bio = artistMap[p.artist];
+    let y = bio?.birth_year ? parseInt(bio.birth_year) : (bio?.death_year ? parseInt(bio.death_year) : null);
+    const isModern = bio && (
+      (bio.movement || []).some(m => m?.toLowerCase().includes('modern')) ||
+      (bio.genre || []).some(g => g?.toLowerCase().includes('modern'))
+    );
+    return (y && y >= 1900 && y < 2000) || isModern;
+  },
+  historical: p => [...(p.artist_genre || []), ...(p.genre || []), ...(p.artist_movement || []), ...(p.movement || [])].some(g => g?.toLowerCase().includes('historical') || g?.toLowerCase().includes('nationalism') || g?.toLowerCase().includes('mythology')),
+  // Add more for other categories like 'romanticism', 'mountains_nature', etc., following similar patterns
+};
 
 function getValidPaintings() {
-    let filtered = paintings.filter(p => p.artist && p.url);
-    if (!selectedCategory || selectedCategory === 'all') return filtered;
-    const artistMap = getArtistBioMap();
-    function arr(val) {
-        if (Array.isArray(val)) return val;
-        if (typeof val === 'string') return [val];
-        return [];
+  let filtered = paintings.filter(p => p.artist && p.url);
+  if (!selectedCategory || selectedCategory === 'all') return filtered;
+  const artistMap = getArtistBioMap();
+  const filterFn = categoryFilters[selectedCategory];
+  if (filterFn) {
+    if (selectedCategory.endsWith('century')) {
+      filtered = filtered.filter(p => filterFn(p, artistMap));
+    } else if (selectedCategory === 'popular') {
+      filtered = filterFn(filtered);
+    } else {
+      filtered = filtered.filter(filterFn);
     }
-    if (selectedCategory === 'popular') {
-        const artistCounts = {};
-        paintings.forEach(p => { if (p.artist) artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1; });
-        const topArtists = Object.entries(artistCounts)
-            .sort((a, b) => b[1] - a[1])
-            .slice(0, 10)
-            .map(([name]) => name);
-        filtered = filtered.filter(p => topArtists.includes(p.artist));
-    } else if (selectedCategory === 'landscape') {
-        filtered = paintings.filter(p =>
-            arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('landscape'))
-        );
-    } else if (selectedCategory === 'portraits') {
-        filtered = paintings.filter(p =>
-            arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('portrait'))
-        );
-    } else if (selectedCategory === 'impressionism') {
-        filtered = paintings.filter(p =>
-            arr(p.artist_movement).concat(arr(p.movement)).some(m => m && m.toLowerCase().includes('impressionism'))
-        );
-    } else if (selectedCategory === 'expressionism') {
-        filtered = paintings.filter(p =>
-            arr(p.artist_movement).concat(arr(p.movement)).some(m => m && m.toLowerCase().includes('expressionism'))
-        );
-    } else if (selectedCategory === 'abstract') {
-        filtered = paintings.filter(p =>
-            arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('abstract'))
-        );
-    } else if (selectedCategory === '19thcentury') {
-        filtered = paintings.filter(p => {
-            const bio = artistMap[p.artist];
-            const y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
-            return y && y >= 1800 && y < 1900;
-        });
-    } else if (selectedCategory === '20thcentury') {
-        filtered = paintings.filter(p => {
-            const bio = artistMap[p.artist];
-            let y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
-            if (!y && bio && bio.death_year) y = parseInt(bio.death_year);
-            const isModern = bio && (
-                arr(bio.movement).some(m => m && m.toLowerCase().includes('modern')) ||
-                arr(bio.genre).some(g => g && g.toLowerCase().includes('modern'))
-            );
-            return (y && y >= 1900 && y < 2000) || isModern;
-        });
-    } else if (selectedCategory === 'historical') {
-        filtered = paintings.filter(p =>
-            arr(p.artist_genre).concat(arr(p.genre), arr(p.artist_movement), arr(p.movement)).some(g => g && (g.toLowerCase().includes('historical') || g.toLowerCase().includes('nationalism') || g.toLowerCase().includes('mythology')))
-        );
-    }
-    return filtered;
+  }
+  return filtered;
 }
 
 function loadQuiz() {
-    const validPaintings = getValidPaintings();
-    if (!validPaintings.length) {
-        document.getElementById('options').innerHTML = '<p>Ingen gyldige malerier funnet.</p>';
-        return;
-    }
-    let painting;
-    // Try up to 10 times to get a valid painting
-    for (let i = 0; i < 10; i++) {
-        painting = getRandomPainting(validPaintings);
-        if (painting && painting.artist && painting.url) break;
-    }
-    if (!painting || !painting.artist || !painting.url) return;
-
-    // Set painting image
-    const img = document.getElementById('painting');
-    img.src = painting.url;
-    img.alt = stripHtml(painting.title);
-
-    // Generate options
-    const optionsDiv = document.getElementById('options');
-    optionsDiv.innerHTML = '';
-
-    const artists = generateOptions(painting.artist, validPaintings);
-    if (artists.length < 2) {
-        optionsDiv.innerHTML = '<p>Ikke nok kunstnere for quiz.</p>';
-        return;
-    }
-    artists.forEach(artist => {
-        const btn = document.createElement('button');
-        btn.textContent = artist;
-        btn.className = '';
-        btn.onclick = () => {
-            // Disable all buttons
-            Array.from(optionsDiv.children).forEach(b => b.disabled = true);
-            // Find correct and selected buttons
-            let correctBtn, selectedBtn;
-            Array.from(optionsDiv.children).forEach(b => {
-                if (b.textContent === painting.artist) correctBtn = b;
-                if (b.textContent === artist) selectedBtn = b;
-            });
-            if (artist === painting.artist) {
-                streak++;
-                if (streak >= 10) {
-                    updateStreakBar();
-                    setTimeout(() => {
-                        showCongratsModal();
-                    }, 500);
-                    setTimeout(() => {
-                        showArtistPopup(painting, null);
-                    }, 900);
-                    return;
-                }
-                selectedBtn.classList.add('correct');
-                showMessage('Correct!', '#388e3c');
-            } else {
-                streak = 0;
-                selectedBtn.classList.add('wrong');
-                correctBtn.classList.add('correct');
-                showMessage('In-correct!', '#e53935');
-            }
-            updateStreakBar();
-            setTimeout(() => {
-                showArtistPopup(painting, () => {
-                    hideMessage();
-                    loadQuiz();
-                });
-            }, 900);
-        };
-        optionsDiv.appendChild(btn);
-    });
-    updateStreakBar();
+  const validPaintings = getValidPaintings();
+  if (!validPaintings.length) {
+    document.getElementById('options').innerHTML = '<p>Ingen gyldige malerier funnet.</p>';
+    return;
+  }
+  let painting;
+  for (let i = 0; i < 10; i++) {
+    painting = getRandomPainting(validPaintings);
+    if (painting && painting.artist && painting.url) break;
+  }
+  if (!painting || !painting.artist || !painting.url) return;
+  const img = document.getElementById('painting');
+  img.src = painting.url;
+  img.alt = stripHtml(painting.title) || 'Painting';
+  img.loading = 'lazy';
+  const optionsDiv = document.getElementById('options');
+  optionsDiv.innerHTML = '';
+  const artists = generateOptions(painting.artist, validPaintings);
+  if (artists.length < 2) {
+    optionsDiv.innerHTML = '<p>Ikke nok kunstnere for quiz.</p>';
+    return;
+  }
+  artists.forEach(artist => {
+    const btn = document.createElement('button');
+    btn.textContent = artist;
+    btn.onclick = () => {
+      Array.from(optionsDiv.children).forEach(b => b.disabled = true);
+      const correctBtn = Array.from(optionsDiv.children).find(b => b.textContent === painting.artist);
+      const selectedBtn = btn;
+      if (artist === painting.artist) {
+        streak++;
+        selectedBtn.classList.add('correct');
+        showMessage('Correct!', '#388e3c');
+        if (streak >= 10) {
+          updateStreakBar();
+          setTimeout(showCongratsModal, 500);
+          setTimeout(() => showArtistPopup(painting, null), 900);
+          return;
+        }
+      } else {
+        streak = 0;
+        selectedBtn.classList.add('wrong');
+        correctBtn.classList.add('correct');
+        showMessage('Incorrect!', '#e53935');
+      }
+      updateStreakBar();
+      setTimeout(() => {
+        showArtistPopup(painting, () => {
+          hideMessage();
+          loadQuiz();
+        });
+      }, 900);
+    };
+    optionsDiv.appendChild(btn);
+  });
+  updateStreakBar();
 }
 
 function getRandomPainting(validPaintings) {
-    if (!validPaintings || validPaintings.length <= 1) return validPaintings[0];
-    let idx;
-    do {
-        idx = Math.floor(Math.random() * validPaintings.length);
-    } while (idx === lastPaintingIndex);
-    lastPaintingIndex = idx;
-    return validPaintings[idx];
+  if (validPaintings.length <= 1) return validPaintings[0];
+  let idx;
+  do {
+    idx = Math.floor(Math.random() * validPaintings.length);
+  } while (idx === lastPaintingIndex);
+  lastPaintingIndex = idx;
+  return validPaintings[idx];
 }
 
 function generateOptions(correct, validPaintings) {
-    // Get all unique artists in the dataset
-    const uniqueArtists = Array.from(new Set(validPaintings.map(p => p.artist)));
-    // If less than 4 unique artists, just use all of them
-    if (uniqueArtists.length <= 4) {
-        return uniqueArtists.sort(() => Math.random() - 0.5);
-    }
-    // Otherwise, pick 3 random others + correct
-    const set = new Set([correct]);
-    let safety = 0;
-    while (set.size < 4 && safety < 20) {
-        const random = uniqueArtists[Math.floor(Math.random() * uniqueArtists.length)];
-        set.add(random);
-        safety++;
-    }
-    return Array.from(set).sort(() => Math.random() - 0.5);
+  const uniqueArtists = [...new Set(validPaintings.map(p => p.artist))];
+  if (uniqueArtists.length <= 4) return uniqueArtists.sort(() => Math.random() - 0.5);
+  const set = new Set([correct]);
+  while (set.size < 4) {
+    const random = uniqueArtists[Math.floor(Math.random() * uniqueArtists.length)];
+    set.add(random);
+  }
+  return [...set].sort(() => Math.random() - 0.5);
 }
 
 function stripHtml(html) {
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    return div.textContent || div.innerText || '';
+  const div = document.createElement('div');
+  div.innerHTML = html || '';
+  return div.textContent || div.innerText || '';
 }
 
 function updateStreakBar() {
-    const streakBar = document.getElementById('streak-bar');
-    streakBar.innerHTML = '';
-    for (let i = 0; i < 10; i++) {
-        const circle = document.createElement('div');
-        circle.className = 'streak-circle' + (i < streak ? ' filled' : '');
-        streakBar.appendChild(circle);
-    }
+  const streakBar = document.getElementById('streak-bar');
+  streakBar.innerHTML = '';
+  for (let i = 0; i < 10; i++) {
+    const circle = document.createElement('div');
+    circle.className = `streak-circle${i < streak ? ' filled' : ''}`;
+    streakBar.appendChild(circle);
+  }
 }
 
 function showMessage(text, color) {
-    const msg = document.getElementById('message');
-    msg.textContent = text;
-    msg.style.color = color;
-    msg.classList.add('visible');
+  const msg = document.getElementById('message');
+  msg.textContent = text;
+  msg.style.color = color;
+  msg.classList.add('visible');
 }
 
 function hideMessage() {
-    const msg = document.getElementById('message');
-    msg.classList.remove('visible');
+  const msg = document.getElementById('message');
+  msg.classList.remove('visible');
 }
 
 function showCongratsModal() {
-    document.getElementById('congrats-modal').style.display = 'flex';
+  const modal = document.getElementById('congrats-modal');
+  modal.style.display = 'flex';
+  modal.focus();
 }
+
 function hideCongratsModal() {
-    document.getElementById('congrats-modal').style.display = 'none';
+  document.getElementById('congrats-modal').style.display = 'none';
 }
 
 function cleanWorkTitle(title) {
-    // Remove label QS:... and HTML tags
-    if (!title) return '';
-    return title.replace(/label QS:[^\s,]+,[^\n"]+"/g, '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  if (!title) return '';
+  return title.replace(/label QS:[^\s,]+,[^\n"]+"/g, '').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
 }
 
-function loadArtistBios() {
-    return fetch('./data/artist_bios.json')
-        .then(res => res.json())
-        .then(data => { artistBios = data; });
+async function loadArtistBios() {
+  try {
+    const res = await fetch('./data/artist_bios.json');
+    if (!res.ok) throw new Error('Failed to load artist bios');
+    artistBios = await res.json();
+  } catch (err) {
+    console.error(err);
+    artistBios = [];
+  }
 }
 
 function getArtistBioInfo(name) {
-    if (!artistBios || !artistBios.length) return null;
-    return artistBios.find(b => b.name === name) || null;
+  return artistBios.find(b => b.name === name) || null;
 }
 
-// Add overlay for persistent popup
 function ensureArtistPopupOverlay() {
-    let overlay = document.getElementById('artist-popup-overlay');
-    if (!overlay) {
-        overlay = document.createElement('div');
-        overlay.id = 'artist-popup-overlay';
-        document.body.appendChild(overlay);
-    }
-    return overlay;
+  let overlay = document.getElementById('artist-popup-overlay');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'artist-popup-overlay';
+    document.body.appendChild(overlay);
+  }
+  return overlay;
+}
+
+function createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml }) {
+  return `
+    <div class="artist-popup-content toast-content">
+      ${imgHtml}
+      <div class="artist-popup-text toast-text">
+        <span class="artist-name">${name}</span>
+        ${yearsHtml}
+        ${bioHtml}
+        ${tagsHtml}
+      </div>
+    </div>
+    ${paintingsHtml}
+    ${closeBtnHtml}
+  `;
 }
 
 function showArtistPopup(paintingOrName, onDone, persistent = false) {
-    let popup;
-    if (persistent) {
-        popup = document.getElementById('artist-popup');
-        if (!popup) {
-            popup = document.createElement('div');
-            popup.id = 'artist-popup';
-            popup.className = 'artist-popup persistent';
-            document.body.appendChild(popup);
-        }
-    } else {
-        // In-game popup: overlay the answer options, centered
-        popup = document.getElementById('artist-popup');
-        if (!popup) {
-            popup = document.createElement('div');
-            popup.id = 'artist-popup';
-            popup.className = 'artist-popup toast artist-popup-overlay';
-            document.body.appendChild(popup);
-        }
+  let popup = document.getElementById('artist-popup');
+  if (!popup) {
+    popup = document.createElement('div');
+    popup.id = 'artist-popup';
+    document.body.appendChild(popup);
+  }
+  const name = typeof paintingOrName === 'string' ? paintingOrName : paintingOrName.artist || '';
+  const bioInfo = getArtistBioInfo(name);
+  const artistPaintings = paintings.filter(p => p.artist === name);
+  const numPaintings = artistPaintings.length;
+  let yearsHtml = '';
+  let imgHtml = '';
+  let bioHtml = '';
+  let tagsHtml = '';
+  if (bioInfo) {
+    yearsHtml = `<span class="artist-years">${bioInfo.birth_year}–${bioInfo.death_year}</span>`;
+    imgHtml = bioInfo.self_portrait_url ? `<img src="${bioInfo.self_portrait_url}" alt="${name}" class="artist-portrait toast-portrait" loading="lazy">` : '';
+    bioHtml = `<span class="artist-bio">${bioInfo.bio}</span>`;
+    let tagList = [...(bioInfo.awards || []), ...(bioInfo.movement || []), ...(bioInfo.genre || [])];
+    if (tagList.length) {
+      tagsHtml = `<div class="artist-tags">${tagList.map(tag => `<span class="artist-tag">${tag}</span>`).join('')}</div>`;
     }
-    // Accept either a painting object or a string name
-    let name = typeof paintingOrName === 'string' ? paintingOrName : (paintingOrName.artist || '');
-    const bioInfo = getArtistBioInfo(name);
-    const artistPaintings = paintings.filter(p => p.artist === name);
-    const numPaintings = artistPaintings.length;
-    let yearsHtml = '';
-    let imgHtml = '';
-    let bioHtml = '';
-    let tagsHtml = '';
-    if (bioInfo) {
-        yearsHtml = `<span class='artist-years'>${bioInfo.birth_year}–${bioInfo.death_year}</span>`;
-        imgHtml = bioInfo.self_portrait_url ? `<img src="${bioInfo.self_portrait_url}" alt="${bioInfo.name}" class="artist-portrait toast-portrait">` : '';
-        bioHtml = `<span class='artist-bio'>${bioInfo.bio}</span>`;
-        let tagList = [];
-        if (bioInfo.awards && bioInfo.awards.length) tagList = tagList.concat(bioInfo.awards);
-        if (bioInfo.movement && bioInfo.movement.length) tagList = tagList.concat(bioInfo.movement);
-        if (bioInfo.genre && bioInfo.genre.length) tagList = tagList.concat(bioInfo.genre);
-        if (tagList.length) {
-            tagsHtml = `<div class='artist-tags'>${tagList.map(tag => `<span class='artist-tag'>${tag}</span>`).join('')}</div>`;
-        }
-        bioHtml += ` <span class='artist-painting-count'>(${numPaintings} painting${numPaintings === 1 ? '' : 's'})</span>`;
-    } else {
-        const birth = getYearOnly(paintingOrName.artist_birth);
-        const death = getYearOnly(paintingOrName.artist_death);
-        let lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
-        yearsHtml = lifeSpan ? `<span class='artist-years'>${lifeSpan}</span>` : '';
-        imgHtml = paintingOrName.artist_image ? `<img src="${paintingOrName.artist_image}" alt="${name}" class="artist-portrait toast-portrait">` : '';
-        bioHtml = '';
-        tagsHtml = '';
-    }
-    let closeBtnHtml = '';
-    if (persistent) {
-        closeBtnHtml = `<button class='artist-popup-close' aria-label='Close'>&times;</button>`;
-    }
-    let paintingsHtml = '';
-    if (persistent && artistPaintings.length > 0) {
-        paintingsHtml = `<div class='artist-paintings-grid only-images'>` +
-            artistPaintings.map(p =>
-                `<div class='artist-painting-thumb'>
-                    <img src="${p.url}" alt="${p.title}" title="${p.title}" />
-                </div>`
-            ).join('') +
-            `</div>`;
-    }
-    let contentHtml = '';
-    if (!persistent) {
-        // In-game overlay positioning
-        popup.className = 'artist-popup toast artist-popup-overlay';
-        popup.style.position = 'absolute';
-        popup.style.left = '0';
-        popup.style.top = '0';
-        popup.style.transform = 'none';
-        popup.style.zIndex = '3000';
-        popup.style.width = `${buttonCol.offsetWidth}px`;
-        popup.style.height = `${buttonCol.offsetHeight}px`;
-        popup.style.maxWidth = `${buttonCol.offsetWidth}px`;
-        popup.style.maxHeight = `${buttonCol.offsetHeight}px`;
-        popup.style.overflow = 'visible';
-    
-        // Ensure popup is inside the button column
-        buttonCol.appendChild(popup);
-    
-        // Optional: remove overlay
-        let overlay = document.getElementById('artist-popup-overlay');
-        if (overlay) overlay.classList.remove('visible');
-    } else {
-        // Persistent modal positioning and content
-        popup.className = 'artist-popup persistent persistent-modal-vertical';
-        popup.style.top = '10vh';
-        popup.style.maxHeight = '80vh';
-        popup.style.overflow = 'auto';
-        paintingsHtml = `<div class='artist-paintings-vertical'>` +
-            artistPaintings.map(p => `<div class='artist-painting-thumb'><img src="${p.url}" alt="${p.title}" /></div>`).join('') +
-            `</div>`;
-        contentHtml = `
-        <div class="artist-popup-columns persistent-modal-vertical">
-            <div class="artist-popup-top">${imgHtml}<div class="artist-popup-text toast-text">${yearsHtml}${bioHtml}${tagsHtml}</div></div>
-            ${paintingsHtml}
-            ${closeBtnHtml}
-        </div>`;
-    }
-    popup.innerHTML = contentHtml;
-    popup.style.opacity = 0;
-    popup.classList.add('visible');
-    popup.style.display = 'flex';
-    setTimeout(() => { popup.style.opacity = 1; }, 10);
-    if (!persistent) {
-        const buttonCol = document.getElementById('btn-col'); // make sure your .btn-col div has id="btn-col"
-        const buttonRect = buttonCol.getBoundingClientRect();
-    
-        // Position the popup absolutely inside buttonCol
-        popup.style.position = 'absolute';
-        popup.style.left = '0';
-        popup.style.top = '0';
-        popup.style.transform = 'none';
-        popup.style.zIndex = '3000';
-        popup.style.width = `${buttonCol.offsetWidth}px`;
-        popup.style.height = `${buttonCol.offsetHeight}px`;
-        popup.style.maxWidth = `${buttonCol.offsetWidth}px`;
-        popup.style.maxHeight = `${buttonCol.offsetHeight}px`;
-        popup.style.overflow = 'visible';
-    
-        // Ensure popup is inside the button column
-        buttonCol.appendChild(popup);
-    
-        // Optional: remove overlay
-        let overlay = document.getElementById('artist-popup-overlay');
-        if (overlay) overlay.classList.remove('visible');
-    } else {
-        popup.classList.remove('toast');
-        popup.classList.add('persistent');
-        popup.style.position = 'fixed';
-        popup.style.top = '10vh';
-        popup.style.left = '50%';
-        popup.style.transform = 'translateX(-50%)';
-        popup.style.zIndex = '2000';
-        popup.style.maxWidth = '700px';
-        popup.style.minWidth = '320px';
-        popup.style.height = 'auto';
-        popup.style.maxHeight = '80vh';
-        popup.style.overflow = 'auto';
-        let overlay = ensureArtistPopupOverlay();
-        overlay.classList.add('visible');
-    }
-    if (persistent) {
-        const closeBtn = popup.querySelector('.artist-popup-close');
-        if (closeBtn) {
-            closeBtn.onclick = function() {
-                popup.classList.remove('visible');
-                popup.style.opacity = 0;
-                setTimeout(() => { popup.style.display = 'none'; let overlay = document.getElementById('artist-popup-overlay'); if (overlay) overlay.classList.remove('visible'); if (onDone) onDone(); }, 400);
-            };
-        }
-        setTimeout(() => {
-            function outsideClick(e) {
-                if (!popup.contains(e.target)) {
-                    popup.classList.remove('visible');
-                    popup.style.opacity = 0;
-                    setTimeout(() => { popup.style.display = 'none'; let overlay = document.getElementById('artist-popup-overlay'); if (overlay) overlay.classList.remove('visible'); if (onDone) onDone(); }, 400);
-                    document.removeEventListener('mousedown', outsideClick);
-                }
-            }
-            document.addEventListener('mousedown', outsideClick);
-        }, 100);
-    } else {
-        setTimeout(() => {
-            popup.classList.remove('visible');
-            popup.style.opacity = 0;
-            setTimeout(() => { if (popup.parentNode) popup.parentNode.removeChild(popup); if (onDone) onDone(); }, 400);
-        }, 3500);
-    }
+    bioHtml += ` <span class="artist-painting-count">(${numPaintings} painting${numPaintings === 1 ? '' : 's'})</span>`;
+  } else if (typeof paintingOrName !== 'string') {
+    const birth = getYearOnly(paintingOrName.artist_birth);
+    const death = getYearOnly(paintingOrName.artist_death);
+    const lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
+    yearsHtml = lifeSpan ? `<span class="artist-years">${lifeSpan}</span>` : '';
+    imgHtml = paintingOrName.artist_image ? `<img src="${paintingOrName.artist_image}" alt="${name}" class="artist-portrait toast-portrait" loading="lazy">` : '';
+  }
+  let closeBtnHtml = persistent ? `<button class="artist-popup-close" aria-label="Close">×</button>` : '';
+  let paintingsHtml = '';
+  if (persistent && artistPaintings.length > 0) {
+    paintingsHtml = `<div class="artist-paintings-grid only-images">${artistPaintings.map(p => `
+      <div class="artist-painting-thumb">
+        <img src="${p.url}" alt="${p.title}" title="${p.title}" loading="lazy" />
+      </div>`).join('')}</div>`;
+  }
+  popup.innerHTML = createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml });
+  popup.style.opacity = '0';
+  popup.style.display = 'flex';
+  popup.classList.add('visible');
+  setTimeout(() => popup.style.opacity = '1', 10);
+  if (persistent) {
+    popup.className = 'artist-popup persistent';
+    const overlay = ensureArtistPopupOverlay();
+    overlay.classList.add('visible');
+    const closeBtn = popup.querySelector('.artist-popup-close');
+    if (closeBtn) closeBtn.addEventListener('click', () => hidePopup(popup, onDone));
+    document.addEventListener('mousedown', e => {
+      if (!popup.contains(e.target)) hidePopup(popup, onDone);
+    }, { once: true });
+  } else {
+    popup.className = 'artist-popup toast';
+    setTimeout(() => hidePopup(popup, onDone), 3500);
+  }
 }
 
-// Make logo/title clickable to reset
+function hidePopup(popup, onDone) {
+  popup.classList.remove('visible');
+  popup.style.opacity = '0';
+  setTimeout(() => {
+    if (popup.parentNode) popup.parentNode.removeChild(popup);
+    const overlay = document.getElementById('artist-popup-overlay');
+    if (overlay) overlay.classList.remove('visible');
+    if (onDone) onDone();
+  }, 400);
+}
+
 function setupLogoReset() {
-    const logo = document.querySelector('.title');
-    if (logo) {
-        logo.style.cursor = 'pointer';
-        logo.onclick = function() {
-            selectedCategory = 'all';
-            const catSelect = document.getElementById('category-select');
-            if (catSelect) catSelect.value = 'all';
-            streak = 0;
-            updateStreakBar();
-            loadQuiz();
-        };
-    }
+  const logo = document.querySelector('.title');
+  if (logo) {
+    logo.onclick = () => {
+      selectedCategory = 'all';
+      const catSelect = document.getElementById('category-select');
+      if (catSelect) catSelect.value = 'all';
+      streak = 0;
+      updateStreakBar();
+      loadQuiz();
+    };
+  }
 }
 
 function showArtistsModal() {
-    // Only artists with paintings in the dataset
-    const artistSet = new Set(paintings.map(p => p.artist).filter(Boolean));
-    const artists = Array.from(artistSet).sort((a, b) => a.localeCompare(b));
-    // Split into columns (3 columns)
-    const numCols = 3;
-    const perCol = Math.ceil(artists.length / numCols);
-    const columns = [];
-    for (let i = 0; i < numCols; i++) {
-        columns.push(artists.slice(i * perCol, (i + 1) * perCol));
-    }
-    // Build HTML
-    const container = document.getElementById('artist-list-columns');
-    container.innerHTML = '';
-    columns.forEach(col => {
-        const div = document.createElement('div');
-        div.className = 'artist-list-col';
-        const ul = document.createElement('ul');
-        col.forEach(name => {
-            const li = document.createElement('li');
-            // Count paintings for this artist
-            const numPaintings = paintings.filter(p => p.artist === name).length;
-            // Make artist name clickable
-            const a = document.createElement('a');
-            a.href = '#';
-            a.textContent = `${name} (${numPaintings})`;
-            a.onclick = (e) => {
-                e.preventDefault();
-                showArtistPopup(name, null, true);
-            };
-            li.appendChild(a);
-            ul.appendChild(li);
-        });
-        div.appendChild(ul);
-        container.appendChild(div);
+  const artistSet = new Set(paintings.map(p => p.artist).filter(Boolean));
+  const artists = [...artistSet].sort((a, b) => a.localeCompare(b));
+  const numCols = 3;
+  const perCol = Math.ceil(artists.length / numCols);
+  const columns = [];
+  for (let i = 0; i < numCols; i++) {
+    columns.push(artists.slice(i * perCol, (i + 1) * perCol));
+  }
+  const container = document.getElementById('artist-list-columns');
+  container.innerHTML = '';
+  columns.forEach(col => {
+    const div = document.createElement('div');
+    div.className = 'artist-list-col';
+    const ul = document.createElement('ul');
+    col.forEach(name => {
+      const li = document.createElement('li');
+      const numPaintings = paintings.filter(p => p.artist === name).length;
+      const a = document.createElement('a');
+      a.href = '#';
+      a.textContent = `${name} (${numPaintings})`;
+      a.onclick = e => {
+        e.preventDefault();
+        showArtistPopup(name, null, true);
+      };
+      li.appendChild(a);
+      ul.appendChild(li);
     });
-    document.getElementById('artists-modal').style.display = 'flex';
+    div.appendChild(ul);
+    container.appendChild(div);
+  });
+  const modal = document.getElementById('artists-modal');
+  modal.style.display = 'flex';
+  modal.focus();
 }
 
-// Modal open/close logic
 function setupArtistModal() {
-    const showLink = document.getElementById('show-artists-link');
-    const closeBtn = document.getElementById('close-artists-modal');
-    if (showLink) {
-        showLink.onclick = function(e) {
-            e.preventDefault();
-            showArtistsModal();
-        };
-    }
-    if (closeBtn) {
-        closeBtn.onclick = function() {
-            document.getElementById('artists-modal').style.display = 'none';
-        };
-    }
+  const showLink = document.getElementById('show-artists-link');
+  const closeBtn = document.getElementById('close-artists-modal');
+  if (showLink) showLink.addEventListener('click', e => {
+    e.preventDefault();
+    showArtistsModal();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', () => {
+    document.getElementById('artists-modal').style.display = 'none';
+  });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const resetBtn = document.getElementById('reset-btn');
-    if (resetBtn) {
-        resetBtn.onclick = function() {
-            streak = 0;
-            updateStreakBar();
-            hideCongratsModal();
-            loadQuiz();
-        };
-    }
+document.addEventListener('DOMContentLoaded', async () => {
+  try {
+    const res = await fetch('./data/paintings_merged.json');
+    if (!res.ok) throw new Error('Failed to load paintings');
+    paintings = await res.json();
+    await loadArtistBios();
+    updateCategoryDropdown();
+    updateCollectionInfo();
+    renderCategorySelector();
+    loadQuiz();
+    setupArtistModal();
+    setupGalleryModal();
     setupLogoReset();
     setupCategoryChangeInfoBar();
-    renderCategorySelector();
+    const resetBtn = document.getElementById('reset-btn');
+    if (resetBtn) resetBtn.addEventListener('click', () => {
+      streak = 0;
+      updateStreakBar();
+      hideCongratsModal();
+      loadQuiz();
+    });
+    // Add Esc key to close modals
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') {
+        hideCongratsModal();
+        hideGalleryModal();
+        document.getElementById('artists-modal').style.display = 'none';
+      }
+    });
+  } catch (err) {
+    console.error('Error loading data:', err);
+    document.getElementById('options').innerHTML = '<p>Error loading quiz data. Please try again later.</p>';
+  }
 });
