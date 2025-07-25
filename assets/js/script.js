@@ -293,7 +293,9 @@ function loadQuiz() {
                     setTimeout(() => {
                         showCongratsModal();
                     }, 500);
-                    showArtistPopup(painting, null);
+                    setTimeout(() => {
+                        showArtistPopup(painting, null);
+                    }, 900);
                     return;
                 }
                 selectedBtn.classList.add('correct');
@@ -305,10 +307,12 @@ function loadQuiz() {
                 showMessage('Not correct!', '#e53935');
             }
             updateStreakBar();
-            showArtistPopup(painting, () => {
-                hideMessage();
-                loadQuiz();
-            });
+            setTimeout(() => {
+                showArtistPopup(painting, () => {
+                    hideMessage();
+                    loadQuiz();
+                });
+            }, 900);
         };
         optionsDiv.appendChild(btn);
     });
@@ -407,18 +411,36 @@ function ensureArtistPopupOverlay() {
 }
 
 function showArtistPopup(paintingOrName, onDone, persistent = false) {
-    let popup = document.getElementById('artist-popup');
-    if (!popup) {
+    let popup;
+    if (persistent) {
+        popup = document.getElementById('artist-popup');
+        if (!popup) {
+            popup = document.createElement('div');
+            popup.id = 'artist-popup';
+            popup.className = 'artist-popup persistent';
+            document.body.appendChild(popup);
+        }
+    } else {
+        // In-game popup: render inside the container
+        let container = document.getElementById('artist-popup-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.id = 'artist-popup-container';
+            document.body.appendChild(container);
+        }
+        // Remove any previous popup
+        container.innerHTML = '';
         popup = document.createElement('div');
         popup.id = 'artist-popup';
         popup.className = 'artist-popup toast';
-        document.body.appendChild(popup);
+        container.appendChild(popup);
     }
     // Accept either a painting object or a string name
     let name = typeof paintingOrName === 'string' ? paintingOrName : (paintingOrName.artist || '');
     const bioInfo = getArtistBioInfo(name);
     // Count paintings for this artist
-    const numPaintings = paintings.filter(p => p.artist === name).length;
+    const artistPaintings = paintings.filter(p => p.artist === name);
+    const numPaintings = artistPaintings.length;
     let yearsHtml = '';
     let imgHtml = '';
     let bioHtml = '';
@@ -453,8 +475,40 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     if (persistent) {
         closeBtnHtml = `<button class='artist-popup-close' aria-label='Close'>&times;</button>`;
     }
-    // Modern, clean popup layout
-    popup.innerHTML = `
+    // Collage/grid of paintings (right column)
+    let paintingsHtml = '';
+    if (persistent && artistPaintings.length > 0) {
+        paintingsHtml = `<div class='artist-paintings-grid'>` +
+            artistPaintings.map(p =>
+                `<div class='artist-painting-thumb'>
+                    <img src="${p.url}" alt="${p.title}" title="${p.title}${p.year ? ' (' + p.year + ')' : ''}" />
+                    <div class='artist-painting-title'>${p.title || ''}${p.year ? ' (' + p.year + ')' : ''}</div>
+                </div>`
+            ).join('') +
+            `</div>`;
+    }
+    // Two-column layout for persistent popup
+    let contentHtml = '';
+    if (persistent) {
+        contentHtml = `
+        <div class="artist-popup-columns">
+            <div class="artist-popup-left">
+                ${imgHtml}
+                <div class="artist-popup-text toast-text">
+                    <span class='artist-name'>${name}</span>
+                    ${yearsHtml}
+                    ${bioHtml}
+                    ${tagsHtml}
+                </div>
+            </div>
+            <div class="artist-popup-right">
+                ${paintingsHtml}
+            </div>
+            ${closeBtnHtml}
+        </div>
+        `;
+    } else {
+        contentHtml = `
         <div class="artist-popup-content toast-content">
             ${imgHtml}
             <div class="artist-popup-text toast-text">
@@ -465,7 +519,9 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
             </div>
             ${closeBtnHtml}
         </div>
-    `;
+        `;
+    }
+    popup.innerHTML = contentHtml;
     // Fade in effect
     popup.style.opacity = 0;
     popup.classList.add('visible');
@@ -473,34 +529,14 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     setTimeout(() => { popup.style.opacity = 1; }, 10);
     // Positioning logic
     if (!persistent) {
-        // Try to position to the right of the painting
-        const paintingImg = document.getElementById('painting');
-        if (paintingImg) {
-            const rect = paintingImg.getBoundingClientRect();
-            // Only do this on wide screens
-            if (window.innerWidth > 900) {
-                popup.classList.remove('persistent');
-                popup.classList.add('toast');
-                popup.style.position = 'fixed';
-                popup.style.top = `${rect.top + window.scrollY}px`;
-                popup.style.left = `${rect.right + 32}px`;
-                popup.style.transform = 'none';
-                popup.style.zIndex = '1000';
-                popup.style.maxWidth = '420px';
-                popup.style.minWidth = '320px';
-            } else {
-                // Fallback to top center for small screens
-                popup.classList.remove('persistent');
-                popup.classList.add('toast');
-                popup.style.position = 'fixed';
-                popup.style.top = '32px';
-                popup.style.left = '50%';
-                popup.style.transform = 'translateX(-50%)';
-                popup.style.zIndex = '1000';
-                popup.style.maxWidth = '';
-                popup.style.minWidth = '';
-            }
-        }
+        // In-game: let CSS handle layout in the container
+        popup.style.position = 'static';
+        popup.style.top = '';
+        popup.style.left = '';
+        popup.style.transform = '';
+        popup.style.zIndex = '';
+        popup.style.maxWidth = '420px';
+        popup.style.minWidth = '320px';
         // Hide overlay if present
         let overlay = document.getElementById('artist-popup-overlay');
         if (overlay) overlay.classList.remove('visible');
@@ -544,7 +580,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         setTimeout(() => {
             popup.classList.remove('visible');
             popup.style.opacity = 0;
-            setTimeout(() => { popup.style.display = 'none'; if (onDone) onDone(); }, 400);
+            setTimeout(() => { if (popup.parentNode) popup.parentNode.removeChild(popup); if (onDone) onDone(); }, 400);
         }, 3500);
     }
 }

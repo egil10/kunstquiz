@@ -446,13 +446,21 @@ for artist in artists:
             f"{alias}"
         ]
         alias_paintings = []
-        for cat_name in commons_patterns:
-            print(f"    Trying Commons category: {cat_name}")
-            paintings = fetch_images_from_category(cat_name, limit=limit, max_depth=2)
-            alias_paintings += paintings
-        # Always supplement with Wikidata for this alias
-        print(f"    Supplementing with Wikidata for {alias}...")
-        alias_paintings += fetch_paintings_from_wikidata(alias, limit=limit-len(alias_paintings))
+        # Try 'Paintings by {alias}' first
+        paintings = fetch_images_from_category(commons_patterns[0], limit=limit, max_depth=2)
+        alias_paintings += paintings
+        # If no results, try the other patterns
+        if len(alias_paintings) == 0:
+            for cat_name in commons_patterns[1:]:
+                print(f"    Trying Commons category: {cat_name}")
+                paintings = fetch_images_from_category(cat_name, limit=limit, max_depth=2)
+                alias_paintings += paintings
+                if len(alias_paintings) > 0:
+                    break
+        # Only supplement with Wikidata if still no results
+        if len(alias_paintings) == 0:
+            print(f"    Supplementing with Wikidata for {alias}...")
+            alias_paintings += fetch_paintings_from_wikidata(alias, limit=limit-len(alias_paintings))
         for p in alias_paintings:
             p['artist'] = artist  # Always use canonical name
         found_paintings += alias_paintings
@@ -519,7 +527,7 @@ for artist in artists:
                 del painting[k]
         all_paintings.append(painting)
         existing_keys.add(key)
-    time.sleep(2)  # Be nice to the API
+    time.sleep(0.5)  # Be nice to the API, but much faster
 
 # After main loop, fetch 5 more paintings for every painter (not just popular ones)
 for artist in artists:
@@ -533,12 +541,21 @@ for artist in artists:
             f"{alias}"
         ]
         extra_paintings = []
-        for cat_name in commons_patterns:
-            print(f"    Trying Commons category: {cat_name}")
-            paintings = fetch_images_from_category(cat_name, limit=5, max_depth=2)
-            extra_paintings += paintings
-        print(f"    Supplementing with Wikidata for {alias}...")
-        extra_paintings += fetch_paintings_from_wikidata(alias, limit=5-len(extra_paintings))
+        # Try 'Paintings by {alias}' first
+        paintings = fetch_images_from_category(commons_patterns[0], limit=5, max_depth=2)
+        extra_paintings += paintings
+        # If no results, try the other patterns
+        if len(extra_paintings) == 0:
+            for cat_name in commons_patterns[1:]:
+                print(f"    Trying Commons category: {cat_name}")
+                paintings = fetch_images_from_category(cat_name, limit=5, max_depth=2)
+                extra_paintings += paintings
+                if len(extra_paintings) > 0:
+                    break
+        # Only supplement with Wikidata if still no results
+        if len(extra_paintings) == 0:
+            print(f"    Supplementing with Wikidata for {alias}...")
+            extra_paintings += fetch_paintings_from_wikidata(alias, limit=5-len(extra_paintings))
         for p in extra_paintings:
             p['artist'] = artist
         # Deduplicate and append
