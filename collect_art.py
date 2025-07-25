@@ -1,3 +1,46 @@
+#!/usr/bin/env python3
+"""
+Norwegian Art Collection Script
+==============================
+
+This script collects paintings from Wikimedia Commons and Wikipedia galleries.
+
+USAGE EXAMPLES:
+==============
+
+# Collect from a single URL (recommended for testing)
+python collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg" --max 50
+
+# Collect from multiple URLs in a file
+python collect_art.py --file urls.txt --max 30 --quiet --merge
+
+# Collect from specific artist categories (gets ALL paintings from ALL museums automatically)
+python collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg_by_museum" --max 100
+
+# Skip subcategories (only fetch from main category)
+python collect_art.py --url "main_category_url" --no-subcategories
+
+# Full workflow with diagnostics
+python collect_art.py --file urls.txt --max 50 --quiet --merge --diagnose
+
+URL STRATEGY:
+============
+- Use main categories for maximum coverage: "Category:Paintings_by_[Artist]"
+- Use "by_museum" categories to get all museum collections automatically
+- Script automatically follows subcategories and removes duplicates
+- See category_strategy.md for detailed guidance
+
+ARGUMENTS:
+==========
+--url: Single URL to collect from
+--file: Text file with URLs (one per line, # for comments)
+--max: Maximum paintings per URL
+--quiet: Reduce verbose output
+--no-subcategories: Skip subcategory processing
+--merge: Run merge script after collection
+--diagnose: Run diagnostics after merge
+"""
+
 import argparse
 import json
 import os
