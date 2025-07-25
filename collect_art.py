@@ -220,12 +220,21 @@ def main():
                 # Try to infer artist from URL
                 m = re.search(r'Category:Paintings_by_([^/]+)', url)
                 if m:
-                    img['artist'] = m.group(1).replace('_', ' ')
+                    artist_name = m.group(1).replace('_', ' ')
+                    # Handle museum-specific URLs by extracting just the artist name
+                    if ' in ' in artist_name:
+                        # Extract the artist name before " in "
+                        artist_name = artist_name.split(' in ')[0]
+                    img['artist'] = artist_name
                 else:
                     # Extract artist name from main Commons page URL
                     m = re.search(r'wiki/([^/]+)$', url)
                     if m:
-                        img['artist'] = m.group(1).replace('_', ' ')
+                        artist_name = m.group(1).replace('_', ' ')
+                        # Handle museum-specific URLs
+                        if ' in ' in artist_name:
+                            artist_name = artist_name.split(' in ')[0]
+                        img['artist'] = artist_name
                     else:
                         img['artist'] = 'Unknown'
         all_new_paintings.extend(imgs)

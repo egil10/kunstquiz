@@ -25,6 +25,14 @@ except FileNotFoundError:
 # Helper: add tags and bios from artist to painting if missing or to enrich
 for painting in paintings:
     artist = painting.get('artist')
+    
+    # Fix museum-specific artist names (e.g., "Nikolai Astrup in Sogn og Fjordane Kunstmuseum" -> "Nikolai Astrup")
+    if artist and ' in ' in artist:
+        original_artist = artist
+        artist = artist.split(' in ')[0]
+        painting['artist'] = artist
+        print(f"Fixed artist name: '{original_artist}' -> '{artist}'")
+    
     tags = artist_tags.get(artist, {})
     bio = artist_bios.get(artist, {})
     # Merge metadata fields, prefer bios > tags > painting
