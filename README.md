@@ -27,11 +27,11 @@ The `diagnostics.py` script checks for data consistency, category coverage, and 
 
 <!-- STATS_START -->
 **Latest Art Quiz Stats**
-- Total paintings: 3579
-- Total unique artists in paintings: 82
+- Total paintings: 3652
+- Total unique artists in paintings: 85
 - Total artists in bios: 91
 - Categories:
-  - Full Collection: 3579 paintings, 82 painters
+  - Full Collection: 3652 paintings, 85 painters
   - Popular Painters: 1646 paintings, 10 painters
   - Landscape Painting: 353 paintings, 36 painters
   - Romanticism: 48 paintings, 1 painters

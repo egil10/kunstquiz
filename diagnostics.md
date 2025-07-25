@@ -1,11 +1,11 @@
 # Art Data Diagnostics
 
-- **Total paintings:** 3579
-- **Total unique artists in paintings:** 82
+- **Total paintings:** 3652
+- **Total unique artists in paintings:** 85
 - **Total artists in bios:** 91
 
 ## Quiz Categories
-- **Full Collection:** 3579 paintings, 82 painters
+- **Full Collection:** 3652 paintings, 85 painters
 - **Popular Painters:** 1646 paintings, 10 painters
 - **Landscape Painting:** 353 paintings, 36 painters
 - **Romanticism:** 48 paintings, 1 painters
@@ -13,7 +13,7 @@
 - **Expressionism:** 199 paintings, 2 painters
 - **Portraits:** 314 paintings, 32 painters
 - **Historical/Nationalism:** 172 paintings, 8 painters
-- **19th Century:** 3173 paintings, 53 painters
+- **19th Century:** 3212 paintings, 53 painters
 - **20th Century:** 103 paintings, 20 painters
 
 ## All Genres (from bios)
@@ -180,6 +180,7 @@ Smallest genres:
 - Adolph Tidemand: 152
 - Eilif Peterssen: 137
 - Frits Thaulow: 134
+- Nikolai Astrup: 115
 - Harald Sohlberg: 115
 - Amaldus Nielsen: 115
 - Harriet Backer: 103
@@ -187,7 +188,6 @@ Smallest genres:
 - Peder Balke: 89
 - August Cappelen: 84
 - Lars Hertervig: 78
-- Nikolai Astrup: 76
 - Peter Nicolai Arbo: 71
 - Knud Baade: 68
 - Adelsteen Normann: 59
@@ -216,6 +216,7 @@ Smallest genres:
 - Halfdan Egedius: 28
 - Eyolf Soot: 20
 - Axel Revold: 20
+- Nikolai Astrup in the Nasjonalmuseet for kunst, arkitektur og design: 20
 - Peder Aadnes: 17
 - Gunnar Berg: 16
 - Henrik Sørensen: 16
@@ -228,6 +229,7 @@ Smallest genres:
 - Per Krohg: 10
 - Bernt Lund: 10
 - Håkon Gullvåg: 10
+- Nikolai Astrup in Sogn og Fjordane Kunstmuseum: 9
 - Søren Onsager: 7
 - Nils Gude: 7
 - Cora Sandel: 7
@@ -236,6 +238,7 @@ Smallest genres:
 - Kjell Pahr-Iversen: 5
 - Pushwagner: 5
 - Artworks by Edvard Munch: 5
+- Nikolai Astrup in KODE Art Museums and Composer Homes: 5
 - Arne Ekeland: 4
 - Alf Lundeby: 4
 - Jakob Weidemann: 3

@@ -194,7 +194,7 @@ def main():
         with open(args.file, 'r', encoding='utf-8') as f:
             for line in f:
                 line = line.strip()
-                if not line:
+                if not line or line.startswith('#') or line.startswith('//'):
                     continue
                 if line.startswith('http'):
                     urls.append(line)
