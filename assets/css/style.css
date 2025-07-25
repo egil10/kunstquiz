@@ -341,61 +341,66 @@ button:disabled {
 .artist-popup.toast {
     position: fixed;
     top: 32px;
-    right: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-30px);
     z-index: 1000;
     background: #fff;
-    border-radius: 14px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.13);
+    border-radius: 22px;
+    box-shadow: 0 8px 48px rgba(0,0,0,0.18);
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     min-width: 320px;
-    max-width: 440px;
-    padding: 1.2em 1.5em 1.2em 1.2em;
+    max-width: 420px;
+    width: 90vw;
+    padding: 2.2em 2em 2em 2em;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s, transform 0.4s;
-    transform: translateY(-30px);
 }
 .artist-popup.toast.visible {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
+    transform: translateX(-50%) translateY(0);
 }
 .artist-popup-content.toast-content {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 1.3em;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2em;
+    width: 100%;
 }
 .artist-portrait.toast-portrait {
-    width: 80px;
-    height: 120px;
+    width: 140px;
+    height: 210px;
     object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-    border: 2px solid #388e3c;
-    flex-shrink: 0;
+    border-radius: 18px;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.13);
+    border: 3px solid #388e3c;
+    margin-bottom: 1.1em;
 }
 .artist-popup-text.toast-text {
-    font-size: 1em;
-    line-height: 1.4;
-    max-width: 300px;
+    font-size: 1.13em;
+    line-height: 1.5;
+    max-width: 340px;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    align-items: center;
+    text-align: center;
 }
 .artist-popup-text.toast-text .artist-name {
     color: #388e3c;
-    font-size: 1.13em;
+    font-size: 1.25em;
     font-weight: 700;
     margin-bottom: 0.1em;
     display: block;
 }
 .artist-popup-text.toast-text .artist-years {
     color: #444;
-    font-size: 1em;
+    font-size: 1.08em;
     font-weight: 500;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.4em;
     display: block;
 }
 .artist-popup-text.toast-text .artist-bio {
@@ -509,17 +514,21 @@ button:disabled {
 }
 @media (max-width: 700px) {
     .artist-popup.toast {
-        top: 10px;
-        right: 10px;
-        min-width: 180px;
-        max-width: 95vw;
-        padding: 0.7em 0.7em 0.7em 0.7em;
+        top: 8px;
+        left: 50%;
+        min-width: 0;
+        max-width: 98vw;
+        width: 98vw;
+        padding: 1em 0.2em 1.2em 0.2em;
     }
     .artist-portrait.toast-portrait {
-        width: 48px;
-        height: 72px;
+        width: 80px;
+        height: 120px;
+        border-radius: 10px;
+        margin-bottom: 0.7em;
     }
     .artist-popup-text.toast-text {
-        max-width: 120px;
+        max-width: 95vw;
+        font-size: 1em;
     }
 }
