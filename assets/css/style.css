@@ -87,11 +87,11 @@ html, body {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  position: relative; /* 🟢 ADD THIS */
+  position: relative; /* ✅ Required */
   min-width: 320px;
-  gap: 18px;
-  width: 100%;
   max-width: 400px;
+  width: 100%;
+  gap: 18px;
   margin-top: 48px;
 }
 
