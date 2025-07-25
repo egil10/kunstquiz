@@ -717,16 +717,17 @@ button:disabled {
 }
 
 .gallery-collage-img {
-  width: 100%;
-  max-width: 11.25rem;
-  height: 7.5rem;
-  object-fit: cover;
-  border-radius: 0.625rem;
-  box-shadow: 0 0.125rem 0.5rem 0 rgba(0,0,0,0.08);
+  width: 90%;
+  max-width: 90%;
+  min-height: 220px;
+  max-height: 400px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
   background: #eee;
   display: block;
   margin: 0 auto;
-  loading: lazy;
 }
 
 @media (max-width: 900px) {

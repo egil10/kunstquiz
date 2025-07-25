@@ -520,15 +520,8 @@ function showArtistsModal() {
     col.forEach(name => {
       const li = document.createElement('li');
       const numPaintings = paintings.filter(p => p.artist === name).length;
-      const a = document.createElement('a');
-      a.href = '#';
-      a.textContent = `${name} (${numPaintings})`;
-      a.onclick = e => {
-        e.preventDefault();
-        document.getElementById('artists-modal').style.display = 'none';
-        showArtistPopup(name, null, true);
-      };
-      li.appendChild(a);
+      // Render as plain text, not a link
+      li.textContent = `${name} (${numPaintings})`;
       ul.appendChild(li);
     });
     div.appendChild(ul);
