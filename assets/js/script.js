@@ -328,6 +328,8 @@ function showArtistPopup(painting, onDone) {
     }
     const name = painting.artist || '';
     const bioInfo = getArtistBioInfo(name);
+    // Count paintings for this artist
+    const numPaintings = paintings.filter(p => p.artist === name).length;
     let nameHtml = '';
     let yearsHtml = '';
     let bioHtml = '';
@@ -348,6 +350,8 @@ function showArtistPopup(painting, onDone) {
         imgHtml = painting.artist_image ? `<img src="${painting.artist_image}" alt="${name}" class="artist-portrait toast-portrait">` : '';
         bioHtml = '';
     }
+    // Add number of paintings after the name
+    nameHtml += ` <span class='artist-painting-count'>(${numPaintings} painting${numPaintings === 1 ? '' : 's'} in quiz)</span>`;
     popup.innerHTML = `
         <div class="artist-popup-content toast-content">
             ${imgHtml}
