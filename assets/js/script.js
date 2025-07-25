@@ -159,13 +159,11 @@ function getArtistBioMap() {
 const CATEGORY_DEFS = [
     { value: 'all', label: 'Full Collection' },
     { value: 'popular', label: 'Popular Painters' },
-    { value: 'famous', label: 'Famous Paintings' },
-    { value: 'female', label: 'Female Painters' },
     { value: 'landscape', label: 'Landscape Painting' },
     { value: 'portraits', label: 'Portraits' },
-    { value: 'abstract', label: 'Abstract Painting' },
     { value: 'impressionism', label: 'Impressionism' },
     { value: 'expressionism', label: 'Expressionism' },
+    { value: 'abstract', label: 'Abstract Painting' },
     { value: '19thcentury', label: '19th Century' },
     { value: '20thcentury', label: '20th Century' },
     { value: 'historical', label: 'Historical/Nationalism' }
@@ -188,23 +186,6 @@ function getValidPaintings() {
             .slice(0, 10)
             .map(([name]) => name);
         filtered = filtered.filter(p => topArtists.includes(p.artist));
-    } else if (selectedCategory === 'famous') {
-        filtered = paintings.filter(p => Array.isArray(p.notable_works) && p.notable_works.length > 0);
-        if (filtered.length === 0) {
-            // Fallback: paintings by the most painted artists
-            const artistCounts = {};
-            paintings.forEach(p => { if (p.artist) artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1; });
-            const topArtists = Object.entries(artistCounts)
-                .sort((a, b) => b[1] - a[1])
-                .slice(0, 10)
-                .map(([name]) => name);
-            filtered = paintings.filter(p => topArtists.includes(p.artist));
-        }
-    } else if (selectedCategory === 'female') {
-        filtered = paintings.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && (bio.gender === 'female' || bio.is_female === true);
-        });
     } else if (selectedCategory === 'landscape') {
         filtered = paintings.filter(p =>
             arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('landscape'))
@@ -213,10 +194,6 @@ function getValidPaintings() {
         filtered = paintings.filter(p =>
             arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('portrait'))
         );
-    } else if (selectedCategory === 'abstract') {
-        filtered = paintings.filter(p =>
-            arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('abstract'))
-        );
     } else if (selectedCategory === 'impressionism') {
         filtered = paintings.filter(p =>
             arr(p.artist_movement).concat(arr(p.movement)).some(m => m && m.toLowerCase().includes('impressionism'))
@@ -224,6 +201,10 @@ function getValidPaintings() {
     } else if (selectedCategory === 'expressionism') {
         filtered = paintings.filter(p =>
             arr(p.artist_movement).concat(arr(p.movement)).some(m => m && m.toLowerCase().includes('expressionism'))
+        );
+    } else if (selectedCategory === 'abstract') {
+        filtered = paintings.filter(p =>
+            arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('abstract'))
         );
     } else if (selectedCategory === '19thcentury') {
         filtered = paintings.filter(p => {
@@ -309,7 +290,7 @@ function loadQuiz() {
                 streak = 0;
                 selectedBtn.classList.add('wrong');
                 correctBtn.classList.add('correct');
-                showMessage('Not correct!', '#e53935');
+                showMessage('In-correct!', '#e53935');
             }
             updateStreakBar();
             setTimeout(() => {
@@ -481,45 +462,41 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     }
     let contentHtml = '';
     if (!persistent) {
+        // In-game overlay positioning
+        popup.className = 'artist-popup toast artist-popup-overlay';
+        popup.style.position = 'fixed';
+        popup.style.left = '50%';
+        popup.style.top = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.zIndex = '3000';
+        popup.style.maxWidth = '520px';
+        popup.style.width = '520px';
+        popup.style.height = 'auto';
+        popup.style.overflow = 'visible';
         contentHtml = `
-        <div class="artist-popup-columns in-game-overlay">
-            <div class="artist-popup-left">
-                ${imgHtml}
-            </div>
+        <div class="artist-popup-columns in-game-overlay no-scroll">
+            <div class="artist-popup-left">${imgHtml}</div>
             <div class="artist-popup-right">
                 <div class="artist-popup-text toast-text">
-                    <span class='artist-name'>${name}</span>
-                    ${yearsHtml}
-                    ${bioHtml}
-                    ${tagsHtml}
+                    <span class='artist-name'>${name}</span>${yearsHtml}${bioHtml}${tagsHtml}
                 </div>
             </div>
-        </div>
-        `;
+        </div>`;
     } else {
+        // Persistent modal positioning and content
+        popup.className = 'artist-popup persistent persistent-modal-vertical';
+        popup.style.top = '10vh';
+        popup.style.maxHeight = '80vh';
+        popup.style.overflow = 'auto';
+        paintingsHtml = `<div class='artist-paintings-vertical'>` +
+            artistPaintings.map(p => `<div class='artist-painting-thumb'><img src="${p.url}" alt="${p.title}" /></div>`).join('') +
+            `</div>`;
         contentHtml = `
-        <div class="artist-popup-columns persistent-modal-better">
-            <div class="artist-popup-left">
-                ${imgHtml}
-                <div class="artist-popup-text toast-text">
-                    <span class='artist-name'>${name}</span>
-                    ${yearsHtml}
-                    ${bioHtml}
-                    ${tagsHtml}
-                </div>
-            </div>
-            <div class="artist-popup-right only-images better-grid">
-                <div class="artist-paintings-better-grid">
-                ${artistPaintings.map(p =>
-                    `<div class='artist-painting-thumb'>
-                        <img src="${p.url}" alt="${p.title}" />
-                    </div>`
-                ).join('')}
-                </div>
-            </div>
+        <div class="artist-popup-columns persistent-modal-vertical">
+            <div class="artist-popup-top">${imgHtml}<div class="artist-popup-text toast-text">${yearsHtml}${bioHtml}${tagsHtml}</div></div>
+            ${paintingsHtml}
             ${closeBtnHtml}
-        </div>
-        `;
+        </div>`;
     }
     popup.innerHTML = contentHtml;
     popup.style.opacity = 0;
