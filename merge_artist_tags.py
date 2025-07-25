@@ -40,14 +40,34 @@ for painting in paintings:
         ('artist_self_portrait_url', 'self_portrait_url'),
         ('artist_aliases', 'aliases')
     ]:
-        if bio.get(bio_field):
-            painting[field] = bio[bio_field]
+        val = bio.get(bio_field)
+        if val is not None:
+            # Ensure movement/genre/awards/aliases are always arrays
+            if field in ['artist_movement', 'artist_genre', 'artist_awards', 'artist_aliases']:
+                if isinstance(val, str):
+                    painting[field] = [val]
+                elif isinstance(val, list):
+                    painting[field] = val
+                else:
+                    painting[field] = []
+            else:
+                painting[field] = val
         elif tags.get(bio_field):
             painting[field] = tags[bio_field]
     # Merge tags fields if not present
     for field in ['movement', 'genre', 'country_of_origin', 'artist_gender', 'artist_summary', 'birthplace']:
         if not painting.get(field) and tags.get(field):
-            painting[field] = tags[field]
+            val = tags[field]
+            # Ensure movement/genre are always arrays
+            if field in ['movement', 'genre']:
+                if isinstance(val, str):
+                    painting[field] = [val]
+                elif isinstance(val, list):
+                    painting[field] = val
+                else:
+                    painting[field] = []
+            else:
+                painting[field] = val
     # Add notable works if not present
     if 'notable_works' not in painting and 'notable_works' in tags:
         painting['notable_works'] = tags['notable_works']

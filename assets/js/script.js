@@ -177,6 +177,11 @@ function getValidPaintings() {
     let filtered = paintings.filter(p => p.artist && p.url);
     if (!selectedCategory || selectedCategory === 'all') return filtered;
     const artistMap = getArtistBioMap();
+    function arr(val) {
+        if (Array.isArray(val)) return val;
+        if (typeof val === 'string') return [val];
+        return [];
+    }
     if (selectedCategory === 'popular') {
         // Top 10 artists by number of paintings
         const artistCounts = {};
@@ -190,36 +195,36 @@ function getValidPaintings() {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
             return bio && (
-                (bio.genre && bio.genre.some(g => g.toLowerCase().includes('landscape')))
-                || (bio.movement && bio.movement.some(m => m.toLowerCase().includes('landscape')))
+                arr(bio.genre).some(g => g.toLowerCase().includes('landscape')) ||
+                arr(bio.movement).some(m => m.toLowerCase().includes('landscape'))
             );
         });
     } else if (selectedCategory === 'romanticism') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
-            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('romanticism'));
+            return bio && arr(bio.movement).some(m => m.toLowerCase().includes('romanticism'));
         });
     } else if (selectedCategory === 'impressionism') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
-            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('impressionism'));
+            return bio && arr(bio.movement).some(m => m.toLowerCase().includes('impressionism'));
         });
     } else if (selectedCategory === 'expressionism') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
-            return bio && bio.movement && bio.movement.some(m => m.toLowerCase().includes('expressionism'));
+            return bio && arr(bio.movement).some(m => m.toLowerCase().includes('expressionism'));
         });
     } else if (selectedCategory === 'portraits') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
-            return bio && bio.genre && bio.genre.some(g => g.toLowerCase().includes('portrait'));
+            return bio && arr(bio.genre).some(g => g.toLowerCase().includes('portrait'));
         });
     } else if (selectedCategory === 'historical') {
         filtered = filtered.filter(p => {
             const bio = artistMap[p.artist];
             return bio && (
-                (bio.genre && bio.genre.some(g => g.toLowerCase().includes('historical') || g.toLowerCase().includes('nationalism') || g.toLowerCase().includes('mythology')))
-                || (bio.movement && bio.movement.some(m => m.toLowerCase().includes('historical') || m.toLowerCase().includes('nationalism') || m.toLowerCase().includes('mythology')))
+                arr(bio.genre).some(g => g.toLowerCase().includes('historical') || g.toLowerCase().includes('nationalism') || g.toLowerCase().includes('mythology')) ||
+                arr(bio.movement).some(m => m.toLowerCase().includes('historical') || m.toLowerCase().includes('nationalism') || m.toLowerCase().includes('mythology'))
             );
         });
     } else if (selectedCategory === '19thcentury') {
@@ -234,8 +239,8 @@ function getValidPaintings() {
             let y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
             if (!y && bio && bio.death_year) y = parseInt(bio.death_year);
             const isModern = bio && (
-                (bio.movement && bio.movement.some(m => m.toLowerCase().includes('modern')))
-                || (bio.genre && bio.genre.some(g => g.toLowerCase().includes('modern')))
+                arr(bio.movement).some(m => m.toLowerCase().includes('modern')) ||
+                arr(bio.genre).some(g => g.toLowerCase().includes('modern'))
             );
             return (y && y >= 1900 && y < 2000) || isModern;
         });
@@ -419,7 +424,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
             document.body.appendChild(popup);
         }
     } else {
-        // In-game popup: render above the answer buttons
+        // In-game popup: render above the answer buttons and cover them
         let optionsDiv = document.getElementById('options');
         let container = document.getElementById('artist-popup-container');
         if (!container) {
@@ -431,7 +436,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         container.innerHTML = '';
         popup = document.createElement('div');
         popup.id = 'artist-popup';
-        popup.className = 'artist-popup toast';
+        popup.className = 'artist-popup toast artist-popup-cover';
         container.appendChild(popup);
     }
     // Accept either a painting object or a string name
@@ -469,22 +474,38 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     if (persistent) {
         closeBtnHtml = `<button class='artist-popup-close' aria-label='Close'>&times;</button>`;
     }
-    // Persistent: vertical list of paintings (one per row)
+    // Persistent: right side is only images (no titles/years)
     let paintingsHtml = '';
     if (persistent && artistPaintings.length > 0) {
-        paintingsHtml = `<div class='artist-paintings-list'>` +
+        paintingsHtml = `<div class='artist-paintings-grid only-images'>` +
             artistPaintings.map(p =>
-                `<div class='artist-painting-row'>
-                    <img src="${p.url}" alt="${p.title}" title="${p.title}${p.year ? ' (' + p.year + ')' : ''}" />
-                    <div class='artist-painting-title'>${p.title || ''}${p.year ? ' (' + p.year + ')' : ''}</div>
+                `<div class='artist-painting-thumb'>
+                    <img src="${p.url}" alt="${p.title}" title="${p.title}" />
                 </div>`
             ).join('') +
             `</div>`;
     }
+    // In-game: 2-column layout, image left, info right, covers answer options
     let contentHtml = '';
-    if (persistent) {
+    if (!persistent) {
         contentHtml = `
-        <div class="artist-popup-columns vertical-list">
+        <div class="artist-popup-columns in-game-cover">
+            <div class="artist-popup-left">
+                ${imgHtml}
+            </div>
+            <div class="artist-popup-right">
+                <div class="artist-popup-text toast-text">
+                    <span class='artist-name'>${name}</span>
+                    ${yearsHtml}
+                    ${bioHtml}
+                    ${tagsHtml}
+                </div>
+            </div>
+        </div>
+        `;
+    } else {
+        contentHtml = `
+        <div class="artist-popup-columns persistent-modal">
             <div class="artist-popup-left">
                 ${imgHtml}
                 <div class="artist-popup-text toast-text">
@@ -494,21 +515,8 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
                     ${tagsHtml}
                 </div>
             </div>
-            <div class="artist-popup-right vertical-list">
+            <div class="artist-popup-right only-images">
                 ${paintingsHtml}
-            </div>
-            ${closeBtnHtml}
-        </div>
-        `;
-    } else {
-        contentHtml = `
-        <div class="artist-popup-content toast-content">
-            ${imgHtml}
-            <div class="artist-popup-text toast-text">
-                <span class='artist-name'>${name}</span>
-                ${yearsHtml}
-                ${bioHtml}
-                ${tagsHtml}
             </div>
             ${closeBtnHtml}
         </div>
@@ -525,7 +533,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
         popup.style.left = '';
         popup.style.transform = '';
         popup.style.zIndex = '';
-        popup.style.maxWidth = '420px';
+        popup.style.maxWidth = '100%';
         popup.style.minWidth = '320px';
         let overlay = document.getElementById('artist-popup-overlay');
         if (overlay) overlay.classList.remove('visible');
