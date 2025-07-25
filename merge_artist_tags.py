@@ -55,6 +55,22 @@ for painting in paintings:
         elif 'Dahl and Friedrich' in artist:
             artist = 'Johan Christian Dahl'
         
+        # Fix "Christian Krohg. Pictures that captivate" -> "Christian Krohg"
+        elif 'Christian Krohg. Pictures that captivate' in artist:
+            artist = 'Christian Krohg'
+        
+        # Fix "Hans Gude from Af Hans Gudes liv og værker" -> "Hans Gude"
+        elif 'Hans Gude from Af Hans Gudes liv og værker' in artist or 'Hans Gude from Af Hans Gudes liv og v%C3%A6rker' in artist:
+            artist = 'Hans Gude'
+        
+        # Fix URL-encoded characters in artist names
+        elif '%' in artist:
+            import urllib.parse
+            artist = urllib.parse.unquote(artist)
+            # Clean up any remaining URL artifacts
+            if ' from ' in artist and 'Hans Gude' in artist:
+                artist = 'Hans Gude'
+        
         # Update the painting if the artist name changed
         if artist != original_artist:
             painting['artist'] = artist
