@@ -455,6 +455,10 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   popup.classList.add('visible');
   setTimeout(() => popup.style.opacity = '1', 10);
   if (persistent) {
+    // Make any links in the popup not navigate
+    Array.from(popup.querySelectorAll('a')).forEach(link => {
+      link.onclick = e => e.preventDefault();
+    });
     popup.className = 'artist-popup persistent';
     const overlay = ensureArtistPopupOverlay();
     overlay.classList.add('visible');
@@ -523,6 +527,7 @@ function showArtistsModal() {
       a.textContent = `${name} (${numPaintings})`;
       a.onclick = e => {
         e.preventDefault();
+        document.getElementById('artists-modal').style.display = 'none';
         showArtistPopup(name, null, true);
       };
       li.appendChild(a);
