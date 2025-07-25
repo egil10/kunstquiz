@@ -1,14 +1,42 @@
 # Art Data Diagnostics
 
 ## 📊 File Health & Performance
-- **Paintings file size:** 7.84 MB (89,276 lines)
+### 📁 All JSON Files Status
+- **Paintings (Appended):** 7.84 MB (89,276 lines)
+- **Paintings (Merged):** 10.6 MB (201,605 lines)
+- **Artist Bios:** 0.05 MB (1,185 lines)
+- **Artist Tags:** 0.06 MB (1,312 lines)
+- **Artist Tags (Appended):** 0.06 MB (1,312 lines)
+
+### 🎨 Paintings Collection Health
+- **File size:** 7.84 MB (89,276 lines)
 - **File size status:** 🟢 Good
 - **Line count status:** 🟢 Good
-- **Bios file size:** 0.05 MB (1,185 lines)
 - **Total paintings:** 4,053
 - **Collection size status:** 🟢 Good
-- **Total unique artists in paintings:** 98
+
+### 👨‍🎨 Artist Data Health
+- **Bios file:** 0.05 MB (1,185 lines)
 - **Total artists in bios:** 91
+- **Bios file status:** 🟢 Good
+- **Tags file:** 0.06 MB (1,312 lines)
+- **Tags file status:** 🟢 Good
+- **Tags (Appended) file:** 0.06 MB (1,312 lines)
+- **Tags (Appended) status:** 🟢 Good
+
+### 🔗 Merged Data Health
+- **Merged paintings:** 4,053
+- **Merged file size:** 10.6 MB (201,605 lines)
+- **Merged file status:** 🟢 Good
+- **Total unique artists in paintings:** 98
+
+### 🔍 Data Consistency Checks
+- **Artists without bios:** 22
+- **Missing bios status:** 🟡 Warning - 22 artists need bios
+- **Bios without paintings:** 15
+- **Orphaned bios status:** 🟡 Warning - 15 bios without paintings
+- **Merged vs Appended:** 4,053 merged / 4,053 appended
+- **Merge consistency:** 🟢 Good - Counts match
 
 ### 💡 Performance Recommendations
 - 💡 **Good collection size:** Continue collecting for variety

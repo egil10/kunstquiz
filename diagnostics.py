@@ -4,7 +4,10 @@ import os
 import re
 
 PAINTINGS_FILE = 'data/paintings_appended.json'
+PAINTINGS_MERGED_FILE = 'data/paintings_merged.json'
 BIOS_FILE = 'data/artist_bios.json'
+ARTIST_TAGS_FILE = 'data/artist_tags.json'
+ARTIST_TAGS_APPENDED_FILE = 'data/artist_tags_appended.json'
 REPORT_FILE = 'diagnostics.md'
 
 CATEGORY_DEFS = [
@@ -82,20 +85,43 @@ def check_health_status(value, thresholds):
         return '🔴 Critical'
 
 def main():
-    if not os.path.exists(PAINTINGS_FILE):
-        print(f'ERROR: {PAINTINGS_FILE} not found.')
-        return
-    if not os.path.exists(BIOS_FILE):
-        print(f'ERROR: {BIOS_FILE} not found.')
+    # Check for required files
+    required_files = [PAINTINGS_FILE, BIOS_FILE]
+    missing_files = [f for f in required_files if not os.path.exists(f)]
+    if missing_files:
+        print(f'ERROR: Missing required files: {missing_files}')
         return
     
+    # Load data
     paintings = load_json(PAINTINGS_FILE)
     bios = load_json(BIOS_FILE)
     bios_by_name = {b['name']: b for b in bios}
+    
+    # Try to load optional files
+    paintings_merged = None
+    artist_tags = None
+    artist_tags_appended = None
+    
+    if os.path.exists(PAINTINGS_MERGED_FILE):
+        paintings_merged = load_json(PAINTINGS_MERGED_FILE)
+    if os.path.exists(ARTIST_TAGS_FILE):
+        artist_tags = load_json(ARTIST_TAGS_FILE)
+    if os.path.exists(ARTIST_TAGS_APPENDED_FILE):
+        artist_tags_appended = load_json(ARTIST_TAGS_APPENDED_FILE)
 
-    # Get file statistics
-    paintings_stats = get_file_stats(PAINTINGS_FILE)
-    bios_stats = get_file_stats(BIOS_FILE)
+    # Get file statistics for all JSON files
+    all_files = {
+        'Paintings (Appended)': PAINTINGS_FILE,
+        'Paintings (Merged)': PAINTINGS_MERGED_FILE,
+        'Artist Bios': BIOS_FILE,
+        'Artist Tags': ARTIST_TAGS_FILE,
+        'Artist Tags (Appended)': ARTIST_TAGS_APPENDED_FILE
+    }
+    
+    file_stats = {}
+    for name, filepath in all_files.items():
+        if os.path.exists(filepath):
+            file_stats[name] = get_file_stats(filepath)
     
     # Health thresholds
     painting_thresholds = {
@@ -103,26 +129,98 @@ def main():
         'size_mb': {'warning': 25, 'critical': 50},
         'line_count': {'warning': 100000, 'critical': 200000}
     }
+    
+    artist_thresholds = {
+        'count': {'warning': 500, 'critical': 1000},
+        'size_mb': {'warning': 1, 'critical': 5},
+        'line_count': {'warning': 5000, 'critical': 10000}
+    }
 
     lines = []
     lines.append(f'# Art Data Diagnostics\n')
     
     # File Health Section
     lines.append('## 📊 File Health & Performance')
+    
+    # Comprehensive file statistics
+    lines.append('### 📁 All JSON Files Status')
+    for name, stats in file_stats.items():
+        if stats:
+            lines.append(f'- **{name}:** {stats["size_mb"]} MB ({stats["line_count"]:,} lines)')
+    
+    # Paintings collection health
+    paintings_stats = file_stats.get('Paintings (Appended)')
     if paintings_stats:
-        lines.append(f'- **Paintings file size:** {paintings_stats["size_mb"]} MB ({paintings_stats["line_count"]:,} lines)')
+        lines.append(f'\n### 🎨 Paintings Collection Health')
+        lines.append(f'- **File size:** {paintings_stats["size_mb"]} MB ({paintings_stats["line_count"]:,} lines)')
         lines.append(f'- **File size status:** {check_health_status(paintings_stats["size_mb"], painting_thresholds["size_mb"])}')
         lines.append(f'- **Line count status:** {check_health_status(paintings_stats["line_count"], painting_thresholds["line_count"])}')
+        lines.append(f'- **Total paintings:** {len(paintings):,}')
+        lines.append(f'- **Collection size status:** {check_health_status(len(paintings), painting_thresholds["count"])}')
     
+    # Artist data health
+    bios_stats = file_stats.get('Artist Bios')
     if bios_stats:
-        lines.append(f'- **Bios file size:** {bios_stats["size_mb"]} MB ({bios_stats["line_count"]:,} lines)')
+        lines.append(f'\n### 👨‍🎨 Artist Data Health')
+        lines.append(f'- **Bios file:** {bios_stats["size_mb"]} MB ({bios_stats["line_count"]:,} lines)')
+        lines.append(f'- **Total artists in bios:** {len(bios_by_name)}')
+        lines.append(f'- **Bios file status:** {check_health_status(bios_stats["size_mb"], artist_thresholds["size_mb"])}')
     
-    lines.append(f'- **Total paintings:** {len(paintings):,}')
-    lines.append(f'- **Collection size status:** {check_health_status(len(paintings), painting_thresholds["count"])}')
+    # Artist tags health
+    tags_stats = file_stats.get('Artist Tags')
+    if tags_stats:
+        lines.append(f'- **Tags file:** {tags_stats["size_mb"]} MB ({tags_stats["line_count"]:,} lines)')
+        lines.append(f'- **Tags file status:** {check_health_status(tags_stats["size_mb"], artist_thresholds["size_mb"])}')
+    
+    tags_appended_stats = file_stats.get('Artist Tags (Appended)')
+    if tags_appended_stats:
+        lines.append(f'- **Tags (Appended) file:** {tags_appended_stats["size_mb"]} MB ({tags_appended_stats["line_count"]:,} lines)')
+        lines.append(f'- **Tags (Appended) status:** {check_health_status(tags_appended_stats["size_mb"], artist_thresholds["size_mb"])}')
+    
+    # Merged paintings health
+    if paintings_merged:
+        merged_stats = file_stats.get('Paintings (Merged)')
+        if merged_stats:
+            lines.append(f'\n### 🔗 Merged Data Health')
+            lines.append(f'- **Merged paintings:** {len(paintings_merged):,}')
+            lines.append(f'- **Merged file size:** {merged_stats["size_mb"]} MB ({merged_stats["line_count"]:,} lines)')
+            lines.append(f'- **Merged file status:** {check_health_status(merged_stats["size_mb"], painting_thresholds["size_mb"])}')
     
     all_artists = set(p['artist'] for p in paintings if p.get('artist'))
     lines.append(f'- **Total unique artists in paintings:** {len(all_artists)}')
-    lines.append(f'- **Total artists in bios:** {len(bios_by_name)}')
+    
+    # Data consistency checks
+    lines.append(f'\n### 🔍 Data Consistency Checks')
+    
+    # Check if all artists in paintings have bios
+    artists_without_bios = all_artists - set(bios_by_name.keys())
+    artists_without_bios_count = len(artists_without_bios)
+    lines.append(f'- **Artists without bios:** {artists_without_bios_count}')
+    if artists_without_bios_count > 0:
+        lines.append(f'- **Missing bios status:** 🟡 Warning - {artists_without_bios_count} artists need bios')
+        if artists_without_bios_count <= 10:
+            lines.append(f'- **Missing artists:** {", ".join(sorted(artists_without_bios))}')
+    else:
+        lines.append(f'- **Missing bios status:** 🟢 Good - All artists have bios')
+    
+    # Check if all bios have corresponding paintings
+    bios_without_paintings = set(bios_by_name.keys()) - all_artists
+    bios_without_paintings_count = len(bios_without_paintings)
+    lines.append(f'- **Bios without paintings:** {bios_without_paintings_count}')
+    if bios_without_paintings_count > 0:
+        lines.append(f'- **Orphaned bios status:** 🟡 Warning - {bios_without_paintings_count} bios without paintings')
+    else:
+        lines.append(f'- **Orphaned bios status:** 🟢 Good - All bios have paintings')
+    
+    # Check merged vs appended paintings
+    if paintings_merged:
+        merged_count = len(paintings_merged)
+        appended_count = len(paintings)
+        lines.append(f'- **Merged vs Appended:** {merged_count:,} merged / {appended_count:,} appended')
+        if merged_count != appended_count:
+            lines.append(f'- **Merge consistency:** 🟡 Warning - Counts don\'t match')
+        else:
+            lines.append(f'- **Merge consistency:** 🟢 Good - Counts match')
     
     # Performance recommendations
     lines.append('\n### 💡 Performance Recommendations')
