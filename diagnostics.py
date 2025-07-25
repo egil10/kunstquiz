@@ -20,7 +20,12 @@ CATEGORY_DEFS = [
     { 'value': '20thcentury', 'label': '20th Century' }
 ]
 
-arr = lambda v: v if isinstance(v, list) else ([v] if isinstance(v, str) and v else [])
+def arr(val):
+    if isinstance(val, list):
+        return val
+    elif isinstance(val, str) and val:
+        return [val]
+    return []
 
 def load_json(path):
     with open(path, 'r', encoding='utf-8') as f:
@@ -185,17 +190,17 @@ def main():
             top_artists = set(a for a, _ in artist_counts.most_common(10))
             filtered = [p for p in paintings if p.get('artist') in top_artists]
         elif cat['value'] == 'landscape':
-            filtered = [p for p in paintings if any('landscape' in (g or '').lower() for g in (p.get('artist_genre') or []) + (p.get('genre') or []))]
+            filtered = [p for p in paintings if any('landscape' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
         elif cat['value'] == 'portraits':
-            filtered = [p for p in paintings if any('portrait' in (g or '').lower() for g in (p.get('artist_genre') or []) + (p.get('genre') or []))]
+            filtered = [p for p in paintings if any('portrait' in (g or '').lower() for g in arr(p.get('artist_genre')) + arr(p.get('genre')))]
         elif cat['value'] == 'romanticism':
-            filtered = [p for p in paintings if any('romanticism' in (m or '').lower() for m in (p.get('artist_movement') or []) + (p.get('movement') or []))]
+            filtered = [p for p in paintings if any('romanticism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
         elif cat['value'] == 'expressionism':
-            filtered = [p for p in paintings if any('expressionism' in (m or '').lower() for m in (p.get('artist_movement') or []) + (p.get('movement') or []))]
+            filtered = [p for p in paintings if any('expressionism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
         elif cat['value'] == 'impressionism':
-            filtered = [p for p in paintings if any('impressionism' in (m or '').lower() for m in (p.get('artist_movement') or []) + (p.get('movement') or []))]
+            filtered = [p for p in paintings if any('impressionism' in (m or '').lower() for m in arr(p.get('artist_movement')) + arr(p.get('movement')))]
         elif cat['value'] == 'historical_nationalism':
-            filtered = [p for p in paintings if any(any(x in (g or '').lower() for x in ['historical','nationalism','mythology']) for g in (p.get('artist_genre') or []) + (p.get('genre') or []) + (p.get('artist_movement') or []) + (p.get('movement') or []))]
+            filtered = [p for p in paintings if any(any(x in (g or '').lower() for x in ['historical','nationalism','mythology']) for g in arr(p.get('artist_genre')) + arr(p.get('genre')) + arr(p.get('artist_movement')) + arr(p.get('movement')))]
         elif cat['value'] == '1800s':
             filtered = [p for p in paintings if bios_by_name.get(p.get('artist')) and bios_by_name[p['artist']].get('birth_year') and 1800 <= int(bios_by_name[p['artist']]['birth_year']) < 1900]
         elif cat['value'] == 'national_museum':

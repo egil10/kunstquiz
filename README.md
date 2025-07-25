@@ -26,7 +26,21 @@ A fun, modern quiz where you guess the artist behind famous Norwegian paintings.
 The `diagnostics.py` script checks for data consistency, category coverage, and missing info. It also updates the stats below:
 
 <!-- STATS_START -->
-(Stats will be auto-updated here by diagnostics.py)
+**Latest Art Quiz Stats**
+- Total paintings: 3574
+- Total unique artists in paintings: 81
+- Total artists in bios: 91
+- Categories:
+  - Full Collection: 3574 paintings, 81 painters
+  - Popular Painters: 1646 paintings, 10 painters
+  - Landscape Painting: 353 paintings, 36 painters
+  - Romanticism: 48 paintings, 1 painters
+  - Impressionism: 189 paintings, 2 painters
+  - Expressionism: 199 paintings, 2 painters
+  - Portraits: 314 paintings, 32 painters
+  - Historical/Nationalism: 0 paintings, 0 painters
+  - 19th Century: 0 paintings, 0 painters
+  - 20th Century: 0 paintings, 0 painters
 <!-- STATS_END -->
 
 ## 🗂️ Categories
