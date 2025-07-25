@@ -3,7 +3,7 @@
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
 - **Paintings (Appended):** 8.46 MB (95,440 lines)
-- **Paintings (Merged):** 12.38 MB (245,957 lines)
+- **Paintings (Merged):** 12.41 MB (247,001 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
@@ -26,13 +26,14 @@
 
 ### 🔗 Merged Data Health
 - **Merged paintings:** 5,101
-- **Merged file size:** 12.38 MB (245,957 lines)
+- **Merged file size:** 12.41 MB (247,001 lines)
 - **Merged file status:** 🟢 Good
-- **Total unique artists in paintings:** 99
+- **Total unique artists in paintings:** 81
 
 ### 🔍 Data Consistency Checks
-- **Artists without bios:** 23
-- **Missing bios status:** 🟡 Warning - 23 artists need bios
+- **Artists without bios:** 5
+- **Missing bios status:** 🟡 Warning - 5 artists need bios
+- **Missing artists:** Alf Lundeby, Cora Sandel, Inger Sitter, Martin Aagaard, Paul René Gauguin
 - **Bios without paintings:** 15
 - **Orphaned bios status:** 🟡 Warning - 15 bios without paintings
 - **Merged vs Appended:** 5,101 merged / 5,101 appended
@@ -42,16 +43,16 @@
 - 💡 **Large collection:** Focus on quality over quantity
 
 ## Quiz Categories
-- **Full Collection:** 5101 paintings, 99 painters
-- **Popular Painters:** 2301 paintings, 10 painters
-- **Landscape Painting:** 352 paintings, 35 painters
-- **Portraits:** 314 paintings, 32 painters
+- **Full Collection:** 5101 paintings, 81 painters
+- **Popular Painters:** 2692 paintings, 10 painters
+- **Landscape Painting:** 2795 paintings, 41 painters
+- **Portraits:** 1097 paintings, 34 painters
 - **Women Painters:** 290 paintings, 8 painters
-- **19th Century:** 4103 paintings, 53 painters
+- **19th Century:** 4353 paintings, 53 painters
 - **20th Century:** 120 paintings, 20 painters
-- **Impressionism:** 189 paintings, 2 painters
-- **Expressionism:** 199 paintings, 2 painters
-- **Norwegian Romantic:** 149 paintings, 1 painters
+- **Impressionism:** 503 paintings, 9 painters
+- **Expressionism:** 405 paintings, 5 painters
+- **Norwegian Romantic:** 1388 paintings, 7 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33
@@ -220,31 +221,30 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
-- Painting: 2818
-- Landscape: 352
-- Portrait: 314
-- Interior: 56
-- Historical/Nationalism: 20
+- Painting: 3294
+- Landscape painting: 2738
+- Portrait painting: 802
+- landscape painting: 620
+- Illustration: 455
 Smallest genres:
-- Landscape: 352
-- Portrait: 314
-- Interior: 56
-- Historical/Nationalism: 20
+- Satire: 3
+- Performance art: 3
 - Still Life: 2
+- Tonal painting: 2
+- Printmaking: 2
 
 ## All Painters and Number of Paintings
-- Hans Gude: 392
-- Edvard Munch: 306
-- Erik Werenskiold: 291
-- Johan Christian Dahl, 1788-1857: life and works: 268
-- Christian Krohg: 215
-- Johan Christian Dahl: 198
+- Johan Christian Dahl: 494
+- Hans Gude: 491
+- Erik Werenskiold: 374
+- Edvard Munch: 311
+- Christian Krohg: 244
 - Eilif Peterssen: 178
 - Frits Thaulow: 156
 - Adolph Tidemand: 149
 - Amaldus Nielsen: 148
+- Nikolai Astrup: 147
 - Harald Sohlberg: 133
-- Nikolai Astrup: 113
 - Asta Nørregaard: 111
 - Harriet Backer: 103
 - Lars Hertervig: 102
@@ -272,54 +272,39 @@ Smallest genres:
 - Jacob Gløersen: 44
 - Oda Krohg: 42
 - Gustav Wentzel: 41
-- Hans Gude from Af Hans Gudes liv og v%C3%A6rker: 41
 - Otto Sinding: 39
 - Martin Aagaard: 38
 - Halfdan Egedius: 37
 - Morten Müller: 34
 - Bjarne Ness: 33
-- Category:Drawings by Hans Gude from Af Hans Gudes liv og v%C3%A6rker: 29
-- Category:Portrait paintings by Erik Werenskiold: 29
-- Category:Illustrations by Erik Werenskiold: 29
-- Christian Krohg. Pictures that captivate: 29
 - Eyolf Soot: 28
-- Dahl and Friedrich. Romantic Landscapes: 28
 - Peder Aadnes: 25
 - Gunnar Berg: 25
 - Oluf Wold-Torne: 24
 - Nils Hansteen: 22
 - Axel Revold: 20
-- Nikolai Astrup in the Nasjonalmuseet for kunst, arkitektur og design: 20
-- Category:Drawings by Erik Werenskiold: 20
 - Per Krohg: 18
 - Bernt Lund: 18
 - Henrik Sørensen: 16
 - Kjell Aukrust: 15
-- Category:Illustrations by Hans Gude: 15
 - Nils Gude: 14
 - Vebjørn Sand: 14
 - Olaf Gulbransson: 11
 - Søren Onsager: 10
 - Håkon Gullvåg: 10
-- Nikolai Astrup in Sogn og Fjordane Kunstmuseum: 9
-- Category:Google Art Project works by Hans Gude: 8
 - Cora Sandel: 7
 - Inger Sitter: 6
 - Håkon Bleken: 6
 - Kjell Pahr-Iversen: 5
 - Pushwagner: 5
-- Artworks by Edvard Munch: 5
-- Nikolai Astrup in KODE Art Museums and Composer Homes: 5
 - Arne Ekeland: 4
 - Alf Lundeby: 4
-- Category:Drawings by Hans Gude: 4
 - Jakob Weidemann: 3
 - Rolf Groven: 3
 - Frans Widerberg: 3
 - Kjartan Slettemark: 3
 - Kai Fjell: 3
 - Marianne Aulie: 3
-- Category:Postcards by Erik Werenskiold: 3
 - Odd Nerdrum: 2
 - Rolf Aamot: 2
 - Jean Heiberg: 2
@@ -328,8 +313,6 @@ Smallest genres:
 - Rolf Nesch: 2
 - Ludvig Eikaas: 2
 - Reidar Aulie: 2
-- Hans Gude in Statens Museum for Kunst: 2
-- Category:Google Art Project works by Erik Werenskiold: 2
 - Kjell Nupen: 1
 - Ida Lorentzen: 1
 

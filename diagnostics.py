@@ -97,6 +97,13 @@ def main():
     bios = load_json(BIOS_FILE)
     bios_by_name = {b['name']: b for b in bios}
     
+    # Use merged data for analysis if available (has cleaned artist names)
+    paintings_merged = None
+    if os.path.exists(PAINTINGS_MERGED_FILE):
+        paintings_merged = load_json(PAINTINGS_MERGED_FILE)
+        # Use merged data for analysis since it has cleaned artist names
+        paintings = paintings_merged
+    
     # Try to load optional files
     paintings_merged = None
     artist_tags = None
