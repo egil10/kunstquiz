@@ -141,6 +141,12 @@ def main():
         for g, c in genre_painting_counts.most_common()[-5:]:
             lines.append(f'- {g}: {c}')
 
+    # 7. List all painters and their number of paintings
+    lines.append('\n## All Painters and Number of Paintings')
+    painter_counts = Counter(p['artist'] for p in paintings if p.get('artist'))
+    for artist, count in painter_counts.most_common():
+        lines.append(f'- {artist}: {count}')
+
     lines.append('\nDiagnostics complete.')
 
     # Print to terminal and write to file

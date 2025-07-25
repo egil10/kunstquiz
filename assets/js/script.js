@@ -159,14 +159,16 @@ function getArtistBioMap() {
 const CATEGORY_DEFS = [
     { value: 'all', label: 'Full Collection' },
     { value: 'popular', label: 'Popular Painters' },
+    { value: 'famous', label: 'Famous Paintings' },
+    { value: 'female', label: 'Female Painters' },
     { value: 'landscape', label: 'Landscape Painting' },
-    { value: 'romanticism', label: 'Romanticism' },
+    { value: 'portraits', label: 'Portraits' },
+    { value: 'abstract', label: 'Abstract Painting' },
     { value: 'impressionism', label: 'Impressionism' },
     { value: 'expressionism', label: 'Expressionism' },
-    { value: 'portraits', label: 'Portraits' },
-    { value: 'historical', label: 'Historical/Nationalism' },
     { value: '19thcentury', label: '19th Century' },
-    { value: '20thcentury', label: '20th Century' }
+    { value: '20thcentury', label: '20th Century' },
+    { value: 'historical', label: 'Historical/Nationalism' }
 ];
 
 function getValidPaintings() {
@@ -179,7 +181,6 @@ function getValidPaintings() {
         return [];
     }
     if (selectedCategory === 'popular') {
-        // Top 10 artists by number of paintings
         const artistCounts = {};
         paintings.forEach(p => { if (p.artist) artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1; });
         const topArtists = Object.entries(artistCounts)
@@ -187,59 +188,64 @@ function getValidPaintings() {
             .slice(0, 10)
             .map(([name]) => name);
         filtered = filtered.filter(p => topArtists.includes(p.artist));
+    } else if (selectedCategory === 'famous') {
+        filtered = paintings.filter(p => Array.isArray(p.notable_works) && p.notable_works.length > 0);
+        if (filtered.length === 0) {
+            // Fallback: paintings by the most painted artists
+            const artistCounts = {};
+            paintings.forEach(p => { if (p.artist) artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1; });
+            const topArtists = Object.entries(artistCounts)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10)
+                .map(([name]) => name);
+            filtered = paintings.filter(p => topArtists.includes(p.artist));
+        }
+    } else if (selectedCategory === 'female') {
+        filtered = paintings.filter(p => {
+            const bio = artistMap[p.artist];
+            return bio && (bio.gender === 'female' || bio.is_female === true);
+        });
     } else if (selectedCategory === 'landscape') {
-        filtered = filtered.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && (
-                arr(bio.genre).some(g => g.toLowerCase().includes('landscape')) ||
-                arr(bio.movement).some(m => m.toLowerCase().includes('landscape'))
-            );
-        });
-    } else if (selectedCategory === 'romanticism') {
-        filtered = filtered.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && arr(bio.movement).some(m => m.toLowerCase().includes('romanticism'));
-        });
-    } else if (selectedCategory === 'impressionism') {
-        filtered = filtered.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && arr(bio.movement).some(m => m.toLowerCase().includes('impressionism'));
-        });
-    } else if (selectedCategory === 'expressionism') {
-        filtered = filtered.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && arr(bio.movement).some(m => m.toLowerCase().includes('expressionism'));
-        });
+        filtered = paintings.filter(p =>
+            arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('landscape'))
+        );
     } else if (selectedCategory === 'portraits') {
-        filtered = filtered.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && arr(bio.genre).some(g => g.toLowerCase().includes('portrait'));
-        });
-    } else if (selectedCategory === 'historical') {
-        filtered = filtered.filter(p => {
-            const bio = artistMap[p.artist];
-            return bio && (
-                arr(bio.genre).some(g => g.toLowerCase().includes('historical') || g.toLowerCase().includes('nationalism') || g.toLowerCase().includes('mythology')) ||
-                arr(bio.movement).some(m => m.toLowerCase().includes('historical') || m.toLowerCase().includes('nationalism') || m.toLowerCase().includes('mythology'))
-            );
-        });
+        filtered = paintings.filter(p =>
+            arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('portrait'))
+        );
+    } else if (selectedCategory === 'abstract') {
+        filtered = paintings.filter(p =>
+            arr(p.artist_genre).concat(arr(p.genre)).some(g => g && g.toLowerCase().includes('abstract'))
+        );
+    } else if (selectedCategory === 'impressionism') {
+        filtered = paintings.filter(p =>
+            arr(p.artist_movement).concat(arr(p.movement)).some(m => m && m.toLowerCase().includes('impressionism'))
+        );
+    } else if (selectedCategory === 'expressionism') {
+        filtered = paintings.filter(p =>
+            arr(p.artist_movement).concat(arr(p.movement)).some(m => m && m.toLowerCase().includes('expressionism'))
+        );
     } else if (selectedCategory === '19thcentury') {
-        filtered = filtered.filter(p => {
+        filtered = paintings.filter(p => {
             const bio = artistMap[p.artist];
             const y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
             return y && y >= 1800 && y < 1900;
         });
     } else if (selectedCategory === '20thcentury') {
-        filtered = filtered.filter(p => {
+        filtered = paintings.filter(p => {
             const bio = artistMap[p.artist];
             let y = bio && bio.birth_year ? parseInt(bio.birth_year) : null;
             if (!y && bio && bio.death_year) y = parseInt(bio.death_year);
             const isModern = bio && (
-                arr(bio.movement).some(m => m.toLowerCase().includes('modern')) ||
-                arr(bio.genre).some(g => g.toLowerCase().includes('modern'))
+                arr(bio.movement).some(m => m && m.toLowerCase().includes('modern')) ||
+                arr(bio.genre).some(g => g && g.toLowerCase().includes('modern'))
             );
             return (y && y >= 1900 && y < 2000) || isModern;
         });
+    } else if (selectedCategory === 'historical') {
+        filtered = paintings.filter(p =>
+            arr(p.artist_genre).concat(arr(p.genre), arr(p.artist_movement), arr(p.movement)).some(g => g && (g.toLowerCase().includes('historical') || g.toLowerCase().includes('nationalism') || g.toLowerCase().includes('mythology')))
+        );
     }
     return filtered;
 }

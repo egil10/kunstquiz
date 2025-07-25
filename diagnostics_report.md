@@ -171,4 +171,87 @@ Smallest genres:
 - Historical/Nationalism: 20
 - Still Life: 2
 
+## All Painters and Number of Paintings
+- Hans Gude: 246
+- Johan Christian Dahl: 198
+- Edvard Munch: 197
+- Erik Werenskiold: 190
+- Christian Krohg: 162
+- Adolph Tidemand: 152
+- Eilif Peterssen: 137
+- Frits Thaulow: 134
+- Harald Sohlberg: 115
+- Amaldus Nielsen: 115
+- Harriet Backer: 103
+- Asta Nørregaard: 93
+- Peder Balke: 89
+- August Cappelen: 84
+- Lars Hertervig: 78
+- Nikolai Astrup: 76
+- Peter Nicolai Arbo: 71
+- Knud Baade: 68
+- Adelsteen Normann: 59
+- Joachim Frich: 56
+- Theodor Kittelsen: 55
+- Peder Severin Krøyer: 55
+- Ludvig Karsten: 55
+- Thomas Fearnley: 52
+- Christian Skredsvig: 48
+- Oscar Wergeland: 47
+- Kitty Lange Kielland: 44
+- Thorvald Erichsen: 41
+- Carl Sundt-Hansen: 40
+- Thorolf Holmboe: 39
+- Hans Dahl: 36
+- Johannes Flintoe: 35
+- Jacob Gløersen: 35
+- Gerhard Munthe: 34
+- Oda Krohg: 33
+- Otto Sinding: 33
+- Gustav Wentzel: 32
+- Morten Müller: 30
+- Johan Fredrik Eckersberg: 30
+- Henrik Lund: 30
+- Martin Aagaard: 29
+- Halfdan Egedius: 28
+- Eyolf Soot: 20
+- Axel Revold: 20
+- Peder Aadnes: 17
+- Gunnar Berg: 16
+- Henrik Sørensen: 16
+- Bjarne Ness: 15
+- Oluf Wold-Torne: 15
+- Kjell Aukrust: 15
+- Vebjørn Sand: 15
+- Nils Hansteen: 13
+- Olaf Gulbransson: 11
+- Per Krohg: 10
+- Bernt Lund: 10
+- Håkon Gullvåg: 10
+- Søren Onsager: 7
+- Nils Gude: 7
+- Cora Sandel: 7
+- Inger Sitter: 6
+- Håkon Bleken: 6
+- Kjell Pahr-Iversen: 5
+- Pushwagner: 5
+- Arne Ekeland: 4
+- Alf Lundeby: 4
+- Jakob Weidemann: 3
+- Rolf Groven: 3
+- Frans Widerberg: 3
+- Kjartan Slettemark: 3
+- Kai Fjell: 3
+- Marianne Aulie: 3
+- Odd Nerdrum: 2
+- Rolf Aamot: 2
+- Jean Heiberg: 2
+- Paul René Gauguin: 2
+- Pola Gauguin: 2
+- Rolf Nesch: 2
+- Ludvig Eikaas: 2
+- Reidar Aulie: 2
+- Kjell Nupen: 1
+- Ida Lorentzen: 1
+
 Diagnostics complete.
