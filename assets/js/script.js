@@ -481,7 +481,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     }, 100);
   } else {
     popup.className = 'artist-popup toast';
-    setTimeout(() => hidePopup(popup, onDone), 2500);
+    setTimeout(() => hidePopup(popup, onDone), 2000);
   }
 }
 
