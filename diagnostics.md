@@ -2,14 +2,14 @@
 
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
-- **Paintings (Appended):** 9.54 MB (110,142 lines)
-- **Paintings (Merged):** 8.74 MB (164,784 lines)
+- **Paintings (Appended):** 6.97 MB (110,142 lines)
+- **Paintings (Merged):** 6.55 MB (164,784 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
 
 ### 🎨 Paintings Collection Health
-- **File size:** 9.54 MB (110,142 lines)
+- **File size:** 6.97 MB (110,142 lines)
 - **File size status:** 🟢 Good
 - **Line count status:** 🟡 Warning
 - **Total paintings:** 3,171
@@ -26,7 +26,7 @@
 
 ### 🔗 Merged Data Health
 - **Merged paintings:** 3,171
-- **Merged file size:** 8.74 MB (164,784 lines)
+- **Merged file size:** 6.55 MB (164,784 lines)
 - **Merged file status:** 🟢 Good
 - **Total unique artists in paintings:** 81
 
@@ -198,26 +198,12 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 - **Duplicate status:** 🟢 Good - No exact duplicates
 - **URL duplicates:** 0 (same image in multiple categories)
 - **URL duplicate status:** 🟢 Good - No URL duplicates
-- **Title duplicates:** 328 (same painting, different sources)
-- **Title duplicate status:** 🟡 Warning - 328 titles appear multiple times
+- **Title duplicates:** 348 (same painting, different sources)
+- **Title duplicate status:** 🟡 Warning - 348 titles appear multiple times
 - **Sample title duplicates:**
-  - "<div class="fn">
-<div style="font-weight:bold;display:inline-block;"><div style="display:inline-block" dir="ltr" lang="en"><i>Winter in Kragerø <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891404#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span></i></div></div><div style="display: none;">title QS:P1476,en:"Winter in Kragerø <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891404#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span>"</div>
-<div style="display: none;">label QS:Len,"Winter in Kragerø <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891404#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span>"</div>
-<div style="display: none;">label QS:Lfr,"Hiver à Kragerø"</div>
-<div style="display: none;">label QS:Lde,"Winterlandschaft, Kragerö"</div>
-<div style="display: none;">label QS:Lnb,"Vinter i Kragerø"</div></div>": 2 times
-  - "<div class="fn">
-<div style="font-weight:bold;display:inline-block;"><div style="display:inline-block" dir="ltr" lang="en"><i>Max Linde in Sailing Outfit <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18890471#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span></i></div></div><div style="display: none;">title QS:P1476,en:"Max Linde in Sailing Outfit <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18890471#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span>"</div>
-<div style="display: none;">label QS:Len,"Max Linde in Sailing Outfit <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18890471#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span>"</div>
-<div style="display: none;">label QS:Lavk,"Max Linde ton birelaf aboz (trutca ke Munch)"</div>
-<div style="display: none;">label QS:Lnb,"Max Linde i seilerantrekk"</div>
-<div style="display: none;">label QS:Lfr,"Max Linde dans un costume de marin"</div></div>": 2 times
-  - "<div class="fn">
-<div style="font-weight:bold;display:inline-block;"><div style="display:inline-block" dir="ltr" lang="en"><i>Three Small Girls on the Beach <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891246#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span></i></div></div><div style="display: none;">title QS:P1476,en:"Three Small Girls on the Beach <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891246#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span>"</div>
-<div style="display: none;">label QS:Len,"Three Small Girls on the Beach <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891246#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span>"</div>
-<div style="display: none;">label QS:Lnb,"Tre småpiker på stranden"</div>
-<div style="display: none;">label QS:Lfr,"Trois Petites Filles sur la plage"</div></div>": 2 times
+  - "Bjørnstjerne Bjørnson Speaking to the People title QS:P1476,en:"Bjørnstjerne Bjørnson Speaking to the People " label QS:Len,"Bjørnstjerne Bjørnson Speaking to the People " label QS:Lnb,"Bjørnstjerne Bjørnson som folketaler" label QS:Lfr,"Bjørnstjerne Bjørnson s'adressant au peuple"": 2 times
+  - "Elm Forest in Autumn title QS:P1476,en:"Elm Forest in Autumn " label QS:Len,"Elm Forest in Autumn " label QS:Lnb,"Høst i almeskogen" label QS:Lfr,"forêt d'ormes en automne"": 2 times
+  - "Winter in Kragerø title QS:P1476,en:"Winter in Kragerø " label QS:Len,"Winter in Kragerø " label QS:Lfr,"Hiver à Kragerø" label QS:Lde,"Winterlandschaft, Kragerö" label QS:Lnb,"Vinter i Kragerø"": 2 times
 
 ## 📏 Image Size Analysis
 - **Total analyzed:** 2 paintings
