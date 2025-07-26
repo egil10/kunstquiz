@@ -3,7 +3,7 @@
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
 - **Paintings (Appended):** 9.54 MB (110,142 lines)
-- **Paintings (Merged):** 11.65 MB (225,932 lines)
+- **Paintings (Merged):** 8.74 MB (164,784 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
@@ -12,7 +12,7 @@
 - **File size:** 9.54 MB (110,142 lines)
 - **File size status:** 🟢 Good
 - **Line count status:** 🟡 Warning
-- **Total paintings:** 4,716
+- **Total paintings:** 3,171
 - **Collection size status:** 🟢 Good
 
 ### 👨‍🎨 Artist Data Health
@@ -25,34 +25,34 @@
 - **Tags (Appended) status:** 🟢 Good
 
 ### 🔗 Merged Data Health
-- **Merged paintings:** 4,716
-- **Merged file size:** 11.65 MB (225,932 lines)
+- **Merged paintings:** 3,171
+- **Merged file size:** 8.74 MB (164,784 lines)
 - **Merged file status:** 🟢 Good
-- **Total unique artists in paintings:** 85
+- **Total unique artists in paintings:** 81
 
 ### 🔍 Data Consistency Checks
-- **Artists without bios:** 9
-- **Missing bios status:** 🟡 Warning - 9 artists need bios
-- **Missing artists:** Alf Lundeby, Cora Sandel, Hariton Pushwagner, Inger Sitter, Johan Christian Clausen Dahl, Kitty Kielland, Martin Aagaard, Olaf Leonhard Gulbransson, Paul René Gauguin
+- **Artists without bios:** 5
+- **Missing bios status:** 🟡 Warning - 5 artists need bios
+- **Missing artists:** Alf Lundeby, Cora Sandel, Inger Sitter, Martin Aagaard, Paul René Gauguin
 - **Bios without paintings:** 15
 - **Orphaned bios status:** 🟡 Warning - 15 bios without paintings
-- **Merged vs Appended:** 4,716 merged / 4,716 appended
+- **Merged vs Appended:** 3,171 merged / 3,171 appended
 - **Merge consistency:** 🟢 Good - Counts match
 
 ### 💡 Performance Recommendations
 - 💡 **Good collection size:** Continue collecting for variety
 
 ## Quiz Categories
-- **Full Collection:** 4716 paintings, 85 painters
-- **Popular Painters:** 2210 paintings, 10 painters
-- **Landscape Painting:** 2541 paintings, 41 painters
-- **Portraits:** 914 paintings, 34 painters
-- **Women Painters:** 290 paintings, 8 painters
-- **19th Century:** 3806 paintings, 53 painters
-- **20th Century:** 141 paintings, 20 painters
-- **Impressionism:** 519 paintings, 9 painters
-- **Expressionism:** 321 paintings, 5 painters
-- **Norwegian Romantic:** 1189 paintings, 7 painters
+- **Full Collection:** 3171 paintings, 81 painters
+- **Popular Painters:** 1431 paintings, 10 painters
+- **Landscape Painting:** 1701 paintings, 41 painters
+- **Portraits:** 556 paintings, 34 painters
+- **Women Painters:** 256 paintings, 8 painters
+- **19th Century:** 2803 paintings, 53 painters
+- **20th Century:** 93 paintings, 20 painters
+- **Impressionism:** 377 paintings, 9 painters
+- **Expressionism:** 249 paintings, 5 painters
+- **Norwegian Romantic:** 696 paintings, 7 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33
@@ -198,8 +198,8 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 - **Duplicate status:** 🟢 Good - No exact duplicates
 - **URL duplicates:** 0 (same image in multiple categories)
 - **URL duplicate status:** 🟢 Good - No URL duplicates
-- **Title duplicates:** 396 (same painting, different sources)
-- **Title duplicate status:** 🟡 Warning - 396 titles appear multiple times
+- **Title duplicates:** 328 (same painting, different sources)
+- **Title duplicate status:** 🟡 Warning - 328 titles appear multiple times
 - **Sample title duplicates:**
   - "<div class="fn">
 <div style="font-weight:bold;display:inline-block;"><div style="display:inline-block" dir="ltr" lang="en"><i>Winter in Kragerø <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891404#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span></i></div></div><div style="display: none;">title QS:P1476,en:"Winter in Kragerø <span class="mw-valign-text-top" typeof="mw:File/Frameless"><a href="https://www.wikidata.org/wiki/Q18891404#P1476" title="Edit this at Wikidata"><img alt="Edit this at Wikidata" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs UI icon edit-ltr-progressive.svg/20px-OOjs UI icon edit-ltr-progressive.svg.png" decoding="async" width="10" height="10" class="mw-file-element" data-file-width="20" data-file-height="20"></a></span>"</div>
@@ -220,123 +220,119 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 <div style="display: none;">label QS:Lfr,"Trois Petites Filles sur la plage"</div></div>": 2 times
 
 ## 📏 Image Size Analysis
-- **Total analyzed:** 848 paintings
-- **Unknown dimensions:** 3868 paintings
-- **Width range:** 103 - 996px (avg: 592px)
-- **Height range:** 111 - 999px (avg: 636px)
+- **Total analyzed:** 2 paintings
+- **Unknown dimensions:** 3169 paintings
+- **Width range:** 400 - 758px (avg: 579px)
+- **Height range:** 257 - 960px (avg: 608px)
 
 ### Image Size Distribution:
 - **Tiny (< 100px):** 0 paintings
-- **Small (100-200px):** 18 paintings
-- **Medium (200-500px):** 381 paintings
-- **Large (500-1000px):** 449 paintings
+- **Small (100-200px):** 0 paintings
+- **Medium (200-500px):** 1 paintings
+- **Large (500-1000px):** 1 paintings
 - **Huge (> 1000px):** 0 paintings
-- **Unknown dimensions:** 3868 paintings
+- **Unknown dimensions:** 3169 paintings
 
 ### Filter Impact Analysis:
 - **Remove < 100px:** Would remove 0 paintings (0.0%)
-- **Remove < 200px:** Would remove 18 paintings (0.4%)
-- **Remove < 500px:** Would remove 399 paintings (8.5%)
+- **Remove < 200px:** Would remove 0 paintings (0.0%)
+- **Remove < 500px:** Would remove 1 paintings (0.0%)
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
-- Painting: 3237
-- Landscape painting: 2484
-- Portrait painting: 631
-- landscape painting: 432
-- Landscape: 352
+- Painting: 2843
+- Landscape painting: 1652
+- Portrait painting: 447
+- Landscape: 312
+- Historical painting: 264
 Smallest genres:
-- Tonal painting: 4
-- Printmaking: 4
-- Graphic novel: 4
-- Satire: 3
+- Performance art: 3
+- Graphic novel: 3
 - Still Life: 2
+- Tonal painting: 2
+- Printmaking: 2
 
 ## All Painters and Number of Paintings
-- Johan Christian Dahl: 490
-- Hans Gude: 304
-- Erik Werenskiold: 242
-- Edvard Munch: 225
-- Christian Krohg: 216
-- Frits Thaulow: 161
-- Eilif Peterssen: 157
-- Adolph Tidemand: 149
-- Harald Sohlberg: 135
-- Amaldus Nielsen: 131
-- Johan Christian Clausen Dahl: 116
-- Lars Hertervig: 107
-- Asta Nørregaard: 106
-- Harriet Backer: 103
-- Nikolai Astrup: 101
-- Peder Balke: 89
-- August Cappelen: 87
-- Peter Nicolai Arbo: 85
-- Peder Severin Krøyer: 85
-- Knud Baade: 81
-- Joachim Frich: 76
-- Adelsteen Normann: 75
-- Ludvig Karsten: 73
-- Johannes Flintoe: 71
-- Theodor Kittelsen: 60
-- Oscar Wergeland: 60
-- Thomas Fearnley: 59
-- Thorvald Erichsen: 55
-- Carl Sundt-Hansen: 51
-- Hans Dahl: 49
-- Christian Skredsvig: 48
-- Gustav Wentzel: 47
+- Hans Gude: 212
+- Johan Christian Dahl: 196
+- Edvard Munch: 194
+- Erik Werenskiold: 157
+- Frits Thaulow: 127
+- Christian Krohg: 126
+- Eilif Peterssen: 122
+- Amaldus Nielsen: 110
+- Harald Sohlberg: 99
+- Adolph Tidemand: 88
+- Harriet Backer: 87
+- Asta Nørregaard: 85
+- August Cappelen: 79
+- Peder Balke: 75
+- Nikolai Astrup: 71
+- Peter Nicolai Arbo: 70
+- Lars Hertervig: 68
+- Knud Baade: 68
+- Joachim Frich: 55
+- Theodor Kittelsen: 53
+- Peder Severin Krøyer: 53
+- Adelsteen Normann: 50
+- Thomas Fearnley: 45
 - Kitty Lange Kielland: 44
-- Thorolf Holmboe: 44
-- Johan Fredrik Eckersberg: 42
-- Henrik Lund: 42
-- Jacob Gløersen: 41
-- Gerhard Munthe: 38
-- Oda Krohg: 37
-- Otto Sinding: 35
-- Martin Aagaard: 34
-- Oluf Wold-Torne: 32
-- Morten Müller: 29
-- Halfdan Egedius: 28
-- Eyolf Soot: 28
-- Gunnar Berg: 26
-- Kjell Aukrust: 25
-- Bjarne Ness: 24
-- Axel Revold: 23
-- Peder Aadnes: 22
-- Vebjørn Sand: 18
-- Nils Hansteen: 17
-- Henrik Sørensen: 16
-- Per Krohg: 14
-- Bernt Lund: 13
-- Håkon Gullvåg: 12
-- Kitty Kielland: 12
-- Nils Gude: 11
+- Christian Skredsvig: 44
+- Oscar Wergeland: 40
+- Carl Sundt-Hansen: 40
+- Ludvig Karsten: 37
+- Thorvald Erichsen: 37
+- Hans Dahl: 36
+- Thorolf Holmboe: 36
+- Jacob Gløersen: 35
+- Gerhard Munthe: 33
+- Otto Sinding: 32
+- Gustav Wentzel: 30
+- Johan Fredrik Eckersberg: 28
+- Martin Aagaard: 27
+- Morten Müller: 27
+- Henrik Lund: 27
+- Oda Krohg: 26
+- Halfdan Egedius: 25
+- Johannes Flintoe: 20
+- Axel Revold: 19
+- Eyolf Soot: 17
+- Peder Aadnes: 16
+- Bjarne Ness: 15
+- Oluf Wold-Torne: 15
+- Henrik Sørensen: 15
+- Kjell Aukrust: 15
+- Gunnar Berg: 14
+- Vebjørn Sand: 13
 - Olaf Gulbransson: 11
-- Cora Sandel: 10
-- Søren Onsager: 9
-- Kjell Pahr-Iversen: 8
+- Bernt Lund: 10
+- Håkon Gullvåg: 9
+- Per Krohg: 8
+- Nils Hansteen: 7
+- Søren Onsager: 7
 - Inger Sitter: 6
+- Cora Sandel: 6
 - Håkon Bleken: 6
-- Kjartan Slettemark: 6
-- Arne Ekeland: 6
-- Jakob Weidemann: 5
-- Rolf Aamot: 4
-- Rolf Nesch: 4
-- Pushwagner: 4
-- Reidar Aulie: 4
-- Alf Lundeby: 4
+- Kjell Pahr-Iversen: 5
+- Nils Gude: 4
+- Jakob Weidemann: 3
 - Rolf Groven: 3
-- Pola Gauguin: 3
-- Frans Widerberg: 3
+- Kjartan Slettemark: 3
+- Pushwagner: 3
+- Arne Ekeland: 3
 - Kai Fjell: 3
-- Marianne Aulie: 3
-- Odd Nerdrum: 2
-- Jean Heiberg: 2
+- Rolf Aamot: 2
 - Paul René Gauguin: 2
+- Pola Gauguin: 2
+- Rolf Nesch: 2
 - Ludvig Eikaas: 2
-- Ida Lorentzen: 2
+- Frans Widerberg: 2
+- Reidar Aulie: 2
+- Alf Lundeby: 2
+- Odd Nerdrum: 1
+- Jean Heiberg: 1
 - Kjell Nupen: 1
-- Hariton Pushwagner: 1
-- Olaf Leonhard Gulbransson: 1
+- Ida Lorentzen: 1
+- Marianne Aulie: 1
 
 Diagnostics complete.

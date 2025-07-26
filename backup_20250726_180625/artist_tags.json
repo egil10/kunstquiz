@@ -1,0 +1,1312 @@
+{
+  "Edvard Munch": {
+    "notable_works": [
+      {
+        "title": "Death and the Child",
+        "year": "1899-01-01T00:00:00Z"
+      },
+      {
+        "title": "Vampire",
+        "year": "1893-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Girls on the Bridge",
+        "year": "1902-01-01T00:00:00Z"
+      },
+      {
+        "title": "Arve Arvesen",
+        "year": "1891-01-01T00:00:00Z"
+      },
+      {
+        "title": "Dr. Linde's Sons",
+        "year": "1903-01-01T00:00:00Z"
+      },
+      {
+        "title": "From Travemünde",
+        "year": "1903-01-01T00:00:00Z"
+      },
+      {
+        "title": "Lothar Linde in Red Jacket",
+        "year": "1903-01-01T00:00:00Z"
+      },
+      {
+        "title": "Self-Portrait with the Spanish Flu",
+        "year": "1919-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Scream",
+        "year": "1893-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1944-01-23T00:00:00Z",
+    "birthplace": "Ådalsbruk",
+    "birth": "1863-12-12T00:00:00Z",
+    "summary": "Edvard Munch ( MUUNK; Norwegian: [ˈɛ̀dvɑɖ ˈmʊŋk] ; 12 December 1863 – 23 January 1944) was a Norwegian painter. His 1893 work The Scream has become one of Western art's most acclaimed images.\nHis childhood was overshadowed by illness, bereavement and the dread of inheriting a mental condition that ran in the family. Studying at the Royal School of Art and Design in Kristiania (Oslo), Munch began to live a bohemian life under the influence of the nihilist Hans Jæger, who urged him to paint his own emotional and psychological state ('soul painting'); from this emerged his distinctive style.\nTravel brought new influences and outlets. In Paris, he learned much from Paul Gauguin, Vincent van Gogh and Henri de Toulouse-Lautrec, especially their use of color. In Berlin, he met the Swedish dramatist August Strindberg, whom he painted, as he embarked on a major series of paintings he would later call The Frieze of Life, depicting a series of deeply-felt themes such as love, anxiety, jealousy and betrayal, steeped in atmosphere.\nThe Scream was conceived in Kristiania. According to Munch, he was out walking at sunset, when he 'heard the enormous, infinite scream of nature'. The painting's agonized face is widely identified with the angst of the modern person. Between 1893 and 1910, he made two painted versions and two in pastels, as well as a number of prints. One of the pastels would eventually command the fourth highest nominal price paid for a painting at auction.\n\nAs his fame and wealth grew, his emotional state remained insecure. He briefly considered marriage, but could not commit himself. A mental breakdown in 1908 forced him to give up heavy drinking, and he was cheered by his increasing acceptance by the people of Kristiania and exposure in the city's museums. His later years were spent working in peace and privacy. Although his works were banned in Nazi-occupied Europe, most of them survived World War II, securing him a legacy.",
+    "is_female": false,
+    "genre": "Expressionism",
+    "country": "Norway",
+    "movement": "Expressionism",
+    "gender": "male"
+  },
+  "Harald Sohlberg": {
+    "notable_works": [
+      {
+        "title": "Winter Night in the Mountains. Study",
+        "year": "1901-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1935-06-19T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1869-11-29T00:00:00Z",
+    "summary": "Harald Oskar Sohlberg (29 November 1869 – 19 June 1935) was a Norwegian Neo-romantic painter.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Christian Krohg": {
+    "notable_works": [
+      {
+        "title": "Albertine i politilægens venteværelse",
+        "year": "1880-01-01T00:00:00Z"
+      },
+      {
+        "title": "Man overboard",
+        "year": "1906-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Struggle for Existence. Study",
+        "year": "http://www.wikidata.org/.well-known/genid/a83a10a5eba1b006a058ba59d0ebf0c6"
+      }
+    ],
+    "death": "1925-10-16T00:00:00Z",
+    "birthplace": "Vestre Aker",
+    "birth": "1852-08-13T00:00:00Z",
+    "summary": "Christian Krohg (13 August 1852 – 16 October 1925) was a Norwegian naturalist painter, illustrator, author and journalist. Krohg was inspired by the realism art movement and often chose motifs from everyday life. He was the director and  served as the first professor at the Norwegian Academy of Arts from 1909 to 1925.\n\n",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": "realism",
+    "gender": "male"
+  },
+  "Frits Thaulow": {
+    "notable_works": [
+      {
+        "title": "Winter in Norway",
+        "year": "1886-01-01T00:00:00Z"
+      },
+      {
+        "title": "Winter in Norway",
+        "year": "1887-01-01T00:00:00Z"
+      },
+      {
+        "title": "A January Day in Norway",
+        "year": "1892-01-01T00:00:00Z"
+      },
+      {
+        "title": "Shadows",
+        "year": null
+      }
+    ],
+    "death": "1906-11-05T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1847-10-20T00:00:00Z",
+    "summary": "Frits Thaulow (20 October 1847 – 5 November 1906) was a Norwegian Impressionist painter, best known for his naturalistic depictions of landscape.",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": "Impressionism",
+    "gender": "male"
+  },
+  "Erik Werenskiold": {
+    "death": "1938-11-23T00:00:00Z",
+    "birthplace": "Eidskog Municipality",
+    "birth": "1855-02-11T00:00:00Z",
+    "summary": "Erik Theodor Werenskiold (11 February 1855 – 23 November 1938) was a Norwegian painter and illustrator. He is especially known for his drawings for the Asbjørnsen and Moe collection of Norske Folkeeventyr, and his illustrations for the Norwegian edition of the Snorri Sturlason Heimskringla.",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Theodor Kittelsen": {
+    "death": "1914-01-21T00:00:00Z",
+    "birthplace": "Kragerø",
+    "birth": "1857-04-27T00:00:00Z",
+    "summary": "Theodor Severin Kittelsen (27 April 1857 – 21 January 1914) was a Norwegian artist.  He is one of the most popular artists in Norway.  Kittelsen became famous for his nature paintings, as well as for his illustrations of fairy tales and legends, especially of trolls.\n\n",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Adolph Tidemand": {
+    "notable_works": [
+      {
+        "title": "Bridal Procession on the Hardangerfjord",
+        "year": "1848-01-01T00:00:00Z"
+      },
+      {
+        "title": "Low Church Devotion",
+        "year": "1848-01-01T00:00:00Z"
+      },
+      {
+        "title": "The ill child",
+        "year": "1851-01-01T00:00:00Z"
+      },
+      {
+        "title": "The wounded bear hunter",
+        "year": "1856-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1876-08-25T00:00:00Z",
+    "birthplace": "Mandal",
+    "birth": "1814-08-14T00:00:00Z",
+    "summary": "Adolph Tidemand (14 August 1814 – 8 August 1876) was a noted Norwegian romantic nationalism painter. Among his best known paintings  are Haugianerne (The Haugeans; 1852) and Brudeferd i Hardanger (The Bridal Procession in Hardanger; 1848), painted in collaboration with Hans Gude.",
+    "is_female": false,
+    "genre": "Norwegian romantic nationalism",
+    "country": "Norway",
+    "movement": "romantic nationalism",
+    "gender": "male"
+  },
+  "Hans Gude": {
+    "notable_works": [
+      {
+        "title": "Bridal Procession on the Hardangerfjord",
+        "year": "1848-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Sandvik Fiord",
+        "year": "1879-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1903-08-17T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1825-03-13T00:00:00Z",
+    "summary": "Hans Fredrik Gude (March 13, 1825 – August 17, 1903) was a Norwegian romanticist painter and is considered along with Johan Christian Dahl to be one of Norway's foremost landscape painters. He has been called a mainstay of Norwegian National Romanticism. He is associated with the Düsseldorf school of painting.\nGude's artistic career was not one marked with drastic change and revolution, but was instead a steady progression that slowly reacted to general trends in the artistic world. Gude's early works are of idyllic, sun-drenched Norwegian landscapes which present a romantic, yet still realistic view of his country. Around 1860 Gude began painting seascapes and other coastal subjects. Gude had difficulty with figure drawing initially and so collaborated with Adolph Tidemand in some of his painting, drawing the landscape himself and allowing Tidemand to paint the figures. Later Gude would work specifically on his figures while at Karlsruhe, and so began populating his paintings with them. Gude initially painted primarily with oils in a studio, basing his works on studies he had done earlier in the field. However, as Gude matured as a painter he began to paint en plein air and espoused the merits of doing so to his students. Gude would paint with watercolors later in life as well as gouache in an effort to keep his art constantly fresh and evolving, and although these were never as well received by the public as his oil paintings, his fellow artists greatly admired them.\nGude spent forty-five years as an art professor and so he played an important role in the development of Norwegian art by acting as a mentor to three generations of Norwegian artists.  Young Norwegian artists flocked to wherever Gude was teaching, first at the Academy of Art in Düsseldorf and later at the School of Art in Karlsruhe.  Gude also served as a professor at the Berlin Academy of Art from 1880 to 1901, although he attracted few Norwegians to the Berlin Academy because by this time Berlin had been surpassed in prestige in the eyes of young Norwegian artists by Paris.\n\nOver the course of his lifetime Gude won numerous medals, was inducted as an honorary member into many art academies, and was awarded the Grand Cross of the Order of St. Olav. He was the father of painter Nils Gude and watercolorist and illustrator Agnes Charlotte Guide. His daughter Sigrid married German sculptor Otto Lessing.",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Kitty Lange Kielland": {
+    "death": "1914-10-01T00:00:00Z",
+    "birthplace": "Stavanger",
+    "birth": "1843-10-08T00:00:00Z",
+    "summary": "Kitty Lange Kielland (8 October 1843 – 1 October 1914) was a Norwegian landscape painter.",
+    "is_female": true,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  "Lars Hertervig": {
+    "death": "1902-01-06T00:00:00Z",
+    "birthplace": "Borgøy",
+    "birth": "1830-02-16T00:00:00Z",
+    "summary": "Lars Hertervig (16 February 1830 – 6 January 1902) was a Norwegian painter. His semi-fantastical work with motives from the coastal landscape in the traditional district of Ryfylke is regarded as one of the peaks of Norwegian painting.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Nikolai Astrup": {
+    "death": "1928-01-21T00:00:00Z",
+    "birthplace": "Bremanger Municipality",
+    "birth": "1880-08-30T00:00:00Z",
+    "summary": "Nikolai Astrup (Norwegian pronunciation: [nɪkʊˈlɑ̀i̯ ˈɑ̀stɾʉp]) (30 August 1880 – 21 January 1928) was a Norwegian modernist painter. Astrup was a distinctive, innovative artist noted principally for his intense use of color depicting the lush landscapes of Vestlandet featuring the traditional way of life in the region.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Oda Krohg": {
+    "notable_works": [
+      {
+        "title": "Gunnar Heiberg, the Author",
+        "year": "1900-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1935-10-19T00:00:00Z",
+    "birthplace": "Oslo",
+    "birth": "1860-06-11T00:00:00Z",
+    "summary": "Oda Krohg (born Othilia Pauline Christine Lasson; 11 June 1860 – 19 October 1935) was a Norwegian painter, and the wife of her teacher and colleague Christian Krohg.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": "Kristiania Bohemians",
+    "gender": "female"
+  },
+  "Thorvald Erichsen": {
+    "death": "1939-12-23T00:00:00Z",
+    "birthplace": "Trondheim",
+    "birth": "1868-07-18T00:00:00Z",
+    "summary": "Thorvald Erichsen (18 July 1868 - 23 December 1939) was a Norwegian Post-Impressionist painter; known primarily for landscapes and still-lifes.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Rolf Nesch": {
+    "death": "1975-10-27T00:00:00Z",
+    "birthplace": "Oberesslingen",
+    "birth": "1893-01-07T00:00:00Z",
+    "summary": "Rolf (Emil Rudolf) Nesch (January 7, 1893 – October 27, 1975) was a German-born Norwegian expressionist artist, especially noted for his printmaking.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": "Expressionism",
+    "gender": "male"
+  },
+  "Håkon Bleken": {
+    "death": "2025-01-21T00:00:00Z",
+    "birthplace": "Trondheim",
+    "birth": "1929-01-09T00:00:00Z",
+    "summary": "Håkon Ingvald Bleken (9 January 1929 – 21 January 2025) was a Norwegian painter and graphic artist.\nBleken is represented in several museums in Norway, including the National Museum in Oslo and art museums in Trondheim and Bergen. He illustrated a number of books, and contributed to decoration of churches and public buildings. He was decorated Commander of the Order of St. Olav.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Johan Christian Dahl": {
+    "notable_works": [
+      {
+        "title": "Norwegian Mountain Landscape",
+        "year": "1819-01-01T00:00:00Z"
+      },
+      {
+        "title": "View of Dresden by Moonlight",
+        "year": "1839-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1857-10-14T00:00:00Z",
+    "birthplace": "Bergen",
+    "birth": "1788-02-24T00:00:00Z",
+    "summary": "Johan Christian Claussen Dahl (24 February 1788 – 14 October 1857), often known as J. C. Dahl or I. C. Dahl, was a Danish-Norwegian artist who is considered the first great romantic painter in Norway, the founder of the \"golden age\" of Norwegian painting. He is often described as \"the father of Norwegian landscape painting\" and is regarded as the first Norwegian painter to reach a level of artistic accomplishment comparable to that attained by the greatest European artists of his day. He was also the first to acquire genuine fame and cultural renown abroad. As one critic has put it, \"J.C. Dahl occupies a central position in Norwegian artistic life of the first half of the 19th century.\nAlthough Dahl spent much of his life outside of Norway, his love for his country is clear in the motifs he chose for his paintings and in his extraordinary efforts on behalf of Norwegian culture generally. He was, for example, a key figure in the founding of the Norwegian National Gallery and of several other major art institutions in Norway, as well as in the preservation of Norwegian stave churches and the restoration of the Nidaros Cathedral in Trondheim and Bergenhus Fortress in Bergen.",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Peder Balke": {
+    "notable_works": [
+      {
+        "title": "Seascape",
+        "year": "1849-01-01T00:00:00Z"
+      },
+      {
+        "title": "From Nordland",
+        "year": "1864-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1887-02-05T00:00:00Z",
+    "birthplace": "Helgøya",
+    "birth": "1804-11-04T00:00:00Z",
+    "summary": "Peder Balke (November 4, 1804 – February 5, 1887) was a Norwegian painter. He is known for portraying the landscape of Norway in a romantic and dramatic manner.\n\n",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Eilif Peterssen": {
+    "notable_works": [
+      {
+        "title": "Christian II signing the Death Warrant of Torben Oxe",
+        "year": "1870-01-01T00:00:00Z"
+      },
+      {
+        "title": "Nocturne",
+        "year": "1887-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1928-12-29T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1852-09-04T00:00:00Z",
+    "summary": "Hjalmar Eilif Emanuel Peterssen (4 September 1852 – 29 December 1928) was a Norwegian painter. He is most commonly associated with his landscapes and portraits. He gained early recognition for the history painting Christian II signing the Death Warrant of Torben Oxe and established himself as one of Norway's foremost portrait painters, with portraits of, among others, Henrik Ibsen and Edvard Grieg. He also became known for his landscape paintings, and became part of the artist circle known as the Skagen Painters. He also became known for his design in 1905 of Norway's national coat of arms with the Norwegian lion, which was used by the government and the royal house. The design is still used in the royal coat of arms and the royal flag.",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Hans Dahl": {
+    "death": "1937-07-27T00:00:00Z",
+    "birthplace": "Granvin Municipality",
+    "birth": "1849-02-19T00:00:00Z",
+    "summary": "Hans Dahl (19 February 1849 – 27 July 1937) was a Norwegian painter.  He was best known for his paintings of Norwegian fjords and surrounding landscapes.",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Per Krohg": {
+    "death": "1965-03-03T00:00:00Z",
+    "birthplace": "Åsgårdstrand",
+    "birth": "1889-06-18T00:00:00Z",
+    "summary": "Per Lasson Krohg (18 June 1889 – 3 March 1965) was a Norwegian visual artist and teacher. He is best known for the mural he created for the United Nations Security Council Chamber, located in the United Nations headquarters in New York City.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "August Cappelen": {
+    "death": "1852-07-08T00:00:00Z",
+    "birthplace": "Skien",
+    "birth": "1827-05-01T00:00:00Z",
+    "summary": "Hermann August Cappelen (1 May 1827 – 8 March 1852) was a Norwegian painter. Cappelen was best known for his melancholic, dramatic and romantic landscape compositions.",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Asta Nørregaard": {
+    "death": "1933-03-23T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1853-08-13T00:00:00Z",
+    "summary": "Asta Nørregaard (13 August 1853 – 23 March 1933) was a Norwegian painter who was best known for her portraits.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  "Amaldus Nielsen": {
+    "death": "1932-12-10T00:00:00Z",
+    "birthplace": "Halse",
+    "birth": "1838-05-23T00:00:00Z",
+    "summary": "Amaldus Clarin Nielsen (23 May 1838 – 10 December 1932) was a Norwegian painter.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": "realism",
+    "gender": "male"
+  },
+  "Christian Skredsvig": {
+    "notable_works": [
+      {
+        "title": "Villa Baciocchi",
+        "year": "1888-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Sallow Flute",
+        "year": "1889-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1924-01-19T00:00:00Z",
+    "birthplace": "Modum Municipality",
+    "birth": "1854-03-12T00:00:00Z",
+    "summary": "Christian Skredsvig (12 March 1854 – 19 January 1924) was a Norwegian painter and writer. He employed an artistic style reflecting naturalism. He is especially well known for his picturesque and lyrical depictions of the landscape.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": "Neo-romanticism",
+    "gender": "male"
+  },
+  "Gunnar Berg": {
+    "death": "1893-12-23T00:00:00Z",
+    "birthplace": "Svolvær",
+    "birth": "1863-05-21T00:00:00Z",
+    "summary": "Gunnar Berg may refer to:\n\nGunnar Berg (composer) (1909–1989), Swiss-born Danish composer\nGunnar Berg (Scouting) (1896–1987), national director of the Boy Scouts of America\nGunnar Berg (painter) (1863–1893), Norwegian painter\nGunnar Berg (politician) (1923–2007), Norwegian politician for the Liberal Party\nGunnar Andreas Berg (born 1954), Norwegian musician and record label owner",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Halfdan Egedius": {
+    "death": "1899-02-02T00:00:00Z",
+    "birthplace": "Drammen Municipality",
+    "birth": "1877-05-05T00:00:00Z",
+    "summary": "Halfdan Egedius (May 5, 1877 –  February 2, 1899) was a Norwegian painter and illustrator.",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": "Symbolism",
+    "gender": "male"
+  },
+  "Thorolf Holmboe": {
+    "death": "1935-03-08T00:00:00Z",
+    "birthplace": "Vefsn Municipality",
+    "birth": "1866-05-10T00:00:00Z",
+    "summary": "Thorolf Holmboe (10 May 1866 – 8 March 1935) was a Norwegian painter, illustrator and designer.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Jakob Weidemann": {
+    "death": "2001-12-18T00:00:00Z",
+    "birthplace": "Steinkjer Municipality",
+    "birth": "1923-06-14T00:00:00Z",
+    "summary": "Jakob Weidemann (14 June 1923 – 19 December 2001) was a Norwegian artist. Jakob Weidemann is regarded as one of Norway's more important artists of post-war Modernism.  Weidemann's work Storfuglen letter (1959) was selected as one of the twelve most important Norwegian artworks by Morgenbladet.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": "modernism",
+    "gender": "male"
+  },
+  "Peder Aadnes": {
+    "death": "1792-06-20T00:00:00Z",
+    "birthplace": "Fluberg",
+    "birth": "1739-08-10T00:00:00Z",
+    "summary": "Peder Pedersen Aadnes (10 August 1739 – 20 June 1792) was a Norwegian rural painter.\nAadnes was born in Odnes in Fluberg. Unusually for a rural painter, he chose typical upper-class subjects for his repertoire. He decorated churches, farm interiors, and furnishings throughout eastern Norway in the Rococo style. Aadnes also painted portraits. His style is often referred to as a transitional form in Norwegian painting, from more traditional folk art to the new style represented by Johan Christian Dahl.\n\nAadnes was a pioneering artist in the tradition of Dutch and German painters. His style paved the way for the later traditional floral decorations and floral paintings known as rosemaling in villages in Norway, and also formed a backdrop for Norwegian Romantic nationalism. Because of Aadnes's role between traditional Dutch and German Rococo, and between the new Norwegian painting on the one hand and traditional floral paintings on the other, he is sometimes referred to as the greatest Norwegian artist of the 1700s.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Martin Aagaard": {
+    "death": "1913-01-01T00:00:00Z",
+    "birthplace": "Levanger Municipality",
+    "birth": "1863-10-13T00:00:00Z",
+    "summary": "Zacharias Martin Aagaard (13 October 1863 – 6 December 1913) was a Norwegian painter who specialized in marine painting.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Rolf Aamot": {
+    "death": "2024-02-26T00:00:00Z",
+    "birthplace": "Bergen",
+    "birth": "1934-09-28T00:00:00Z",
+    "summary": "Rolf Aamot (28 September 1934 – 26 February 2024) was a Norwegian painter, film director, photographer and tonal-image composer. Since the 1950s, Aamot had been a pioneer within the field of electronic painting, exploring the emerging technology as it combines with the traditional arts of painting, music, film, theatre, and ballet. Aamot studied painting at the Oslo National Academy of the Arts (Norwegian National Academy of Craft and Art Industry and Norwegian National Academy of Fine Arts), and film at Dramatiska Institutet in Stockholm. Aamot is known for his work as a painter, electronic painter, art photographer, graphic artist, film director, tonal-image composer and cultural author.\nMuch of his work consists of creating electronic tonal images and thus his work contains elements of photography but is hard to pigeon hole. It is frequently a form of performance art with abstract photographic elements. Since 1966, Aamot's works have been displayed in Scandinavia, France (Paris), Berlin (Germany), Brussels (Belgium), Venice (Italy), Moscow (Soviet Union and subsequently Russia), Kraków (Poland), the United States and Japan. His work can be found in several important public collections. Aamot has been represented at several international film and art festivals throughout the world.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Johannes Flintoe": {
+    "death": "1870-01-27T00:00:00Z",
+    "birthplace": "Copenhagen",
+    "birth": "1787-01-01T00:00:00Z",
+    "summary": "Johannes Flintoe (1786/87, Copenhagen - 27 January 1870, Copenhagen) was a Danish-born painter of Norwegian ancestry. He is known for his landscapes, costume studies and historical scenes. His works play a significant role in the transition to romantic nationalism.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Rolf Groven": {
+    "death": "2025-03-26T00:00:00Z",
+    "birthplace": "Fræna",
+    "birth": "1943-03-11T00:00:00Z",
+    "summary": "Rolf Dagfinn Groven (11 March 1943 – 26 March 2025) was a Norwegian painter, known for his satirical art painted in figurative style. Groven's paintings are frequently printed works of art in textbooks used in Norwegian schools, as well as history books.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Konrad Knudsen": {
+    "death": "1959-06-16T00:00:00Z",
+    "birthplace": "Drammen Municipality",
+    "birth": "1890-08-19T00:00:00Z",
+    "summary": "Konrad Gustav Knudsen (19 August 1890 - 16 June 1959) was a Norwegian painter, journalist, and parliamentarian. Knudsen is perhaps best known for inviting Leon Trotsky to live at his house when the Norwegian government granted Trotsky political asylum in June 1935.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Wilhelm Peters": {
+    "death": "1883-04-20T00:00:00Z",
+    "birthplace": "Koldenbüttel",
+    "birth": "1815-04-22T00:00:00Z",
+    "summary": "Wilhelm Karl Hartwich (or Hartwig) Peters (22 April 1815 – 20 April 1883) was a German naturalist and explorer.\nHe was assistant to the anatomist Johannes Peter Müller and later became curator of the Berlin Zoological Museum. Encouraged by Müller and the explorer Alexander von Humboldt, Peters travelled to Mozambique via Angola in September 1842, exploring the coastal region and the Zambesi River. He returned to Berlin with an enormous collection of natural history specimens, which he then described in Naturwissenschaftliche Reise nach Mossambique... in den Jahren 1842 bis 1848 ausgeführt (1852–1882). The work was comprehensive in its coverage, dealing with mammals, birds, reptiles, amphibians, river fish, insects and botany. He replaced Martin Lichtenstein as curator of the museum in 1858, and in the same year he was elected a foreign member of the Royal Swedish Academy of Sciences. In a few years, he greatly increased the Berlin Museum's herpetological collection to a size comparable to those of Paris and London. Herpetology was Peters' main interest, and he described 122 new genera and 649 species from around the world. Peters also described at least one new fish species, the piranha Serrasalmus irritans, Peters 1877, based on a specimen reported as from San Fernando de Apure, Venezuela.",
+    "is_female": false,
+    "genre": null,
+    "country": "Duchy of Schleswig",
+    "movement": null,
+    "gender": "male"
+  },
+  "Halvard Storm": {
+    "death": "1964-05-07T00:00:00Z",
+    "birthplace": null,
+    "birth": "1877-08-10T00:00:00Z",
+    "summary": "Halvard Storm (August 10, 1877 - May 7, 1964) was a 20th-century Norwegian artist.",
+    "not_found": true,
+    "is_female": null,
+    "genre": null,
+    "country": null,
+    "movement": null,
+    "gender": "male"
+  },
+  "Jacob Gløersen": {
+    "death": "1912-08-21T00:00:00Z",
+    "birthplace": "Nissedal",
+    "birth": "1852-01-01T00:00:00Z",
+    "summary": "Jacob Gløersen (28 May 1852–21 August 1912) was a Norwegian painter.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Gustav Wentzel": {
+    "notable_works": [
+      {
+        "title": "Burial of a sailor in the countryside in Norway",
+        "year": "1896-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1927-02-10T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1859-10-07T00:00:00Z",
+    "summary": "Gustav Wentzel (1859–1927) was a Norwegian painter. He was best known for interiors and domestic and rural scenes. His artistic style was associated with Naturalism and noted for accurate observations and attention to detail.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Oscar Wergeland": {
+    "death": "1910-05-20T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1844-10-12T00:00:00Z",
+    "summary": "Oscar Arnold Wergeland (12 October 1844 – 20 May 1910)  was a Norwegian painter. He is best known for his historical painting of the Constituent Assembly at Eidsvoll (Riksforsamlingen på Eidsvoll 1814). Two of his paintings are held in the National Gallery of Norway.",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Carl Sundt-Hansen": {
+    "death": "1907-08-27T00:00:00Z",
+    "birthplace": "Stavanger",
+    "birth": "1841-01-30T00:00:00Z",
+    "summary": "Carl Fredrik Sundt-Hansen (30 January 1841, Stavanger – 27 August 1907, Stavanger) was a Norwegian-Danish genre painter in the Romantic Nationalist style.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Adelsteen Normann": {
+    "death": "1918-12-26T00:00:00Z",
+    "birthplace": "Bodin Municipality",
+    "birth": "1848-05-01T00:00:00Z",
+    "summary": "Eilert Adelsteen Normann (1 May 1848 – 26 December 1918) was a Norwegian painter who worked in Berlin. He was a noted painter of landscapes of Norway. Normann was the artist who invited Edvard Munch to Berlin, where he painted The Scream. Normann's fjord paintings are credited with making the Norwegian fjords a more popular tourist destination.\n\n",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Axel Revold": {
+    "death": "1962-04-11T00:00:00Z",
+    "birthplace": "Ålesund Municipality",
+    "birth": "1887-12-24T00:00:00Z",
+    "summary": "Axel Revold (24 December 1887 – 11 April 1962) was a Norwegian painter, illustrator, and art professor at the Norwegian National Academy of Fine Arts for twenty years. He was highly decorated for his merits.\n\n",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Jean Heiberg": {
+    "death": "1976-05-27T00:00:00Z",
+    "birthplace": "Oslo",
+    "birth": "1884-12-19T00:00:00Z",
+    "summary": "Jean Hjalmar Dahl Heiberg (19 December 1884 – 27 May 1976) was a Norwegian painter, sculptor, designer and art professor.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Olav Christopher Jenssen": {
+    "death": null,
+    "birthplace": "Sortland",
+    "birth": "1954-04-02T00:00:00Z",
+    "summary": "Olav Christopher Jenssen (born 2 April 1954 in Sortland Municipality, Norway) is a Norwegian artist. Jenssen is considered one of the most acclaimed contemporary Norwegian artists, with a significant international career. He has lived and worked in Berlin for years. From 1996 to 2003 he was professor of painting at the Hochschule Fine Arts in Hamburg, and since 2007, he is professor of painting at the Hochschule Fine Arts in Braunschweig. In 1992, he was selected to exhibit at the prestigious exhibition documenta in Kassel, Germany.\nHe was festival exhibitor in Bergen in 2000, perhaps considered to be the most prestigious solo show in Norway for a Norwegian artist.  In 2015, Jenssen was appointed Knight 1st Class of the Order of St. Olav \"for his contribution as an artist\".\nHis series of paintings; \"Lack of Memory\" (1992) was named one the 12 most important Norwegian artworks, by Morgenbladet.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Bjarne Melgaard": {
+    "death": null,
+    "birthplace": "Sydney",
+    "birth": "1967-09-09T00:00:00Z",
+    "summary": "Bjarne Melgaard (born 9 September 1967) is a Norwegian artist based in New York City. He has been described as \"one of Norway's most important artists\" and, following the 2014 publicity about his sculpture Chair, \"the most famous Norwegian artist since Edvard Munch.\"",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Fredrik Værslev": {
+    "not_found": true
+  },
+  "Charlotte Wankel": {
+    "death": "1969-08-02T00:00:00Z",
+    "birthplace": "Moss Municipality",
+    "birth": "1888-05-12T00:00:00Z",
+    "summary": "Charlotte Wankel (12 May 1888 – 2 August 1969) was a Norwegian painter regarded as one of the first Norwegian cubist and painters of abstract art.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  "Inger Sitter": {
+    "death": "2015-03-11T00:00:00Z",
+    "birthplace": "Trondheim",
+    "birth": "1929-10-18T00:00:00Z",
+    "summary": "Inger Solveig Sitter (18 October 1929 – 11 March 2015) was a Norwegian painter, graphic artist and art instructor.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  "Cora Sandel": {
+    "death": "1974-04-03T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1880-12-20T00:00:00Z",
+    "summary": "Sara Cecilia Görvell Fabricius (20 December 1880 – 3 April 1974), better known by her pen name Cora Sandel, was a Norwegian writer and painter who lived most of her adult life abroad. Her best-known works are the novels now known as the Alberta Trilogy. In 1961, she was nominated for the Nobel Prize in Literature by the Norwegian philosopher Harald Ofstad.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  "Paul René Gauguin": {
+    "death": "1976-02-14T00:00:00Z",
+    "birthplace": "Copenhagen",
+    "birth": "1911-01-27T00:00:00Z",
+    "summary": "Paul René Gauguin (27 February 1911 – 14 February 1976) was a French painter, graphical artist, sculptor, book illustrator and scenographer. He was born in Copenhagen, and was a son of Pola Gauguin, and grandson of Paul Gauguin. He is particularly known for his coloured woodcuts. Among his book illustrations are books by Inger Hagerup, and he made stage design for various theatres.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Peder Severin Krøyer": {
+    "notable_works": [
+      {
+        "title": "Hip, Hip, Hurrah!",
+        "year": "1888-01-01T00:00:00Z"
+      },
+      {
+        "title": "Midsummer Eve Bonfire on Skagen Beach",
+        "year": "1906-01-01T00:00:00Z"
+      },
+      {
+        "title": "Fishing boat",
+        "year": "1884-01-01T00:00:00Z"
+      },
+      {
+        "title": "Roses",
+        "year": "1893-01-01T00:00:00Z"
+      },
+      {
+        "title": "Summer Evening on Skagen's Southern Beach",
+        "year": "1893-01-01T00:00:00Z"
+      },
+      {
+        "title": "Summer Day at Skagen South Beach",
+        "year": "1884-01-01T00:00:00Z"
+      },
+      {
+        "title": "Hatters in an Italian village",
+        "year": "1880-01-01T00:00:00Z"
+      },
+      {
+        "title": "A luncheon. The artist, his wife and the writer Otto Benzon",
+        "year": "1893-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1909-11-21T00:00:00Z",
+    "birthplace": "Stavanger",
+    "birth": "1851-07-23T00:00:00Z",
+    "summary": "Peder Severin Krøyer (Danish: [ˈpʰe̝ːðɐ ˈse̝vəˌʁiˀn ˈkʰʁʌjˀɐ]; 23 July 1851 – 21 November 1909), also known as P. S. Krøyer, was a Danish painter.\n\n",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": "Impressionism",
+    "gender": "male"
+  },
+  "Thomas Fearnley": {
+    "notable_works": [
+      {
+        "title": "Rock at Berchtesgaden",
+        "year": "1900-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Labro Falls at Kongsberg",
+        "year": "1837-01-01T00:00:00Z"
+      },
+      {
+        "title": "Old Birch Tree at the Sognefjord",
+        "year": "1839-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1842-01-16T00:00:00Z",
+    "birthplace": "Halden Municipality",
+    "birth": "1802-12-27T00:00:00Z",
+    "summary": "Thomas Fearnley (Norwegian pronunciation: [ˈfæːɳlɪ], 27 December 1802 – 16 January 1842) was a Norwegian romantic painter, a pupil of Johan Christian Dahl and a leading representative of Norwegian romantic nationalism in painting.\nHis son Thomas Fearnley (1841–1927) founded the Fearnley dynasty of shipping magnates.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Knud Baade": {
+    "notable_works": [
+      {
+        "title": "Moonlight on the Coast of Norway",
+        "year": "1857-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1879-11-24T00:00:00Z",
+    "birthplace": "Skjold",
+    "birth": "1808-03-28T00:00:00Z",
+    "summary": "Knud Baade (28 March 1808 – 24 November 1879) was a Norwegian painter, mostly of portraits and landscapes. He was particularly known for his moonlight paintings which are characterized by strong and dramatic contrasts between light and shadow.",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Joachim Frich": {
+    "death": "1858-01-29T00:00:00Z",
+    "birthplace": "Bergen",
+    "birth": "1810-07-17T00:00:00Z",
+    "summary": "Joachim Christian Geelmuyden Gyldenkrantz Frich (24 July 1810 – 29 January 1858) was a Norwegian landscape painter. He was associated with the Düsseldorf school of painting (Düsseldorf-skolen).",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Morten Müller": {
+    "notable_works": [
+      {
+        "title": "Evening in the Norwegian Mountains",
+        "year": "1869-01-01T00:00:00Z"
+      },
+      {
+        "title": "View of Ulriksdal from the South",
+        "year": "1870-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1911-02-10T00:00:00Z",
+    "birthplace": "Holmestrand",
+    "birth": "1828-02-13T00:00:00Z",
+    "summary": "Morten Müller (13 February 1828 – 10 February 1911)  was a Norwegian landscape painter.",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Johan Fredrik Eckersberg": {
+    "notable_works": [
+      {
+        "title": "Bridal Escort on the Hardanger Fiord",
+        "year": "1865-01-01T00:00:00Z"
+      },
+      {
+        "title": "Landscape from Romsdalen",
+        "year": "1858-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1870-07-13T00:00:00Z",
+    "birthplace": "Drammen Municipality",
+    "birth": "1822-06-16T00:00:00Z",
+    "summary": "Johan Fredrik Eckersberg (16 June 1822 – 13 July 1870) was a Norwegian  painter most noted for his landscapes. Eckersberg  was a prominent figure in the transition from Romanticism to Realism in 19th-century Norwegian art, both as an artistic painter and a teacher at his own art school in Oslo.",
+    "is_female": false,
+    "genre": "landscape painting",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Otto Sinding": {
+    "notable_works": [
+      {
+        "title": "The Outermost Skerries",
+        "year": null
+      },
+      {
+        "title": "Mountain Lake",
+        "year": null
+      }
+    ],
+    "death": "1909-11-22T00:00:00Z",
+    "birthplace": "Kongsberg Municipality",
+    "birth": "1842-12-16T00:00:00Z",
+    "summary": "Otto Ludvig Sinding (20 December 1842 – 22 November 1909) was a Norwegian painter, illustrator, poet and dramatist. Sinding drew on motives from Norwegian nature, folk life and history.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Nils Hansteen": {
+    "death": "1912-10-11T00:00:00Z",
+    "birthplace": "Mo i Rana",
+    "birth": "1855-04-29T00:00:00Z",
+    "summary": "Nils Severin Lynge Hansteen (27 April 1855 – 11 October 1912) was a Norwegian painter. He was known principally for his landscape painting as well as his marine art, often featuring ships in a stormy seas.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Eyolf Soot": {
+    "death": "1928-03-30T00:00:00Z",
+    "birthplace": "Aremark Municipality",
+    "birth": "1858-04-24T00:00:00Z",
+    "summary": "Eyolf Soot (24 April 1859 – 30 August 1928) was a Norwegian painter.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Ludvig Karsten": {
+    "notable_works": [
+      {
+        "title": "The Blue Kitchen",
+        "year": "1913-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Red Kitchen",
+        "year": "1913-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Flight into Egypt. Copy after Bassano",
+        "year": "1922-01-01T00:00:00Z"
+      },
+      {
+        "title": "The Entombment. Copy after Ribera",
+        "year": "1906-01-01T00:00:00Z"
+      }
+    ],
+    "death": "1926-10-19T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1876-05-08T00:00:00Z",
+    "summary": "Ludvig Karsten (8 May 1876 – 19 October 1926) was a Norwegian painter. He was a neo-impressionist influenced by Edvard Munch, Henri Matisse and contemporary French painting. He first participated at the Autumn exhibition in Kristiania in 1901, and had his first separate exhibition in 1904. He is represented at museums in many Scandinavian cities, including several paintings at the National Gallery of Norway. Karsten was known for his bohemian lifestyle and quick temper.\n\n",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": "pointillism",
+    "gender": "male"
+  },
+  "Henrik Lund": {
+    "death": "1935-12-23T00:00:00Z",
+    "birthplace": "Bergen",
+    "birth": "1879-09-08T00:00:00Z",
+    "summary": "Henrik Lund may refer to:\n\nHenrik Lund (painter) (1879–1935), Norwegian painter and graphic artist\nHenrik Lund (academic) (born 1960), Danish engineer and professor at Aalborg University",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Henrik Sørensen": {
+    "death": "1962-02-24T00:00:00Z",
+    "birthplace": "Torsby",
+    "birth": "1882-02-12T00:00:00Z",
+    "summary": "Henrik Sørensen (12 February 1882 – 24 February 1962) was a Norwegian painter.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Pola Gauguin": {
+    "death": "1961-07-02T00:00:00Z",
+    "birthplace": "Paris",
+    "birth": "1883-12-06T00:00:00Z",
+    "summary": "Pola Gauguin (6 December 1883 – 2 July 1961) was a Danish-Norwegian painter, art critic and biographer.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Olaf Gulbransson": {
+    "death": "1958-09-18T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1873-05-26T00:00:00Z",
+    "summary": "Olaf Leonhard Gulbransson (26 May 1873 – 18 September 1958) was a Norwegian artist, painter and designer. He is probably best known for his caricatures and illustrations.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Bjarne Ness": {
+    "death": "1927-12-13T00:00:00Z",
+    "birthplace": "Trondheim",
+    "birth": "1902-03-17T00:00:00Z",
+    "summary": "Bjarne Ness (17 March 1902 – 13 December 1927) was a Norwegian painter and illustrator.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Ludvig Eikaas": {
+    "death": "2010-09-05T00:00:00Z",
+    "birthplace": null,
+    "birth": "1920-12-20T00:00:00Z",
+    "summary": "Ludvig Eikaas (20 December 1920 – 5 September 2010) was a Norwegian painter, graphic artist and sculptor. Eikaas was among the first artists in Norway to work in a purely non-figurative idiom.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Kåre Tveter": {
+    "death": "2012-03-21T00:00:00Z",
+    "birthplace": "Sør-Odal Municipality",
+    "birth": "1922-01-25T00:00:00Z",
+    "summary": "Kåre Tveter (25 January 1922 – 21 March 2012) was a Norwegian painter and illustrator. \nHe was born in Sør-Odal Municipality. His breakthrough as artist came in 1965. He is represented at various galleries, including the National Gallery of Norway and the Henie-Onstad Art Centre. He was decorated Knight, First Class of the Order of St. Olav in 1999.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Kjell Aukrust": {
+    "notable_works": [
+      {
+        "title": "Simen, Bonden og Bror min",
+        "year": null
+      },
+      {
+        "title": "Flåklypa Tidende",
+        "year": null
+      }
+    ],
+    "death": "2002-12-24T00:00:00Z",
+    "birthplace": "Alvdal Municipality",
+    "birth": "1920-03-19T00:00:00Z",
+    "summary": "Kjell Aukrust (19 March 1920 – 24 December 2002) was a Norwegian author, poet, artist and humorist.  Aukrust is principally known for his Flåklypa stories and Flåklypa drawings.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Kåre Espolin Johnson": {
+    "death": "1994-08-16T00:00:00Z",
+    "birthplace": "Surnadal Municipality",
+    "country": "Norway",
+    "birth": "1907-03-07T00:00:00Z",
+    "summary": "Kaare Espolin Johnson (1907–1994) var en norsk billedkunstner og illustratør.  \nMange av hans arbeider er samlet i Galleri Espolin i Kabelvåg, i Vågan kommune, som ble etablert i 1992. Samlingen utgjorde i 2006 nærmere 170 bilder.",
+    "not_found": true,
+    "is_female": false,
+    "movement": null,
+    "genre": null,
+    "gender": "male"
+  },
+  "Frans Widerberg": {
+    "death": "2017-04-07T00:00:00Z",
+    "birthplace": "Oslo",
+    "birth": "1934-04-08T00:00:00Z",
+    "summary": "Frans Widerberg (8 April 1934 – 7 April 2017) was a Norwegian painter and graphic artist.\nWiderberg was born in Oslo to Nicolai Magnus Widerberg and Ingrid Christine Blom. He made his exhibition debut in Oslo in 1963. Among his works is the woodcut Hieronymus from 1962 and De usynlige from 1979, both at the National Gallery of Norway. He was an exhibitor at the Bergen International Festival, and represented Norway at the Venice Biennale.\nWiderberg died at his home on 7 April 2017 after a short illness, one day before his 83rd birthday.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Knut Rose": {
+    "death": "2002-09-17T00:00:00Z",
+    "birthplace": "Trondheim",
+    "country": "Norway",
+    "birth": "1936-07-18T00:00:00Z",
+    "summary": "Knut Rose (født 18. juli 1936 i Trondheim, død 17. september 2002) var en norsk maler. Han var professor ved Statens kunstakademi fra 1973.\nRose var utdannet ved Kunstskolen i Trondheim (1957–59) under Roar Wold, og på Statens Kunstakademi (1959–61) under Aage Storstein og Reidar Aulie. Han hadde sin debututstilling i Unge Kunstneres Samfund i 1963. Rose var gift to ganger, og hadde en sønn fra første ekteskap.\nRose laget i 1988 en serie på 30 litografi til Henrik Ibsens Gengangere, i den franske forleggeren Edouard Weiss' serie med 5 kunstmapper etter Ibsen. \nHans arbeider har blitt karakterisert slik :\n\nRose har sin utpregete karakteristiske uttrykksmåte både maleteknisk, følelsesmessig og i motivområde. Hans spesielle amorfe dels utflytende menneskeliknende skikkelser i sammenstillinger med dyr og andre formelementer i billedflaten gir flertolkelige assosiasjoner. I mange av bildene er det to - tre menneskeskikkelser i varierende størrelse som skaper spenning.Ofte bruker han mørke farver som bakgrunn for sine lysere skikkelser som står i kontrast til disse. Andre ganger benyttes sterke mere lysende farver.Roses bilder blir som en flytende drømmeverden hvor en umiddelbart blir medskapende.",
+    "not_found": true,
+    "is_female": false,
+    "movement": null,
+    "genre": null,
+    "gender": "male"
+  },
+  "Knut Rumohr": {
+    "death": "2002-10-31T00:00:00Z",
+    "birthplace": "Leikanger Municipality",
+    "birth": "1916-12-21T00:00:00Z",
+    "summary": "Knut Lindstrøm Rumohr (21 December 1916 – 31 October 2002) was a Norwegian painter and printmaker.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Kjartan Slettemark": {
+    "death": "2008-12-13T00:00:00Z",
+    "birthplace": null,
+    "birth": "1932-08-06T00:00:00Z",
+    "summary": "Kjartan Slettemark (6 August 1932, Naustdal, Norway – 13 December 2008, Stockholm, Sweden) was a Norwegian-Swedish artist.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Vebjørn Sand": {
+    "death": null,
+    "birthplace": "Bærum Municipality",
+    "birth": "1966-03-11T00:00:00Z",
+    "summary": "Vebjørn Sand (born March 11, 1966) is a Norwegian painter and artist. He is known for his paintings as well as his public arts projects, such as the Da Vinci Project, and the Kepler Star monument (Norwegian Peace Star) at Oslo Airport, Gardermoen.\n\n",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Håkon Gullvåg": {
+    "death": null,
+    "birthplace": "Trondheim",
+    "birth": "1959-02-20T00:00:00Z",
+    "summary": "Håkon Gullvåg (born 20 February 1959) is a Norwegian painter.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Ørnulf Opdahl": {
+    "death": null,
+    "birthplace": "Ålesund Municipality",
+    "birth": "1944-01-05T00:00:00Z",
+    "summary": "Ørnulf Opdahl (born 5 January 1944) is a Norwegian painter and educator. He was born in Ålesund. He is represented in several art collections, including the National Gallery of Norway, Bergen Art Museum and the Astrup Fearnley Museum of Modern Art. He was appointed professor at the Norwegian National Academy of Fine Arts from 1985 to 1992.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Kjell Pahr-Iversen": {
+    "death": null,
+    "birthplace": "Stavanger",
+    "country": "Norway",
+    "birth": "1937-12-22T00:00:00Z",
+    "summary": "Kjell Oddvar Pahr-Iversen  (født  1937) er en norsk maler.\nHan fikk sin  utdanning ved Kunst- og håndverkskolen i Bergen og ved Kunstakademiet i København. Pahr-Iversen er representert blant annet i  Nasjonalgalleriet og ved en rekke andre museer. \nHan har hatt mange utsmykningsoppdrag, og er en kjent norsk samtidskunstner.\nPahr-Iversen modellerer bildene sine med lys og skygge. Han bruker farger og penselstrøk på en ekspresjonistisk måte. Han er veldig  opptatt av lys og benytter seg av en maleteknikk som gjør at bildene hans får en spesiell glød og intensitet.  \nPahr-Iversen ble 12. november 2017 utnevnt til æresmedlem av Det russiske kunstakademiet.\nI 2020 ble han utnevnt til ridder av 1. klasse av St. Olavs Orden for sin innsats som kunstner.\nHan er broren til forfatter og tidligere sjefredaktør Engwall Pahr-Iversen.",
+    "not_found": true,
+    "is_female": false,
+    "movement": null,
+    "genre": null,
+    "gender": "male"
+  },
+  "Lisa Aisato": {
+    "death": null,
+    "birthplace": "Kolbotn",
+    "birth": "1981-07-23T00:00:00Z",
+    "summary": "Lisa Aisato N'jie Solberg, pen name Lisa Aisato (born 23 July 1981), is a Norwegian visual artist, illustrator and author of picture books.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  "Gerhard Munthe": {
+    "death": "1929-01-15T00:00:00Z",
+    "birthplace": "Heradsbygd",
+    "birth": "1849-07-19T00:00:00Z",
+    "summary": "Gerhard Peter Frantz Munthe (19 July 1849 in Elverum, Hedmark – 15 January 1929 in Lysaker, Bærum) was a Norwegian painter and illustrator.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Kjell Nupen": {
+    "death": "2014-03-12T00:00:00Z",
+    "birthplace": "Kristiansand Municipality",
+    "birth": "1955-09-05T00:00:00Z",
+    "summary": "Kjell Nupen (September 5, 1955 – March 12, 2014) was a Norwegian contemporary artist. He was a painter, sculptor and graphic artist.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Pushwagner": {
+    "notable_works": [
+      {
+        "title": "Self portrait",
+        "year": null
+      },
+      {
+        "title": "Soft City",
+        "year": null
+      },
+      {
+        "title": "A Day in the Life of the Mann Family",
+        "year": null
+      },
+      {
+        "title": "Apocalypse",
+        "year": null
+      }
+    ],
+    "death": "2018-04-24T00:00:00Z",
+    "birthplace": "Oslo",
+    "birth": "1940-05-02T00:00:00Z",
+    "summary": "Terje Brofos (2 May 1940 – 24 April 2018), better known by stage name Hariton Pushwagner, was a Norwegian Pop artist.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": "pop art",
+    "gender": "male"
+  },
+  "Bjørn Ransve": {
+    "death": null,
+    "birthplace": "Oslo",
+    "birth": "1944-12-16T00:00:00Z",
+    "summary": "Bjørn Ransve (born 16 December 1944) is a Norwegian painter and graphical artist. He was born in Oslo. He is represented in several art collections, including the National Gallery of Norway, Lillehammer Art Museum and the Norwegian Museum of Contemporary Art.\nIn 2023 he was knighted as a Commander of the Order of St. Olav. He resides at Nesøya.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Arne Ekeland": {
+    "death": "1994-02-28T00:00:00Z",
+    "birthplace": "Eidsvoll Municipality",
+    "birth": "1908-08-14T00:00:00Z",
+    "summary": "Arne Ekeland (14 August 1908 – 28 February 1994) was a Norwegian painter.\nHe was born in Eidsvoll. Among his works are Ser vi står på trappene from 1939, De siste skudd from 1940, and Kampen from 1943, all located at the National Gallery in Oslo. He is also represented at the Gothenburg Museum of Art. His painting Frihetens søstre is located at Stortinget. He was awarded the Prince Eugen Medal in 1978, and was decorated Knight, First Class of the Order of St. Olav in 1980.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Kai Fjell": {
+    "death": "1989-01-10T00:00:00Z",
+    "birthplace": "Skoger Municipality",
+    "birth": "1907-03-02T00:00:00Z",
+    "summary": "Kai Breder Fjell (Norwegian pronunciation: [ˈkɑɪ ˈfjɛl]; March 2, 1907 – January 10, 1989) was a Norwegian painter, printmaker and scenographer.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Reidar Aulie": {
+    "death": "1977-11-23T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1904-03-13T00:00:00Z",
+    "summary": "Reidar Aulie (13 March 1904 – 23 November 1977) was a Norwegian artist.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Arne Texnes Kavli": {
+    "not_found": true
+  },
+  "Søren Onsager": {
+    "death": "1946-11-28T00:00:00Z",
+    "birthplace": "Holmestrand",
+    "birth": "1878-10-06T00:00:00Z",
+    "summary": "Søren Onsager (6 October 1878 – 28 November 1946) was a Norwegian painter.\nOnsager was born at  Holmestrand in Vestfold, Norway. His parents were Martin Onsager (1849–1926) and Laura Dorothea Christensen (1858–1934). His father operated pharmacies in which he first apprenticed. However an Italian trip during 1897–1898 was the turning point in his life. Upon his return to Norway, he trained with Harriet Backer. After a year, she sent him to Kristian Zahrtmann in Copenhagen, where he was for two years. During the period from 1902 to 1910, he went to Paris to study with Christian Krogh at Colarossi Academy. In 1908, he first exhibited at the Salon des Beaux-Arts in Paris. Onsager was appointed professor at the Oslo National Academy of the Arts during the Nazi occupation of Norway from 1940 to 1945. After the war, Onsager was indicted for treason, but he died in prison after a long illness before his case came up.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Helge Ulving": {
+    "not_found": true
+  },
+  "Nils Gude": {
+    "death": "1908-12-24T00:00:00Z",
+    "birthplace": "Düsseldorf",
+    "birth": "1859-04-04T00:00:00Z",
+    "summary": "Nils Gude (4 April 1859 in Düsseldorf, Kingdom of Prussia – 24 December 1908 in Christiania) was a Norwegian portrait painter.",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Bernt Lund": {
+    "death": "1885-10-30T00:00:00Z",
+    "birthplace": "Våler Municipality",
+    "birth": "1812-07-14T00:00:00Z",
+    "summary": "Bernt Lund (July 14, 1812 – October 30, 1885) was a 19th-century Norwegian landscape artist, author and military officer.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Nils Elias Kristi": {
+    "not_found": true
+  },
+  "Oluf Wold-Torne": {
+    "death": "1919-03-19T00:00:00Z",
+    "birthplace": "Son",
+    "birth": "1867-11-07T00:00:00Z",
+    "summary": "Oluf Wold-Torne (7 November 1867 – 19 March 1919) was a Norwegian painter, illustrator, educator and designer. He was known primarily for landscapes and still-lifes and was influenced by Cézanne.",
+    "is_female": false,
+    "genre": "portrait",
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  "Sigurd Dancke": {
+    "not_found": true
+  },
+  "Alf Lundeby": {
+    "death": "1961-01-21T00:00:00Z",
+    "birthplace": "Våler Municipality",
+    "country": "Norway",
+    "birth": "1870-04-26T00:00:00Z",
+    "summary": "Alf Lundeby (født 1870 i Våler, død 1961) var en norsk maler. Han oppholdt seg i Italia 1897–99. Fra 1900 bodde han i Lillehammer. Han besøkte Matisse i 1909 og er representert på Nasjonalgalleriet i Oslo. Lundeby komponerte også Lundebydrakta. Han skrev i  tidsskriftet (ukeblad) Askeladden utgitt av foreningen Askehaugen.",
+    "not_found": true,
+    "is_female": false,
+    "movement": null,
+    "genre": null,
+    "gender": "male"
+  },
+  "Thorleif Stadheim": {
+    "not_found": true
+  },
+  "Ida Lorentzen": {
+    "death": null,
+    "birthplace": "New York City",
+    "birth": "1951-12-11T00:00:00Z",
+    "summary": "Ida Margrethe Lorentzen (born December 11, 1951, in New York City ) is an American born, Norwegian artist known for her paintings of interiors of a melancholic nature.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  "Marianne Aulie": {
+    "death": null,
+    "birthplace": "Lørenskog",
+    "birth": "1971-10-23T00:00:00Z",
+    "summary": "Marianne Aulie (born 23 October 1971, in Lørenskog) is a Norwegian painter and former model. She is a Norwegian contemporary artist, primarily known for painting and performance art. Aulie's large, colorful and expressive paintings explore the neo expressionist, action paint and neo pop art movements. Aulie is also known for her controversial performance art and guerilla marketing tactics to draw attention to her work, often employing nudity and dramatic gestures to do so. \nAulie is often noted for her success as a woman in the male-dominated art scene in Norway. In 2018, she placed 11th in net income in a list of the country's most profiled visual artists, the highest ranking for a woman.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  }
+}
