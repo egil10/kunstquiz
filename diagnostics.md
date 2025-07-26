@@ -2,17 +2,17 @@
 
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
-- **Paintings (Appended):** 8.46 MB (95,440 lines)
-- **Paintings (Merged):** 11.13 MB (212,913 lines)
+- **Paintings (Appended):** 8.96 MB (102,676 lines)
+- **Paintings (Merged):** 11.52 MB (222,869 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
 
 ### 🎨 Paintings Collection Health
-- **File size:** 8.46 MB (95,440 lines)
+- **File size:** 8.96 MB (102,676 lines)
 - **File size status:** 🟢 Good
-- **Line count status:** 🟢 Good
-- **Total paintings:** 4,266
+- **Line count status:** 🟡 Warning
+- **Total paintings:** 4,539
 - **Collection size status:** 🟢 Good
 
 ### 👨‍🎨 Artist Data Health
@@ -25,34 +25,34 @@
 - **Tags (Appended) status:** 🟢 Good
 
 ### 🔗 Merged Data Health
-- **Merged paintings:** 4,266
-- **Merged file size:** 11.13 MB (212,913 lines)
+- **Merged paintings:** 4,539
+- **Merged file size:** 11.52 MB (222,869 lines)
 - **Merged file status:** 🟢 Good
-- **Total unique artists in paintings:** 81
+- **Total unique artists in paintings:** 83
 
 ### 🔍 Data Consistency Checks
-- **Artists without bios:** 5
-- **Missing bios status:** 🟡 Warning - 5 artists need bios
-- **Missing artists:** Alf Lundeby, Cora Sandel, Inger Sitter, Martin Aagaard, Paul René Gauguin
+- **Artists without bios:** 7
+- **Missing bios status:** 🟡 Warning - 7 artists need bios
+- **Missing artists:** Alf Lundeby, Cora Sandel, Hariton Pushwagner, Inger Sitter, Johan Christian Clausen Dahl, Martin Aagaard, Paul René Gauguin
 - **Bios without paintings:** 15
 - **Orphaned bios status:** 🟡 Warning - 15 bios without paintings
-- **Merged vs Appended:** 4,266 merged / 4,266 appended
+- **Merged vs Appended:** 4,539 merged / 4,539 appended
 - **Merge consistency:** 🟢 Good - Counts match
 
 ### 💡 Performance Recommendations
 - 💡 **Good collection size:** Continue collecting for variety
 
 ## Quiz Categories
-- **Full Collection:** 4266 paintings, 81 painters
-- **Popular Painters:** 2134 paintings, 10 painters
-- **Landscape Painting:** 2390 paintings, 41 painters
-- **Portraits:** 806 paintings, 34 painters
+- **Full Collection:** 4539 paintings, 83 painters
+- **Popular Painters:** 2173 paintings, 10 painters
+- **Landscape Painting:** 2526 paintings, 41 painters
+- **Portraits:** 885 paintings, 34 painters
 - **Women Painters:** 290 paintings, 8 painters
-- **19th Century:** 3548 paintings, 53 painters
-- **20th Century:** 107 paintings, 20 painters
-- **Impressionism:** 450 paintings, 9 painters
-- **Expressionism:** 299 paintings, 5 painters
-- **Norwegian Romantic:** 1179 paintings, 7 painters
+- **19th Century:** 3755 paintings, 53 painters
+- **20th Century:** 137 paintings, 20 painters
+- **Impressionism:** 525 paintings, 9 painters
+- **Expressionism:** 312 paintings, 5 painters
+- **Norwegian Romantic:** 1197 paintings, 7 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33
@@ -220,37 +220,37 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 <div style="display: none;">label QS:Lfr,"Trois Petites Filles sur la plage"</div></div>": 2 times
 
 ## 📏 Image Size Analysis
-- **Total analyzed:** 392 paintings
+- **Total analyzed:** 665 paintings
 - **Unknown dimensions:** 3874 paintings
-- **Width range:** 103 - 991px (avg: 572px)
-- **Height range:** 111 - 999px (avg: 640px)
+- **Width range:** 103 - 996px (avg: 580px)
+- **Height range:** 111 - 999px (avg: 629px)
 
 ### Image Size Distribution:
 - **Tiny (< 100px):** 0 paintings
-- **Small (100-200px):** 9 paintings
-- **Medium (200-500px):** 190 paintings
-- **Large (500-1000px):** 193 paintings
+- **Small (100-200px):** 14 paintings
+- **Medium (200-500px):** 316 paintings
+- **Large (500-1000px):** 335 paintings
 - **Huge (> 1000px):** 0 paintings
 - **Unknown dimensions:** 3874 paintings
 
 ### Filter Impact Analysis:
 - **Remove < 100px:** Would remove 0 paintings (0.0%)
-- **Remove < 200px:** Would remove 9 paintings (0.2%)
-- **Remove < 500px:** Would remove 199 paintings (4.7%)
+- **Remove < 200px:** Would remove 14 paintings (0.3%)
+- **Remove < 500px:** Would remove 330 paintings (7.3%)
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
-- Painting: 3183
-- Landscape painting: 2333
-- Portrait painting: 613
-- landscape painting: 394
+- Painting: 3233
+- Landscape painting: 2469
+- Portrait painting: 637
+- landscape painting: 438
 - Landscape: 352
 Smallest genres:
+- Graphic novel: 5
+- Tonal painting: 4
+- Printmaking: 4
 - Satire: 3
-- Performance art: 3
 - Still Life: 2
-- Tonal painting: 2
-- Printmaking: 2
 
 ## All Painters and Number of Paintings
 - Johan Christian Dahl: 494
@@ -258,80 +258,82 @@ Smallest genres:
 - Erik Werenskiold: 246
 - Edvard Munch: 216
 - Christian Krohg: 180
+- Frits Thaulow: 163
+- Eilif Peterssen: 159
 - Adolph Tidemand: 149
-- Eilif Peterssen: 148
-- Frits Thaulow: 144
-- Amaldus Nielsen: 125
+- Amaldus Nielsen: 134
 - Harald Sohlberg: 124
+- Lars Hertervig: 109
+- Asta Nørregaard: 107
 - Harriet Backer: 103
 - Nikolai Astrup: 103
-- Asta Nørregaard: 99
-- Lars Hertervig: 93
 - Peder Balke: 89
-- August Cappelen: 84
-- Peter Nicolai Arbo: 81
-- Knud Baade: 68
-- Adelsteen Normann: 67
+- Peder Severin Krøyer: 88
+- August Cappelen: 87
+- Peter Nicolai Arbo: 85
+- Knud Baade: 81
+- Adelsteen Normann: 75
+- Ludvig Karsten: 73
+- Johannes Flintoe: 71
 - Joachim Frich: 63
-- Ludvig Karsten: 62
-- Peder Severin Krøyer: 59
-- Theodor Kittelsen: 58
+- Theodor Kittelsen: 60
+- Thomas Fearnley: 59
 - Oscar Wergeland: 57
-- Thomas Fearnley: 55
+- Thorvald Erichsen: 56
+- Carl Sundt-Hansen: 51
+- Hans Dahl: 49
 - Christian Skredsvig: 48
-- Carl Sundt-Hansen: 48
+- Gustav Wentzel: 48
 - Kitty Lange Kielland: 44
 - Thorolf Holmboe: 44
-- Johannes Flintoe: 43
-- Thorvald Erichsen: 43
-- Hans Dahl: 41
+- Henrik Lund: 42
 - Jacob Gløersen: 39
-- Henrik Lund: 39
 - Johan Fredrik Eckersberg: 38
+- Gerhard Munthe: 38
 - Oda Krohg: 37
 - Otto Sinding: 35
-- Gerhard Munthe: 35
-- Martin Aagaard: 33
-- Gustav Wentzel: 33
-- Halfdan Egedius: 29
+- Martin Aagaard: 34
+- Oluf Wold-Torne: 32
+- Halfdan Egedius: 30
 - Morten Müller: 29
 - Eyolf Soot: 28
+- Gunnar Berg: 26
+- Kjell Aukrust: 25
+- Bjarne Ness: 24
+- Axel Revold: 23
 - Peder Aadnes: 22
-- Bjarne Ness: 20
-- Oluf Wold-Torne: 20
-- Gunnar Berg: 20
-- Axel Revold: 20
 - Nils Hansteen: 17
 - Henrik Sørensen: 16
-- Kjell Aukrust: 15
 - Per Krohg: 14
 - Vebjørn Sand: 14
 - Bernt Lund: 13
+- Håkon Gullvåg: 12
 - Nils Gude: 11
 - Olaf Gulbransson: 11
-- Håkon Gullvåg: 10
+- Cora Sandel: 10
 - Søren Onsager: 9
-- Cora Sandel: 7
+- Kjell Pahr-Iversen: 8
 - Inger Sitter: 6
 - Håkon Bleken: 6
-- Kjell Pahr-Iversen: 5
+- Kjartan Slettemark: 6
+- Arne Ekeland: 6
+- Jakob Weidemann: 5
 - Pushwagner: 5
-- Arne Ekeland: 4
+- Rolf Aamot: 4
+- Rolf Nesch: 4
+- Reidar Aulie: 4
 - Alf Lundeby: 4
-- Jakob Weidemann: 3
 - Rolf Groven: 3
+- Pola Gauguin: 3
 - Frans Widerberg: 3
-- Kjartan Slettemark: 3
 - Kai Fjell: 3
 - Marianne Aulie: 3
 - Odd Nerdrum: 2
-- Rolf Aamot: 2
 - Jean Heiberg: 2
 - Paul René Gauguin: 2
-- Pola Gauguin: 2
-- Rolf Nesch: 2
 - Ludvig Eikaas: 2
-- Reidar Aulie: 2
+- Johan Christian Clausen Dahl: 2
+- Hariton Pushwagner: 2
 - Kjell Nupen: 1
 - Ida Lorentzen: 1
 
