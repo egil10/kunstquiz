@@ -4,3 +4,36 @@
 # Lines without http are ignored
 
 https://upload.wikimedia.org/wikipedia/commons/b/b5/Da_Vinci_Bridge.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Frits_Thaulow_Fra_Stortings_plass_1881.jpg/120px-Frits_Thaulow_Fra_Stortings_plass_1881.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Johan_Christian_Clausen_Dahl_-_Landskab%2C_vandfald_-_Statens_Museum_for_Kunst_-_KMS1254.jpg/250px-Johan_Christian_Clausen_Dahl_-_Landskab%2C_vandfald_-_Statens_Museum_for_Kunst_-_KMS1254.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Erik_Werenskiold_-_Evening_at_Pipping_-_NG.M.03391_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Erik_Werenskiold_-_Evening_at_Pipping_-_NG.M.03391_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/9/93/Johan_Fredrik_Eckersberg_-_View_from_Nes_in_Hallingdal_-_NG.M.00382_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Johan_Fredrik_Eckersberg_-_View_from_Nes_in_Hallingdal_-_NG.M.00382_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Hans_Gude--Hjemvendende_hvalfangerskip_i_en_norsk_havn--1869.jpg/120px-Hans_Gude--Hjemvendende_hvalfangerskip_i_en_norsk_havn--1869.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Amaldus_Nielsen_-_Fiskerne_vender_hjem_%281869%29.jpg/120px-Amaldus_Nielsen_-_Fiskerne_vender_hjem_%281869%29.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/Johan_Christian_Dahl_-_Ein_Ausbruch_des_Vesuvs_-_ZKG.2018-0007_-_Kunsthaus_Z%C3%BCrich.jpg/120px-Johan_Christian_Dahl_-_Ein_Ausbruch_des_Vesuvs_-_ZKG.2018-0007_-_Kunsthaus_Z%C3%BCrich.jpg
+https://upload.wikimedia.org/wikipedia/commons/8/83/Pushwagner_grav_2024.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Asta_N%C3%B8rregaard_-_Christmas_Night_Mass_celebrated_in_a_French_Nunnery_-_NG.M.03577_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Asta_N%C3%B8rregaard_-_Christmas_Night_Mass_celebrated_in_a_French_Nunnery_-_NG.M.03577_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Amaldus_Clarin_Nielsen_-_Sommernatt_Ved_Arisholmen_-_IMG_9326_%28cropped%29.jpg/120px-Amaldus_Clarin_Nielsen_-_Sommernatt_Ved_Arisholmen_-_IMG_9326_%28cropped%29.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Bamse_brakar.jpg/120px-Bamse_brakar.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Hans_Gude--Vinterettermiddag--1847.jpg/120px-Hans_Gude--Vinterettermiddag--1847.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Johan_Christian_Dahl_-_Copy_of_Landscape_by_M._Hobbema_-_NG.M.00750_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Johan_Christian_Dahl_-_Copy_of_Landscape_by_M._Hobbema_-_NG.M.00750_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Christian_Krohg_-_Self-Portrait_by_the_Easel_-_NG.M.02303_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Christian_Krohg_-_Self-Portrait_by_the_Easel_-_NG.M.02303_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Amaldus_Nielsen_-_From_%C3%86nes_in_the_Hardangerfjord_-_%C3%86nes_ved_Hardangerfjord_-_Nasjonalmuseet_-_NG.M.00323.png/120px-Amaldus_Nielsen_-_From_%C3%86nes_in_the_Hardangerfjord_-_%C3%86nes_ved_Hardangerfjord_-_Nasjonalmuseet_-_NG.M.00323.png
+https://upload.wikimedia.org/wikipedia/commons/thumb/6/68/Peder_Severin_Kr%C3%B8yer_-_Skagen_S%C3%B8nderstrand._Juniaften_med_skyet_vejr._Fiskernet_paa_Opstandere_i_forgrunden_-_1907.png/120px-Peder_Severin_Kr%C3%B8yer_-_Skagen_S%C3%B8nderstrand._Juniaften_med_skyet_vejr._Fiskernet_paa_Opstandere_i_forgrunden_-_1907.png
+https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Egedius_Spill_og_dans.jpg/120px-Egedius_Spill_og_dans.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Lars_Hertervig_-_Den_gamle_broen_-_Stavanger_kunstmuseum_-_SG.0650.jpg/120px-Lars_Hertervig_-_Den_gamle_broen_-_Stavanger_kunstmuseum_-_SG.0650.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Frokost_gustav_wentzel_1882.jpg/120px-Frokost_gustav_wentzel_1882.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Thorvald_Erichsen_-_Winter_-_NG.M.00818_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Thorvald_Erichsen_-_Winter_-_NG.M.00818_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/DOMKIRKEN_KRISTIANSAND_Norway_Nygotisk_korskirke_Thrap-Meyer_1885_Cathedral_Neo-Gothic_church_2023-10-18_INTERIOR_Alter_altertavle_av_Eilif_Peterssen_alterring_koret_Altar_piece_etc_IMG_3915.jpg/120px-thumbnail.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/ErikWerenskiold-5.jpg/120px-ErikWerenskiold-5.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Frits_Thaulow_-_Midnight_in_Amiens_-_NG.M.00483_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Frits_Thaulow_-_Midnight_in_Amiens_-_NG.M.00483_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Nikolai_Astrup-V%C3%A5rkveld_ved_J%C3%B8lstervannet.jpg/120px-Nikolai_Astrup-V%C3%A5rkveld_ved_J%C3%B8lstervannet.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Hauk_Haabrok_hos_kong_Adalstein.jpg/120px-Hauk_Haabrok_hos_kong_Adalstein.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/1877_portrait_E_Werenskiold_cropped.jpg/120px-1877_portrait_E_Werenskiold_cropped.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Christian_Krogh-Albertine_i_politil%C3%A6gens_ventev%C3%A6relse2.jpg/120px-Christian_Krogh-Albertine_i_politil%C3%A6gens_ventev%C3%A6relse2.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Johan_Christian_Dahl_-_Sawmill_near_Strand_in_Valdres_-_Elvestryk_med_sagbruk_-_KODE_Art_Museums_and_Composer_Homes_-_BB.M.00988.jpg/250px-Johan_Christian_Dahl_-_Sawmill_near_Strand_in_Valdres_-_Elvestryk_med_sagbruk_-_KODE_Art_Museums_and_Composer_Homes_-_BB.M.00988.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Harald_Sohlberg_-_M%C3%A5neskinnsstemning.png/120px-Harald_Sohlberg_-_M%C3%A5neskinnsstemning.png
+https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Fra_Hardanger_Gude.jpg/120px-Fra_Hardanger_Gude.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Lars_Hertervig_-_View_of_Tysv%C3%A6r_-_NG.M.01026_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Lars_Hertervig_-_View_of_Tysv%C3%A6r_-_NG.M.01026_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Hariton_Pushwagner.jpg/120px-Hariton_Pushwagner.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Rocky_Landscape_in_the_Elbe_Sandstone_Mountains_-_Caspar_David_Friedrich_-_Google_Cultural_Institute.jpg/120px-Rocky_Landscape_in_the_Elbe_Sandstone_Mountains_-_Caspar_David_Friedrich_-_Google_Cultural_Institute.jpg
