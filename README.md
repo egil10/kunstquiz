@@ -27,19 +27,19 @@ The `diagnostics.py` script checks for data consistency, category coverage, and 
 
 <!-- STATS_START -->
 **Latest Art Quiz Stats**
-- Total paintings: 3171
+- Total paintings: 3282
 - Total unique artists in paintings: 81
 - Total artists in bios: 91
 - Categories:
-  - Full Collection: 3171 paintings, 81 painters
-  - Popular Painters: 1431 paintings, 10 painters
-  - Landscape Painting: 1701 paintings, 41 painters
-  - Portraits: 556 paintings, 34 painters
-  - Women Painters: 556 paintings, 34 painters
+  - Full Collection: 3282 paintings, 81 painters
+  - Popular Painters: 1513 paintings, 10 painters
+  - Landscape Painting: 1745 paintings, 41 painters
+  - Portraits: 584 paintings, 34 painters
+  - Women Painters: 584 paintings, 34 painters
   - 19th Century: 0 paintings, 0 painters
   - 20th Century: 0 paintings, 0 painters
-  - Impressionism: 377 paintings, 9 painters
-  - Expressionism: 249 paintings, 5 painters
+  - Impressionism: 392 paintings, 9 painters
+  - Expressionism: 253 paintings, 5 painters
   - Norwegian Romantic: 0 paintings, 0 painters
 <!-- STATS_END -->
 

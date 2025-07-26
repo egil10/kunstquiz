@@ -2,17 +2,17 @@
 
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
-- **Paintings (Appended):** 6.97 MB (110,142 lines)
-- **Paintings (Merged):** 6.55 MB (164,784 lines)
+- **Paintings (Appended):** 4.67 MB (79,366 lines)
+- **Paintings (Merged):** 6.87 MB (171,699 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
 
 ### 🎨 Paintings Collection Health
-- **File size:** 6.97 MB (110,142 lines)
+- **File size:** 4.67 MB (79,366 lines)
 - **File size status:** 🟢 Good
-- **Line count status:** 🟡 Warning
-- **Total paintings:** 3,171
+- **Line count status:** 🟢 Good
+- **Total paintings:** 3,282
 - **Collection size status:** 🟢 Good
 
 ### 👨‍🎨 Artist Data Health
@@ -25,8 +25,8 @@
 - **Tags (Appended) status:** 🟢 Good
 
 ### 🔗 Merged Data Health
-- **Merged paintings:** 3,171
-- **Merged file size:** 6.55 MB (164,784 lines)
+- **Merged paintings:** 3,282
+- **Merged file size:** 6.87 MB (171,699 lines)
 - **Merged file status:** 🟢 Good
 - **Total unique artists in paintings:** 81
 
@@ -36,23 +36,23 @@
 - **Missing artists:** Alf Lundeby, Cora Sandel, Inger Sitter, Martin Aagaard, Paul René Gauguin
 - **Bios without paintings:** 15
 - **Orphaned bios status:** 🟡 Warning - 15 bios without paintings
-- **Merged vs Appended:** 3,171 merged / 3,171 appended
+- **Merged vs Appended:** 3,282 merged / 3,282 appended
 - **Merge consistency:** 🟢 Good - Counts match
 
 ### 💡 Performance Recommendations
 - 💡 **Good collection size:** Continue collecting for variety
 
 ## Quiz Categories
-- **Full Collection:** 3171 paintings, 81 painters
-- **Popular Painters:** 1431 paintings, 10 painters
-- **Landscape Painting:** 1701 paintings, 41 painters
-- **Portraits:** 556 paintings, 34 painters
-- **Women Painters:** 256 paintings, 8 painters
-- **19th Century:** 2803 paintings, 53 painters
+- **Full Collection:** 3282 paintings, 81 painters
+- **Popular Painters:** 1513 paintings, 10 painters
+- **Landscape Painting:** 1745 paintings, 41 painters
+- **Portraits:** 584 paintings, 34 painters
+- **Women Painters:** 259 paintings, 8 painters
+- **19th Century:** 2919 paintings, 53 painters
 - **20th Century:** 93 paintings, 20 painters
-- **Impressionism:** 377 paintings, 9 painters
-- **Expressionism:** 249 paintings, 5 painters
-- **Norwegian Romantic:** 696 paintings, 7 painters
+- **Impressionism:** 392 paintings, 9 painters
+- **Expressionism:** 253 paintings, 5 painters
+- **Norwegian Romantic:** 765 paintings, 7 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33
@@ -198,39 +198,39 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 - **Duplicate status:** 🟢 Good - No exact duplicates
 - **URL duplicates:** 0 (same image in multiple categories)
 - **URL duplicate status:** 🟢 Good - No URL duplicates
-- **Title duplicates:** 348 (same painting, different sources)
-- **Title duplicate status:** 🟡 Warning - 348 titles appear multiple times
+- **Title duplicates:** 355 (same painting, different sources)
+- **Title duplicate status:** 🟡 Warning - 355 titles appear multiple times
 - **Sample title duplicates:**
   - "Bjørnstjerne Bjørnson Speaking to the People title QS:P1476,en:"Bjørnstjerne Bjørnson Speaking to the People " label QS:Len,"Bjørnstjerne Bjørnson Speaking to the People " label QS:Lnb,"Bjørnstjerne Bjørnson som folketaler" label QS:Lfr,"Bjørnstjerne Bjørnson s'adressant au peuple"": 2 times
   - "Elm Forest in Autumn title QS:P1476,en:"Elm Forest in Autumn " label QS:Len,"Elm Forest in Autumn " label QS:Lnb,"Høst i almeskogen" label QS:Lfr,"forêt d'ormes en automne"": 2 times
   - "Winter in Kragerø title QS:P1476,en:"Winter in Kragerø " label QS:Len,"Winter in Kragerø " label QS:Lfr,"Hiver à Kragerø" label QS:Lde,"Winterlandschaft, Kragerö" label QS:Lnb,"Vinter i Kragerø"": 2 times
 
 ## 📏 Image Size Analysis
-- **Total analyzed:** 2 paintings
-- **Unknown dimensions:** 3169 paintings
-- **Width range:** 400 - 758px (avg: 579px)
-- **Height range:** 257 - 960px (avg: 608px)
+- **Total analyzed:** 1 paintings
+- **Unknown dimensions:** 3281 paintings
+- **Width range:** 758 - 758px (avg: 758px)
+- **Height range:** 960 - 960px (avg: 960px)
 
 ### Image Size Distribution:
 - **Tiny (< 100px):** 0 paintings
 - **Small (100-200px):** 0 paintings
-- **Medium (200-500px):** 1 paintings
+- **Medium (200-500px):** 0 paintings
 - **Large (500-1000px):** 1 paintings
 - **Huge (> 1000px):** 0 paintings
-- **Unknown dimensions:** 3169 paintings
+- **Unknown dimensions:** 3281 paintings
 
 ### Filter Impact Analysis:
 - **Remove < 100px:** Would remove 0 paintings (0.0%)
 - **Remove < 200px:** Would remove 0 paintings (0.0%)
-- **Remove < 500px:** Would remove 1 paintings (0.0%)
+- **Remove < 500px:** Would remove 0 paintings (0.0%)
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
-- Painting: 2843
-- Landscape painting: 1652
-- Portrait painting: 447
-- Landscape: 312
-- Historical painting: 264
+- Painting: 2927
+- Landscape painting: 1695
+- Portrait painting: 458
+- Landscape: 324
+- Portrait: 280
 Smallest genres:
 - Performance art: 3
 - Graphic novel: 3
@@ -239,46 +239,46 @@ Smallest genres:
 - Printmaking: 2
 
 ## All Painters and Number of Paintings
-- Hans Gude: 212
-- Johan Christian Dahl: 196
+- Hans Gude: 231
 - Edvard Munch: 194
-- Erik Werenskiold: 157
-- Frits Thaulow: 127
-- Christian Krohg: 126
-- Eilif Peterssen: 122
+- Johan Christian Dahl: 191
+- Erik Werenskiold: 162
+- Adolph Tidemand: 139
+- Frits Thaulow: 132
+- Christian Krohg: 127
+- Eilif Peterssen: 125
 - Amaldus Nielsen: 110
-- Harald Sohlberg: 99
-- Adolph Tidemand: 88
+- Harald Sohlberg: 102
 - Harriet Backer: 87
 - Asta Nørregaard: 85
-- August Cappelen: 79
-- Peder Balke: 75
-- Nikolai Astrup: 71
+- Peder Balke: 80
+- August Cappelen: 80
+- Nikolai Astrup: 72
+- Lars Hertervig: 71
 - Peter Nicolai Arbo: 70
-- Lars Hertervig: 68
 - Knud Baade: 68
+- Peder Severin Krøyer: 55
 - Joachim Frich: 55
 - Theodor Kittelsen: 53
-- Peder Severin Krøyer: 53
-- Adelsteen Normann: 50
-- Thomas Fearnley: 45
+- Adelsteen Normann: 52
+- Thomas Fearnley: 48
+- Christian Skredsvig: 46
 - Kitty Lange Kielland: 44
-- Christian Skredsvig: 44
+- Ludvig Karsten: 41
 - Oscar Wergeland: 40
 - Carl Sundt-Hansen: 40
-- Ludvig Karsten: 37
-- Thorvald Erichsen: 37
+- Thorvald Erichsen: 39
 - Hans Dahl: 36
 - Thorolf Holmboe: 36
 - Jacob Gløersen: 35
+- Otto Sinding: 33
 - Gerhard Munthe: 33
-- Otto Sinding: 32
 - Gustav Wentzel: 30
+- Oda Krohg: 29
 - Johan Fredrik Eckersberg: 28
 - Martin Aagaard: 27
 - Morten Müller: 27
 - Henrik Lund: 27
-- Oda Krohg: 26
 - Halfdan Egedius: 25
 - Johannes Flintoe: 20
 - Axel Revold: 19
