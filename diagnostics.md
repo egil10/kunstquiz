@@ -2,17 +2,17 @@
 
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
-- **Paintings (Appended):** 9.56 MB (110,464 lines)
-- **Paintings (Merged):** 11.72 MB (227,739 lines)
+- **Paintings (Appended):** 9.54 MB (110,142 lines)
+- **Paintings (Merged):** 11.65 MB (225,932 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
 
 ### 🎨 Paintings Collection Health
-- **File size:** 9.56 MB (110,464 lines)
+- **File size:** 9.54 MB (110,142 lines)
 - **File size status:** 🟢 Good
 - **Line count status:** 🟡 Warning
-- **Total paintings:** 4,764
+- **Total paintings:** 4,716
 - **Collection size status:** 🟢 Good
 
 ### 👨‍🎨 Artist Data Health
@@ -25,8 +25,8 @@
 - **Tags (Appended) status:** 🟢 Good
 
 ### 🔗 Merged Data Health
-- **Merged paintings:** 4,764
-- **Merged file size:** 11.72 MB (227,739 lines)
+- **Merged paintings:** 4,716
+- **Merged file size:** 11.65 MB (225,932 lines)
 - **Merged file status:** 🟢 Good
 - **Total unique artists in paintings:** 85
 
@@ -36,23 +36,23 @@
 - **Missing artists:** Alf Lundeby, Cora Sandel, Hariton Pushwagner, Inger Sitter, Johan Christian Clausen Dahl, Kitty Kielland, Martin Aagaard, Olaf Leonhard Gulbransson, Paul René Gauguin
 - **Bios without paintings:** 15
 - **Orphaned bios status:** 🟡 Warning - 15 bios without paintings
-- **Merged vs Appended:** 4,764 merged / 4,764 appended
+- **Merged vs Appended:** 4,716 merged / 4,716 appended
 - **Merge consistency:** 🟢 Good - Counts match
 
 ### 💡 Performance Recommendations
 - 💡 **Good collection size:** Continue collecting for variety
 
 ## Quiz Categories
-- **Full Collection:** 4764 paintings, 85 painters
-- **Popular Painters:** 2239 paintings, 10 painters
-- **Landscape Painting:** 2560 paintings, 41 painters
-- **Portraits:** 934 paintings, 34 painters
+- **Full Collection:** 4716 paintings, 85 painters
+- **Popular Painters:** 2210 paintings, 10 painters
+- **Landscape Painting:** 2541 paintings, 41 painters
+- **Portraits:** 914 paintings, 34 painters
 - **Women Painters:** 290 paintings, 8 painters
-- **19th Century:** 3845 paintings, 53 painters
-- **20th Century:** 142 paintings, 20 painters
-- **Impressionism:** 525 paintings, 9 painters
+- **19th Century:** 3806 paintings, 53 painters
+- **20th Century:** 141 paintings, 20 painters
+- **Impressionism:** 519 paintings, 9 painters
 - **Expressionism:** 321 paintings, 5 painters
-- **Norwegian Romantic:** 1197 paintings, 7 painters
+- **Norwegian Romantic:** 1189 paintings, 7 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33
@@ -220,74 +220,74 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 <div style="display: none;">label QS:Lfr,"Trois Petites Filles sur la plage"</div></div>": 2 times
 
 ## 📏 Image Size Analysis
-- **Total analyzed:** 890 paintings
-- **Unknown dimensions:** 3874 paintings
-- **Width range:** 103 - 996px (avg: 593px)
-- **Height range:** 111 - 999px (avg: 637px)
+- **Total analyzed:** 848 paintings
+- **Unknown dimensions:** 3868 paintings
+- **Width range:** 103 - 996px (avg: 592px)
+- **Height range:** 111 - 999px (avg: 636px)
 
 ### Image Size Distribution:
 - **Tiny (< 100px):** 0 paintings
-- **Small (100-200px):** 19 paintings
-- **Medium (200-500px):** 399 paintings
-- **Large (500-1000px):** 472 paintings
+- **Small (100-200px):** 18 paintings
+- **Medium (200-500px):** 381 paintings
+- **Large (500-1000px):** 449 paintings
 - **Huge (> 1000px):** 0 paintings
-- **Unknown dimensions:** 3874 paintings
+- **Unknown dimensions:** 3868 paintings
 
 ### Filter Impact Analysis:
 - **Remove < 100px:** Would remove 0 paintings (0.0%)
-- **Remove < 200px:** Would remove 19 paintings (0.4%)
-- **Remove < 500px:** Would remove 418 paintings (8.8%)
+- **Remove < 200px:** Would remove 18 paintings (0.4%)
+- **Remove < 500px:** Would remove 399 paintings (8.5%)
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
-- Painting: 3242
-- Landscape painting: 2503
-- Portrait painting: 641
-- landscape painting: 443
+- Painting: 3237
+- Landscape painting: 2484
+- Portrait painting: 631
+- landscape painting: 432
 - Landscape: 352
 Smallest genres:
-- Graphic novel: 5
 - Tonal painting: 4
 - Printmaking: 4
+- Graphic novel: 4
 - Satire: 3
 - Still Life: 2
 
 ## All Painters and Number of Paintings
-- Johan Christian Dahl: 494
-- Hans Gude: 308
-- Erik Werenskiold: 249
+- Johan Christian Dahl: 490
+- Hans Gude: 304
+- Erik Werenskiold: 242
 - Edvard Munch: 225
-- Christian Krohg: 221
-- Frits Thaulow: 163
-- Eilif Peterssen: 159
+- Christian Krohg: 216
+- Frits Thaulow: 161
+- Eilif Peterssen: 157
 - Adolph Tidemand: 149
-- Harald Sohlberg: 136
-- Amaldus Nielsen: 135
-- Johan Christian Clausen Dahl: 119
-- Lars Hertervig: 109
-- Asta Nørregaard: 107
+- Harald Sohlberg: 135
+- Amaldus Nielsen: 131
+- Johan Christian Clausen Dahl: 116
+- Lars Hertervig: 107
+- Asta Nørregaard: 106
 - Harriet Backer: 103
-- Nikolai Astrup: 103
+- Nikolai Astrup: 101
 - Peder Balke: 89
-- Peder Severin Krøyer: 88
 - August Cappelen: 87
 - Peter Nicolai Arbo: 85
+- Peder Severin Krøyer: 85
 - Knud Baade: 81
 - Joachim Frich: 76
 - Adelsteen Normann: 75
 - Ludvig Karsten: 73
 - Johannes Flintoe: 71
-- Oscar Wergeland: 61
 - Theodor Kittelsen: 60
+- Oscar Wergeland: 60
 - Thomas Fearnley: 59
-- Thorvald Erichsen: 56
+- Thorvald Erichsen: 55
 - Carl Sundt-Hansen: 51
 - Hans Dahl: 49
 - Christian Skredsvig: 48
-- Gustav Wentzel: 48
+- Gustav Wentzel: 47
 - Kitty Lange Kielland: 44
 - Thorolf Holmboe: 44
-- Johan Fredrik Eckersberg: 43
+- Johan Fredrik Eckersberg: 42
 - Henrik Lund: 42
 - Jacob Gløersen: 41
 - Gerhard Munthe: 38
@@ -295,8 +295,8 @@ Smallest genres:
 - Otto Sinding: 35
 - Martin Aagaard: 34
 - Oluf Wold-Torne: 32
-- Halfdan Egedius: 30
 - Morten Müller: 29
+- Halfdan Egedius: 28
 - Eyolf Soot: 28
 - Gunnar Berg: 26
 - Kjell Aukrust: 25
@@ -320,9 +320,9 @@ Smallest genres:
 - Kjartan Slettemark: 6
 - Arne Ekeland: 6
 - Jakob Weidemann: 5
-- Pushwagner: 5
 - Rolf Aamot: 4
 - Rolf Nesch: 4
+- Pushwagner: 4
 - Reidar Aulie: 4
 - Alf Lundeby: 4
 - Rolf Groven: 3
@@ -335,8 +335,8 @@ Smallest genres:
 - Paul René Gauguin: 2
 - Ludvig Eikaas: 2
 - Ida Lorentzen: 2
-- Hariton Pushwagner: 2
 - Kjell Nupen: 1
+- Hariton Pushwagner: 1
 - Olaf Leonhard Gulbransson: 1
 
 Diagnostics complete.

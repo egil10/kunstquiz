@@ -297,7 +297,7 @@ function loadQuiz() {
           hideMessage();
           loadQuiz();
         });
-      }, 900);
+      }, 500);
     };
     optionsDiv.appendChild(btn);
   });
@@ -472,7 +472,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     }, 100);
   } else {
     popup.className = 'artist-popup toast';
-    setTimeout(() => hidePopup(popup, onDone), 3500);
+    setTimeout(() => hidePopup(popup, onDone), 2500);
   }
 }
 

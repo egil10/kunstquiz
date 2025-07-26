@@ -3,6 +3,13 @@
 # Lines starting with # or // are ignored
 # Lines without http are ignored
 
+https://upload.wikimedia.org/wikipedia/commons/7/79/Personal_vid_Nordiska_Radets_session_i_Oslo_2007.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/9/9c/Illustration-page57-Sagobok_f%C3%B6r_barn_djvu.jpg/120px-Illustration-page57-Sagobok_f%C3%B6r_barn_djvu.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Eilif_Peterssen_-_Portrait_of_Mor_Utne_-_Mor_Utne_-_Nasjonalmuseet_-_NG.M.00358.png/120px-Eilif_Peterssen_-_Portrait_of_Mor_Utne_-_Mor_Utne_-_Nasjonalmuseet_-_NG.M.00358.png
+https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Nikolai_Astrup_-_Landscape_with_Figures_-_NG.M.02188_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Nikolai_Astrup_-_Landscape_with_Figures_-_NG.M.02188_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Christian_Krohg_-_Ragna_Marie_Wettergreen_-_Norsk_portrettarkiv_-_Riksantikvaren_-_W000613_%28cropped%29.jpg/120px-Christian_Krohg_-_Ragna_Marie_Wettergreen_-_Norsk_portrettarkiv_-_Riksantikvaren_-_W000613_%28cropped%29.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Johan_Christian_Dahl_-_View_of_Fortundalen_-_NG.M.01205_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Johan_Christian_Dahl_-_View_of_Fortundalen_-_NG.M.01205_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/DOMKIRKEN_KRISTIANSAND_Norway_Nygotisk_korskirke_Thrap-Meyer_1885_Cathedral_Neo-Gothic_church_2023-10-18_INTERIOR_Alter_altertavle_av_Eilif_Peterssen_alterring_koret_Altar_piece_etc_IMG_3915.jpg/120px-thumbnail.jpg
 https://upload.wikimedia.org/wikipedia/commons/b/b5/Da_Vinci_Bridge.jpg
 https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Frits_Thaulow_Fra_Stortings_plass_1881.jpg/120px-Frits_Thaulow_Fra_Stortings_plass_1881.jpg
 https://upload.wikimedia.org/wikipedia/commons/thumb/0/0f/Johan_Christian_Clausen_Dahl_-_Landskab%2C_vandfald_-_Statens_Museum_for_Kunst_-_KMS1254.jpg/250px-Johan_Christian_Clausen_Dahl_-_Landskab%2C_vandfald_-_Statens_Museum_for_Kunst_-_KMS1254.jpg
@@ -37,3 +44,14 @@ https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Fra_Hardanger_Gude.jpg
 https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Lars_Hertervig_-_View_of_Tysv%C3%A6r_-_NG.M.01026_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Lars_Hertervig_-_View_of_Tysv%C3%A6r_-_NG.M.01026_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
 https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Hariton_Pushwagner.jpg/120px-Hariton_Pushwagner.jpg
 https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Rocky_Landscape_in_the_Elbe_Sandstone_Mountains_-_Caspar_David_Friedrich_-_Google_Cultural_Institute.jpg/120px-Rocky_Landscape_in_the_Elbe_Sandstone_Mountains_-_Caspar_David_Friedrich_-_Google_Cultural_Institute.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Johan_Christian_Dahl_-_Cloud_Study_-_LKM.000484_-_Lillehammer_Kunstmuseum_%28cropped%29.jpg/330px-Johan_Christian_Dahl_-_Cloud_Study_-_LKM.000484_-_Lillehammer_Kunstmuseum_%28cropped%29.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Peder_Severin_Kr%C3%B8yer_-_Portrett_av_Fru_Prof._Cecilie_Kr%C3%B8yer_%28f._Gjesdal%29%2C_malerens_adoptivmor_-_Stavanger_kunstmuseum_-_SG.0001.jpg/120px-Peder_Severin_Kr%C3%B8yer_-_Portrett_av_Fru_Prof._Cecilie_Kr%C3%B8yer_%28f._Gjesdal%29%2C_malerens_adoptivmor_-_Stavanger_kunstmuseum_-_SG.0001.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Christian_Krohg_-_Portrait_of_Sina_-_Sina_-_Nasjonalmuseet_-_NG.M.00965.jpg/120px-Christian_Krohg_-_Portrait_of_Sina_-_Sina_-_Nasjonalmuseet_-_NG.M.00965.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Landscape-with-a-Lake.jpg/120px-Landscape-with-a-Lake.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Halfdan_Egedius_-_Summer%2C_B%C3%B8_in_Telemark_-_NG.M.00516_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg/120px-Halfdan_Egedius_-_Summer%2C_B%C3%B8_in_Telemark_-_NG.M.00516_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Amaldus_Nielsen_-_In_a_lonely_Place._%28Hoven_near_Mandal%29_-_Ensomt_sted._%28Hoven_ved_Mandal%29_-_Nasjonalmuseet_-_NG.M.00619.png/120px-Amaldus_Nielsen_-_In_a_lonely_Place._%28Hoven_near_Mandal%29_-_Ensomt_sted._%28Hoven_ved_Mandal%29_-_Nasjonalmuseet_-_NG.M.00619.png
+https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Christian_Krohg_Lille_Ebbe_Leser_%281920%29.jpg/120px-Christian_Krohg_Lille_Ebbe_Leser_%281920%29.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Hans_Gude--Fra_Chiemsee--1868.jpg/120px-Hans_Gude--Fra_Chiemsee--1868.jpg
+https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Peder_Severin_Kr%C3%B8yer_-_Ved_Civitas_stadport_-_1890.png/120px-Peder_Severin_Kr%C3%B8yer_-_Ved_Civitas_stadport_-_1890.png
+https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/DOMKIRKEN_KRISTIANSAND_Norway_Nygotisk_korskirke_Thrap-Meyer_1885_Cathedral_Neo-Gothic_church_2023-10-18_INTERIOR_Alter_altertavle_av_Eilif_Peterssen_alterring_koret_Altar_piece_etc_IMG_3915.jpg/120px-thumbnail.jpg
+
