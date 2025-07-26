@@ -23,6 +23,9 @@ python collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintin
 # Skip subcategories (only fetch from main category)
 python collect_art.py --url "main_category_url" --no-subcategories
 
+# Randomize URL order for organic collection
+python collect_art.py --file urls.txt --randomize --total-max 100 --quiet
+
 # Full workflow with diagnostics
 python collect_art.py --file urls.txt --max 50 --total-max 200 --quiet --merge --diagnose
 
@@ -41,6 +44,7 @@ ARGUMENTS:
 --total-max: Maximum total paintings for entire script run (default: no limit)
 --quiet: Reduce verbose output
 --no-subcategories: Skip subcategory processing
+--randomize: Randomize URL order for organic collection
 --merge: Run merge script after collection
 --diagnose: Run diagnostics after merge
 
@@ -57,6 +61,7 @@ import os
 import sys
 import re
 import requests
+import random
 from bs4 import BeautifulSoup
 from collections import Counter
 import subprocess
@@ -142,7 +147,7 @@ def fetch_commons_unified(url, max_images=None, total_max=None, follow_subcatego
                 else:
                     remaining = max_images
                 
-                subcategory_images = fetch_commons_unified(subcategory_url, remaining, total_max=None, follow_subcategories=False, quiet=quiet)
+                subcategory_images = fetch_commons_unified(subcategory_url, remaining, remaining, follow_subcategories=False, quiet=quiet)
                 
                 # Add subcategory images to our collection
                 for img in subcategory_images:
@@ -260,7 +265,7 @@ def fetch_commons_unified(url, max_images=None, total_max=None, follow_subcatego
             next_url = 'https://commons.wikimedia.org' + nextlink['href']
             print(f'Found next page, fetching: {next_url}')
             remaining = max_images - len(gallery_images) if max_images else None
-            next_images = fetch_commons_unified(next_url, remaining, total_max=None, follow_subcategories=False, quiet=quiet)
+            next_images = fetch_commons_unified(next_url, remaining, remaining, follow_subcategories=False, quiet=quiet)
             gallery_images.extend(next_images)
     
     # Remove duplicates based on URL
@@ -302,6 +307,7 @@ def main():
     parser.add_argument('--total-max', type=int, help='Maximum total paintings to collect across all subcategories')
     parser.add_argument('--quiet', action='store_true', help='Reduce verbose output')
     parser.add_argument('--no-subcategories', action='store_true', help='Skip subcategories and only fetch from main category')
+    parser.add_argument('--randomize', action='store_true', help='Randomize the order of URLs for more organic collection')
     parser.add_argument('--merge', action='store_true', help='Run merge script after appending')
     parser.add_argument('--diagnose', action='store_true', help='Run diagnostics after merge')
     args = parser.parse_args()
@@ -322,6 +328,12 @@ def main():
 
     all_new_paintings = []
     total_collected = 0
+
+    # Randomize URL order if requested
+    if args.randomize and urls:
+        random.shuffle(urls)
+        if not args.quiet:
+            print(f'🔀 Randomized order of {len(urls)} URLs for organic collection')
 
     # --- Manual mode: URLs ---
     for url in urls:
