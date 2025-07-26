@@ -34,9 +34,9 @@ def save_json(data, filepath):
         print(f"ERROR: Could not save {filepath}: {e}")
         return False
 
-def extract_dimensions_from_url(url):
+def extract_dimensions_from_url(url, title=None):
     """
-    Extract image dimensions from Wikimedia Commons URL.
+    Extract image dimensions from Wikimedia Commons URL or title.
     Returns (width, height) or (None, None) if not found.
     """
     try:
@@ -54,6 +54,8 @@ def extract_dimensions_from_url(url):
             r'-(\d+)x(\d+)\.',  # dash separator
             r'_(\d+)×(\d+)\.',  # underscore with × symbol
             r'-(\d+)×(\d+)\.',  # dash with × symbol
+            r'(\d+)x(\d+)\.',   # direct pattern
+            r'(\d+)×(\d+)\.',   # direct pattern with × symbol
         ]
         
         for pattern in dimension_patterns:
@@ -62,6 +64,23 @@ def extract_dimensions_from_url(url):
                 width = int(match.group(1))
                 height = int(match.group(2))
                 return width, height
+        
+        # If not found in URL, check the title field
+        if title:
+            # Look for patterns like "400 × 257; 53 KB" or "618 × 811; 176 KB"
+            title_patterns = [
+                r'(\d+)\s*×\s*(\d+);',  # "400 × 257; 53 KB"
+                r'(\d+)\s*x\s*(\d+);',  # "400 x 257; 53 KB"
+                r'(\d+)\s*×\s*(\d+)',   # "400 × 257" (no semicolon)
+                r'(\d+)\s*x\s*(\d+)',   # "400 x 257" (no semicolon)
+            ]
+            
+            for pattern in title_patterns:
+                match = re.search(pattern, title)
+                if match:
+                    width = int(match.group(1))
+                    height = int(match.group(2))
+                    return width, height
         
         return None, None
     except Exception:
@@ -74,6 +93,7 @@ def is_small_image(width, height, min_width=200, min_height=200):
     """
     if width is None or height is None:
         # If we can't determine dimensions, keep the image
+        # This is conservative - we don't want to accidentally remove good images
         return False
     
     return width < min_width or height < min_height
@@ -89,7 +109,8 @@ def remove_small_images(paintings, min_width=200, min_height=200, dry_run=False)
     
     for painting in paintings:
         url = painting.get('url', '')
-        width, height = extract_dimensions_from_url(url)
+        title = painting.get('title', '')
+        width, height = extract_dimensions_from_url(url, title)
         
         if is_small_image(width, height, min_width, min_height):
             removed_count += 1
@@ -112,10 +133,10 @@ def main():
                        help='Input JSON file (default: data/paintings_merged.json)')
     parser.add_argument('--output', default='data/paintings_merged.json',
                        help='Output JSON file (default: data/paintings_merged.json)')
-    parser.add_argument('--min-width', type=int, default=200,
-                       help='Minimum image width in pixels (default: 200)')
-    parser.add_argument('--min-height', type=int, default=200,
-                       help='Minimum image height in pixels (default: 200)')
+    parser.add_argument('--min-width', type=int, default=100,
+                       help='Minimum image width in pixels (default: 100)')
+    parser.add_argument('--min-height', type=int, default=100,
+                       help='Minimum image height in pixels (default: 100)')
     parser.add_argument('--dry-run', action='store_true',
                        help='Show what would be removed without making changes')
     parser.add_argument('--clean-both', action='store_true',

@@ -84,9 +84,9 @@ def check_health_status(value, thresholds):
     else:
         return '🔴 Critical'
 
-def extract_dimensions_from_url(url):
+def extract_dimensions_from_url(url, title=None):
     """
-    Extract image dimensions from Wikimedia Commons URL.
+    Extract image dimensions from Wikimedia Commons URL or title.
     Returns (width, height) or (None, None) if not found.
     """
     try:
@@ -104,6 +104,8 @@ def extract_dimensions_from_url(url):
             r'-(\d+)x(\d+)\.',  # dash separator
             r'_(\d+)×(\d+)\.',  # underscore with × symbol
             r'-(\d+)×(\d+)\.',  # dash with × symbol
+            r'(\d+)x(\d+)\.',   # direct pattern
+            r'(\d+)×(\d+)\.',   # direct pattern with × symbol
         ]
         
         for pattern in dimension_patterns:
@@ -112,6 +114,23 @@ def extract_dimensions_from_url(url):
                 width = int(match.group(1))
                 height = int(match.group(2))
                 return width, height
+        
+        # If not found in URL, check the title field
+        if title:
+            # Look for patterns like "400 × 257; 53 KB" or "618 × 811; 176 KB"
+            title_patterns = [
+                r'(\d+)\s*×\s*(\d+);',  # "400 × 257; 53 KB"
+                r'(\d+)\s*x\s*(\d+);',  # "400 x 257; 53 KB"
+                r'(\d+)\s*×\s*(\d+)',   # "400 × 257" (no semicolon)
+                r'(\d+)\s*x\s*(\d+)',   # "400 x 257" (no semicolon)
+            ]
+            
+            for pattern in title_patterns:
+                match = re.search(pattern, title)
+                if match:
+                    width = int(match.group(1))
+                    height = int(match.group(2))
+                    return width, height
         
         return None, None
     except Exception:
@@ -137,7 +156,8 @@ def analyze_image_sizes(paintings):
     
     for painting in paintings:
         url = painting.get('url', '')
-        width, height = extract_dimensions_from_url(url)
+        title = painting.get('title', '')
+        width, height = extract_dimensions_from_url(url, title)
         
         if width is None or height is None:
             size_categories['unknown'] += 1

@@ -1,6 +1,7 @@
 #Hans Gude
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Hans_Gude
 #Johan Christian Dahl
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Johan_Christian_Clausen_Dahl
 #Edvard Munch
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Edvard_Munch
 #Erik Werenskiold
@@ -50,6 +51,7 @@ https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Skredsvig
 #Oscar Wergeland
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Oscar_Wergeland
 #Kitty Lange Kielland
+https://commons.wikimedia.org/wiki/Category:Paintings_by_Kitty_Kielland
 #Thorvald Erichsen
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Thorvald_Erichsen
 #Carl Sundt-Hansen
@@ -83,49 +85,75 @@ https://commons.wikimedia.org/wiki/Category:Paintings_by_Halfdan_Egedius
 #Eyolf Soot
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Eyolf_Soot
 #Axel Revold
+https://commons.wikimedia.org/wiki/Category:Axel_Revold
 #Peder Aadnes
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Peder_Aadnes
 #Gunnar Berg
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Gunnar_Berg
 #Henrik Sørensen
+https://commons.wikimedia.org/wiki/Category:Henrik_Sørensen
 #Bjarne Ness
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Bjarne_Ness
 #Oluf Wold-Torne
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Oluf_Wold-Torne
 #Kjell Aukrust
+https://commons.wikimedia.org/wiki/Category:Kjell_Aukrust
 #Vebjørn Sand
+https://commons.wikimedia.org/wiki/Category:Vebjørn_Sand
 #Nils Hansteen
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Nils_Hansteen
 #Olaf Gulbransson
+https://commons.wikimedia.org/wiki/Category:Olaf_Leonhard_Gulbransson
 #Per Krohg
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Per_Krohg
 #Bernt Lund
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Bernt_Lund
 #Håkon Gullvåg
+https://commons.wikimedia.org/wiki/Category:Håkon_Gullvåg
 #Søren Onsager
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Søren_Onsager
 #Nils Gude
 https://commons.wikimedia.org/wiki/Category:Paintings_by_Nils_Gude
 #Cora Sandel
+https://commons.wikimedia.org/wiki/Category:Cora_Sandel
 #Inger Sitter
+https://commons.wikimedia.org/wiki/Category:Inger_Sitter
 #Håkon Bleken
+https://commons.wikimedia.org/wiki/Category:Håkon_Bleken
 #Kjell Pahr-Iversen
+https://commons.wikimedia.org/wiki/Category:Kjell_Pahr-Iversen
 #Pushwagner
+https://commons.wikimedia.org/wiki/Category:Hariton_Pushwagner
 #Arne Ekeland
+https://commons.wikimedia.org/wiki/Category:Arne_Ekeland
 #Alf Lundeby
+https://commons.wikimedia.org/wiki/Category:Alf_Lundeby
 #Jakob Weidemann
+https://commons.wikimedia.org/wiki/Category:Jakob_Weidemann
 #Rolf Groven
+https://commons.wikimedia.org/wiki/Category:Rolf_Groven
 #Frans Widerberg
+https://commons.wikimedia.org/wiki/Category:Frans_Widerberg
 #Kjartan Slettemark
+https://commons.wikimedia.org/wiki/Category:Kjartan_Slettemark
 #Kai Fjell
+https://commons.wikimedia.org/wiki/Category:Kai_Fjell
 #Marianne Aulie
+https://commons.wikimedia.org/wiki/Category:Marianne_Aulie
 #Odd Nerdrum
+https://commons.wikimedia.org/wiki/Category:Odd_Nerdrum
 #Rolf Aamot
+https://commons.wikimedia.org/wiki/Category:Rolf_Aamot
 #Jean Heiberg
 #Paul René Gauguin
 #Pola Gauguin
+https://commons.wikimedia.org/wiki/Category:Pola_Gauguin
 #Rolf Nesch
+https://commons.wikimedia.org/wiki/Category:Rolf_Nesch
 #Ludvig Eikaas
+https://commons.wikimedia.org/wiki/Category:Ludvig_Eikaas
 #Reidar Aulie
+https://commons.wikimedia.org/wiki/Category:Reidar_Aulie
 #Kjell Nupen
 #Ida Lorentzen
+https://commons.wikimedia.org/wiki/Category:Ida_Lorentzen

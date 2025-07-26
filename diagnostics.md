@@ -220,23 +220,23 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 <div style="display: none;">label QS:Lfr,"Trois Petites Filles sur la plage"</div></div>": 2 times
 
 ## 📏 Image Size Analysis
-- **Total analyzed:** 3 paintings
-- **Unknown dimensions:** 5098 paintings
-- **Width range:** 400 - 758px (avg: 519px)
-- **Height range:** 257 - 960px (avg: 491px)
+- **Total analyzed:** 1227 paintings
+- **Unknown dimensions:** 3874 paintings
+- **Width range:** 0 - 997px (avg: 423px)
+- **Height range:** 1 - 999px (avg: 252px)
 
 ### Image Size Distribution:
-- **Tiny (< 100px):** 0 paintings
-- **Small (100-200px):** 0 paintings
-- **Medium (200-500px):** 2 paintings
-- **Large (500-1000px):** 1 paintings
+- **Tiny (< 100px):** 835 paintings
+- **Small (100-200px):** 9 paintings
+- **Medium (200-500px):** 190 paintings
+- **Large (500-1000px):** 193 paintings
 - **Huge (> 1000px):** 0 paintings
-- **Unknown dimensions:** 5098 paintings
+- **Unknown dimensions:** 3874 paintings
 
 ### Filter Impact Analysis:
-- **Remove < 100px:** Would remove 0 paintings (0.0%)
-- **Remove < 200px:** Would remove 0 paintings (0.0%)
-- **Remove < 500px:** Would remove 2 paintings (0.0%)
+- **Remove < 100px:** Would remove 835 paintings (16.4%)
+- **Remove < 200px:** Would remove 844 paintings (16.5%)
+- **Remove < 500px:** Would remove 1034 paintings (20.3%)
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
