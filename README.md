@@ -55,6 +55,7 @@ The `diagnostics.py` script checks for data consistency, category coverage, and 
 - 1800s
 - National Museum of Norway
 - Women Painters
+- This is pre major clean up
 
 ## 🤝 Contributing
 Pull requests and suggestions are welcome! See [issues](https://github.com/egil10/kunstquiz/issues) or open a PR.
