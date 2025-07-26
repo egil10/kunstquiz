@@ -84,6 +84,102 @@ def check_health_status(value, thresholds):
     else:
         return '🔴 Critical'
 
+def extract_dimensions_from_url(url):
+    """
+    Extract image dimensions from Wikimedia Commons URL.
+    Returns (width, height) or (None, None) if not found.
+    """
+    try:
+        from urllib.parse import urlparse
+        import os
+        
+        # Parse the URL to get the filename
+        parsed = urlparse(url)
+        filename = os.path.basename(parsed.path)
+        
+        # Look for dimensions in the filename
+        # Common patterns: filename_123x456.jpg, filename-123x456.jpg
+        dimension_patterns = [
+            r'_(\d+)x(\d+)\.',  # underscore separator
+            r'-(\d+)x(\d+)\.',  # dash separator
+            r'_(\d+)×(\d+)\.',  # underscore with × symbol
+            r'-(\d+)×(\d+)\.',  # dash with × symbol
+        ]
+        
+        for pattern in dimension_patterns:
+            match = re.search(pattern, filename)
+            if match:
+                width = int(match.group(1))
+                height = int(match.group(2))
+                return width, height
+        
+        return None, None
+    except Exception:
+        return None, None
+
+def analyze_image_sizes(paintings):
+    """
+    Analyze image sizes in the collection.
+    Returns size distribution and statistics.
+    """
+    size_categories = {
+        'tiny': 0,      # < 100px
+        'small': 0,     # 100-200px
+        'medium': 0,    # 200-500px
+        'large': 0,     # 500-1000px
+        'huge': 0,      # > 1000px
+        'unknown': 0    # can't determine
+    }
+    
+    width_stats = []
+    height_stats = []
+    dimension_pairs = []
+    
+    for painting in paintings:
+        url = painting.get('url', '')
+        width, height = extract_dimensions_from_url(url)
+        
+        if width is None or height is None:
+            size_categories['unknown'] += 1
+            continue
+        
+        # Store stats
+        width_stats.append(width)
+        height_stats.append(height)
+        dimension_pairs.append((width, height))
+        
+        # Categorize by smallest dimension
+        min_dim = min(width, height)
+        if min_dim < 100:
+            size_categories['tiny'] += 1
+        elif min_dim < 200:
+            size_categories['small'] += 1
+        elif min_dim < 500:
+            size_categories['medium'] += 1
+        elif min_dim < 1000:
+            size_categories['large'] += 1
+        else:
+            size_categories['huge'] += 1
+    
+    # Calculate statistics
+    stats = {
+        'categories': size_categories,
+        'total_analyzed': len(width_stats),
+        'total_unknown': size_categories['unknown'],
+        'width_stats': {
+            'min': min(width_stats) if width_stats else 0,
+            'max': max(width_stats) if width_stats else 0,
+            'avg': sum(width_stats) // len(width_stats) if width_stats else 0
+        },
+        'height_stats': {
+            'min': min(height_stats) if height_stats else 0,
+            'max': max(height_stats) if height_stats else 0,
+            'avg': sum(height_stats) // len(height_stats) if height_stats else 0
+        }
+    }
+    
+    return stats
+
 def main():
     # Check for required files
     required_files = [PAINTINGS_FILE, BIOS_FILE]
@@ -367,7 +463,36 @@ def main():
     else:
         lines.append(f'- **Title duplicate status:** 🟢 Good - No title duplicates')
 
-    # 6. Largest/smallest categories
+    # 6. Image Size Analysis
+    lines.append('\n## 📏 Image Size Analysis')
+    image_stats = analyze_image_sizes(paintings)
+    
+    lines.append(f'- **Total analyzed:** {image_stats["total_analyzed"]} paintings')
+    lines.append(f'- **Unknown dimensions:** {image_stats["total_unknown"]} paintings')
+    
+    if image_stats["total_analyzed"] > 0:
+        lines.append(f'- **Width range:** {image_stats["width_stats"]["min"]} - {image_stats["width_stats"]["max"]}px (avg: {image_stats["width_stats"]["avg"]}px)')
+        lines.append(f'- **Height range:** {image_stats["height_stats"]["min"]} - {image_stats["height_stats"]["max"]}px (avg: {image_stats["height_stats"]["avg"]}px)')
+    
+    lines.append('\n### Image Size Distribution:')
+    categories = image_stats["categories"]
+    lines.append(f'- **Tiny (< 100px):** {categories["tiny"]} paintings')
+    lines.append(f'- **Small (100-200px):** {categories["small"]} paintings')
+    lines.append(f'- **Medium (200-500px):** {categories["medium"]} paintings')
+    lines.append(f'- **Large (500-1000px):** {categories["large"]} paintings')
+    lines.append(f'- **Huge (> 1000px):** {categories["huge"]} paintings')
+    lines.append(f'- **Unknown dimensions:** {categories["unknown"]} paintings')
+    
+    # Calculate what would be removed with different filters
+    tiny_and_small = categories["tiny"] + categories["small"]
+    tiny_small_medium = tiny_and_small + categories["medium"]
+    
+    lines.append('\n### Filter Impact Analysis:')
+    lines.append(f'- **Remove < 100px:** Would remove {categories["tiny"]} paintings ({categories["tiny"]/len(paintings)*100:.1f}%)')
+    lines.append(f'- **Remove < 200px:** Would remove {tiny_and_small} paintings ({tiny_and_small/len(paintings)*100:.1f}%)')
+    lines.append(f'- **Remove < 500px:** Would remove {tiny_small_medium} paintings ({tiny_small_medium/len(paintings)*100:.1f}%)')
+
+    # 7. Largest/smallest categories
     lines.append('\n## Largest/Smallest Categories (by genre)')
     genre_painting_counts = Counter()
     for p in paintings:
@@ -381,7 +506,7 @@ def main():
         for g, c in genre_painting_counts.most_common()[-5:]:
             lines.append(f'- {g}: {c}')
 
-    # 7. List all painters and their number of paintings
+    # 8. List all painters and their number of paintings
     lines.append('\n## All Painters and Number of Paintings')
     painter_counts = Counter(p['artist'] for p in paintings if p.get('artist'))
     for artist, count in painter_counts.most_common():

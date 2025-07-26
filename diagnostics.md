@@ -219,6 +219,25 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 <div style="display: none;">label QS:Lnb,"Tre småpiker på stranden"</div>
 <div style="display: none;">label QS:Lfr,"Trois Petites Filles sur la plage"</div></div>": 2 times
 
+## 📏 Image Size Analysis
+- **Total analyzed:** 3 paintings
+- **Unknown dimensions:** 5098 paintings
+- **Width range:** 400 - 758px (avg: 519px)
+- **Height range:** 257 - 960px (avg: 491px)
+
+### Image Size Distribution:
+- **Tiny (< 100px):** 0 paintings
+- **Small (100-200px):** 0 paintings
+- **Medium (200-500px):** 2 paintings
+- **Large (500-1000px):** 1 paintings
+- **Huge (> 1000px):** 0 paintings
+- **Unknown dimensions:** 5098 paintings
+
+### Filter Impact Analysis:
+- **Remove < 100px:** Would remove 0 paintings (0.0%)
+- **Remove < 200px:** Would remove 0 paintings (0.0%)
+- **Remove < 500px:** Would remove 2 paintings (0.0%)
+
 ## Largest/Smallest Categories (by genre)
 Largest genres:
 - Painting: 3294
