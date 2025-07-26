@@ -2,17 +2,17 @@
 
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
-- **Paintings (Appended):** 8.96 MB (102,676 lines)
-- **Paintings (Merged):** 11.52 MB (222,869 lines)
+- **Paintings (Appended):** 9.56 MB (110,464 lines)
+- **Paintings (Merged):** 11.72 MB (227,739 lines)
 - **Artist Bios:** 0.05 MB (1,185 lines)
 - **Artist Tags:** 0.06 MB (1,312 lines)
 - **Artist Tags (Appended):** 0.06 MB (1,312 lines)
 
 ### 🎨 Paintings Collection Health
-- **File size:** 8.96 MB (102,676 lines)
+- **File size:** 9.56 MB (110,464 lines)
 - **File size status:** 🟢 Good
 - **Line count status:** 🟡 Warning
-- **Total paintings:** 4,539
+- **Total paintings:** 4,764
 - **Collection size status:** 🟢 Good
 
 ### 👨‍🎨 Artist Data Health
@@ -25,33 +25,33 @@
 - **Tags (Appended) status:** 🟢 Good
 
 ### 🔗 Merged Data Health
-- **Merged paintings:** 4,539
-- **Merged file size:** 11.52 MB (222,869 lines)
+- **Merged paintings:** 4,764
+- **Merged file size:** 11.72 MB (227,739 lines)
 - **Merged file status:** 🟢 Good
-- **Total unique artists in paintings:** 83
+- **Total unique artists in paintings:** 85
 
 ### 🔍 Data Consistency Checks
-- **Artists without bios:** 7
-- **Missing bios status:** 🟡 Warning - 7 artists need bios
-- **Missing artists:** Alf Lundeby, Cora Sandel, Hariton Pushwagner, Inger Sitter, Johan Christian Clausen Dahl, Martin Aagaard, Paul René Gauguin
+- **Artists without bios:** 9
+- **Missing bios status:** 🟡 Warning - 9 artists need bios
+- **Missing artists:** Alf Lundeby, Cora Sandel, Hariton Pushwagner, Inger Sitter, Johan Christian Clausen Dahl, Kitty Kielland, Martin Aagaard, Olaf Leonhard Gulbransson, Paul René Gauguin
 - **Bios without paintings:** 15
 - **Orphaned bios status:** 🟡 Warning - 15 bios without paintings
-- **Merged vs Appended:** 4,539 merged / 4,539 appended
+- **Merged vs Appended:** 4,764 merged / 4,764 appended
 - **Merge consistency:** 🟢 Good - Counts match
 
 ### 💡 Performance Recommendations
 - 💡 **Good collection size:** Continue collecting for variety
 
 ## Quiz Categories
-- **Full Collection:** 4539 paintings, 83 painters
-- **Popular Painters:** 2173 paintings, 10 painters
-- **Landscape Painting:** 2526 paintings, 41 painters
-- **Portraits:** 885 paintings, 34 painters
+- **Full Collection:** 4764 paintings, 85 painters
+- **Popular Painters:** 2239 paintings, 10 painters
+- **Landscape Painting:** 2560 paintings, 41 painters
+- **Portraits:** 934 paintings, 34 painters
 - **Women Painters:** 290 paintings, 8 painters
-- **19th Century:** 3755 paintings, 53 painters
-- **20th Century:** 137 paintings, 20 painters
+- **19th Century:** 3845 paintings, 53 painters
+- **20th Century:** 142 paintings, 20 painters
 - **Impressionism:** 525 paintings, 9 painters
-- **Expressionism:** 312 paintings, 5 painters
+- **Expressionism:** 321 paintings, 5 painters
 - **Norwegian Romantic:** 1197 paintings, 7 painters
 
 ## All Genres (from bios)
@@ -220,30 +220,30 @@ Zacharias Martin Aagaard, Konrad Knudsen, Wilhelm Peters, Halvard Storm, Olav Ch
 <div style="display: none;">label QS:Lfr,"Trois Petites Filles sur la plage"</div></div>": 2 times
 
 ## 📏 Image Size Analysis
-- **Total analyzed:** 665 paintings
+- **Total analyzed:** 890 paintings
 - **Unknown dimensions:** 3874 paintings
-- **Width range:** 103 - 996px (avg: 580px)
-- **Height range:** 111 - 999px (avg: 629px)
+- **Width range:** 103 - 996px (avg: 593px)
+- **Height range:** 111 - 999px (avg: 637px)
 
 ### Image Size Distribution:
 - **Tiny (< 100px):** 0 paintings
-- **Small (100-200px):** 14 paintings
-- **Medium (200-500px):** 316 paintings
-- **Large (500-1000px):** 335 paintings
+- **Small (100-200px):** 19 paintings
+- **Medium (200-500px):** 399 paintings
+- **Large (500-1000px):** 472 paintings
 - **Huge (> 1000px):** 0 paintings
 - **Unknown dimensions:** 3874 paintings
 
 ### Filter Impact Analysis:
 - **Remove < 100px:** Would remove 0 paintings (0.0%)
-- **Remove < 200px:** Would remove 14 paintings (0.3%)
-- **Remove < 500px:** Would remove 330 paintings (7.3%)
+- **Remove < 200px:** Would remove 19 paintings (0.4%)
+- **Remove < 500px:** Would remove 418 paintings (8.8%)
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
-- Painting: 3233
-- Landscape painting: 2469
-- Portrait painting: 637
-- landscape painting: 438
+- Painting: 3242
+- Landscape painting: 2503
+- Portrait painting: 641
+- landscape painting: 443
 - Landscape: 352
 Smallest genres:
 - Graphic novel: 5
@@ -255,14 +255,15 @@ Smallest genres:
 ## All Painters and Number of Paintings
 - Johan Christian Dahl: 494
 - Hans Gude: 308
-- Erik Werenskiold: 246
-- Edvard Munch: 216
-- Christian Krohg: 180
+- Erik Werenskiold: 249
+- Edvard Munch: 225
+- Christian Krohg: 221
 - Frits Thaulow: 163
 - Eilif Peterssen: 159
 - Adolph Tidemand: 149
-- Amaldus Nielsen: 134
-- Harald Sohlberg: 124
+- Harald Sohlberg: 136
+- Amaldus Nielsen: 135
+- Johan Christian Clausen Dahl: 119
 - Lars Hertervig: 109
 - Asta Nørregaard: 107
 - Harriet Backer: 103
@@ -272,13 +273,13 @@ Smallest genres:
 - August Cappelen: 87
 - Peter Nicolai Arbo: 85
 - Knud Baade: 81
+- Joachim Frich: 76
 - Adelsteen Normann: 75
 - Ludvig Karsten: 73
 - Johannes Flintoe: 71
-- Joachim Frich: 63
+- Oscar Wergeland: 61
 - Theodor Kittelsen: 60
 - Thomas Fearnley: 59
-- Oscar Wergeland: 57
 - Thorvald Erichsen: 56
 - Carl Sundt-Hansen: 51
 - Hans Dahl: 49
@@ -286,9 +287,9 @@ Smallest genres:
 - Gustav Wentzel: 48
 - Kitty Lange Kielland: 44
 - Thorolf Holmboe: 44
+- Johan Fredrik Eckersberg: 43
 - Henrik Lund: 42
-- Jacob Gløersen: 39
-- Johan Fredrik Eckersberg: 38
+- Jacob Gløersen: 41
 - Gerhard Munthe: 38
 - Oda Krohg: 37
 - Otto Sinding: 35
@@ -302,12 +303,13 @@ Smallest genres:
 - Bjarne Ness: 24
 - Axel Revold: 23
 - Peder Aadnes: 22
+- Vebjørn Sand: 18
 - Nils Hansteen: 17
 - Henrik Sørensen: 16
 - Per Krohg: 14
-- Vebjørn Sand: 14
 - Bernt Lund: 13
 - Håkon Gullvåg: 12
+- Kitty Kielland: 12
 - Nils Gude: 11
 - Olaf Gulbransson: 11
 - Cora Sandel: 10
@@ -332,9 +334,9 @@ Smallest genres:
 - Jean Heiberg: 2
 - Paul René Gauguin: 2
 - Ludvig Eikaas: 2
-- Johan Christian Clausen Dahl: 2
+- Ida Lorentzen: 2
 - Hariton Pushwagner: 2
 - Kjell Nupen: 1
-- Ida Lorentzen: 1
+- Olaf Leonhard Gulbransson: 1
 
 Diagnostics complete.
