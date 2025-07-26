@@ -262,7 +262,10 @@ function loadQuiz() {
   img.alt = stripHtml(painting.title) || 'Painting';
   img.loading = 'lazy';
   const optionsDiv = document.getElementById('options');
+  
+  // Clear options and ensure no leftover classes
   optionsDiv.innerHTML = '';
+  
   const artists = generateOptions(painting.artist, validPaintings);
   if (artists.length < 2) {
     optionsDiv.innerHTML = '<p>Ikke nok kunstnere for quiz.</p>';
@@ -272,9 +275,15 @@ function loadQuiz() {
     const btn = document.createElement('button');
     btn.textContent = artist;
     btn.onclick = () => {
-      Array.from(optionsDiv.children).forEach(b => b.disabled = true);
+      // Disable all buttons and clear any existing classes
+      Array.from(optionsDiv.children).forEach(b => {
+        b.disabled = true;
+        b.classList.remove('correct', 'wrong');
+      });
+      
       const correctBtn = Array.from(optionsDiv.children).find(b => b.textContent === painting.artist);
       const selectedBtn = btn;
+      
       if (artist === painting.artist) {
         streak++;
         selectedBtn.classList.add('correct');
