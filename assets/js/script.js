@@ -28,6 +28,7 @@ const translations = {
     artists: 'All Artists',
     gallery: 'Gallery',
     about: 'About',
+    language: 'Language',
     paintings: 'paintings',
     painting: 'painting',
     painters: 'painters',
@@ -87,6 +88,7 @@ const translations = {
     artists: 'Alle Kunstnere',
     gallery: 'Galleri',
     about: 'Om',
+    language: 'Språk',
     paintings: 'malerier',
     painting: 'maleri',
     painters: 'malere',
@@ -122,10 +124,6 @@ const translations = {
     ]
   }
 };
-
-// Score tracking with FIFO (First In, First Out)
-let scoreHistory = []; // Array of 'correct' or 'incorrect'
-const MAX_SCORE_HISTORY = 10;
 
 // Artist weighting system
 let artistWeights = new Map(); // Track how often each artist appears
@@ -176,6 +174,12 @@ function updateLanguageUI() {
   // Update collection info
   updateCollectionInfo();
   
+  // Update language link
+  const languageLink = document.getElementById('language-link');
+  if (languageLink) {
+    languageLink.textContent = currentLanguage === 'en' ? 'Norsk' : 'English';
+  }
+  
   // Update modal texts
   const congratsTitle = document.getElementById('congrats-title');
   if (congratsTitle) congratsTitle.textContent = t('congratulations');
@@ -206,48 +210,19 @@ function updateLanguageUI() {
 }
 
 function setupLanguageToggle() {
-  const languageToggle = document.getElementById('language-toggle');
-  const flagEn = document.getElementById('flag-en');
-  const flagNo = document.getElementById('flag-no');
-  
-  if (languageToggle) {
-    // Set initial active state
-    updateLanguageFlags();
-    
-    // Handle flag clicks
-    if (flagEn) {
-      flagEn.addEventListener('click', () => {
-        currentLanguage = 'en';
-        updateLanguageUI();
-        updateLanguageFlags();
-        renderCategorySelector();
-        updateScoreBar();
-      });
-    }
-    
-    if (flagNo) {
-      flagNo.addEventListener('click', () => {
-        currentLanguage = 'no';
-        updateLanguageUI();
-        updateLanguageFlags();
-        renderCategorySelector();
-        updateScoreBar();
-      });
-    }
+  const languageLink = document.getElementById('language-link');
+  if (languageLink) {
+    languageLink.addEventListener('click', e => {
+      e.preventDefault();
+      currentLanguage = currentLanguage === 'en' ? 'no' : 'en';
+      updateLanguageUI();
+      renderCategorySelector();
+      updateStreakBar();
+    });
   }
 }
 
-function updateLanguageFlags() {
-  const flagEn = document.getElementById('flag-en');
-  const flagNo = document.getElementById('flag-no');
-  
-  if (flagEn) {
-    flagEn.classList.toggle('active', currentLanguage === 'en');
-  }
-  if (flagNo) {
-    flagNo.classList.toggle('active', currentLanguage === 'no');
-  }
-}
+
 
 // Artist weighting system
 function initializeArtistWeights() {
@@ -307,38 +282,6 @@ function getWeightedRandomPainting(validPaintings) {
   }
   
   return availablePaintings[0];
-}
-
-// New score tracking system
-function addToScoreHistory(isCorrect) {
-  scoreHistory.push(isCorrect ? 'correct' : 'incorrect');
-  if (scoreHistory.length > MAX_SCORE_HISTORY) {
-    scoreHistory.shift(); // Remove oldest score (FIFO)
-  }
-  updateScoreBar();
-}
-
-function updateScoreBar() {
-  const streakBar = document.getElementById('streak-bar');
-  if (!streakBar) return;
-  
-  streakBar.innerHTML = '';
-  
-  for (let i = 0; i < MAX_SCORE_HISTORY; i++) {
-    const circle = document.createElement('div');
-    circle.className = 'streak-circle';
-    
-    if (i < scoreHistory.length) {
-      const score = scoreHistory[i];
-      if (score === 'correct') {
-        circle.classList.add('correct-score');
-      } else {
-        circle.classList.add('incorrect-score');
-      }
-    }
-    
-    streakBar.appendChild(circle);
-  }
 }
 
 function getYearOnly(dateStr) {
@@ -610,14 +553,13 @@ function loadQuiz() {
         // Correct answer - show encouraging popup and fast transition
         streak++;
         selectedBtn.classList.add('correct');
-        addToScoreHistory(true);
         
         // Show encouraging popup
         const encouragingMessage = getRandomEncouragingMessage();
         showEncouragingPopup(encouragingMessage);
         
         if (streak >= 10) {
-          updateScoreBar();
+          updateStreakBar();
           setTimeout(showCongratsModal, 500);
           setTimeout(() => showArtistPopup(painting, null), 900);
           return;
@@ -637,8 +579,7 @@ function loadQuiz() {
         selectedBtn.classList.add('wrong');
         correctBtn.classList.add('correct');
         showMessage(t('incorrect'), '#e53935');
-        addToScoreHistory(false);
-        updateScoreBar();
+        updateStreakBar();
         setTimeout(() => {
           showArtistPopup(painting, () => {
             hideMessage();
@@ -651,11 +592,11 @@ function loadQuiz() {
           });
         }, 500);
       }
-      updateScoreBar();
+      updateStreakBar();
     };
     optionsDiv.appendChild(btn);
   });
-  updateScoreBar();
+  updateStreakBar();
 }
 
 function getRandomPainting(validPaintings) {
@@ -687,7 +628,10 @@ function stripHtml(html) {
 
 function updateStreakBar() {
   const streakBar = document.getElementById('streak-bar');
+  if (!streakBar) return;
+  
   streakBar.innerHTML = '';
+  
   for (let i = 0; i < 10; i++) {
     const circle = document.createElement('div');
     circle.className = `streak-circle${i < streak ? ' filled' : ''}`;
@@ -999,8 +943,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) resetBtn.addEventListener('click', () => {
       streak = 0;
-      scoreHistory = []; // Reset score history
-      updateScoreBar();
+      updateStreakBar();
       hideCongratsModal();
       loadQuiz();
     });
