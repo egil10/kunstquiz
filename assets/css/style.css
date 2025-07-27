@@ -291,8 +291,11 @@ button.loading {
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.75rem 0 rgba(0,0,0,0.08);
   min-width: 10rem;
+  max-width: 15rem;
   z-index: 100;
   padding: 0.25rem 0;
+  max-height: 20rem;
+  overflow-y: auto;
 }
 
 .custom-category-item {
@@ -984,6 +987,8 @@ button.loading {
     right: auto;
     top: auto;
     margin-right: 0;
+    max-width: 100%;
+    overflow: hidden;
   }
 
 
@@ -994,6 +999,12 @@ button.loading {
     background: #f0f0f0;
     border-radius: 0.5rem;
     border: 1px solid #ddd;
+  }
+  
+  .custom-category-menu {
+    right: -0.5rem;
+    max-width: 12rem;
+    max-height: 15rem;
   }
 
   .artist-popup.toast {
