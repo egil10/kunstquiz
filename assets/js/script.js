@@ -566,10 +566,8 @@ function setupCategoryChangeInfoBar() {
   if (catSelect) {
     catSelect.addEventListener('change', () => {
       selectedCategory = catSelect.value;
-      streak = 0;
-      updateStreakBar();
+      startNewRound(); // Reset quiz completely for new category
       updateCollectionInfo();
-      loadQuiz();
     });
   }
 }
@@ -608,10 +606,8 @@ function renderCategorySelector() {
         ev.stopPropagation();
         catSelect.value = opt.value;
         selectedCategory = opt.value;
-        streak = 0;
-        updateStreakBar();
+        startNewRound(); // Reset quiz completely for new category
         updateCollectionInfo();
-        loadQuiz();
         renderCategorySelector();
         menu.remove();
       };
@@ -1128,6 +1124,131 @@ function setupArtistModal() {
   });
 }
 
+function generateAboutContent() {
+  // Get category counts dynamically
+  const categoryCounts = {};
+  const validPaintings = paintings.filter(p => p.artist && p.url);
+  
+  // Calculate category counts
+  categoryCounts.all = validPaintings.length;
+  
+  // Popular painters (top 10)
+  const artistCounts = {};
+  validPaintings.forEach(p => {
+    artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1;
+  });
+  const topArtists = Object.entries(artistCounts)
+    .sort(([,a], [,b]) => b - a)
+    .slice(0, 10)
+    .map(([artist]) => artist);
+  categoryCounts.popular = validPaintings.filter(p => topArtists.includes(p.artist)).length;
+  
+  // Landscape paintings
+  categoryCounts.landscape = validPaintings.filter(p => 
+    (p.artist_genre && p.artist_genre.some(g => g && g.toLowerCase().includes('landscape'))) ||
+    (p.genre && p.genre.some(g => g && g.toLowerCase().includes('landscape')))
+  ).length;
+  
+  // Portraits
+  categoryCounts.portraits = validPaintings.filter(p => 
+    (p.artist_genre && p.artist_genre.some(g => g && g.toLowerCase().includes('portrait'))) ||
+    (p.genre && p.genre.some(g => g && g.toLowerCase().includes('portrait')))
+  ).length;
+  
+  // Women painters
+  categoryCounts.women_painters = validPaintings.filter(p => p.artist_gender === 'female').length;
+  
+  // 19th century
+  categoryCounts.nineteenthCentury = validPaintings.filter(p => {
+    const bio = artistBios.find(b => b.name === p.artist);
+    return bio && bio.birth_year && 1800 <= parseInt(bio.birth_year) && parseInt(bio.birth_year) < 1900;
+  }).length;
+  
+  // 20th century
+  categoryCounts.twentiethCentury = validPaintings.filter(p => {
+    const bio = artistBios.find(b => b.name === p.artist);
+    return bio && bio.birth_year && 1900 <= parseInt(bio.birth_year) && parseInt(bio.birth_year) < 2000;
+  }).length;
+  
+  // Impressionism
+  categoryCounts.impressionism = validPaintings.filter(p => 
+    (p.artist_movement && p.artist_movement.some(m => m && m.toLowerCase().includes('impressionism'))) ||
+    (p.movement && p.movement.some(m => m && m.toLowerCase().includes('impressionism')))
+  ).length;
+  
+  // Expressionism
+  categoryCounts.expressionism = validPaintings.filter(p => 
+    (p.artist_movement && p.artist_movement.some(m => m && m.toLowerCase().includes('expressionism'))) ||
+    (p.movement && p.movement.some(m => m && m.toLowerCase().includes('expressionism')))
+  ).length;
+  
+  // Norwegian Romantic
+  categoryCounts.norwegianRomantic = validPaintings.filter(p => 
+    (p.artist_movement && p.artist_movement.some(m => 
+      m && (m.toLowerCase().includes('nasjonalromantikk') || 
+           m.toLowerCase().includes('norwegian romantic nationalism') ||
+           m.toLowerCase().includes('romantic nationalism'))
+    )) ||
+    (p.movement && p.movement.some(m => 
+      m && (m.toLowerCase().includes('nasjonalromantikk') || 
+           m.toLowerCase().includes('norwegian romantic nationalism') ||
+           m.toLowerCase().includes('romantic nationalism'))
+    ))
+  ).length;
+  
+  // Count unique artists
+  const uniqueArtists = new Set(validPaintings.map(p => p.artist));
+  
+  // Generate content based on current language
+  const content = {
+    collection: {
+      title: t('aboutCollection'),
+      text: currentLanguage === 'no' 
+        ? `Kunstquiz inneholder ${categoryCounts.all.toLocaleString()} malerier fra ${uniqueArtists.size} norske kunstnere, noe som gjør det til en av de mest omfattende norske kunstquizene tilgjengelig. Vår samling spenner fra 1800-tallet til samtidsverk, og dekker ulike bevegelser og stiler.`
+        : `Kunstquiz features ${categoryCounts.all.toLocaleString()} paintings from ${uniqueArtists.size} Norwegian artists, making it one of the most comprehensive Norwegian art quizzes available. Our collection spans from the 19th century to contemporary works, covering various movements and styles.`
+    },
+    categories: {
+      title: t('aboutCategories'),
+      items: [
+        { label: t('fullCollection'), count: categoryCounts.all, suffix: currentLanguage === 'no' ? 'malerier' : 'paintings' },
+        { label: t('popularPainters'), count: categoryCounts.popular, suffix: currentLanguage === 'no' ? 'verk' : 'works' },
+        { label: t('landscapePainting'), count: categoryCounts.landscape, suffix: currentLanguage === 'no' ? 'landskapsverk' : 'landscape works' },
+        { label: t('portraits'), count: categoryCounts.portraits, suffix: currentLanguage === 'no' ? 'portrettmalerier' : 'portrait paintings' },
+        { label: t('womenPainters'), count: categoryCounts.women_painters, suffix: currentLanguage === 'no' ? 'verk av kvinnelige kunstnere' : 'works by female artists' },
+        { label: t('impressionism'), count: categoryCounts.impressionism, suffix: currentLanguage === 'no' ? 'impressionistiske verk' : 'impressionist works' },
+        { label: t('expressionism'), count: categoryCounts.expressionism, suffix: currentLanguage === 'no' ? 'ekspresjonistiske malerier' : 'expressionist paintings' },
+        { label: t('norwegianRomantic'), count: categoryCounts.norwegianRomantic, suffix: currentLanguage === 'no' ? 'romantisk nasjonalistiske verk' : 'romantic nationalist works' }
+      ]
+    },
+    howToPlay: {
+      title: t('aboutHowToPlay'),
+      text: t('aboutHowToPlayText')
+    },
+    facts: {
+      title: t('aboutFacts'),
+      items: currentLanguage === 'no' ? [
+        'Data hentet fra åpne Wikimedia og Wikidata APIer',
+        'Inneholder 33 ulike kunstgenrer inkludert landskap, portrett og abstrakt maleri',
+        'Inkluderer 7 store kunstbevegelser fra impressionisme til samtidskunst',
+        'Samlingen spenner over 200 år med norsk kunsthistorie',
+        'Alle bilder er fritt tilgjengelige under åpne lisenser'
+      ] : [
+        'Data sourced from open Wikimedia and Wikidata APIs',
+        'Features 33 different art genres including landscape, portrait, and abstract painting',
+        'Includes 7 major art movements from Impressionism to Contemporary art',
+        'Collection spans over 200 years of Norwegian art history',
+        'All images are freely available under open licenses'
+      ]
+    },
+    technical: {
+      title: t('aboutTechnical'),
+      text: t('aboutTechnicalText')
+    }
+  };
+  
+  return content;
+}
+
 function showAboutModal() {
   const modal = document.getElementById('about-modal');
   const title = document.getElementById('about-title');
@@ -1138,33 +1259,60 @@ function showAboutModal() {
   // Update title
   title.textContent = t('aboutTitle');
   
-  // Update content sections
-  const sections = aboutContent.querySelectorAll('.about-section');
-  sections.forEach(section => {
-    const h3 = section.querySelector('h3');
-    const p = section.querySelector('p');
-    const ul = section.querySelector('ul');
-    
-    if (h3) {
-      const sectionType = h3.textContent.replace(/[🎨📊🎯💡🛠️]/g, '').trim();
-      if (sectionType === 'The Collection') {
-        h3.textContent = t('aboutCollection');
-        if (p) p.textContent = t('aboutCollectionText');
-      } else if (sectionType === 'Quiz Categories') {
-        h3.textContent = t('aboutCategories');
-        if (p) p.textContent = t('aboutCategoriesText');
-      } else if (sectionType === 'How to Play') {
-        h3.textContent = t('aboutHowToPlay');
-        if (p) p.textContent = t('aboutHowToPlayText');
-      } else if (sectionType === 'Interesting Facts') {
-        h3.textContent = t('aboutFacts');
-        if (p) p.textContent = t('aboutFactsText');
-      } else if (sectionType === 'Technical Details') {
-        h3.textContent = t('aboutTechnical');
-        if (p) p.textContent = t('aboutTechnicalText');
-      }
-    }
-  });
+  // Generate dynamic content
+  const content = generateAboutContent();
+  
+  // Clear existing content
+  aboutContent.innerHTML = '';
+  
+  // Collection section
+  const collectionSection = document.createElement('div');
+  collectionSection.className = 'about-section';
+  collectionSection.innerHTML = `
+    <h3>${content.collection.title}</h3>
+    <p>${content.collection.text}</p>
+  `;
+  aboutContent.appendChild(collectionSection);
+  
+  // Categories section
+  const categoriesSection = document.createElement('div');
+  categoriesSection.className = 'about-section';
+  const categoriesList = content.categories.items.map(item => 
+    `<li><strong>${item.label}:</strong> ${item.count.toLocaleString()} ${item.suffix}</li>`
+  ).join('');
+  categoriesSection.innerHTML = `
+    <h3>${content.categories.title}</h3>
+    <ul>${categoriesList}</ul>
+  `;
+  aboutContent.appendChild(categoriesSection);
+  
+  // How to play section
+  const howToPlaySection = document.createElement('div');
+  howToPlaySection.className = 'about-section';
+  howToPlaySection.innerHTML = `
+    <h3>${content.howToPlay.title}</h3>
+    <p>${content.howToPlay.text}</p>
+  `;
+  aboutContent.appendChild(howToPlaySection);
+  
+  // Facts section
+  const factsSection = document.createElement('div');
+  factsSection.className = 'about-section';
+  const factsList = content.facts.items.map(fact => `<li>${fact}</li>`).join('');
+  factsSection.innerHTML = `
+    <h3>${content.facts.title}</h3>
+    <ul>${factsList}</ul>
+  `;
+  aboutContent.appendChild(factsSection);
+  
+  // Technical section
+  const technicalSection = document.createElement('div');
+  technicalSection.className = 'about-section';
+  technicalSection.innerHTML = `
+    <h3>${content.technical.title}</h3>
+    <p>${content.technical.text}</p>
+  `;
+  aboutContent.appendChild(technicalSection);
   
   modal.style.display = 'flex';
   modal.focus();
