@@ -27,9 +27,40 @@ const translations = {
     close: 'Close',
     artists: 'All Artists',
     gallery: 'Gallery',
+    about: 'About',
     paintings: 'paintings',
     painting: 'painting',
-    painters: 'painters'
+    painters: 'painters',
+    // About modal translations
+    aboutTitle: 'About Kunstquiz',
+    aboutCollection: 'The Collection',
+    aboutCollectionText: 'Kunstquiz features 3,282 paintings from 81 Norwegian artists, making it one of the most comprehensive Norwegian art quizzes available. Our collection spans from the 19th century to contemporary works, covering various movements and styles.',
+    aboutCategories: 'Quiz Categories',
+    aboutCategoriesText: 'Full Collection: All 3,282 paintings, Popular Painters: Top 10 artists with most works, Landscape Painting: 1,745 landscape works, Portraits: 584 portrait paintings, Women Painters: 259 works by female artists, Impressionism: 392 impressionist works, Expressionism: 253 expressionist paintings, Norwegian Romantic: 765 romantic nationalist works',
+    aboutHowToPlay: 'How to Play',
+    aboutHowToPlayText: 'Select a category, view a painting, and choose the correct artist from four options. Build streaks and learn about Norwegian art history with each answer!',
+    aboutFacts: 'Interesting Facts',
+    aboutFactsText: 'Data sourced from open Wikimedia and Wikidata APIs, Features 33 different art genres including landscape, portrait, and abstract painting, Includes 7 major art movements from Impressionism to Contemporary art, Collection spans over 200 years of Norwegian art history, All images are freely available under open licenses',
+    aboutTechnical: 'Technical Details',
+    aboutTechnicalText: 'Built with modern web technologies, featuring responsive design for all devices. The quiz uses intelligent artist weighting to ensure fair representation regardless of collection size.',
+    // Encouraging messages for correct answers
+    encouragingMessages: [
+      'Excellent! 🎨',
+      'Perfect! ✨',
+      'Brilliant! 🌟',
+      'Well done! 👏',
+      'Fantastic! 🎯',
+      'Outstanding! 🏆',
+      'Amazing! 💫',
+      'Superb! 🎪',
+      'Incredible! 🔥',
+      'Wonderful! 🌈',
+      'Spectacular! ⭐',
+      'Marvelous! 🎭',
+      'Splendid! 🎪',
+      'Magnificent! 👑',
+      'Exceptional! 🎨'
+    ]
   },
   no: {
     title: 'Kunstquiz',
@@ -55,9 +86,40 @@ const translations = {
     close: 'Lukk',
     artists: 'Alle Kunstnere',
     gallery: 'Galleri',
+    about: 'Om',
     paintings: 'malerier',
     painting: 'maleri',
-    painters: 'malere'
+    painters: 'malere',
+    // About modal translations
+    aboutTitle: 'Om Kunstquiz',
+    aboutCollection: 'Samlingen',
+    aboutCollectionText: 'Kunstquiz inneholder 3,282 malerier fra 81 norske kunstnere, noe som gjør det til en av de mest omfattende norske kunstquizene tilgjengelig. Vår samling spenner fra 1800-tallet til samtidsverk, og dekker ulike bevegelser og stiler.',
+    aboutCategories: 'Quiz-kategorier',
+    aboutCategoriesText: 'Full Samling: Alle 3,282 malerier, Populære Malere: Topp 10 kunstnere med flest verk, Landskapsmaleri: 1,745 landskapsverk, Portretter: 584 portrettmalerier, Kvinnelige Malere: 259 verk av kvinnelige kunstnere, Impressionisme: 392 impressionistiske verk, Ekspresjonisme: 253 ekspresjonistiske malerier, Norsk Romantikk: 765 romantisk nasjonalistiske verk',
+    aboutHowToPlay: 'Slik spiller du',
+    aboutHowToPlayText: 'Velg en kategori, se på et maleri, og velg riktig kunstner fra fire alternativer. Bygg opp streaks og lær om norsk kunsthistorie med hvert svar!',
+    aboutFacts: 'Interessante fakta',
+    aboutFactsText: 'Data hentet fra åpne Wikimedia og Wikidata APIer, Inneholder 33 ulike kunstgenrer inkludert landskap, portrett og abstrakt maleri, Inkluderer 7 store kunstbevegelser fra impressionisme til samtidskunst, Samlingen spenner over 200 år med norsk kunsthistorie, Alle bilder er fritt tilgjengelige under åpne lisenser',
+    aboutTechnical: 'Tekniske detaljer',
+    aboutTechnicalText: 'Bygget med moderne webteknologier, med responsivt design for alle enheter. Quizen bruker intelligent kunstnervektlegging for å sikre rettferdig representasjon uansett samlingsstørrelse.',
+    // Encouraging messages for correct answers
+    encouragingMessages: [
+      'Utmerket! 🎨',
+      'Perfekt! ✨',
+      'Strålende! 🌟',
+      'Bra gjort! 👏',
+      'Fantastisk! 🎯',
+      'Fremragende! 🏆',
+      'Fantastisk! 💫',
+      'Suverent! 🎪',
+      'Utrolig! 🔥',
+      'Vidunderlig! 🌈',
+      'Spektakulært! ⭐',
+      'Marveløst! 🎭',
+      'Praktfullt! 🎪',
+      'Magnifikt! 👑',
+      'Exceptionelt! 🎨'
+    ]
   }
 };
 
@@ -68,6 +130,9 @@ const MAX_SCORE_HISTORY = 10;
 // Artist weighting system
 let artistWeights = new Map(); // Track how often each artist appears
 let lastSelectedArtists = new Set(); // Track recently selected artists to avoid repetition
+
+// Encouraging message counter
+let encouragingMessageIndex = 0;
 
 let streak = 0;
 let paintings = [];
@@ -127,11 +192,17 @@ function updateLanguageUI() {
   const galleryTitle = document.getElementById('gallery-title');
   if (galleryTitle) galleryTitle.textContent = t('gallery');
   
+  const aboutTitle = document.getElementById('about-title');
+  if (aboutTitle) aboutTitle.textContent = t('aboutTitle');
+  
   const closeArtistsBtn = document.getElementById('close-artists-modal');
   if (closeArtistsBtn) closeArtistsBtn.textContent = t('close');
   
   const closeGalleryBtn = document.getElementById('close-gallery-modal');
   if (closeGalleryBtn) closeGalleryBtn.textContent = t('close');
+  
+  const closeAboutBtn = document.getElementById('close-about-modal');
+  if (closeAboutBtn) closeAboutBtn.textContent = t('close');
 }
 
 function setupLanguageToggle() {
@@ -536,35 +607,51 @@ function loadQuiz() {
       const selectedBtn = btn;
       
       if (artist === painting.artist) {
+        // Correct answer - show encouraging popup and fast transition
         streak++;
         selectedBtn.classList.add('correct');
-        showMessage(t('correct'), '#388e3c');
         addToScoreHistory(true);
-              if (streak >= 10) {
-        updateScoreBar();
-        setTimeout(showCongratsModal, 500);
-        setTimeout(() => showArtistPopup(painting, null), 900);
-        return;
-      }
-      } else {
-        streak = 0;
-        selectedBtn.classList.add('wrong');
-        correctBtn.classList.add('correct');
-        showMessage(t('incorrect'), '#e53935');
-        addToScoreHistory(false);
-      }
-      updateScoreBar();
-      setTimeout(() => {
-        showArtistPopup(painting, () => {
-          hideMessage();
+        
+        // Show encouraging popup
+        const encouragingMessage = getRandomEncouragingMessage();
+        showEncouragingPopup(encouragingMessage);
+        
+        if (streak >= 10) {
+          updateScoreBar();
+          setTimeout(showCongratsModal, 500);
+          setTimeout(() => showArtistPopup(painting, null), 900);
+          return;
+        }
+        // Quick transition for correct answers
+        setTimeout(() => {
           // Remove loading state and reset buttons
           Array.from(optionsDiv.children).forEach(b => {
             b.classList.remove('loading', 'correct', 'wrong');
             b.disabled = false;
           });
           loadQuiz();
-        });
-      }, 500);
+        }, 300); // Faster transition for correct answers
+      } else {
+        // Incorrect answer - keep current timing with bio popup
+        streak = 0;
+        selectedBtn.classList.add('wrong');
+        correctBtn.classList.add('correct');
+        showMessage(t('incorrect'), '#e53935');
+        addToScoreHistory(false);
+        updateScoreBar();
+        setTimeout(() => {
+          showArtistPopup(painting, () => {
+            hideMessage();
+            // Remove loading state and reset buttons
+            Array.from(optionsDiv.children).forEach(b => {
+              b.classList.remove('loading', 'correct', 'wrong');
+              b.disabled = false;
+            });
+            loadQuiz();
+          });
+        }, 500);
+      }
+      updateScoreBar();
     };
     optionsDiv.appendChild(btn);
   });
@@ -820,6 +907,74 @@ function setupArtistModal() {
   });
 }
 
+function showAboutModal() {
+  const modal = document.getElementById('about-modal');
+  if (modal) modal.style.display = 'flex';
+  modal.focus();
+  // Add click outside to close
+  setTimeout(() => {
+    function outsideClick(e) {
+      if (!modal.querySelector('.about-modal-content').contains(e.target)) {
+        hideAboutModal();
+        document.removeEventListener('mousedown', outsideClick);
+      }
+    }
+    document.addEventListener('mousedown', outsideClick);
+  }, 100);
+}
+
+function hideAboutModal() {
+  const modal = document.getElementById('about-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function setupAboutModal() {
+  const showLink = document.getElementById('show-about-link');
+  const closeBtn = document.getElementById('close-about-modal');
+  if (showLink) showLink.addEventListener('click', e => {
+    e.preventDefault();
+    showAboutModal();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', hideAboutModal);
+}
+
+function getRandomEncouragingMessage() {
+  const messages = translations[currentLanguage].encouragingMessages;
+  const message = messages[encouragingMessageIndex];
+  encouragingMessageIndex = (encouragingMessageIndex + 1) % messages.length;
+  return message;
+}
+
+function showEncouragingPopup(message) {
+  // Remove any existing encouraging popup
+  const existingPopup = document.getElementById('encouraging-popup');
+  if (existingPopup) {
+    existingPopup.remove();
+  }
+  
+  const popup = document.createElement('div');
+  popup.id = 'encouraging-popup';
+  popup.className = 'encouraging-popup';
+  popup.textContent = message;
+  
+  document.body.appendChild(popup);
+  
+  // Trigger animation
+  setTimeout(() => {
+    popup.classList.add('visible');
+  }, 10);
+  
+  // Remove after animation
+  setTimeout(() => {
+    popup.classList.remove('visible');
+    setTimeout(() => {
+      if (popup.parentNode) {
+        popup.parentNode.removeChild(popup);
+      }
+    }, 300);
+  }, 800);
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const res = await fetch('./data/paintings_merged.json');
@@ -837,6 +992,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadQuiz();
     setupArtistModal();
     setupGalleryModal();
+    setupAboutModal();
     setupLogoReset();
     setupCategoryChangeInfoBar();
     
@@ -854,6 +1010,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (e.key === 'Escape') {
         hideCongratsModal();
         hideGalleryModal();
+        hideAboutModal();
         document.getElementById('artists-modal').style.display = 'none';
       }
     });
