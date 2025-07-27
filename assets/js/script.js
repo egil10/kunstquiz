@@ -82,50 +82,50 @@ const translations = {
     // Round feedback messages
     roundFeedback: {
       '1/10': [
-        'Getting started! 🎨',
-        'First step on your art journey! ✨',
-        'One down, nine to go! 🌟',
-        'A good beginning! 👏'
+        'Getting started!',
+        'First step on your art journey!',
+        'One down, nine to go!',
+        'A good beginning!'
       ],
       '2-4/10': [
-        'Keep going! You\'re learning! 📚',
-        'Nice progress! 🎯',
-        'You\'re getting the hang of it! 💫',
-        'Building momentum! 🚀',
-        'Every answer teaches you something! 🎪',
-        'You\'re on your way! 🌈'
+        'Keep going! You\'re learning!',
+        'Nice progress!',
+        'You\'re getting the hang of it!',
+        'Building momentum!',
+        'Every answer teaches you something!',
+        'You\'re on your way!'
       ],
       '5-6/10': [
-        'Halfway there! Great work! 🎨',
-        'You\'re doing really well! ✨',
-        'Impressive knowledge! 🌟',
-        'You know your Norwegian art! 👏',
-        'Excellent progress! 🎯',
-        'You\'re a natural! 💫'
+        'Halfway there! Great work!',
+        'You\'re doing really well!',
+        'Impressive knowledge!',
+        'You know your Norwegian art!',
+        'Excellent progress!',
+        'You\'re a natural!'
       ],
       '7-8/10': [
-        'Outstanding performance! 🏆',
-        'You\'re really good at this! 🌟',
-        'Almost perfect! Amazing! ✨',
-        'You have great taste in art! 🎨',
-        'Fantastic knowledge! 🎯',
-        'You\'re an art expert! 💫'
+        'Outstanding performance!',
+        'You\'re really good at this!',
+        'Almost perfect! Amazing!',
+        'You have great taste in art!',
+        'Fantastic knowledge!',
+        'You\'re an art expert!'
       ],
       '9/10': [
-        'Incredible! Just one more! 🔥',
-        'You\'re so close to perfection! ⭐',
-        'Almost flawless! Outstanding! 🏆',
-        'One step away from greatness! 🌟',
-        'You\'re a Norwegian art master! 👑',
-        'Nearly perfect! Amazing! ✨'
+        'Incredible! Just one more!',
+        'You\'re so close to perfection!',
+        'Almost flawless! Outstanding!',
+        'One step away from greatness!',
+        'You\'re a Norwegian art master!',
+        'Nearly perfect! Amazing!'
       ],
       '10/10': [
-        'Perfect score! You\'re a Norwegian art expert! 🏆',
-        'Flawless victory! Outstanding knowledge! ⭐',
-        '100%! You know Norwegian art inside out! 👑',
-        'Perfect! You\'re a true art connoisseur! 🌟',
-        'Incredible! Complete mastery! 🔥',
-        'Outstanding! You\'re a Norwegian art legend! ✨'
+        'Perfect score! You\'re a Norwegian art expert!',
+        'Flawless victory! Outstanding knowledge!',
+        '100%! You know Norwegian art inside out!',
+        'Perfect! You\'re a true art connoisseur!',
+        'Incredible! Complete mastery!',
+        'Outstanding! You\'re a Norwegian art legend!'
       ]
     },
     // Round stats
@@ -241,50 +241,50 @@ const translations = {
     // Round feedback messages
     roundFeedback: {
       '1/10': [
-        'Kom i gang! 🎨',
-        'Første steg på din kunstreise! ✨',
-        'En ned, ni igjen! 🌟',
-        'En god start! 👏'
+        'Kom i gang!',
+        'Første steg på din kunstreise!',
+        'En ned, ni igjen!',
+        'En god start!'
       ],
       '2-4/10': [
-        'Fortsett! Du lærer! 📚',
-        'Fin fremgang! 🎯',
-        'Du får taket på det! 💫',
-        'Bygger opp momentum! 🚀',
-        'Hvert svar lærer deg noe! 🎪',
-        'Du er på vei! 🌈'
+        'Fortsett! Du lærer!',
+        'Fin fremgang!',
+        'Du får taket på det!',
+        'Bygger opp momentum!',
+        'Hvert svar lærer deg noe!',
+        'Du er på vei!'
       ],
       '5-6/10': [
-        'Halvveis! Bra jobb! 🎨',
-        'Du gjør det veldig bra! ✨',
-        'Imponerende kunnskap! 🌟',
-        'Du kan din norske kunst! 👏',
-        'Utmerket fremgang! 🎯',
-        'Du er en naturtalent! 💫'
+        'Halvveis! Bra jobb!',
+        'Du gjør det veldig bra!',
+        'Imponerende kunnskap!',
+        'Du kan din norske kunst!',
+        'Utmerket fremgang!',
+        'Du er en naturtalent!'
       ],
       '7-8/10': [
-        'Fremragende prestasjon! 🏆',
-        'Du er veldig flink til dette! 🌟',
-        'Nesten perfekt! Fantastisk! ✨',
-        'Du har god smak i kunst! 🎨',
-        'Fantastisk kunnskap! 🎯',
-        'Du er en kunstekspert! 💫'
+        'Fremragende prestasjon!',
+        'Du er veldig flink til dette!',
+        'Nesten perfekt! Fantastisk!',
+        'Du har god smak i kunst!',
+        'Fantastisk kunnskap!',
+        'Du er en kunstekspert!'
       ],
       '9/10': [
-        'Utrolig! Bare én til! 🔥',
-        'Du er så nær perfeksjon! ⭐',
-        'Nesten feilfri! Fremragende! 🏆',
-        'Ett skritt fra storhet! 🌟',
-        'Du er en norsk kunstmester! 👑',
-        'Nesten perfekt! Fantastisk! ✨'
+        'Utrolig! Bare én til!',
+        'Du er så nær perfeksjon!',
+        'Nesten feilfri! Fremragende!',
+        'Ett skritt fra storhet!',
+        'Du er en norsk kunstmester!',
+        'Nesten perfekt! Fantastisk!'
       ],
       '10/10': [
-        'Perfekt poengsum! Du er en norsk kunstekspert! 🏆',
-        'Feilfri seier! Fremragende kunnskap! ⭐',
-        '100%! Du kan norsk kunst ut og inn! 👑',
-        'Perfekt! Du er en ekte kunstkjenner! 🌟',
-        'Utrolig! Komplett mestring! 🔥',
-        'Fremragende! Du er en norsk kunstlegende! ✨'
+        'Perfekt poengsum! Du er en norsk kunstekspert!',
+        'Feilfri seier! Fremragende kunnskap!',
+        '100%! Du kan norsk kunst ut og inn!',
+        'Perfekt! Du er en ekte kunstkjenner!',
+        'Utrolig! Komplett mestring!',
+        'Fremragende! Du er en norsk kunstlegende!'
       ]
     },
     // Round stats
@@ -1130,8 +1130,45 @@ function setupArtistModal() {
 
 function showAboutModal() {
   const modal = document.getElementById('about-modal');
-  if (modal) modal.style.display = 'flex';
+  const title = document.getElementById('about-title');
+  const aboutContent = document.getElementById('about-content');
+  
+  if (!modal) return;
+  
+  // Update title
+  title.textContent = t('aboutTitle');
+  
+  // Update content sections
+  const sections = aboutContent.querySelectorAll('.about-section');
+  sections.forEach(section => {
+    const h3 = section.querySelector('h3');
+    const p = section.querySelector('p');
+    const ul = section.querySelector('ul');
+    
+    if (h3) {
+      const sectionType = h3.textContent.replace(/[🎨📊🎯💡🛠️]/g, '').trim();
+      if (sectionType === 'The Collection') {
+        h3.textContent = t('aboutCollection');
+        if (p) p.textContent = t('aboutCollectionText');
+      } else if (sectionType === 'Quiz Categories') {
+        h3.textContent = t('aboutCategories');
+        if (p) p.textContent = t('aboutCategoriesText');
+      } else if (sectionType === 'How to Play') {
+        h3.textContent = t('aboutHowToPlay');
+        if (p) p.textContent = t('aboutHowToPlayText');
+      } else if (sectionType === 'Interesting Facts') {
+        h3.textContent = t('aboutFacts');
+        if (p) p.textContent = t('aboutFactsText');
+      } else if (sectionType === 'Technical Details') {
+        h3.textContent = t('aboutTechnical');
+        if (p) p.textContent = t('aboutTechnicalText');
+      }
+    }
+  });
+  
+  modal.style.display = 'flex';
   modal.focus();
+  
   // Add click outside to close
   setTimeout(() => {
     function outsideClick(e) {
@@ -1191,24 +1228,19 @@ function showRoundResults() {
   const modal = document.getElementById('round-results-modal');
   const title = document.getElementById('round-results-title');
   const score = document.getElementById('round-results-score');
-  const correct = document.getElementById('round-results-correct');
-  const incorrect = document.getElementById('round-results-incorrect');
   const artistsList = document.getElementById('round-results-artists-list');
   const feedback = document.getElementById('round-results-feedback');
   const playAgainBtn = document.getElementById('round-results-play-again');
-  const closeBtn = document.getElementById('round-results-close');
+  const downloadBtn = document.getElementById('round-results-download');
   
   if (!modal) return;
   
   const totalCorrect = currentRound.correctAnswers;
-  const totalIncorrect = currentRound.incorrectAnswers;
   const uniqueArtists = [...currentRound.artists].sort();
   
   // Update content with proper translations
   title.textContent = t('roundStats.title');
   score.textContent = `${totalCorrect}/10`;
-  correct.textContent = `${t('roundStats.correct')}: ${totalCorrect}`;
-  incorrect.textContent = `${t('roundStats.incorrect')}: ${totalIncorrect}`;
   
   // Populate artists list
   artistsList.innerHTML = '';
@@ -1221,7 +1253,14 @@ function showRoundResults() {
   
   feedback.textContent = getRandomRoundFeedback(totalCorrect);
   playAgainBtn.textContent = t('roundStats.playAgain');
-  closeBtn.textContent = t('roundStats.close');
+  
+  // Show/hide download button based on score
+  if (totalCorrect === 10) {
+    downloadBtn.style.display = 'inline-block';
+    downloadBtn.textContent = t('diploma.download');
+  } else {
+    downloadBtn.style.display = 'none';
+  }
   
   // Show modal
   modal.style.display = 'flex';
@@ -1240,7 +1279,9 @@ function showRoundResults() {
     startNewRound();
   };
   
-  closeBtn.onclick = hideRoundResults;
+  downloadBtn.onclick = () => {
+    downloadDiploma();
+  };
   
   // Click outside to close
   setTimeout(() => {
