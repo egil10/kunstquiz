@@ -613,7 +613,10 @@ function renderCategorySelector() {
   custom.onclick = e => {
     e.stopPropagation();
     let menu = document.getElementById('custom-category-menu');
-    if (menu) return;
+    if (menu) {
+      menu.remove();
+      return;
+    }
     menu = document.createElement('div');
     menu.id = 'custom-category-menu';
     menu.className = 'custom-category-menu';
@@ -671,10 +674,10 @@ function showGalleryModal() {
     function outsideClick(e) {
       if (!modal.querySelector('.gallery-modal-content').contains(e.target)) {
         hideGalleryModal();
-        document.removeEventListener('mousedown', outsideClick);
+        document.removeEventListener('click', outsideClick);
       }
     }
-    document.addEventListener('mousedown', outsideClick);
+    document.addEventListener('click', outsideClick);
   }, 100);
 }
 
@@ -1119,15 +1122,15 @@ function showArtistsModal() {
   const modal = document.getElementById('artists-modal');
   modal.style.display = 'flex';
   modal.focus();
-  // Add click outside to close
+  // Click outside to close
   setTimeout(() => {
     function outsideClick(e) {
-      if (!modal.querySelector('.artists-modal-content').contains(e.target)) {
-        document.getElementById('artists-modal').style.display = 'none';
-        document.removeEventListener('mousedown', outsideClick);
+      if (!modal.querySelector('.artist-list-modal').contains(e.target)) {
+        modal.style.display = 'none';
+        document.removeEventListener('click', outsideClick);
       }
     }
-    document.addEventListener('mousedown', outsideClick);
+    document.addEventListener('click', outsideClick);
   }, 100);
 }
 
@@ -1341,10 +1344,10 @@ function showAboutModal() {
     function outsideClick(e) {
       if (!modal.querySelector('.about-modal-content').contains(e.target)) {
         hideAboutModal();
-        document.removeEventListener('mousedown', outsideClick);
+        document.removeEventListener('click', outsideClick);
       }
     }
-    document.addEventListener('mousedown', outsideClick);
+    document.addEventListener('click', outsideClick);
   }, 100);
 }
 
@@ -1443,10 +1446,10 @@ function showRoundResults() {
     function outsideClick(e) {
       if (!modal.querySelector('.round-results-content').contains(e.target)) {
         hideRoundResults();
-        document.removeEventListener('mousedown', outsideClick);
+        document.removeEventListener('click', outsideClick);
       }
     }
-    document.addEventListener('mousedown', outsideClick);
+    document.addEventListener('click', outsideClick);
   }, 100);
 }
 
@@ -1546,10 +1549,10 @@ function showDiploma() {
     function outsideClick(e) {
       if (!modal.querySelector('.diploma-content').contains(e.target)) {
         hideDiploma();
-        document.removeEventListener('mousedown', outsideClick);
+        document.removeEventListener('click', outsideClick);
       }
     }
-    document.addEventListener('mousedown', outsideClick);
+    document.addEventListener('click', outsideClick);
   }, 100);
 }
 
