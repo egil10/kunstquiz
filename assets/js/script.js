@@ -371,22 +371,7 @@ function updateLanguageUI() {
   // Update collection info
   updateCollectionInfo();
   
-  // Update settings modal texts
-  const settingsTitle = document.getElementById('settings-title');
-  if (settingsTitle) settingsTitle.textContent = t('settings');
-  
-  const settingsCloseBtn = document.getElementById('settings-close');
-  if (settingsCloseBtn) settingsCloseBtn.textContent = t('close');
-  
-  // Update language labels in settings
-  const languageLabel = document.querySelector('#settings-modal h3');
-  if (languageLabel) languageLabel.textContent = t('languageLabel');
-  
-  const langEnText = document.querySelector('#lang-en .lang-text');
-  if (langEnText) langEnText.textContent = t('english');
-  
-  const langNoText = document.querySelector('#lang-no .lang-text');
-  if (langNoText) langNoText.textContent = t('norwegian');
+
   
   // Update page title and meta description
   updatePageMeta();
@@ -430,64 +415,17 @@ function updateLanguageUI() {
 }
 
 function setupLanguageToggle() {
-  const settingsLink = document.getElementById('show-settings-link');
-  const langEnBtn = document.getElementById('lang-en');
-  const langNoBtn = document.getElementById('lang-no');
-  const settingsCloseBtn = document.getElementById('settings-close');
+  const languageToggle = document.getElementById('language-toggle');
   
-  if (settingsLink) {
-    settingsLink.addEventListener('click', (e) => {
+  if (languageToggle) {
+    languageToggle.addEventListener('click', (e) => {
       e.preventDefault();
-      showSettingsModal();
-    });
-  }
-  
-  if (langEnBtn) {
-    langEnBtn.addEventListener('click', () => {
-      currentLanguage = 'en';
+      // Toggle between languages
+      currentLanguage = currentLanguage === 'en' ? 'no' : 'en';
       updateLanguageUI();
-      updateLanguageButtons();
       renderCategorySelector();
       updateStreakBar();
     });
-  }
-  
-  if (langNoBtn) {
-    langNoBtn.addEventListener('click', () => {
-      currentLanguage = 'no';
-      updateLanguageUI();
-      updateLanguageButtons();
-      renderCategorySelector();
-      updateStreakBar();
-    });
-  }
-  
-  if (settingsCloseBtn) {
-    settingsCloseBtn.addEventListener('click', hideSettingsModal);
-  }
-}
-
-function showSettingsModal() {
-  const modal = document.getElementById('settings-modal');
-  if (modal) {
-    modal.style.display = 'flex';
-    updateLanguageButtons();
-    modal.focus();
-  }
-}
-
-function hideSettingsModal() {
-  const modal = document.getElementById('settings-modal');
-  if (modal) modal.style.display = 'none';
-}
-
-function updateLanguageButtons() {
-  const langEnBtn = document.getElementById('lang-en');
-  const langNoBtn = document.getElementById('lang-no');
-  
-  if (langEnBtn && langNoBtn) {
-    langEnBtn.classList.toggle('active', currentLanguage === 'en');
-    langNoBtn.classList.toggle('active', currentLanguage === 'no');
   }
 }
 
@@ -1193,16 +1131,7 @@ function setupAboutModal() {
   if (closeBtn) closeBtn.addEventListener('click', hideAboutModal);
 }
 
-function setupSettingsModal() {
-  const settingsLink = document.getElementById('show-settings-link');
-  
-  if (settingsLink) {
-    settingsLink.addEventListener('click', (e) => {
-      e.preventDefault();
-      showSettingsModal();
-    });
-  }
-}
+
 
 function getRandomCorrectMessage() {
   const messages = translations[currentLanguage].correctMessages;
@@ -1323,9 +1252,9 @@ function updatePageMeta() {
 }
 
 function updateLanguageFlag() {
-  const settingsLink = document.getElementById('show-settings-link');
-  if (settingsLink) {
-    settingsLink.textContent = currentLanguage === 'no' ? '🇳🇴' : '🇬🇧';
+  const languageToggle = document.getElementById('language-toggle');
+  if (languageToggle) {
+    languageToggle.textContent = currentLanguage === 'no' ? '🇳🇴' : '🇬🇧';
   }
 }
 
@@ -1366,7 +1295,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupArtistModal();
     setupGalleryModal();
     setupAboutModal();
-    setupSettingsModal();
     setupLogoReset();
     setupCategoryChangeInfoBar();
     
@@ -1384,7 +1312,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideCongratsModal();
         hideGalleryModal();
         hideAboutModal();
-        hideSettingsModal();
         hideRoundResults();
         document.getElementById('artists-modal').style.display = 'none';
       }
