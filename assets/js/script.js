@@ -1,5 +1,74 @@
 'use strict';
 
+// Language support
+let currentLanguage = 'en'; // 'en' for English, 'no' for Norwegian
+const translations = {
+  en: {
+    title: 'Kunstquiz',
+    collectionInfo: 'paintings, painters',
+    fullCollection: 'Full Collection',
+    popularPainters: 'Popular Painters',
+    landscapePainting: 'Landscape Painting',
+    portraits: 'Portraits',
+    womenPainters: 'Women Painters',
+    nineteenthCentury: '19th Century',
+    twentiethCentury: '20th Century',
+    impressionism: 'Impressionism',
+    expressionism: 'Expressionism',
+    norwegianRomantic: 'Norwegian Romantic',
+    correct: 'Correct!',
+    incorrect: 'Incorrect!',
+    congratulations: 'Congratulations!',
+    streakMessage: 'You got 10 in a row!',
+    playAgain: 'Play Again',
+    noPaintings: 'No valid paintings found.',
+    notEnoughArtists: 'Not enough artists for quiz.',
+    errorLoading: 'Error loading quiz data. Please try again later.',
+    close: 'Close',
+    artists: 'All Artists',
+    gallery: 'Gallery',
+    paintings: 'paintings',
+    painting: 'painting',
+    painters: 'painters'
+  },
+  no: {
+    title: 'Kunstquiz',
+    collectionInfo: 'malerier, malere',
+    fullCollection: 'Full Samling',
+    popularPainters: 'Populære Malere',
+    landscapePainting: 'Landskapsmaleri',
+    portraits: 'Portretter',
+    womenPainters: 'Kvinnelige Malere',
+    nineteenthCentury: '19. Århundre',
+    twentiethCentury: '20. Århundre',
+    impressionism: 'Impressionisme',
+    expressionism: 'Ekspresjonisme',
+    norwegianRomantic: 'Norsk Romantikk',
+    correct: 'Riktig!',
+    incorrect: 'Feil!',
+    congratulations: 'Gratulerer!',
+    streakMessage: 'Du klarte 10 på rad!',
+    playAgain: 'Spill igjen',
+    noPaintings: 'Ingen gyldige malerier funnet.',
+    notEnoughArtists: 'Ikke nok kunstnere for quiz.',
+    errorLoading: 'Feil ved lasting av quiz-data. Vennligst prøv igjen senere.',
+    close: 'Lukk',
+    artists: 'Alle Kunstnere',
+    gallery: 'Galleri',
+    paintings: 'malerier',
+    painting: 'maleri',
+    painters: 'malere'
+  }
+};
+
+// Score tracking with FIFO (First In, First Out)
+let scoreHistory = []; // Array of 'correct' or 'incorrect'
+const MAX_SCORE_HISTORY = 10;
+
+// Artist weighting system
+let artistWeights = new Map(); // Track how often each artist appears
+let lastSelectedArtists = new Set(); // Track recently selected artists to avoid repetition
+
 let streak = 0;
 let paintings = [];
 let lastPaintingIndex = -1;
@@ -8,17 +77,198 @@ let artistBios = [];
 
 // List of categories with consistent labels - Updated based on actual data
 const CATEGORY_DEFS = [
-  { value: 'all', label: 'Full Collection' },
-  { value: 'popular', label: 'Popular Painters' },
-  { value: 'landscape', label: 'Landscape Painting' },
-  { value: 'portraits', label: 'Portraits' },
-  { value: 'women_painters', label: 'Women Painters' },
-  { value: '19thcentury', label: '19th Century' },
-  { value: '20thcentury', label: '20th Century' },
-  { value: 'impressionism', label: 'Impressionism' },
-  { value: 'expressionism', label: 'Expressionism' },
-  { value: 'norwegian_romantic', label: 'Norwegian Romantic' }
+  { value: 'all', label: 'fullCollection' },
+  { value: 'popular', label: 'popularPainters' },
+  { value: 'landscape', label: 'landscapePainting' },
+  { value: 'portraits', label: 'portraits' },
+  { value: 'women_painters', label: 'womenPainters' },
+  { value: '19thcentury', label: 'nineteenthCentury' },
+  { value: '20thcentury', label: 'twentiethCentury' },
+  { value: 'impressionism', label: 'impressionism' },
+  { value: 'expressionism', label: 'expressionism' },
+  { value: 'norwegian_romantic', label: 'norwegianRomantic' }
 ];
+
+function t(key) {
+  return translations[currentLanguage][key] || key;
+}
+
+function updateLanguageUI() {
+  // Update title
+  const title = document.querySelector('.title');
+  if (title) title.textContent = t('title');
+  
+  // Update category labels
+  const customLink = document.getElementById('custom-category-link');
+  if (customLink) {
+    const currentValue = document.getElementById('category-select')?.value || 'all';
+    const category = CATEGORY_DEFS.find(cat => cat.value === currentValue);
+    if (category) {
+      customLink.textContent = t(category.label);
+    }
+  }
+  
+  // Update collection info
+  updateCollectionInfo();
+  
+  // Update modal texts
+  const congratsTitle = document.getElementById('congrats-title');
+  if (congratsTitle) congratsTitle.textContent = t('congratulations');
+  
+  const congratsMessage = document.querySelector('#congrats-modal p');
+  if (congratsMessage) congratsMessage.textContent = t('streakMessage');
+  
+  const resetBtn = document.getElementById('reset-btn');
+  if (resetBtn) resetBtn.textContent = t('playAgain');
+  
+  const artistsTitle = document.getElementById('artists-title');
+  if (artistsTitle) artistsTitle.textContent = t('artists');
+  
+  const galleryTitle = document.getElementById('gallery-title');
+  if (galleryTitle) galleryTitle.textContent = t('gallery');
+  
+  const closeArtistsBtn = document.getElementById('close-artists-modal');
+  if (closeArtistsBtn) closeArtistsBtn.textContent = t('close');
+  
+  const closeGalleryBtn = document.getElementById('close-gallery-modal');
+  if (closeGalleryBtn) closeGalleryBtn.textContent = t('close');
+}
+
+function setupLanguageToggle() {
+  const languageToggle = document.getElementById('language-toggle');
+  const flagEn = document.getElementById('flag-en');
+  const flagNo = document.getElementById('flag-no');
+  
+  if (languageToggle) {
+    // Set initial active state
+    updateLanguageFlags();
+    
+    // Handle flag clicks
+    if (flagEn) {
+      flagEn.addEventListener('click', () => {
+        currentLanguage = 'en';
+        updateLanguageUI();
+        updateLanguageFlags();
+        renderCategorySelector();
+        updateScoreBar();
+      });
+    }
+    
+    if (flagNo) {
+      flagNo.addEventListener('click', () => {
+        currentLanguage = 'no';
+        updateLanguageUI();
+        updateLanguageFlags();
+        renderCategorySelector();
+        updateScoreBar();
+      });
+    }
+  }
+}
+
+function updateLanguageFlags() {
+  const flagEn = document.getElementById('flag-en');
+  const flagNo = document.getElementById('flag-no');
+  
+  if (flagEn) {
+    flagEn.classList.toggle('active', currentLanguage === 'en');
+  }
+  if (flagNo) {
+    flagNo.classList.toggle('active', currentLanguage === 'no');
+  }
+}
+
+// Artist weighting system
+function initializeArtistWeights() {
+  const validPaintings = getValidPaintings();
+  const artistCounts = {};
+  
+  validPaintings.forEach(painting => {
+    if (painting.artist) {
+      artistCounts[painting.artist] = (artistCounts[painting.artist] || 0) + 1;
+    }
+  });
+  
+  // Calculate weights inversely proportional to painting count
+  const maxCount = Math.max(...Object.values(artistCounts));
+  Object.keys(artistCounts).forEach(artist => {
+    const count = artistCounts[artist];
+    // Higher weight for artists with fewer paintings
+    artistWeights.set(artist, maxCount / count);
+  });
+}
+
+function getWeightedRandomPainting(validPaintings) {
+  if (validPaintings.length <= 1) return validPaintings[0];
+  
+  // Filter out recently selected artists
+  const availablePaintings = validPaintings.filter(p => 
+    !lastSelectedArtists.has(p.artist)
+  );
+  
+  if (availablePaintings.length === 0) {
+    // If all artists were recently used, reset the set
+    lastSelectedArtists.clear();
+    return getWeightedRandomPainting(validPaintings);
+  }
+  
+  // Calculate total weight
+  let totalWeight = 0;
+  const weightedPaintings = availablePaintings.map(painting => {
+    const weight = artistWeights.get(painting.artist) || 1;
+    totalWeight += weight;
+    return { painting, weight, cumulativeWeight: totalWeight };
+  });
+  
+  // Select random painting based on weights
+  const random = Math.random() * totalWeight;
+  const selected = weightedPaintings.find(wp => wp.cumulativeWeight >= random);
+  
+  if (selected) {
+    // Add to recently selected set
+    lastSelectedArtists.add(selected.painting.artist);
+    if (lastSelectedArtists.size > 5) {
+      // Keep only last 5 artists
+      const artistsArray = Array.from(lastSelectedArtists);
+      lastSelectedArtists = new Set(artistsArray.slice(-5));
+    }
+    return selected.painting;
+  }
+  
+  return availablePaintings[0];
+}
+
+// New score tracking system
+function addToScoreHistory(isCorrect) {
+  scoreHistory.push(isCorrect ? 'correct' : 'incorrect');
+  if (scoreHistory.length > MAX_SCORE_HISTORY) {
+    scoreHistory.shift(); // Remove oldest score (FIFO)
+  }
+  updateScoreBar();
+}
+
+function updateScoreBar() {
+  const streakBar = document.getElementById('streak-bar');
+  if (!streakBar) return;
+  
+  streakBar.innerHTML = '';
+  
+  for (let i = 0; i < MAX_SCORE_HISTORY; i++) {
+    const circle = document.createElement('div');
+    circle.className = 'streak-circle';
+    
+    if (i < scoreHistory.length) {
+      const score = scoreHistory[i];
+      if (score === 'correct') {
+        circle.classList.add('correct-score');
+      } else {
+        circle.classList.add('incorrect-score');
+      }
+    }
+    
+    streakBar.appendChild(circle);
+  }
+}
 
 function getYearOnly(dateStr) {
   if (!dateStr) return '';
@@ -45,7 +295,7 @@ function updateCollectionInfo() {
   if (!catSelect || !infoBar) return;
   const selected = catSelect.value || 'all';
   const { count, painterCount } = getCategoryCounts(selected);
-  infoBar.textContent = `${count} paintings, ${painterCount} painters`;
+  infoBar.textContent = `${count} ${t('paintings')}, ${painterCount} ${t('painters')}`;
 }
 
 function updateCategoryDropdown() {
@@ -59,7 +309,7 @@ function updateCategoryDropdown() {
   options.forEach(opt => {
     const option = document.createElement('option');
     option.value = opt.value;
-    option.textContent = opt.label;
+    option.textContent = t(opt.label);
     catSelect.appendChild(option);
   });
   updateCollectionInfo();
@@ -96,7 +346,7 @@ function renderCategorySelector() {
     return count > 0;
   });
   const current = catSelect.value || 'all';
-  custom.textContent = options.find(o => o.value === current)?.label || 'Full Collection';
+  custom.textContent = t(options.find(o => o.value === current)?.label || 'fullCollection');
   custom.onclick = e => {
     e.stopPropagation();
     let menu = document.getElementById('custom-category-menu');
@@ -107,7 +357,7 @@ function renderCategorySelector() {
     options.forEach(opt => {
       const item = document.createElement('div');
       item.className = 'custom-category-item';
-      item.textContent = opt.label;
+      item.textContent = t(opt.label);
       item.onclick = ev => {
         ev.stopPropagation();
         catSelect.value = opt.value;
@@ -248,18 +498,18 @@ function getValidPaintings() {
 function loadQuiz() {
   const validPaintings = getValidPaintings();
   if (!validPaintings.length) {
-    document.getElementById('options').innerHTML = '<p>Ingen gyldige malerier funnet.</p>';
+    document.getElementById('options').innerHTML = `<p>${t('noPaintings')}</p>`;
     return;
   }
   let painting;
   for (let i = 0; i < 10; i++) {
-    painting = getRandomPainting(validPaintings);
+    painting = getWeightedRandomPainting(validPaintings);
     if (painting && painting.artist && painting.url) break;
   }
   if (!painting || !painting.artist || !painting.url) return;
   const img = document.getElementById('painting');
   img.src = painting.url;
-  img.alt = stripHtml(painting.title) || 'Painting';
+  img.alt = stripHtml(painting.title) || t('painting');
   img.loading = 'lazy';
   const optionsDiv = document.getElementById('options');
   
@@ -268,15 +518,16 @@ function loadQuiz() {
   
   const artists = generateOptions(painting.artist, validPaintings);
   if (artists.length < 2) {
-    optionsDiv.innerHTML = '<p>Ikke nok kunstnere for quiz.</p>';
+    optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
     return;
   }
   artists.forEach(artist => {
     const btn = document.createElement('button');
     btn.textContent = artist;
     btn.onclick = () => {
-      // Disable all buttons and clear any existing classes
+      // Add loading state to prevent multiple clicks
       Array.from(optionsDiv.children).forEach(b => {
+        b.classList.add('loading');
         b.disabled = true;
         b.classList.remove('correct', 'wrong');
       });
@@ -287,30 +538,37 @@ function loadQuiz() {
       if (artist === painting.artist) {
         streak++;
         selectedBtn.classList.add('correct');
-        showMessage('Correct!', '#388e3c');
-        if (streak >= 10) {
-          updateStreakBar();
-          setTimeout(showCongratsModal, 500);
-          setTimeout(() => showArtistPopup(painting, null), 900);
-          return;
-        }
+        showMessage(t('correct'), '#388e3c');
+        addToScoreHistory(true);
+              if (streak >= 10) {
+        updateScoreBar();
+        setTimeout(showCongratsModal, 500);
+        setTimeout(() => showArtistPopup(painting, null), 900);
+        return;
+      }
       } else {
         streak = 0;
         selectedBtn.classList.add('wrong');
         correctBtn.classList.add('correct');
-        showMessage('Incorrect!', '#e53935');
+        showMessage(t('incorrect'), '#e53935');
+        addToScoreHistory(false);
       }
-      updateStreakBar();
+      updateScoreBar();
       setTimeout(() => {
         showArtistPopup(painting, () => {
           hideMessage();
+          // Remove loading state and reset buttons
+          Array.from(optionsDiv.children).forEach(b => {
+            b.classList.remove('loading', 'correct', 'wrong');
+            b.disabled = false;
+          });
           loadQuiz();
         });
       }, 500);
     };
     optionsDiv.appendChild(btn);
   });
-  updateStreakBar();
+  updateScoreBar();
 }
 
 function getRandomPainting(validPaintings) {
@@ -568,21 +826,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (!res.ok) throw new Error('Failed to load paintings');
     paintings = await res.json();
     await loadArtistBios();
+    
+    // Initialize all systems
+    initializeArtistWeights();
     updateCategoryDropdown();
     updateCollectionInfo();
     renderCategorySelector();
+    updateLanguageUI();
+    setupLanguageToggle();
     loadQuiz();
     setupArtistModal();
     setupGalleryModal();
     setupLogoReset();
     setupCategoryChangeInfoBar();
+    
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) resetBtn.addEventListener('click', () => {
       streak = 0;
-      updateStreakBar();
+      scoreHistory = []; // Reset score history
+      updateScoreBar();
       hideCongratsModal();
       loadQuiz();
     });
+    
     // Add Esc key to close modals
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
@@ -593,6 +859,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
   } catch (err) {
     console.error('Error loading data:', err);
-    document.getElementById('options').innerHTML = '<p>Error loading quiz data. Please try again later.</p>';
+    document.getElementById('options').innerHTML = `<p>${t('errorLoading')}</p>`;
   }
 });
