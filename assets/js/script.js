@@ -32,6 +32,47 @@ const translations = {
     paintings: 'paintings',
     painting: 'painting',
     painters: 'painters',
+    // Correct answer messages
+    correctMessages: [
+      'Correct!',
+      'Perfect!',
+      'Excellent!',
+      'Brilliant!',
+      'Fantastic!',
+      'Outstanding!',
+      'Amazing!',
+      'Superb!',
+      'Incredible!',
+      'Wonderful!',
+      'Spectacular!',
+      'Marvelous!',
+      'Splendid!',
+      'Magnificent!',
+      'Exceptional!'
+    ],
+    // Incorrect answer messages
+    incorrectMessages: [
+      'Incorrect!',
+      'Wrong!',
+      'Not quite!',
+      'Try again!',
+      'Not right!',
+      'That\'s not it!',
+      'Incorrect answer!',
+      'Wrong choice!',
+      'Not the right one!',
+      'That\'s not correct!',
+      'Wrong artist!',
+      'Not quite right!',
+      'Incorrect!',
+      'Wrong answer!',
+      'That\'s not the one!'
+    ],
+    // Settings modal
+    settings: 'Settings',
+    languageLabel: 'Language',
+    english: 'English',
+    norwegian: 'Norwegian',
     // Round feedback messages
     roundFeedback: {
       '1/10': [
@@ -102,25 +143,7 @@ const translations = {
     aboutFacts: 'Interesting Facts',
     aboutFactsText: 'Data sourced from open Wikimedia and Wikidata APIs, Features 33 different art genres including landscape, portrait, and abstract painting, Includes 7 major art movements from Impressionism to Contemporary art, Collection spans over 200 years of Norwegian art history, All images are freely available under open licenses',
     aboutTechnical: 'Technical Details',
-    aboutTechnicalText: 'Built with modern web technologies, featuring responsive design for all devices. The quiz uses intelligent artist weighting to ensure fair representation regardless of collection size.',
-    // Encouraging messages for correct answers
-    encouragingMessages: [
-      'Excellent',
-      'Perfect',
-      'Brilliant',
-      'Well done',
-      'Fantastic',
-      'Outstanding',
-      'Amazing',
-      'Superb',
-      'Incredible',
-      'Wonderful',
-      'Spectacular',
-      'Marvelous',
-      'Splendid',
-      'Magnificent',
-      'Exceptional'
-    ]
+    aboutTechnicalText: 'Built with modern web technologies, featuring responsive design for all devices. The quiz uses intelligent artist weighting to ensure fair representation regardless of collection size.'
   },
   no: {
     title: 'Kunstquiz',
@@ -151,6 +174,47 @@ const translations = {
     paintings: 'malerier',
     painting: 'maleri',
     painters: 'malere',
+    // Correct answer messages
+    correctMessages: [
+      'Riktig!',
+      'Perfekt!',
+      'Utmerket!',
+      'Strålende!',
+      'Fantastisk!',
+      'Fremragende!',
+      'Suverent!',
+      'Utrolig!',
+      'Vidunderlig!',
+      'Spektakulært!',
+      'Marveløst!',
+      'Praktfullt!',
+      'Magnifikt!',
+      'Exceptionelt!',
+      'Fantastisk!'
+    ],
+    // Incorrect answer messages
+    incorrectMessages: [
+      'Feil!',
+      'Galt!',
+      'Ikke helt riktig!',
+      'Prøv igjen!',
+      'Ikke riktig!',
+      'Det er ikke det!',
+      'Feil svar!',
+      'Feil valg!',
+      'Ikke den riktige!',
+      'Det er ikke riktig!',
+      'Feil kunstner!',
+      'Ikke helt riktig!',
+      'Feil!',
+      'Feil svar!',
+      'Det er ikke den!'
+    ],
+    // Settings modal
+    settings: 'Innstillinger',
+    languageLabel: 'Språk',
+    english: 'Engelsk',
+    norwegian: 'Norsk',
     // Round feedback messages
     roundFeedback: {
       '1/10': [
@@ -221,25 +285,7 @@ const translations = {
     aboutFacts: 'Interessante fakta',
     aboutFactsText: 'Data hentet fra åpne Wikimedia og Wikidata APIer, Inneholder 33 ulike kunstgenrer inkludert landskap, portrett og abstrakt maleri, Inkluderer 7 store kunstbevegelser fra impressionisme til samtidskunst, Samlingen spenner over 200 år med norsk kunsthistorie, Alle bilder er fritt tilgjengelige under åpne lisenser',
     aboutTechnical: 'Tekniske detaljer',
-    aboutTechnicalText: 'Bygget med moderne webteknologier, med responsivt design for alle enheter. Quizen bruker intelligent kunstnervektlegging for å sikre rettferdig representasjon uansett samlingsstørrelse.',
-    // Encouraging messages for correct answers
-    encouragingMessages: [
-      'Utmerket',
-      'Perfekt',
-      'Strålende',
-      'Bra gjort',
-      'Fantastisk',
-      'Fremragende',
-      'Suverent',
-      'Utrolig',
-      'Vidunderlig',
-      'Spektakulært',
-      'Marveløst',
-      'Praktfullt',
-      'Magnifikt',
-      'Exceptionelt',
-      'Fantastisk'
-    ]
+    aboutTechnicalText: 'Bygget med moderne webteknologier, med responsivt design for alle enheter. Quizen bruker intelligent kunstnervektlegging for å sikre rettferdig representasjon uansett samlingsstørrelse.'
   }
 };
 
@@ -303,10 +349,26 @@ function updateLanguageUI() {
   
   // Update settings modal texts
   const settingsTitle = document.getElementById('settings-title');
-  if (settingsTitle) settingsTitle.textContent = currentLanguage === 'en' ? 'Settings' : 'Innstillinger';
+  if (settingsTitle) settingsTitle.textContent = t('settings');
   
   const settingsCloseBtn = document.getElementById('settings-close');
   if (settingsCloseBtn) settingsCloseBtn.textContent = t('close');
+  
+  // Update language labels in settings
+  const languageLabel = document.querySelector('#settings-modal h3');
+  if (languageLabel) languageLabel.textContent = t('languageLabel');
+  
+  const langEnText = document.querySelector('#lang-en .lang-text');
+  if (langEnText) langEnText.textContent = t('english');
+  
+  const langNoText = document.querySelector('#lang-no .lang-text');
+  if (langNoText) langNoText.textContent = t('norwegian');
+  
+  // Update page title and meta description
+  updatePageMeta();
+  
+  // Update language flag in footer
+  updateLanguageFlag();
   
   // Update modal texts
   const congratsTitle = document.getElementById('congrats-title');
@@ -721,9 +783,6 @@ function loadQuiz() {
     return;
   }
   
-  // Update progress display
-  updateProgressDisplay();
-  
   artists.forEach(artist => {
     const btn = document.createElement('button');
     btn.textContent = artist;
@@ -754,9 +813,9 @@ function loadQuiz() {
         streak++;
         selectedBtn.classList.add('correct');
         
-        // Show encouraging popup
-        const encouragingMessage = getRandomEncouragingMessage();
-        showEncouragingPopup(encouragingMessage);
+        // Show correct message
+        const correctMessage = getRandomCorrectMessage();
+        showMessage(correctMessage, '#388e3c');
         
         // Add artist to set
         currentRound.artists.add(painting.artist);
@@ -777,7 +836,8 @@ function loadQuiz() {
         streak = 0;
         selectedBtn.classList.add('wrong');
         correctBtn.classList.add('correct');
-        showMessage(t('incorrect'), '#e53935');
+        const incorrectMessage = getRandomIncorrectMessage();
+        showMessage(incorrectMessage, '#e53935');
         
         // Add both artists to set
         currentRound.artists.add(painting.artist);
@@ -837,9 +897,22 @@ function updateStreakBar() {
   
   streakBar.innerHTML = '';
   
+  // Create 10 circles for the round
   for (let i = 0; i < 10; i++) {
     const circle = document.createElement('div');
-    circle.className = `streak-circle${i < streak ? ' filled' : ''}`;
+    circle.className = 'streak-circle';
+    
+    // Color based on round progress
+    if (i < currentRound.questionNumber - 1) {
+      // Check if this answer was correct or incorrect
+      const answer = currentRound.answers[i];
+      if (answer && answer.correct) {
+        circle.classList.add('active'); // Green for correct
+      } else if (answer && !answer.correct) {
+        circle.classList.add('incorrect'); // Red for incorrect
+      }
+    }
+    
     streakBar.appendChild(circle);
   }
 }
@@ -1098,41 +1171,16 @@ function setupSettingsModal() {
   }
 }
 
-function getRandomEncouragingMessage() {
-  const messages = translations[currentLanguage].encouragingMessages;
-  const message = messages[encouragingMessageIndex];
-  encouragingMessageIndex = (encouragingMessageIndex + 1) % messages.length;
-  return message;
+function getRandomCorrectMessage() {
+  const messages = translations[currentLanguage].correctMessages;
+  const randomIndex = Math.floor(Math.random() * messages.length);
+  return messages[randomIndex];
 }
 
-function showEncouragingPopup(message) {
-  // Remove any existing encouraging popup
-  const existingPopup = document.getElementById('encouraging-popup');
-  if (existingPopup) {
-    existingPopup.remove();
-  }
-  
-  const popup = document.createElement('div');
-  popup.id = 'encouraging-popup';
-  popup.className = 'encouraging-popup';
-  popup.textContent = message;
-  
-  document.body.appendChild(popup);
-  
-  // Trigger animation
-  setTimeout(() => {
-    popup.classList.add('show');
-  }, 10);
-  
-  // Remove after animation
-  setTimeout(() => {
-    popup.classList.remove('show');
-    setTimeout(() => {
-      if (popup.parentNode) {
-        popup.parentNode.removeChild(popup);
-      }
-    }, 200);
-  }, 600);
+function getRandomIncorrectMessage() {
+  const messages = translations[currentLanguage].incorrectMessages;
+  const randomIndex = Math.floor(Math.random() * messages.length);
+  return messages[randomIndex];
 }
 
 function getRandomRoundFeedback(score) {
@@ -1218,11 +1266,34 @@ function startNewRound() {
   loadQuiz();
 }
 
-function updateProgressDisplay() {
-  const progressDiv = document.getElementById('progress-display');
-  if (!progressDiv) return;
+function updatePageMeta() {
+  // Update HTML lang attribute
+  const htmlElement = document.getElementById('html-element');
+  if (htmlElement) {
+    htmlElement.lang = currentLanguage === 'no' ? 'no' : 'en';
+  }
   
-  progressDiv.textContent = `Question ${currentRound.questionNumber}/10`;
+  // Update page title
+  if (currentLanguage === 'no') {
+    document.title = 'Kunstquiz - Norsk Kunstutfordring';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.content = 'En morsom quiz hvor du gjetter kunstneren bak berømte norske malerier. Test din kunnskap om norsk kunsthistorie!';
+    }
+  } else {
+    document.title = 'Kunstquiz - Norwegian Art Challenge';
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.content = 'A fun quiz where you guess the artist behind famous Norwegian paintings. Test your knowledge of Norwegian art history!';
+    }
+  }
+}
+
+function updateLanguageFlag() {
+  const settingsLink = document.getElementById('show-settings-link');
+  if (settingsLink) {
+    settingsLink.textContent = currentLanguage === 'no' ? '🇬🇧' : '🇳🇴';
+  }
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
