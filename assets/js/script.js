@@ -138,6 +138,17 @@ const translations = {
       playAgain: 'Play Another Round',
       close: 'Close'
     },
+    // Diploma
+    diploma: {
+      title: 'Certificate of Excellence',
+      subtitle: 'Norwegian Art Mastery',
+      achievement: 'Perfect Score Achievement',
+      description: 'This certificate is awarded for achieving a perfect score of 10/10 in the Norwegian Art Quiz, demonstrating exceptional knowledge of Norwegian art history.',
+      awardedTo: 'Awarded to',
+      date: 'Date',
+      download: 'Download Certificate',
+      close: 'Close'
+    },
     // About modal translations
     aboutTitle: 'About Kunstquiz',
     aboutCollection: 'The Collection',
@@ -284,6 +295,17 @@ const translations = {
       incorrect: 'Feil',
       artists: 'Malere med',
       playAgain: 'Spill en ny runde',
+      close: 'Lukk'
+    },
+    // Diploma
+    diploma: {
+      title: 'Eksellensbevis',
+      subtitle: 'Norsk Kunstmesterskap',
+      achievement: 'Perfekt Poengsum',
+      description: 'Dette beviset tildeles for å oppnå en perfekt poengsum på 10/10 i Norsk Kunstquiz, som demonstrerer enestående kunnskap om norsk kunsthistorie.',
+      awardedTo: 'Tildelt til',
+      date: 'Dato',
+      download: 'Last ned bevis',
       close: 'Lukk'
     },
     // About modal translations
@@ -1205,6 +1227,13 @@ function showRoundResults() {
   modal.style.display = 'flex';
   modal.focus();
   
+  // Check if perfect score and show diploma
+  if (totalCorrect === 10) {
+    setTimeout(() => {
+      showDiploma();
+    }, 2000); // Show diploma after 2 seconds
+  }
+  
   // Setup event listeners
   playAgainBtn.onclick = () => {
     hideRoundResults();
@@ -1228,6 +1257,92 @@ function showRoundResults() {
 function hideRoundResults() {
   const modal = document.getElementById('round-results-modal');
   if (modal) modal.style.display = 'none';
+}
+
+function showDiploma() {
+  const modal = document.getElementById('diploma-modal');
+  const title = document.getElementById('diploma-title');
+  const subtitle = document.getElementById('diploma-subtitle');
+  const achievement = document.getElementById('diploma-achievement-text');
+  const description = document.getElementById('diploma-description-text');
+  const awardedLabel = document.getElementById('diploma-awarded-label');
+  const awardedValue = document.getElementById('diploma-awarded-value');
+  const dateLabel = document.getElementById('diploma-date-label');
+  const dateValue = document.getElementById('diploma-date-value');
+  const downloadBtn = document.getElementById('diploma-download');
+  const closeBtn = document.getElementById('diploma-close');
+  
+  if (!modal) return;
+  
+  // Update content with translations
+  title.textContent = t('diploma.title');
+  subtitle.textContent = t('diploma.subtitle');
+  achievement.textContent = t('diploma.achievement');
+  description.textContent = t('diploma.description');
+  awardedLabel.textContent = t('diploma.awardedTo');
+  dateLabel.textContent = t('diploma.date');
+  downloadBtn.textContent = t('diploma.download');
+  closeBtn.textContent = t('diploma.close');
+  
+  // Set awardee name (you could make this customizable)
+  awardedValue.textContent = 'Art Enthusiast';
+  
+  // Set current date
+  const today = new Date();
+  const dateString = today.toLocaleDateString(currentLanguage === 'no' ? 'nb-NO' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  dateValue.textContent = dateString;
+  
+  // Show modal
+  modal.style.display = 'flex';
+  modal.focus();
+  
+  // Setup event listeners
+  downloadBtn.onclick = downloadDiploma;
+  closeBtn.onclick = hideDiploma;
+  
+  // Click outside to close
+  setTimeout(() => {
+    function outsideClick(e) {
+      if (!modal.querySelector('.diploma-content').contains(e.target)) {
+        hideDiploma();
+        document.removeEventListener('mousedown', outsideClick);
+      }
+    }
+    document.addEventListener('mousedown', outsideClick);
+  }, 100);
+}
+
+function hideDiploma() {
+  const modal = document.getElementById('diploma-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function downloadDiploma() {
+  const diplomaContainer = document.querySelector('.diploma-container');
+  if (!diplomaContainer) return;
+  
+  // Use html2canvas to capture the diploma
+  if (typeof html2canvas !== 'undefined') {
+    html2canvas(diplomaContainer, {
+      scale: 2,
+      backgroundColor: null,
+      useCORS: true,
+      allowTaint: true
+    }).then(canvas => {
+      // Create download link
+      const link = document.createElement('a');
+      link.download = `kunstquiz-diploma-${new Date().toISOString().split('T')[0]}.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    });
+  } else {
+    // Fallback: prompt user to take screenshot
+    alert('Please take a screenshot of your diploma!');
+  }
 }
 
 function startNewRound() {

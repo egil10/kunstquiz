@@ -67,6 +67,50 @@
     </div>
   </div>
 
+  <!-- Diploma Modal for Perfect Scores -->
+  <div id="diploma-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="diploma-title">
+    <div class="modal-content diploma-content">
+      <div class="diploma-container">
+        <div class="diploma-background">
+          <div class="diploma-painting-bg"></div>
+        </div>
+        <div class="diploma-content-inner">
+          <div class="diploma-header">
+            <h1 id="diploma-title">Certificate of Excellence</h1>
+            <h2 id="diploma-subtitle">Norwegian Art Mastery</h2>
+          </div>
+          <div class="diploma-body">
+            <div class="diploma-achievement">
+              <h3 id="diploma-achievement-text">Perfect Score Achievement</h3>
+            </div>
+            <div class="diploma-description">
+              <p id="diploma-description-text">This certificate is awarded for achieving a perfect score of 10/10 in the Norwegian Art Quiz, demonstrating exceptional knowledge of Norwegian art history.</p>
+            </div>
+            <div class="diploma-details">
+              <div class="diploma-detail">
+                <span class="diploma-label" id="diploma-awarded-label">Awarded to:</span>
+                <span class="diploma-value" id="diploma-awarded-value">Art Enthusiast</span>
+              </div>
+              <div class="diploma-detail">
+                <span class="diploma-label" id="diploma-date-label">Date:</span>
+                <span class="diploma-value" id="diploma-date-value">Today</span>
+              </div>
+            </div>
+          </div>
+          <div class="diploma-footer">
+            <div class="diploma-seal">
+              <div class="seal-inner">🏆</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="diploma-buttons">
+        <button id="diploma-download" class="primary-btn">Download Certificate</button>
+        <button id="diploma-close" class="secondary-btn">Close</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Modern social footer -->
   <footer class="footer-social">
     <div class="footer-links">
@@ -140,6 +184,7 @@
       <button id="close-about-modal">Close</button>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
 </html>
