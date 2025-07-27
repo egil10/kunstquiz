@@ -326,7 +326,19 @@ const CATEGORY_DEFS = [
 ];
 
 function t(key) {
-  return translations[currentLanguage][key] || key;
+  // Handle nested keys like 'roundStats.title'
+  const keys = key.split('.');
+  let value = translations[currentLanguage];
+  
+  for (const k of keys) {
+    if (value && typeof value === 'object' && k in value) {
+      value = value[k];
+    } else {
+      return key; // Return the key if translation not found
+    }
+  }
+  
+  return value || key;
 }
 
 function updateLanguageUI() {
@@ -829,7 +841,7 @@ function loadQuiz() {
           });
           currentRound.questionNumber++;
           loadQuiz();
-        }, 300);
+        }, 1000);
       } else {
         // Incorrect answer
         currentRound.incorrectAnswers++;
@@ -1214,7 +1226,7 @@ function showRoundResults() {
   const totalIncorrect = currentRound.incorrectAnswers;
   const uniqueArtists = currentRound.artists.size;
   
-  // Update content
+  // Update content with proper translations
   title.textContent = t('roundStats.title');
   score.textContent = `${totalCorrect}/10`;
   correct.textContent = `${t('roundStats.correct')}: ${totalCorrect}`;
@@ -1292,7 +1304,7 @@ function updatePageMeta() {
 function updateLanguageFlag() {
   const settingsLink = document.getElementById('show-settings-link');
   if (settingsLink) {
-    settingsLink.textContent = currentLanguage === 'no' ? '🇬🇧' : '🇳🇴';
+    settingsLink.textContent = currentLanguage === 'no' ? '🇳🇴' : '🇬🇧';
   }
 }
 

@@ -1225,11 +1225,11 @@ button.loading {
 
 /* Streak circles with round-based coloring */
 .streak-circle {
-  width: 1rem;
-  height: 1rem;
+  width: 0.75rem;
+  height: 0.75rem;
   border-radius: 50%;
   background-color: #e0e0e0;
-  margin: 0 0.25rem;
+  margin: 0 0.2rem;
   transition: background-color 0.3s ease;
 }
 
