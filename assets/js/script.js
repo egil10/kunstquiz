@@ -793,6 +793,7 @@ function loadQuiz() {
         
         // Quick transition for correct answers
         setTimeout(() => {
+          hideMessage(); // Hide the correct message
           // Remove loading state and reset buttons
           Array.from(optionsDiv.children).forEach(b => {
             b.classList.remove('loading', 'correct', 'wrong');
