@@ -81,6 +81,14 @@ const translations = {
     norwegian: 'Norwegian',
     // Round feedback messages
     roundFeedback: {
+      '0/10': [
+        'Don\'t worry, every expert was once a beginner!',
+        'This is just the start of your art journey!',
+        'Keep learning and you\'ll get better!',
+        'Art appreciation takes time to develop!',
+        'Every wrong answer is a learning opportunity!',
+        'You\'re building the foundation for great knowledge!'
+      ],
       '1/10': [
         'Getting started!',
         'First step on your art journey!',
@@ -240,6 +248,14 @@ const translations = {
     norwegian: 'Norsk',
     // Round feedback messages
     roundFeedback: {
+      '0/10': [
+        'Ikke bekymre deg, hver ekspert var engang en nybegynner!',
+        'Dette er bare starten på din kunstreise!',
+        'Fortsett å lære og du blir bedre!',
+        'Kunstappresiasjon tar tid å utvikle!',
+        'Hvert feil svar er en læremulighet!',
+        'Du bygger grunnlaget for stor kunnskap!'
+      ],
       '1/10': [
         'Kom i gang!',
         'Første steg på din kunstreise!',
@@ -1360,7 +1376,8 @@ function getRandomIncorrectMessage() {
 
 function getRandomRoundFeedback(score) {
   let category;
-  if (score === 1) category = '1/10';
+  if (score === 0) category = '0/10';
+  else if (score === 1) category = '1/10';
   else if (score >= 2 && score <= 4) category = '2-4/10';
   else if (score >= 5 && score <= 6) category = '5-6/10';
   else if (score >= 7 && score <= 8) category = '7-8/10';
