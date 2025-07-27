@@ -96,17 +96,20 @@ html, body {
 .streak-circle {
   width: 0.875rem;
   height: 0.875rem;
-  border-radius: 50%;
+  border-radius: 0.5rem;
   background-color: #e0e0e0;
+  border: 0.0625rem solid #ccc;
   transition: background-color 0.3s ease;
 }
 
 .streak-circle.filled {
   background-color: #4caf50;
+  border-color: #388e3c;
 }
 
 .streak-circle.incorrect {
   background-color: #f44336;
+  border-color: #d32f2f;
 }
 
 .streak-circle.active {

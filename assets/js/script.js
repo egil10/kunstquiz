@@ -154,7 +154,7 @@ const translations = {
       description: 'This certificate is awarded for achieving a perfect score of 10/10 in the Norwegian Art Quiz, demonstrating exceptional knowledge of Norwegian art history.',
       awardedTo: 'Awarded to',
       date: 'Date',
-      download: 'Download Certificate',
+      download: 'Download the diploma',
       close: 'Close'
     },
     // About modal translations
@@ -321,7 +321,7 @@ const translations = {
       description: 'Dette beviset tildeles for å oppnå en perfekt poengsum på 10/10 i Norsk Kunstquiz, som demonstrerer enestående kunnskap om norsk kunsthistorie.',
       awardedTo: 'Tildelt til',
       date: 'Dato',
-      download: 'Last ned bevis',
+      download: 'Last ned diplom',
       close: 'Lukk'
     },
     // About modal translations
@@ -1466,7 +1466,7 @@ function showDiploma() {
   const dateLabel = document.getElementById('diploma-date-label');
   const dateValue = document.getElementById('diploma-date-value');
   const downloadBtn = document.getElementById('diploma-download');
-  const closeBtn = document.getElementById('diploma-close');
+  const playAgainBtn = document.getElementById('diploma-play-again');
   const paintingBg = document.querySelector('.diploma-painting-bg');
   
   if (!modal) return;
@@ -1520,7 +1520,7 @@ function showDiploma() {
   awardedLabel.textContent = t('diploma.awardedTo');
   dateLabel.textContent = t('diploma.date');
   downloadBtn.textContent = t('diploma.download');
-  closeBtn.textContent = t('diploma.close');
+  playAgainBtn.textContent = t('playAgain');
   
   // Set awardee name (you could make this customizable)
   awardedValue.textContent = 'Art Enthusiast';
@@ -1536,7 +1536,10 @@ function showDiploma() {
   
   // Setup event listeners
   downloadBtn.onclick = downloadDiploma;
-  closeBtn.onclick = hideDiploma;
+  playAgainBtn.onclick = () => {
+    hideDiploma();
+    startNewRound();
+  };
   
   // Click outside to close
   setTimeout(() => {
