@@ -105,21 +105,21 @@ const translations = {
     aboutTechnicalText: 'Built with modern web technologies, featuring responsive design for all devices. The quiz uses intelligent artist weighting to ensure fair representation regardless of collection size.',
     // Encouraging messages for correct answers
     encouragingMessages: [
-      'Excellent! 🎨',
-      'Perfect! ✨',
-      'Brilliant! 🌟',
-      'Well done! 👏',
-      'Fantastic! 🎯',
-      'Outstanding! 🏆',
-      'Amazing! 💫',
-      'Superb! 🎪',
-      'Incredible! 🔥',
-      'Wonderful! 🌈',
-      'Spectacular! ⭐',
-      'Marvelous! 🎭',
-      'Splendid! 🎪',
-      'Magnificent! 👑',
-      'Exceptional! 🎨'
+      'Excellent',
+      'Perfect',
+      'Brilliant',
+      'Well done',
+      'Fantastic',
+      'Outstanding',
+      'Amazing',
+      'Superb',
+      'Incredible',
+      'Wonderful',
+      'Spectacular',
+      'Marvelous',
+      'Splendid',
+      'Magnificent',
+      'Exceptional'
     ]
   },
   no: {
@@ -224,21 +224,21 @@ const translations = {
     aboutTechnicalText: 'Bygget med moderne webteknologier, med responsivt design for alle enheter. Quizen bruker intelligent kunstnervektlegging for å sikre rettferdig representasjon uansett samlingsstørrelse.',
     // Encouraging messages for correct answers
     encouragingMessages: [
-      'Utmerket! 🎨',
-      'Perfekt! ✨',
-      'Strålende! 🌟',
-      'Bra gjort! 👏',
-      'Fantastisk! 🎯',
-      'Fremragende! 🏆',
-      'Fantastisk! 💫',
-      'Suverent! 🎪',
-      'Utrolig! 🔥',
-      'Vidunderlig! 🌈',
-      'Spektakulært! ⭐',
-      'Marveløst! 🎭',
-      'Praktfullt! 🎪',
-      'Magnifikt! 👑',
-      'Exceptionelt! 🎨'
+      'Utmerket',
+      'Perfekt',
+      'Strålende',
+      'Bra gjort',
+      'Fantastisk',
+      'Fremragende',
+      'Suverent',
+      'Utrolig',
+      'Vidunderlig',
+      'Spektakulært',
+      'Marveløst',
+      'Praktfullt',
+      'Magnifikt',
+      'Exceptionelt',
+      'Fantastisk'
     ]
   }
 };
@@ -301,11 +301,12 @@ function updateLanguageUI() {
   // Update collection info
   updateCollectionInfo();
   
-  // Update language link
-  const languageLink = document.getElementById('language-link');
-  if (languageLink) {
-    languageLink.textContent = currentLanguage === 'en' ? 'Norsk' : 'English';
-  }
+  // Update settings modal texts
+  const settingsTitle = document.getElementById('settings-title');
+  if (settingsTitle) settingsTitle.textContent = currentLanguage === 'en' ? 'Settings' : 'Innstillinger';
+  
+  const settingsCloseBtn = document.getElementById('settings-close');
+  if (settingsCloseBtn) settingsCloseBtn.textContent = t('close');
   
   // Update modal texts
   const congratsTitle = document.getElementById('congrats-title');
@@ -337,15 +338,64 @@ function updateLanguageUI() {
 }
 
 function setupLanguageToggle() {
-  const languageLink = document.getElementById('language-link');
-  if (languageLink) {
-    languageLink.addEventListener('click', e => {
+  const settingsLink = document.getElementById('show-settings-link');
+  const langEnBtn = document.getElementById('lang-en');
+  const langNoBtn = document.getElementById('lang-no');
+  const settingsCloseBtn = document.getElementById('settings-close');
+  
+  if (settingsLink) {
+    settingsLink.addEventListener('click', (e) => {
       e.preventDefault();
-      currentLanguage = currentLanguage === 'en' ? 'no' : 'en';
+      showSettingsModal();
+    });
+  }
+  
+  if (langEnBtn) {
+    langEnBtn.addEventListener('click', () => {
+      currentLanguage = 'en';
       updateLanguageUI();
+      updateLanguageButtons();
       renderCategorySelector();
       updateStreakBar();
     });
+  }
+  
+  if (langNoBtn) {
+    langNoBtn.addEventListener('click', () => {
+      currentLanguage = 'no';
+      updateLanguageUI();
+      updateLanguageButtons();
+      renderCategorySelector();
+      updateStreakBar();
+    });
+  }
+  
+  if (settingsCloseBtn) {
+    settingsCloseBtn.addEventListener('click', hideSettingsModal);
+  }
+}
+
+function showSettingsModal() {
+  const modal = document.getElementById('settings-modal');
+  if (modal) {
+    modal.style.display = 'flex';
+    updateLanguageButtons();
+    modal.focus();
+  }
+}
+
+function hideSettingsModal() {
+  const modal = document.getElementById('settings-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function updateLanguageButtons() {
+  const langEnBtn = document.getElementById('lang-en');
+  const langNoBtn = document.getElementById('lang-no');
+  
+  if (langEnBtn && langNoBtn) {
+    langEnBtn.classList.toggle('active', currentLanguage === 'en');
+    langNoBtn.classList.toggle('active', currentLanguage === 'no');
   }
 }
 
@@ -1037,6 +1087,17 @@ function setupAboutModal() {
   if (closeBtn) closeBtn.addEventListener('click', hideAboutModal);
 }
 
+function setupSettingsModal() {
+  const settingsLink = document.getElementById('show-settings-link');
+  
+  if (settingsLink) {
+    settingsLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      showSettingsModal();
+    });
+  }
+}
+
 function getRandomEncouragingMessage() {
   const messages = translations[currentLanguage].encouragingMessages;
   const message = messages[encouragingMessageIndex];
@@ -1060,18 +1121,18 @@ function showEncouragingPopup(message) {
   
   // Trigger animation
   setTimeout(() => {
-    popup.classList.add('visible');
+    popup.classList.add('show');
   }, 10);
   
   // Remove after animation
   setTimeout(() => {
-    popup.classList.remove('visible');
+    popup.classList.remove('show');
     setTimeout(() => {
       if (popup.parentNode) {
         popup.parentNode.removeChild(popup);
       }
-    }, 300);
-  }, 800);
+    }, 200);
+  }, 600);
 }
 
 function getRandomRoundFeedback(score) {
@@ -1182,6 +1243,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupArtistModal();
     setupGalleryModal();
     setupAboutModal();
+    setupSettingsModal();
     setupLogoReset();
     setupCategoryChangeInfoBar();
     
@@ -1199,6 +1261,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideCongratsModal();
         hideGalleryModal();
         hideAboutModal();
+        hideSettingsModal();
         hideRoundResults();
         document.getElementById('artists-modal').style.display = 'none';
       }
