@@ -1238,6 +1238,12 @@ function showRoundResults() {
   const totalCorrect = currentRound.correctAnswers;
   const uniqueArtists = [...currentRound.artists].sort();
   
+  // For perfect scores, go directly to diploma
+  if (totalCorrect === 10) {
+    showDiploma();
+    return;
+  }
+  
   // Update content with proper translations
   title.textContent = t('roundStats.title');
   score.textContent = `${totalCorrect}/10`;
@@ -1254,33 +1260,14 @@ function showRoundResults() {
   feedback.textContent = getRandomRoundFeedback(totalCorrect);
   playAgainBtn.textContent = t('roundStats.playAgain');
   
-  // Show/hide download button based on score
-  if (totalCorrect === 10) {
-    downloadBtn.style.display = 'inline-block';
-    downloadBtn.textContent = t('diploma.download');
-  } else {
-    downloadBtn.style.display = 'none';
-  }
-  
   // Show modal
   modal.style.display = 'flex';
   modal.focus();
-  
-  // Check if perfect score and show diploma
-  if (totalCorrect === 10) {
-    setTimeout(() => {
-      showDiploma();
-    }, 2000); // Show diploma after 2 seconds
-  }
   
   // Setup event listeners
   playAgainBtn.onclick = () => {
     hideRoundResults();
     startNewRound();
-  };
-  
-  downloadBtn.onclick = () => {
-    downloadDiploma();
   };
   
   // Click outside to close
@@ -1312,8 +1299,50 @@ function showDiploma() {
   const dateValue = document.getElementById('diploma-date-value');
   const downloadBtn = document.getElementById('diploma-download');
   const closeBtn = document.getElementById('diploma-close');
+  const paintingBg = document.querySelector('.diploma-painting-bg');
   
   if (!modal) return;
+  
+  // Set dynamic background painting from current round
+  let backgroundPainting = null;
+  if (paintingBg && currentRound.artists.size > 0) {
+    // Get a random painting from the current round
+    const roundPaintings = paintings.filter(p => currentRound.artists.has(p.artist));
+    if (roundPaintings.length > 0) {
+      backgroundPainting = roundPaintings[Math.floor(Math.random() * roundPaintings.length)];
+      paintingBg.style.backgroundImage = `url(${backgroundPainting.image})`;
+      paintingBg.style.backgroundSize = 'cover';
+      paintingBg.style.backgroundPosition = 'center';
+      paintingBg.style.backgroundRepeat = 'no-repeat';
+      paintingBg.style.opacity = '0.15';
+      
+      // Add artist attribution to the background
+      paintingBg.setAttribute('data-artist', backgroundPainting.artist);
+      paintingBg.setAttribute('title', `Background: ${backgroundPainting.artist}`);
+      
+      // Set artist attribution text
+      const artistAttribution = document.querySelector('.diploma-artist-attribution');
+      if (artistAttribution) {
+        artistAttribution.textContent = `Background: ${backgroundPainting.artist}`;
+        setTimeout(() => {
+          artistAttribution.classList.add('visible');
+        }, 1000);
+      }
+      
+      // Make background clickable to show full painting
+      const diplomaBackground = document.querySelector('.diploma-background');
+      if (diplomaBackground && backgroundPainting) {
+        diplomaBackground.style.cursor = 'pointer';
+        diplomaBackground.onclick = () => {
+          showArtistPopup(backgroundPainting, () => {
+            // Return to diploma after closing popup
+            showDiploma();
+          });
+        };
+        diplomaBackground.title = `Click to view: ${backgroundPainting.title} by ${backgroundPainting.artist}`;
+      }
+    }
+  }
   
   // Update content with translations
   title.textContent = t('diploma.title');
@@ -1329,13 +1358,9 @@ function showDiploma() {
   awardedValue.textContent = 'Art Enthusiast';
   
   // Set current date
-  const today = new Date();
-  const dateString = today.toLocaleDateString(currentLanguage === 'no' ? 'nb-NO' : 'en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-  dateValue.textContent = dateString;
+  const now = new Date();
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  dateValue.textContent = now.toLocaleDateString(currentLanguage === 'no' ? 'nb-NO' : 'en-US', options);
   
   // Show modal
   modal.style.display = 'flex';
