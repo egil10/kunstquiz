@@ -399,8 +399,7 @@ function updateLanguageUI() {
   // Update category labels
   const customLink = document.getElementById('custom-category-link');
   if (customLink) {
-    const currentValue = document.getElementById('category-select')?.value || 'all';
-    const category = CATEGORY_DEFS.find(cat => cat.value === currentValue);
+    const category = CATEGORY_DEFS.find(cat => cat.value === selectedCategory);
     if (category) {
       customLink.textContent = t(category.label);
     }
@@ -571,6 +570,10 @@ function updateCategoryDropdown() {
     option.textContent = t(opt.label);
     catSelect.appendChild(option);
   });
+  
+  // Ensure the select has the correct value
+  catSelect.value = selectedCategory;
+  
   updateCollectionInfo();
   
   // Update aria-label
