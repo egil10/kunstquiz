@@ -32,6 +32,12 @@ const translations = {
     paintings: 'paintings',
     painting: 'painting',
     painters: 'painters',
+    // Footer links
+    github: 'GitHub',
+    instagram: 'Instagram',
+    tiktok: 'TikTok',
+    // Modal buttons and labels
+    selectCategory: 'Select quiz category',
     // Correct answer messages
     correctMessages: [
       'Correct!',
@@ -174,6 +180,12 @@ const translations = {
     paintings: 'malerier',
     painting: 'maleri',
     painters: 'malere',
+    // Footer links
+    github: 'GitHub',
+    instagram: 'Instagram',
+    tiktok: 'TikTok',
+    // Modal buttons and labels
+    selectCategory: 'Velg quiz-kategori',
     // Correct answer messages
     correctMessages: [
       'Riktig!',
@@ -382,6 +394,12 @@ function updateLanguageUI() {
   // Update language flag in footer
   updateLanguageFlag();
   
+  // Update footer links
+  updateFooterLinks();
+  
+  // Update category selector aria-label
+  updateCategorySelector();
+  
   // Update modal texts
   const congratsTitle = document.getElementById('congrats-title');
   if (congratsTitle) congratsTitle.textContent = t('congratulations');
@@ -578,6 +596,9 @@ function updateCategoryDropdown() {
     catSelect.appendChild(option);
   });
   updateCollectionInfo();
+  
+  // Update aria-label
+  catSelect.setAttribute('aria-label', t('selectCategory'));
 }
 
 function setupCategoryChangeInfoBar() {
@@ -1305,6 +1326,25 @@ function updateLanguageFlag() {
   const settingsLink = document.getElementById('show-settings-link');
   if (settingsLink) {
     settingsLink.textContent = currentLanguage === 'no' ? '🇳🇴' : '🇬🇧';
+  }
+}
+
+function updateFooterLinks() {
+  // Update footer link texts
+  const artistsLink = document.getElementById('show-artists-link');
+  if (artistsLink) artistsLink.textContent = t('artists');
+  
+  const galleryLink = document.getElementById('show-gallery-link');
+  if (galleryLink) galleryLink.textContent = t('gallery');
+  
+  const aboutLink = document.getElementById('show-about-link');
+  if (aboutLink) aboutLink.textContent = t('about');
+}
+
+function updateCategorySelector() {
+  const categorySelect = document.getElementById('category-select');
+  if (categorySelect) {
+    categorySelect.setAttribute('aria-label', t('selectCategory'));
   }
 }
 
