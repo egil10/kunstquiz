@@ -25,7 +25,7 @@ const translations = {
     notEnoughArtists: 'Not enough artists for quiz.',
     errorLoading: 'Error loading quiz data. Please try again later.',
     close: 'Close',
-    artists: 'All Artists',
+    artists: 'All Painters',
     gallery: 'Gallery',
     about: 'About',
     language: 'Language',
@@ -134,7 +134,7 @@ const translations = {
       score: 'Score',
       correct: 'Correct',
       incorrect: 'Incorrect',
-      artists: 'Artists featured',
+      artists: 'Painters featured',
       playAgain: 'Play Another Round',
       close: 'Close'
     },
@@ -173,7 +173,7 @@ const translations = {
     notEnoughArtists: 'Ikke nok kunstnere for quiz.',
     errorLoading: 'Feil ved lasting av quiz-data. Vennligst prøv igjen senere.',
     close: 'Lukk',
-    artists: 'Alle Kunstnere',
+    artists: 'Alle Malere',
     gallery: 'Galleri',
     about: 'Om',
     language: 'Språk',
@@ -282,7 +282,7 @@ const translations = {
       score: 'Poengsum',
       correct: 'Riktig',
       incorrect: 'Feil',
-      artists: 'Kunstnere med',
+      artists: 'Malere med',
       playAgain: 'Spill en ny runde',
       close: 'Lukk'
     },
@@ -810,9 +810,8 @@ function loadQuiz() {
         const incorrectMessage = getRandomIncorrectMessage();
         showMessage(incorrectMessage, '#e53935');
         
-        // Add both artists to set
+        // Add correct artist to set (only count the actual featured artist)
         currentRound.artists.add(painting.artist);
-        currentRound.artists.add(artist);
         
         updateStreakBar();
         setTimeout(() => {
@@ -975,9 +974,11 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     yearsHtml = `<span class="artist-years">${bioInfo.birth_year}–${bioInfo.death_year}</span>`;
     imgHtml = bioInfo.self_portrait_url ? `<img src="${bioInfo.self_portrait_url}" alt="${name}" class="artist-portrait toast-portrait" loading="lazy">` : '';
     
-    // Use language-specific bio
-    const bioText = currentLanguage === 'no' ? bioInfo.norwegian_bio : bioInfo.english_bio;
-    bioHtml = `<span class="artist-bio">${bioText || bioInfo.bio || ''}</span>`;
+    // Use language-specific bio with proper fallback
+    const bioText = currentLanguage === 'no' ? 
+      (bioInfo.norwegian_bio || bioInfo.bio || '') : 
+      (bioInfo.english_bio || bioInfo.bio || '');
+    bioHtml = bioText ? `<span class="artist-bio">${bioText}</span>` : '';
     
     let tagList = [...(bioInfo.awards || []), ...(bioInfo.movement || []), ...(bioInfo.genre || [])];
     if (tagList.length) {
@@ -1169,7 +1170,7 @@ function showRoundResults() {
   const score = document.getElementById('round-results-score');
   const correct = document.getElementById('round-results-correct');
   const incorrect = document.getElementById('round-results-incorrect');
-  const artists = document.getElementById('round-results-artists');
+  const artistsList = document.getElementById('round-results-artists-list');
   const feedback = document.getElementById('round-results-feedback');
   const playAgainBtn = document.getElementById('round-results-play-again');
   const closeBtn = document.getElementById('round-results-close');
@@ -1178,14 +1179,23 @@ function showRoundResults() {
   
   const totalCorrect = currentRound.correctAnswers;
   const totalIncorrect = currentRound.incorrectAnswers;
-  const uniqueArtists = currentRound.artists.size;
+  const uniqueArtists = [...currentRound.artists].sort();
   
   // Update content with proper translations
   title.textContent = t('roundStats.title');
   score.textContent = `${totalCorrect}/10`;
   correct.textContent = `${t('roundStats.correct')}: ${totalCorrect}`;
   incorrect.textContent = `${t('roundStats.incorrect')}: ${totalIncorrect}`;
-  artists.textContent = `${t('roundStats.artists')}: ${uniqueArtists}`;
+  
+  // Populate artists list
+  artistsList.innerHTML = '';
+  uniqueArtists.forEach(artist => {
+    const artistTag = document.createElement('span');
+    artistTag.className = 'artist-tag-small';
+    artistTag.textContent = artist;
+    artistsList.appendChild(artistTag);
+  });
+  
   feedback.textContent = getRandomRoundFeedback(totalCorrect);
   playAgainBtn.textContent = t('roundStats.playAgain');
   closeBtn.textContent = t('roundStats.close');

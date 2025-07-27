@@ -1133,6 +1133,37 @@ button.loading {
   font-weight: 700;
 }
 
+.round-results-artists {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 0.75rem;
+  border: 1px solid #e9ecef;
+}
+
+.artists-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.artist-tag-small {
+  background: rgba(76, 175, 80, 0.1);
+  color: #4caf50;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(76, 175, 80, 0.2);
+  transition: all 0.2s ease;
+}
+
+.artist-tag-small:hover {
+  background: rgba(76, 175, 80, 0.15);
+  transform: translateY(-1px);
+}
+
 .round-results-feedback {
   font-size: 1.1rem;
   color: #333;
@@ -1206,12 +1237,10 @@ button.loading {
 
 /* Fix desktop layout overflow */
 .category-selector {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
+  position: relative;
   z-index: 100;
   max-width: calc(100vw - 2rem);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .category-selector select {
