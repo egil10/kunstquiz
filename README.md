@@ -66,3 +66,4 @@ MIT. All painting images and artist data are from open Wikimedia/Wikidata source
 ---
 
 *Made with ❤️ for Norwegian art lovers.*
+*B.r*
