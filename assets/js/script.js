@@ -974,12 +974,16 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   if (bioInfo) {
     yearsHtml = `<span class="artist-years">${bioInfo.birth_year}–${bioInfo.death_year}</span>`;
     imgHtml = bioInfo.self_portrait_url ? `<img src="${bioInfo.self_portrait_url}" alt="${name}" class="artist-portrait toast-portrait" loading="lazy">` : '';
-    bioHtml = `<span class="artist-bio">${bioInfo.bio}</span>`;
+    
+    // Use language-specific bio
+    const bioText = currentLanguage === 'no' ? bioInfo.norwegian_bio : bioInfo.english_bio;
+    bioHtml = `<span class="artist-bio">${bioText || bioInfo.bio || ''}</span>`;
+    
     let tagList = [...(bioInfo.awards || []), ...(bioInfo.movement || []), ...(bioInfo.genre || [])];
     if (tagList.length) {
       tagsHtml = `<div class="artist-tags">${tagList.map(tag => `<span class="artist-tag">${tag}</span>`).join('')}</div>`;
     }
-    bioHtml += ` <span class="artist-painting-count">(${numPaintings} painting${numPaintings === 1 ? '' : 's'})</span>`;
+    bioHtml += ` <span class="artist-painting-count">(${numPaintings} ${currentLanguage === 'no' ? 'maleri' : 'painting'}${numPaintings === 1 ? '' : currentLanguage === 'no' ? 'er' : 's'})</span>`;
   } else if (typeof paintingOrName !== 'string') {
     const birth = getYearOnly(paintingOrName.artist_birth);
     const death = getYearOnly(paintingOrName.artist_death);
