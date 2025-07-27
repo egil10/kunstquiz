@@ -23,6 +23,7 @@
   <div class="main-flex">
     <div class="img-col">
       <img id="painting" src="" alt="">
+      <div id="progress-display" class="progress-display"></div>
       <div id="streak-bar"></div>
     </div>
     <div class="btn-col" id="btn-col">
@@ -36,6 +37,33 @@
       <h2 id="congrats-title">Gratulerer!</h2>
       <p>Du klarte 10 på rad!</p>
       <button id="reset-btn">Spill igjen</button>
+    </div>
+  </div>
+  <div id="round-results-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="round-results-title">
+    <div class="modal-content round-results-content">
+      <h2 id="round-results-title">Round Results</h2>
+      <div class="round-results-stats">
+        <div class="stat-item">
+          <span class="stat-label">Score:</span>
+          <span id="round-results-score" class="stat-value">0/10</span>
+        </div>
+        <div class="stat-item">
+          <span id="round-results-correct" class="stat-label">Correct: 0</span>
+        </div>
+        <div class="stat-item">
+          <span id="round-results-incorrect" class="stat-label">Incorrect: 0</span>
+        </div>
+        <div class="stat-item">
+          <span id="round-results-artists" class="stat-label">Artists featured: 0</span>
+        </div>
+      </div>
+      <div id="round-results-feedback" class="round-results-feedback">
+        Feedback message here
+      </div>
+      <div class="round-results-buttons">
+        <button id="round-results-play-again" class="primary-btn">Play Another Round</button>
+        <button id="round-results-close" class="secondary-btn">Close</button>
+      </div>
     </div>
   </div>
   <!-- Modern social footer -->

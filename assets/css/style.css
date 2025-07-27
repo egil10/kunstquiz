@@ -157,8 +157,8 @@ button.correct {
 }
 
 button.wrong {
-  background-color: #f7c5c5;
-  border-color: #e53935;
+  background-color: rgba(244, 67, 54, 0.15);
+  border-color: rgba(244, 67, 54, 0.3);
   color: #222;
 }
 
@@ -1149,5 +1149,128 @@ button.loading {
     margin-top: 0.125rem;
     margin-left: 0.125rem;
     box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.07);
+  }
+}
+
+/* Progress display */
+.progress-display {
+  text-align: center;
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+  margin: 0.5rem 0 0 0;
+  padding: 0.25rem 0;
+}
+
+/* Round results modal */
+.round-results-content {
+  min-width: 400px;
+  max-width: 500px;
+  text-align: center;
+}
+
+.round-results-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 0.75rem;
+  border: 1px solid #e9ecef;
+}
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.stat-item:last-child {
+  border-bottom: none;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 1.25rem;
+  color: #388e3c;
+  font-weight: 700;
+}
+
+.round-results-feedback {
+  font-size: 1.1rem;
+  color: #333;
+  font-weight: 600;
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: linear-gradient(135deg, #e8f5e8, #f0f8f0);
+  border-radius: 0.75rem;
+  border-left: 4px solid #4caf50;
+}
+
+.round-results-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.primary-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.primary-btn:hover {
+  background: #388e3c;
+}
+
+.secondary-btn {
+  background: #f8f9fa;
+  color: #666;
+  border: 1px solid #dee2e6;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.secondary-btn:hover {
+  background: #e9ecef;
+}
+
+@media (max-width: 700px) {
+  .round-results-content {
+    min-width: 0;
+    max-width: 95vw;
+    margin: 1rem;
+  }
+  
+  .round-results-stats {
+    padding: 0.75rem;
+  }
+  
+  .round-results-buttons {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  .primary-btn, .secondary-btn {
+    width: 100%;
   }
 }

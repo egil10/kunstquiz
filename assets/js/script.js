@@ -32,6 +32,65 @@ const translations = {
     paintings: 'paintings',
     painting: 'painting',
     painters: 'painters',
+    // Round feedback messages
+    roundFeedback: {
+      '1/10': [
+        'Getting started! 🎨',
+        'First step on your art journey! ✨',
+        'One down, nine to go! 🌟',
+        'A good beginning! 👏'
+      ],
+      '2-4/10': [
+        'Keep going! You\'re learning! 📚',
+        'Nice progress! 🎯',
+        'You\'re getting the hang of it! 💫',
+        'Building momentum! 🚀',
+        'Every answer teaches you something! 🎪',
+        'You\'re on your way! 🌈'
+      ],
+      '5-6/10': [
+        'Halfway there! Great work! 🎨',
+        'You\'re doing really well! ✨',
+        'Impressive knowledge! 🌟',
+        'You know your Norwegian art! 👏',
+        'Excellent progress! 🎯',
+        'You\'re a natural! 💫'
+      ],
+      '7-8/10': [
+        'Outstanding performance! 🏆',
+        'You\'re really good at this! 🌟',
+        'Almost perfect! Amazing! ✨',
+        'You have great taste in art! 🎨',
+        'Fantastic knowledge! 🎯',
+        'You\'re an art expert! 💫'
+      ],
+      '9/10': [
+        'Incredible! Just one more! 🔥',
+        'You\'re so close to perfection! ⭐',
+        'Almost flawless! Outstanding! 🏆',
+        'One step away from greatness! 🌟',
+        'You\'re a Norwegian art master! 👑',
+        'Nearly perfect! Amazing! ✨'
+      ],
+      '10/10': [
+        'Perfect score! You\'re a Norwegian art expert! 🏆',
+        'Flawless victory! Outstanding knowledge! ⭐',
+        '100%! You know Norwegian art inside out! 👑',
+        'Perfect! You\'re a true art connoisseur! 🌟',
+        'Incredible! Complete mastery! 🔥',
+        'Outstanding! You\'re a Norwegian art legend! ✨'
+      ]
+    },
+    // Round stats
+    roundStats: {
+      title: 'Round Results',
+      score: 'Score',
+      correct: 'Correct',
+      incorrect: 'Incorrect',
+      artists: 'Artists featured',
+      playAgain: 'Play Another Round',
+      close: 'Close'
+    },
     // About modal translations
     aboutTitle: 'About Kunstquiz',
     aboutCollection: 'The Collection',
@@ -92,6 +151,65 @@ const translations = {
     paintings: 'malerier',
     painting: 'maleri',
     painters: 'malere',
+    // Round feedback messages
+    roundFeedback: {
+      '1/10': [
+        'Kom i gang! 🎨',
+        'Første steg på din kunstreise! ✨',
+        'En ned, ni igjen! 🌟',
+        'En god start! 👏'
+      ],
+      '2-4/10': [
+        'Fortsett! Du lærer! 📚',
+        'Fin fremgang! 🎯',
+        'Du får taket på det! 💫',
+        'Bygger opp momentum! 🚀',
+        'Hvert svar lærer deg noe! 🎪',
+        'Du er på vei! 🌈'
+      ],
+      '5-6/10': [
+        'Halvveis! Bra jobb! 🎨',
+        'Du gjør det veldig bra! ✨',
+        'Imponerende kunnskap! 🌟',
+        'Du kan din norske kunst! 👏',
+        'Utmerket fremgang! 🎯',
+        'Du er en naturtalent! 💫'
+      ],
+      '7-8/10': [
+        'Fremragende prestasjon! 🏆',
+        'Du er veldig flink til dette! 🌟',
+        'Nesten perfekt! Fantastisk! ✨',
+        'Du har god smak i kunst! 🎨',
+        'Fantastisk kunnskap! 🎯',
+        'Du er en kunstekspert! 💫'
+      ],
+      '9/10': [
+        'Utrolig! Bare én til! 🔥',
+        'Du er så nær perfeksjon! ⭐',
+        'Nesten feilfri! Fremragende! 🏆',
+        'Ett skritt fra storhet! 🌟',
+        'Du er en norsk kunstmester! 👑',
+        'Nesten perfekt! Fantastisk! ✨'
+      ],
+      '10/10': [
+        'Perfekt poengsum! Du er en norsk kunstekspert! 🏆',
+        'Feilfri seier! Fremragende kunnskap! ⭐',
+        '100%! Du kan norsk kunst ut og inn! 👑',
+        'Perfekt! Du er en ekte kunstkjenner! 🌟',
+        'Utrolig! Komplett mestring! 🔥',
+        'Fremragende! Du er en norsk kunstlegende! ✨'
+      ]
+    },
+    // Round stats
+    roundStats: {
+      title: 'Runderesultat',
+      score: 'Poengsum',
+      correct: 'Riktig',
+      incorrect: 'Feil',
+      artists: 'Kunstnere med',
+      playAgain: 'Spill en ny runde',
+      close: 'Lukk'
+    },
     // About modal translations
     aboutTitle: 'Om Kunstquiz',
     aboutCollection: 'Samlingen',
@@ -123,6 +241,15 @@ const translations = {
       'Exceptionelt! 🎨'
     ]
   }
+};
+
+// Round tracking system
+let currentRound = {
+  questionNumber: 1,
+  correctAnswers: 0,
+  incorrectAnswers: 0,
+  artists: new Set(),
+  answers: [] // Array to track each answer for stats
 };
 
 // Artist weighting system
@@ -515,12 +642,20 @@ function loadQuiz() {
     document.getElementById('options').innerHTML = `<p>${t('noPaintings')}</p>`;
     return;
   }
+  
+  // Check if round is complete
+  if (currentRound.questionNumber > 10) {
+    showRoundResults();
+    return;
+  }
+  
   let painting;
   for (let i = 0; i < 10; i++) {
     painting = getWeightedRandomPainting(validPaintings);
     if (painting && painting.artist && painting.url) break;
   }
   if (!painting || !painting.artist || !painting.url) return;
+  
   const img = document.getElementById('painting');
   img.src = painting.url;
   img.alt = stripHtml(painting.title) || t('painting');
@@ -535,6 +670,10 @@ function loadQuiz() {
     optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
     return;
   }
+  
+  // Update progress display
+  updateProgressDisplay();
+  
   artists.forEach(artist => {
     const btn = document.createElement('button');
     btn.textContent = artist;
@@ -549,8 +688,19 @@ function loadQuiz() {
       const correctBtn = Array.from(optionsDiv.children).find(b => b.textContent === painting.artist);
       const selectedBtn = btn;
       
-      if (artist === painting.artist) {
-        // Correct answer - show encouraging popup and fast transition
+      // Track this answer
+      const isCorrect = artist === painting.artist;
+      currentRound.answers.push({
+        question: currentRound.questionNumber,
+        correct: isCorrect,
+        selectedArtist: artist,
+        correctArtist: painting.artist,
+        painting: painting
+      });
+      
+      if (isCorrect) {
+        // Correct answer
+        currentRound.correctAnswers++;
         streak++;
         selectedBtn.classList.add('correct');
         
@@ -558,12 +708,9 @@ function loadQuiz() {
         const encouragingMessage = getRandomEncouragingMessage();
         showEncouragingPopup(encouragingMessage);
         
-        if (streak >= 10) {
-          updateStreakBar();
-          setTimeout(showCongratsModal, 500);
-          setTimeout(() => showArtistPopup(painting, null), 900);
-          return;
-        }
+        // Add artist to set
+        currentRound.artists.add(painting.artist);
+        
         // Quick transition for correct answers
         setTimeout(() => {
           // Remove loading state and reset buttons
@@ -571,14 +718,21 @@ function loadQuiz() {
             b.classList.remove('loading', 'correct', 'wrong');
             b.disabled = false;
           });
+          currentRound.questionNumber++;
           loadQuiz();
-        }, 300); // Faster transition for correct answers
+        }, 300);
       } else {
-        // Incorrect answer - keep current timing with bio popup
+        // Incorrect answer
+        currentRound.incorrectAnswers++;
         streak = 0;
         selectedBtn.classList.add('wrong');
         correctBtn.classList.add('correct');
         showMessage(t('incorrect'), '#e53935');
+        
+        // Add both artists to set
+        currentRound.artists.add(painting.artist);
+        currentRound.artists.add(artist);
+        
         updateStreakBar();
         setTimeout(() => {
           showArtistPopup(painting, () => {
@@ -588,6 +742,7 @@ function loadQuiz() {
               b.classList.remove('loading', 'correct', 'wrong');
               b.disabled = false;
             });
+            currentRound.questionNumber++;
             loadQuiz();
           });
         }, 500);
@@ -919,6 +1074,96 @@ function showEncouragingPopup(message) {
   }, 800);
 }
 
+function getRandomRoundFeedback(score) {
+  let category;
+  if (score === 1) category = '1/10';
+  else if (score >= 2 && score <= 4) category = '2-4/10';
+  else if (score >= 5 && score <= 6) category = '5-6/10';
+  else if (score >= 7 && score <= 8) category = '7-8/10';
+  else if (score === 9) category = '9/10';
+  else category = '10/10';
+  
+  const messages = translations[currentLanguage].roundFeedback[category];
+  const randomIndex = Math.floor(Math.random() * messages.length);
+  return messages[randomIndex];
+}
+
+function showRoundResults() {
+  const modal = document.getElementById('round-results-modal');
+  const title = document.getElementById('round-results-title');
+  const score = document.getElementById('round-results-score');
+  const correct = document.getElementById('round-results-correct');
+  const incorrect = document.getElementById('round-results-incorrect');
+  const artists = document.getElementById('round-results-artists');
+  const feedback = document.getElementById('round-results-feedback');
+  const playAgainBtn = document.getElementById('round-results-play-again');
+  const closeBtn = document.getElementById('round-results-close');
+  
+  if (!modal) return;
+  
+  const totalCorrect = currentRound.correctAnswers;
+  const totalIncorrect = currentRound.incorrectAnswers;
+  const uniqueArtists = currentRound.artists.size;
+  
+  // Update content
+  title.textContent = t('roundStats.title');
+  score.textContent = `${totalCorrect}/10`;
+  correct.textContent = `${t('roundStats.correct')}: ${totalCorrect}`;
+  incorrect.textContent = `${t('roundStats.incorrect')}: ${totalIncorrect}`;
+  artists.textContent = `${t('roundStats.artists')}: ${uniqueArtists}`;
+  feedback.textContent = getRandomRoundFeedback(totalCorrect);
+  playAgainBtn.textContent = t('roundStats.playAgain');
+  closeBtn.textContent = t('roundStats.close');
+  
+  // Show modal
+  modal.style.display = 'flex';
+  modal.focus();
+  
+  // Setup event listeners
+  playAgainBtn.onclick = () => {
+    hideRoundResults();
+    startNewRound();
+  };
+  
+  closeBtn.onclick = hideRoundResults;
+  
+  // Click outside to close
+  setTimeout(() => {
+    function outsideClick(e) {
+      if (!modal.querySelector('.round-results-content').contains(e.target)) {
+        hideRoundResults();
+        document.removeEventListener('mousedown', outsideClick);
+      }
+    }
+    document.addEventListener('mousedown', outsideClick);
+  }, 100);
+}
+
+function hideRoundResults() {
+  const modal = document.getElementById('round-results-modal');
+  if (modal) modal.style.display = 'none';
+}
+
+function startNewRound() {
+  currentRound = {
+    questionNumber: 1,
+    correctAnswers: 0,
+    incorrectAnswers: 0,
+    artists: new Set(),
+    answers: []
+  };
+  streak = 0;
+  updateStreakBar();
+  loadQuiz();
+}
+
+function updateProgressDisplay() {
+  const progressDiv = document.getElementById('progress-display');
+  if (!progressDiv) return;
+  
+  progressDiv.textContent = `Question ${currentRound.questionNumber}/10`;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
     const res = await fetch('./data/paintings_merged.json');
@@ -933,7 +1178,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     renderCategorySelector();
     updateLanguageUI();
     setupLanguageToggle();
-    loadQuiz();
+    startNewRound(); // Start with a new round
     setupArtistModal();
     setupGalleryModal();
     setupAboutModal();
@@ -945,7 +1190,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       streak = 0;
       updateStreakBar();
       hideCongratsModal();
-      loadQuiz();
+      startNewRound();
     });
     
     // Add Esc key to close modals
@@ -954,6 +1199,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideCongratsModal();
         hideGalleryModal();
         hideAboutModal();
+        hideRoundResults();
         document.getElementById('artists-modal').style.display = 'none';
       }
     });
