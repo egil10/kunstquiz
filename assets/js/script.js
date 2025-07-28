@@ -1640,11 +1640,22 @@ function showDiploma() {
   modal.focus();
   
   // Setup event listeners
-  downloadBtn.onclick = downloadDiploma;
-  playAgainBtn.onclick = () => {
-    hideDiploma();
-    startNewRound();
-  };
+  if (downloadBtn) {
+    downloadBtn.onclick = downloadDiploma;
+    console.log('Download button found and configured');
+  } else {
+    console.error('Download button not found!');
+  }
+  
+  if (playAgainBtn) {
+    playAgainBtn.onclick = () => {
+      hideDiploma();
+      startNewRound();
+    };
+    console.log('Play Again button found and configured');
+  } else {
+    console.error('Play Again button not found!');
+  }
   
   // Click outside to close
   setTimeout(() => {
@@ -1664,12 +1675,12 @@ function hideDiploma() {
 }
 
 function downloadDiploma() {
-  const diplomaContainer = document.querySelector('.diploma-container');
-  if (!diplomaContainer) return;
+  const diplomaContent = document.querySelector('.diploma-content');
+  if (!diplomaContent) return;
   
   // Use html2canvas to capture the diploma
   if (typeof html2canvas !== 'undefined') {
-    html2canvas(diplomaContainer, {
+    html2canvas(diplomaContent, {
       scale: 2,
       backgroundColor: null,
       useCORS: true,

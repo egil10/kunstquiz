@@ -1789,7 +1789,7 @@ button.loading {
   border-radius: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(10px);
-  animation: fadeInUp 0.8s ease-out 1s both;
+  animation: fadeInUp 0.8s ease-out 0.3s both;
 }
 
 .diploma-buttons button {
