@@ -28,6 +28,8 @@ const translations = {
     artists: 'Painters',
     gallery: 'Gallery',
     about: 'About',
+    howToPlay: 'How to Play',
+    howToPlayTitle: 'How to Play',
     language: 'Language',
     paintings: 'paintings',
     painting: 'painting',
@@ -196,6 +198,8 @@ const translations = {
     artists: 'Malere',
     gallery: 'Galleri',
     about: 'Om',
+    howToPlay: 'Slik spiller du',
+    howToPlayTitle: 'Slik spiller du',
     language: 'Språk',
     paintings: 'malerier',
     painting: 'maleri',
@@ -1344,70 +1348,14 @@ function generateAboutContent() {
   return content;
 }
 
-function showAboutModal() {
-  const modal = document.getElementById('about-modal');
-  const title = document.getElementById('about-title');
-  const aboutContent = document.getElementById('about-content');
+function showHowToPlayModal() {
+  const modal = document.getElementById('how-to-play-modal');
+  const title = document.getElementById('how-to-play-title');
   
   if (!modal) return;
   
   // Update title
-  title.textContent = t('aboutTitle');
-  
-  // Generate dynamic content
-  const content = generateAboutContent();
-  
-  // Clear existing content
-  aboutContent.innerHTML = '';
-  
-  // Collection section
-  const collectionSection = document.createElement('div');
-  collectionSection.className = 'about-section';
-  collectionSection.innerHTML = `
-    <h3>${content.collection.title}</h3>
-    <p>${content.collection.text}</p>
-  `;
-  aboutContent.appendChild(collectionSection);
-  
-  // Categories section
-  const categoriesSection = document.createElement('div');
-  categoriesSection.className = 'about-section';
-  const categoriesList = content.categories.items.map(item => 
-    `<li><strong>${item.label}:</strong> ${item.count.toLocaleString()} ${item.suffix}</li>`
-  ).join('');
-  categoriesSection.innerHTML = `
-    <h3>${content.categories.title}</h3>
-    <ul>${categoriesList}</ul>
-  `;
-  aboutContent.appendChild(categoriesSection);
-  
-  // How to play section
-  const howToPlaySection = document.createElement('div');
-  howToPlaySection.className = 'about-section';
-  howToPlaySection.innerHTML = `
-    <h3>${content.howToPlay.title}</h3>
-    <p>${content.howToPlay.text}</p>
-  `;
-  aboutContent.appendChild(howToPlaySection);
-  
-  // Facts section
-  const factsSection = document.createElement('div');
-  factsSection.className = 'about-section';
-  const factsList = content.facts.items.map(fact => `<li>${fact}</li>`).join('');
-  factsSection.innerHTML = `
-    <h3>${content.facts.title}</h3>
-    <ul>${factsList}</ul>
-  `;
-  aboutContent.appendChild(factsSection);
-  
-  // Technical section
-  const technicalSection = document.createElement('div');
-  technicalSection.className = 'about-section';
-  technicalSection.innerHTML = `
-    <h3>${content.technical.title}</h3>
-    <p>${content.technical.text}</p>
-  `;
-  aboutContent.appendChild(technicalSection);
+  title.textContent = t('howToPlayTitle');
   
   modal.style.display = 'flex';
   modal.focus();
@@ -1415,8 +1363,8 @@ function showAboutModal() {
   // Add click outside to close
   setTimeout(() => {
     function outsideClick(e) {
-      if (!modal.querySelector('.about-modal-content').contains(e.target)) {
-        hideAboutModal();
+      if (!modal.querySelector('.how-to-play-modal-content').contains(e.target)) {
+        hideHowToPlayModal();
         document.removeEventListener('click', outsideClick);
       }
     }
@@ -1424,14 +1372,14 @@ function showAboutModal() {
   }, 100);
 }
 
-function hideAboutModal() {
-  const modal = document.getElementById('about-modal');
+function hideHowToPlayModal() {
+  const modal = document.getElementById('how-to-play-modal');
   if (modal) modal.style.display = 'none';
 }
 
-function setupAboutModal() {
-  const showLink = document.getElementById('show-about-link');
-  const closeBtn = document.getElementById('close-about-modal');
+function setupHowToPlayModal() {
+  const showLink = document.getElementById('show-how-to-play-link');
+  const closeBtn = document.getElementById('close-how-to-play-modal');
   
   // Remove previous event listeners if any
   if (showLink) {
@@ -1442,7 +1390,7 @@ function setupAboutModal() {
     // Add the event listener to the new element
     newShowLink.addEventListener('click', e => {
       e.preventDefault();
-      showAboutModal();
+      showHowToPlayModal();
     });
   }
   
@@ -1452,7 +1400,7 @@ function setupAboutModal() {
     closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
     
     // Add the event listener to the new element
-    newCloseBtn.addEventListener('click', hideAboutModal);
+    newCloseBtn.addEventListener('click', hideHowToPlayModal);
   }
 }
 
@@ -1781,11 +1729,11 @@ function updateFooterLinks() {
   const galleryLink = document.getElementById('show-gallery-link');
   if (galleryLink) galleryLink.textContent = t('gallery');
   
-  const aboutLink = document.getElementById('show-about-link');
-  if (aboutLink) aboutLink.textContent = t('about');
+  const howToPlayLink = document.getElementById('show-how-to-play-link');
+  if (howToPlayLink) howToPlayLink.textContent = t('howToPlay');
 
-  // Always re-attach About modal event listener in case the link was replaced
-  setupAboutModal();
+  // Always re-attach How to Play modal event listener in case the link was replaced
+  setupHowToPlayModal();
 }
 
 function updateCategorySelector() {
@@ -1811,7 +1759,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     startNewRound(); // Start with a new round
     setupArtistModal();
     setupGalleryModal();
-    setupAboutModal();
+    setupHowToPlayModal();
     setupLogoReset();
     setupCategoryChangeInfoBar();
     
@@ -1845,7 +1793,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (e.key === 'Escape') {
         hideCongratsModal();
         hideGalleryModal();
-        hideAboutModal();
+        hideHowToPlayModal();
         hideRoundResults();
         document.getElementById('artists-modal').style.display = 'none';
       }

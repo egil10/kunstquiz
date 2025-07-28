@@ -126,7 +126,7 @@
       <a href="https://www.instagram.com/kunstquizart" class="social-link" aria-disabled="true">Instagram</a>
       <a href="#" class="social-link" aria-disabled="true">TikTok</a>
       <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-      <a href="#" id="show-about-link" class="footer-link">About</a>
+      <a href="#" id="show-how-to-play-link" class="footer-link">How to Play</a>
       <a href="#" id="language-toggle" class="footer-link">🇬🇧</a>
     </div>
   </footer>
@@ -144,13 +144,46 @@
       <button id="close-gallery-modal">Close</button>
     </div>
   </div>
-  <div id="about-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="about-title">
-    <div class="modal-content about-modal-content">
-      <h2 id="about-title">About Kunstquiz</h2>
-      <div id="about-content">
-        <!-- Content will be generated dynamically with proper translations -->
+  <div id="how-to-play-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="how-to-play-title">
+    <div class="modal-content how-to-play-modal-content">
+      <h2 id="how-to-play-title">How to Play</h2>
+      <div id="how-to-play-content">
+        <div class="how-to-play-section">
+          <h3>🎨 The Challenge</h3>
+          <p>Test your knowledge of Norwegian art history! You'll be shown famous Norwegian paintings and need to identify the artist who created them.</p>
+        </div>
+        
+        <div class="how-to-play-section">
+          <h3>🎯 How It Works</h3>
+          <ul>
+            <li>Look at the painting displayed on the left</li>
+            <li>Choose the correct artist from the four options on the right</li>
+            <li>Get instant feedback on your answer</li>
+            <li>Track your progress with the streak indicator</li>
+          </ul>
+        </div>
+        
+        <div class="how-to-play-section">
+          <h3>🏆 Scoring</h3>
+          <ul>
+            <li>Each correct answer adds to your streak</li>
+            <li>Get 10 in a row for a perfect score!</li>
+            <li>View your results at the end of each round</li>
+            <li>Download certificates for perfect scores</li>
+          </ul>
+        </div>
+        
+        <div class="how-to-play-section">
+          <h3>🎭 Categories</h3>
+          <p>Choose from different categories to focus on specific artists or time periods. Use the dropdown menu at the top right to select your preferred category.</p>
+        </div>
+        
+        <div class="how-to-play-section">
+          <h3>📚 Learn More</h3>
+          <p>Click "Painters" to see all artists in the collection, or "Gallery" to browse all paintings. Each artist has a detailed biography and their works.</p>
+        </div>
       </div>
-      <button id="close-about-modal">Close</button>
+      <button id="close-how-to-play-modal">Close</button>
     </div>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
