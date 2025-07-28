@@ -1180,6 +1180,32 @@ button.loading {
     opacity: 0.7;
     cursor: not-allowed;
   }
+  
+  /* Gallery loading indicator */
+  .gallery-loading-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    color: #666;
+    font-size: 0.9rem;
+  }
+  
+  .gallery-loading-indicator::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ddd;
+    border-top: 2px solid #388e3c;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-right: 0.5rem;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
 
   #artists-modal, #gallery-modal, #how-to-play-modal {
     position: fixed;

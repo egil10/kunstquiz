@@ -856,33 +856,50 @@ function shuffleArray(array) {
   }
 }
 
-function showGalleryModal() {
+// Gallery state management
+let galleryPaintings = [];
+let galleryLoadedCount = 0;
+let galleryLoadingMore = false;
+
+function showGalleryModal(paintingsArray = null, initialCount = 12) {
   // Scroll to top of page
   window.scrollTo({ top: 0, behavior: 'smooth' });
   
   const modal = document.getElementById('gallery-modal');
   const collage = document.getElementById('gallery-collage');
   if (!modal || !collage) return;
+  
+  // Initialize gallery state
+  if (paintingsArray) {
+    galleryPaintings = paintingsArray;
+    galleryLoadedCount = initialCount;
+  } else {
+    // Fallback for direct calls
+    galleryPaintings = [...paintings];
+    shuffleArray(galleryPaintings);
+    galleryLoadedCount = initialCount;
+  }
+  
   collage.innerHTML = '';
-  const shuffled = [...paintings];
-  shuffleArray(shuffled);
   const grid = document.createElement('div');
   grid.className = 'gallery-collage-grid';
   
-  shuffled.forEach(p => {
-    const img = document.createElement('img');
-    // Use preloaded URL if available, otherwise fallback to optimized URL
-    const preloadedUrl = galleryPreloadCache.get(p.url);
-    img.src = preloadedUrl || optimizeImageUrl(p.url, 400);
-    img.alt = p.title || '';
-    img.className = 'gallery-collage-img';
-    img.loading = 'eager'; // Force immediate loading since we preloaded
-    grid.appendChild(img);
-  });
+  // Add initial batch of images
+  for (let i = 0; i < galleryLoadedCount; i++) {
+    const p = galleryPaintings[i];
+    if (p) {
+      const img = createGalleryImage(p);
+      grid.appendChild(img);
+    }
+  }
   
   collage.appendChild(grid);
   modal.style.display = 'flex';
   modal.focus();
+  
+  // Setup scroll-based loading
+  setupGalleryScrollLoading(modal, grid);
+  
   // Add click outside to close
   setTimeout(() => {
     function outsideClick(e) {
@@ -893,6 +910,91 @@ function showGalleryModal() {
     }
     document.addEventListener('click', outsideClick);
   }, 100);
+}
+
+function createGalleryImage(painting) {
+  const img = document.createElement('img');
+  // Use preloaded URL if available, otherwise fallback to optimized URL
+  const preloadedUrl = galleryPreloadCache.get(painting.url);
+  img.src = preloadedUrl || optimizeImageUrl(painting.url, 400);
+  img.alt = painting.title || '';
+  img.className = 'gallery-collage-img';
+  img.loading = 'eager';
+  return img;
+}
+
+function setupGalleryScrollLoading(modal, grid) {
+  const modalContent = modal.querySelector('.gallery-modal-content');
+  let loadingMore = false;
+  
+  const loadMoreImages = async () => {
+    if (loadingMore || galleryLoadingMore) return;
+    
+    const scrollPosition = modalContent.scrollTop + modalContent.clientHeight;
+    const scrollHeight = modalContent.scrollHeight;
+    
+    // Load more when user is near the bottom (within 200px)
+    if (scrollHeight - scrollPosition < 200 && galleryLoadedCount < galleryPaintings.length) {
+      loadingMore = true;
+      galleryLoadingMore = true;
+      
+      // Show loading indicator
+      let loadingIndicator = grid.querySelector('.gallery-loading-indicator');
+      if (!loadingIndicator) {
+        loadingIndicator = document.createElement('div');
+        loadingIndicator.className = 'gallery-loading-indicator';
+        loadingIndicator.textContent = 'Loading more images...';
+        grid.appendChild(loadingIndicator);
+      }
+      
+      try {
+        // Load next batch
+        const batchSize = 8;
+        const nextBatch = galleryPaintings.slice(galleryLoadedCount, galleryLoadedCount + batchSize);
+        
+        // Preload the batch
+        await Promise.allSettled(
+          nextBatch.map(painting => preloadGalleryImage(painting.url))
+        );
+        
+        // Remove loading indicator
+        if (loadingIndicator) {
+          loadingIndicator.remove();
+        }
+        
+        // Add images to grid
+        nextBatch.forEach(painting => {
+          const img = createGalleryImage(painting);
+          grid.appendChild(img);
+        });
+        
+        galleryLoadedCount += batchSize;
+        
+        // Small delay to prevent rapid loading
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+      } catch (error) {
+        console.error('Error loading more gallery images:', error);
+        // Remove loading indicator on error
+        if (loadingIndicator) {
+          loadingIndicator.remove();
+        }
+      } finally {
+        loadingMore = false;
+        galleryLoadingMore = false;
+      }
+    }
+  };
+  
+  // Throttled scroll handler
+  let scrollTimeout;
+  modalContent.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(loadMoreImages, 100);
+  });
+  
+  // Initial check in case content is already scrollable
+  setTimeout(loadMoreImages, 500);
 }
 
 function hideGalleryModal() {
@@ -935,31 +1037,22 @@ async function preloadAndShowGallery() {
     const shuffled = [...paintings];
     shuffleArray(shuffled);
     
-    // Preload images in batches
-    const batchSize = 10;
-    const totalImages = shuffled.length;
+    // Preload only the first batch quickly
+    const initialBatchSize = 12; // Show first 12 images immediately
+    const initialBatch = shuffled.slice(0, initialBatchSize);
     
-    for (let i = 0; i < totalImages; i += batchSize) {
-      const batch = shuffled.slice(i, i + batchSize);
-      await Promise.allSettled(
-        batch.map(painting => preloadGalleryImage(painting.url))
-      );
-      
-      // Update loading progress
-      const progress = Math.min(((i + batchSize) / totalImages) * 100, 100);
-      showLink.textContent = `Loading... ${Math.round(progress)}%`;
-      
-      // Small delay to prevent blocking the UI
-      await new Promise(resolve => setTimeout(resolve, 10));
-    }
+    // Preload first batch
+    await Promise.allSettled(
+      initialBatch.map(painting => preloadGalleryImage(painting.url))
+    );
     
-    // Show the gallery modal
-    showGalleryModal();
+    // Show the gallery modal immediately with first batch
+    showGalleryModal(shuffled, initialBatchSize);
     
   } catch (error) {
-    console.error('Error preloading gallery images:', error);
+    console.error('Error preloading initial gallery images:', error);
     // Still show gallery even if preloading fails
-    showGalleryModal();
+    showGalleryModal(shuffled, 12);
   } finally {
     // Reset button state
     showLink.textContent = originalText;
