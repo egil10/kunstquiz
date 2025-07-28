@@ -496,17 +496,25 @@ function initializeArtistWeights() {
     }
   });
   
-  // Calculate balanced weights using square root scaling
+  // Calculate balanced weights using a more gentle scaling approach
   // This provides a middle ground between pure random and extreme inverse weighting
   const maxCount = Math.max(...Object.values(artistCounts));
+  const minCount = Math.min(...Object.values(artistCounts));
+  
   Object.keys(artistCounts).forEach(artist => {
     const count = artistCounts[artist];
-    // Use square root scaling for more balanced representation
-    // Artists with fewer paintings still get higher weights, but not as extreme
-    const baseWeight = Math.sqrt(maxCount) / Math.sqrt(count);
-    // Add a small bonus for very small collections (1-3 paintings) to ensure they appear
-    const smallCollectionBonus = count <= 3 ? 1.5 : 1.0;
-    artistWeights.set(artist, baseWeight * smallCollectionBonus);
+    
+    // Use a more gentle scaling: cube root instead of square root
+    // This makes the weighting even less aggressive
+    const baseWeight = Math.pow(maxCount, 1/3) / Math.pow(count, 1/3);
+    
+    // Add a very small bonus for very small collections (1-2 paintings) to ensure they appear occasionally
+    const smallCollectionBonus = count <= 2 ? 1.2 : 1.0;
+    
+    // Apply a cap to prevent extreme weighting differences
+    const cappedWeight = Math.min(baseWeight * smallCollectionBonus, 3.0);
+    
+    artistWeights.set(artist, cappedWeight);
   });
 }
 
