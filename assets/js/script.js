@@ -868,18 +868,18 @@ function showGalleryModal() {
   shuffleArray(shuffled);
   const grid = document.createElement('div');
   grid.className = 'gallery-collage-grid';
+  
   shuffled.forEach(p => {
     const img = document.createElement('img');
-    img.dataset.src = optimizeImageUrl(p.url, 400); // Use smaller images for gallery
-    img.dataset.fallback = p.url; // Fallback to original
+    // Use preloaded URL if available, otherwise fallback to optimized URL
+    const preloadedUrl = galleryPreloadCache.get(p.url);
+    img.src = preloadedUrl || optimizeImageUrl(p.url, 400);
     img.alt = p.title || '';
     img.className = 'gallery-collage-img';
-    img.loading = 'lazy';
+    img.loading = 'eager'; // Force immediate loading since we preloaded
     grid.appendChild(img);
   });
   
-  // Setup lazy loading for gallery images
-  setTimeout(setupLazyLoading, 100);
   collage.appendChild(grid);
   modal.style.display = 'flex';
   modal.focus();
@@ -905,9 +905,128 @@ function setupGalleryModal() {
   const closeBtn = document.getElementById('close-gallery-modal');
   if (showLink) showLink.addEventListener('click', e => {
     e.preventDefault();
-    showGalleryModal();
+    preloadAndShowGallery();
   });
   if (closeBtn) closeBtn.addEventListener('click', hideGalleryModal);
+}
+
+// Gallery preloading system
+let galleryPreloadCache = new Map();
+let galleryPreloadInProgress = false;
+let galleryBackgroundPreloadStarted = false;
+
+async function preloadAndShowGallery() {
+  if (galleryPreloadInProgress) {
+    // If preloading is already in progress, wait for it
+    return;
+  }
+  
+  // Show loading indicator
+  const showLink = document.getElementById('show-gallery-link');
+  const originalText = showLink.textContent;
+  showLink.textContent = 'Loading...';
+  showLink.style.pointerEvents = 'none';
+  showLink.classList.add('loading');
+  
+  try {
+    galleryPreloadInProgress = true;
+    
+    // Get paintings for gallery
+    const shuffled = [...paintings];
+    shuffleArray(shuffled);
+    
+    // Preload images in batches
+    const batchSize = 10;
+    const totalImages = shuffled.length;
+    
+    for (let i = 0; i < totalImages; i += batchSize) {
+      const batch = shuffled.slice(i, i + batchSize);
+      await Promise.allSettled(
+        batch.map(painting => preloadGalleryImage(painting.url))
+      );
+      
+      // Update loading progress
+      const progress = Math.min(((i + batchSize) / totalImages) * 100, 100);
+      showLink.textContent = `Loading... ${Math.round(progress)}%`;
+      
+      // Small delay to prevent blocking the UI
+      await new Promise(resolve => setTimeout(resolve, 10));
+    }
+    
+    // Show the gallery modal
+    showGalleryModal();
+    
+  } catch (error) {
+    console.error('Error preloading gallery images:', error);
+    // Still show gallery even if preloading fails
+    showGalleryModal();
+  } finally {
+    // Reset button state
+    showLink.textContent = originalText;
+    showLink.style.pointerEvents = 'auto';
+    showLink.classList.remove('loading');
+    galleryPreloadInProgress = false;
+  }
+}
+
+async function preloadGalleryImage(url) {
+  // Check cache first
+  if (galleryPreloadCache.has(url)) {
+    return galleryPreloadCache.get(url);
+  }
+  
+  try {
+    const optimizedUrl = optimizeImageUrl(url, 400);
+    const img = new Image();
+    
+    const loadPromise = new Promise((resolve, reject) => {
+      img.onload = () => {
+        galleryPreloadCache.set(url, optimizedUrl);
+        resolve(optimizedUrl);
+      };
+      img.onerror = () => {
+        // Fallback to original URL
+        galleryPreloadCache.set(url, url);
+        resolve(url);
+      };
+    });
+    
+    img.src = optimizedUrl;
+    return await loadPromise;
+    
+  } catch (error) {
+    console.error('Error preloading image:', url, error);
+    galleryPreloadCache.set(url, url);
+    return url;
+  }
+}
+
+// Start background preloading of gallery images
+function startGalleryBackgroundPreload() {
+  if (galleryBackgroundPreloadStarted || !paintings || paintings.length === 0) {
+    return;
+  }
+  
+  galleryBackgroundPreloadStarted = true;
+  
+  // Start preloading in the background after a short delay
+  setTimeout(async () => {
+    try {
+      const shuffled = [...paintings];
+      shuffleArray(shuffled);
+      
+      // Preload first 20 images in the background
+      const imagesToPreload = shuffled.slice(0, 20);
+      
+      for (const painting of imagesToPreload) {
+        await preloadGalleryImage(painting.url);
+        // Small delay to prevent blocking the main thread
+        await new Promise(resolve => setTimeout(resolve, 50));
+      }
+    } catch (error) {
+      console.error('Background gallery preload error:', error);
+    }
+  }, 2000); // Start after 2 seconds to let the main page load first
 }
 
 function getArtistBioMap() {
@@ -2175,6 +2294,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupArtistModal();
     setupGalleryModal();
     setupAboutModal();
+    
+    // Start background preloading of gallery images
+    startGalleryBackgroundPreload();
     setupLogoReset();
     setupCategoryChangeInfoBar();
     
