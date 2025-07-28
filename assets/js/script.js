@@ -186,8 +186,8 @@ const translations = {
     artists: 'Painters',
     gallery: 'Gallery',
     about: 'About',
-    howToPlay: 'How to Play',
-    howToPlayTitle: 'How to Play',
+    about: 'About',
+    aboutTitle: 'About',
     language: 'Language',
     paintings: 'paintings',
     painting: 'painting',
@@ -356,8 +356,8 @@ const translations = {
     artists: 'Malere',
     gallery: 'Galleri',
     about: 'Om',
-    howToPlay: 'Slik spiller du',
-    howToPlayTitle: 'Slik spiller du',
+    about: 'Om',
+    aboutTitle: 'Om',
     language: 'Språk',
     paintings: 'malerier',
     painting: 'maleri',
@@ -1348,7 +1348,7 @@ function setupLogoReset() {
       // Hide any open modals
       hideCongratsModal();
       hideGalleryModal();
-      hideHowToPlayModal();
+      hideAboutModal();
       hideRoundResults();
       document.getElementById('artists-modal').style.display = 'none';
       
@@ -1538,17 +1538,95 @@ function generateAboutContent() {
   return content;
 }
 
-function showHowToPlayModal() {
+function showAboutModal() {
   // Scroll to top of page
   window.scrollTo({ top: 0, behavior: 'smooth' });
   
   const modal = document.getElementById('how-to-play-modal');
   const title = document.getElementById('how-to-play-title');
+  const content = document.getElementById('how-to-play-content');
   
   if (!modal) return;
   
   // Update title
-  title.textContent = t('howToPlayTitle');
+  title.textContent = t('aboutTitle');
+  
+  // Update content based on language
+  if (currentLanguage === 'no') {
+    content.innerHTML = `
+      <div class="how-to-play-section">
+        <h3>Utfordringen</h3>
+        <p>Test din kunnskap om norsk kunsthistorie! Du vil bli vist berømte norske malerier og må identifisere kunstneren som skapte dem.</p>
+      </div>
+      
+      <div class="how-to-play-section">
+        <h3>Slik fungerer det</h3>
+        <ul>
+          <li>Se på maleriet som vises til venstre</li>
+          <li>Velg riktig kunstner fra de fire alternativene til høyre</li>
+          <li>Få umiddelbar tilbakemelding på svaret ditt</li>
+          <li>Følg fremgangen din med strek-indikatoren</li>
+        </ul>
+      </div>
+      
+      <div class="how-to-play-section">
+        <h3>Poengsum</h3>
+        <ul>
+          <li>Hvert riktig svar legger til i strekken din</li>
+          <li>Få 10 på rad for en perfekt poengsum!</li>
+          <li>Se resultatene dine på slutten av hver runde</li>
+          <li>Last ned sertifikater for perfekte poengsummer</li>
+        </ul>
+      </div>
+      
+      <div class="how-to-play-section">
+        <h3>Kategorier</h3>
+        <p>Velg fra forskjellige kategorier for å fokusere på spesifikke kunstnere eller tidsperioder. Bruk rullegardinmenyen øverst til høyre for å velge din foretrukne kategori.</p>
+      </div>
+      
+      <div class="how-to-play-section">
+        <h3>Lær mer</h3>
+        <p>Klikk "Malere" for å se alle kunstnere i samlingen, eller "Galleri" for å bla gjennom alle malerier. Hver kunstner har en detaljert biografi og sine verk.</p>
+      </div>
+    `;
+  } else {
+    content.innerHTML = `
+      <div class="how-to-play-section">
+        <h3>The Challenge</h3>
+        <p>Test your knowledge of Norwegian art history! You'll be shown famous Norwegian paintings and need to identify the artist who created them.</p>
+      </div>
+      
+      <div class="how-to-play-section">
+        <h3>How It Works</h3>
+        <ul>
+          <li>Look at the painting displayed on the left</li>
+          <li>Choose the correct artist from the four options on the right</li>
+          <li>Get instant feedback on your answer</li>
+          <li>Track your progress with the streak indicator</li>
+        </ul>
+      </div>
+      
+      <div class="how-to-play-section">
+        <h3>Scoring</h3>
+        <ul>
+          <li>Each correct answer adds to your streak</li>
+          <li>Get 10 in a row for a perfect score!</li>
+          <li>View your results at the end of each round</li>
+          <li>Download certificates for perfect scores</li>
+        </ul>
+      </div>
+      
+      <div class="how-to-play-section">
+        <h3>Categories</h3>
+        <p>Choose from different categories to focus on specific artists or time periods. Use the dropdown menu at the top right to select your preferred category.</p>
+      </div>
+      
+      <div class="how-to-play-section">
+        <h3>Learn More</h3>
+        <p>Click "Painters" to see all artists in the collection, or "Gallery" to browse all paintings. Each artist has a detailed biography and their works.</p>
+      </div>
+    `;
+  }
   
   modal.style.display = 'flex';
   modal.focus();
@@ -1557,7 +1635,7 @@ function showHowToPlayModal() {
   setTimeout(() => {
     function outsideClick(e) {
       if (!modal.querySelector('.how-to-play-modal-content').contains(e.target)) {
-        hideHowToPlayModal();
+        hideAboutModal();
         document.removeEventListener('click', outsideClick);
       }
     }
@@ -1565,12 +1643,12 @@ function showHowToPlayModal() {
   }, 100);
 }
 
-function hideHowToPlayModal() {
+function hideAboutModal() {
   const modal = document.getElementById('how-to-play-modal');
   if (modal) modal.style.display = 'none';
 }
 
-function setupHowToPlayModal() {
+function setupAboutModal() {
   const showLink = document.getElementById('show-how-to-play-link');
   const closeBtn = document.getElementById('close-how-to-play-modal');
   
@@ -1583,7 +1661,7 @@ function setupHowToPlayModal() {
     // Add the event listener to the new element
     newShowLink.addEventListener('click', e => {
       e.preventDefault();
-      showHowToPlayModal();
+      showAboutModal();
     });
   }
   
@@ -1593,7 +1671,7 @@ function setupHowToPlayModal() {
     closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
     
     // Add the event listener to the new element
-    newCloseBtn.addEventListener('click', hideHowToPlayModal);
+    newCloseBtn.addEventListener('click', hideAboutModal);
   }
 }
 
@@ -1952,11 +2030,11 @@ function updateFooterLinks() {
   const galleryLink = document.getElementById('show-gallery-link');
   if (galleryLink) galleryLink.textContent = t('gallery');
   
-  const howToPlayLink = document.getElementById('show-how-to-play-link');
-  if (howToPlayLink) howToPlayLink.textContent = t('howToPlay');
+  const aboutLink = document.getElementById('show-how-to-play-link');
+  if (aboutLink) aboutLink.textContent = t('about');
 
-  // Always re-attach How to Play modal event listener in case the link was replaced
-  setupHowToPlayModal();
+  // Always re-attach About modal event listener in case the link was replaced
+  setupAboutModal();
 }
 
 function updateCategorySelector() {
@@ -2096,7 +2174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     startNewRound(); // Start with a new round
     setupArtistModal();
     setupGalleryModal();
-    setupHowToPlayModal();
+    setupAboutModal();
     setupLogoReset();
     setupCategoryChangeInfoBar();
     
@@ -2130,7 +2208,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       if (e.key === 'Escape') {
         hideCongratsModal();
         hideGalleryModal();
-        hideHowToPlayModal();
+        hideAboutModal();
         hideRoundResults();
         document.getElementById('artists-modal').style.display = 'none';
       }
