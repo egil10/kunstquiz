@@ -352,6 +352,14 @@ let currentRound = {
 let artistWeights = new Map(); // Track how often each artist appears
 let lastSelectedArtists = new Set(); // Track recently selected artists to avoid repetition
 
+// Performance optimizations
+let validPaintingsCache = null;
+let validPaintingsCacheCategory = null;
+let artistBioMapCache = null;
+let categoryCountsCache = new Map();
+let imagePreloadQueue = [];
+let isPreloading = false;
+
 // Encouraging message counter
 let encouragingMessageIndex = 0;
 
@@ -543,6 +551,12 @@ function getYearOnly(dateStr) {
 }
 
 function getCategoryCounts(categoryValue) {
+  // Use cache if available
+  const cacheKey = categoryValue || 'all';
+  if (categoryCountsCache.has(cacheKey)) {
+    return categoryCountsCache.get(cacheKey);
+  }
+  
   let filtered = paintings.filter(p => p.artist && p.url);
   if (categoryValue && categoryValue !== 'all') {
     const prev = selectedCategory;
@@ -552,7 +566,11 @@ function getCategoryCounts(categoryValue) {
   }
   const count = filtered.length;
   const painterCount = new Set(filtered.map(p => p.artist)).size;
-  return { count, painterCount };
+  const result = { count, painterCount };
+  
+  // Cache the result
+  categoryCountsCache.set(cacheKey, result);
+  return result;
 }
 
 function updateCollectionInfo() {
@@ -567,6 +585,10 @@ function updateCollectionInfo() {
 function updateCategoryDropdown() {
   const catSelect = document.getElementById('category-select');
   if (!catSelect) return;
+  
+  // Clear caches when category dropdown is updated
+  clearCaches();
+  
   const options = CATEGORY_DEFS.filter(cat => {
     const { count } = getCategoryCounts(cat.value);
     return cat.value === 'all' || count > 0;
@@ -710,11 +732,20 @@ function setupGalleryModal() {
 }
 
 function getArtistBioMap() {
+  // Use cached version if available
+  if (artistBioMapCache) {
+    return artistBioMapCache;
+  }
+  
   if (!Array.isArray(artistBios)) return {};
-  return artistBios.reduce((map, b) => {
+  const bioMap = artistBios.reduce((map, b) => {
     map[b.name] = b;
     return map;
   }, {});
+  
+  // Cache the result
+  artistBioMapCache = bioMap;
+  return bioMap;
 }
 
 const categoryFilters = {
@@ -756,8 +787,18 @@ const categoryFilters = {
 };
 
 function getValidPaintings() {
+  // Use cache if available and category hasn't changed
+  if (validPaintingsCache && validPaintingsCacheCategory === selectedCategory) {
+    return validPaintingsCache;
+  }
+  
   let filtered = paintings.filter(p => p.artist && p.url);
-  if (!selectedCategory || selectedCategory === 'all') return filtered;
+  if (!selectedCategory || selectedCategory === 'all') {
+    validPaintingsCache = filtered;
+    validPaintingsCacheCategory = selectedCategory;
+    return filtered;
+  }
+  
   const artistMap = getArtistBioMap();
   const filterFn = categoryFilters[selectedCategory];
   if (filterFn) {
@@ -769,6 +810,10 @@ function getValidPaintings() {
       filtered = filtered.filter(filterFn);
     }
   }
+  
+  // Cache the result
+  validPaintingsCache = filtered;
+  validPaintingsCacheCategory = selectedCategory;
   return filtered;
 }
 
@@ -793,9 +838,17 @@ function loadQuiz() {
   if (!painting || !painting.artist || !painting.url) return;
   
   const img = document.getElementById('painting');
-  img.src = painting.url;
-  img.alt = stripHtml(painting.title) || t('painting');
-  img.loading = 'lazy';
+  
+  // Preload the image for smoother experience
+  const preloadImg = new Image();
+  preloadImg.onload = () => {
+    img.src = painting.url;
+    img.alt = stripHtml(painting.title) || t('painting');
+  };
+  preloadImg.src = painting.url;
+  
+  // Start preloading next few images in background
+  preloadNextImages(validPaintings);
   const optionsDiv = document.getElementById('options');
   
   // Clear options and ensure no leftover classes
@@ -807,6 +860,8 @@ function loadQuiz() {
     return;
   }
   
+  // Create all buttons at once to reduce DOM operations
+  const fragment = document.createDocumentFragment();
   artists.forEach(artist => {
     const btn = document.createElement('button');
     btn.textContent = artist;
@@ -883,8 +938,11 @@ function loadQuiz() {
       }
       updateStreakBar();
     };
-    optionsDiv.appendChild(btn);
+    fragment.appendChild(btn);
   });
+  
+  // Append all buttons at once
+  optionsDiv.appendChild(fragment);
   updateStreakBar();
 }
 
@@ -1608,7 +1666,39 @@ function startNewRound() {
   };
   streak = 0;
   updateStreakBar();
+  
+  // Clear caches when starting new round
+  clearCaches();
   loadQuiz();
+}
+
+function clearCaches() {
+  validPaintingsCache = null;
+  validPaintingsCacheCategory = null;
+  artistBioMapCache = null;
+  categoryCountsCache.clear();
+}
+
+function preloadNextImages(validPaintings) {
+  if (isPreloading) return;
+  isPreloading = true;
+  
+  // Preload next 3-5 images in background
+  const preloadCount = Math.min(5, validPaintings.length);
+  const startIndex = Math.floor(Math.random() * validPaintings.length);
+  
+  for (let i = 0; i < preloadCount; i++) {
+    const index = (startIndex + i) % validPaintings.length;
+    const painting = validPaintings[index];
+    if (painting && painting.url) {
+      const img = new Image();
+      img.src = painting.url;
+    }
+  }
+  
+  setTimeout(() => {
+    isPreloading = false;
+  }, 1000);
 }
 
 function updatePageMeta() {
