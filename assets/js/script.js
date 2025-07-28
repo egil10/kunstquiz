@@ -1,5 +1,138 @@
 'use strict';
 
+// Performance optimizations
+const PERFORMANCE_CONFIG = {
+  // Image preloading
+  PRELOAD_COUNT: 5,
+  PRELOAD_DELAY: 100,
+  
+  // Memory management
+  MAX_CACHE_SIZE: 50,
+  CLEANUP_INTERVAL: 30000, // 30 seconds
+  
+  // Animation throttling
+  ANIMATION_THROTTLE: 16, // ~60fps
+  
+  // DOM updates batching
+  BATCH_DELAY: 10
+};
+
+// Global performance variables
+let preloadQueue = [];
+let cleanupTimer = null;
+let animationFrameId = null;
+let batchUpdateTimer = null;
+let pendingUpdates = new Set();
+
+// Performance monitoring
+const performanceMetrics = {
+  startTime: Date.now(),
+  operations: 0,
+  cacheHits: 0,
+  cacheMisses: 0
+};
+
+// Memory management
+const memoryCache = new Map();
+const imageCache = new Map();
+const domCache = new Map();
+
+// Throttled function wrapper
+function throttle(func, delay) {
+  let lastCall = 0;
+  return function(...args) {
+    const now = Date.now();
+    if (now - lastCall >= delay) {
+      lastCall = now;
+      return func.apply(this, args);
+    }
+  };
+}
+
+// Debounced function wrapper
+function debounce(func, delay) {
+  let timeoutId;
+  return function(...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
+// Efficient DOM updates
+function batchDOMUpdates() {
+  if (batchUpdateTimer) return;
+  
+  batchUpdateTimer = requestAnimationFrame(() => {
+    pendingUpdates.forEach(update => update());
+    pendingUpdates.clear();
+    batchUpdateTimer = null;
+  });
+}
+
+// Memory cleanup
+function cleanupMemory() {
+  // Clear old cache entries
+  if (memoryCache.size > PERFORMANCE_CONFIG.MAX_CACHE_SIZE) {
+    const entries = Array.from(memoryCache.entries());
+    const toDelete = entries.slice(0, entries.length - PERFORMANCE_CONFIG.MAX_CACHE_SIZE);
+    toDelete.forEach(([key]) => memoryCache.delete(key));
+  }
+  
+  // Clear old image cache
+  if (imageCache.size > PERFORMANCE_CONFIG.MAX_CACHE_SIZE) {
+    const entries = Array.from(imageCache.entries());
+    const toDelete = entries.slice(0, entries.length - PERFORMANCE_CONFIG.MAX_CACHE_SIZE);
+    toDelete.forEach(([key]) => imageCache.delete(key));
+  }
+  
+  // Clear old DOM cache
+  if (domCache.size > PERFORMANCE_CONFIG.MAX_CACHE_SIZE) {
+    const entries = Array.from(domCache.entries());
+    const toDelete = entries.slice(0, entries.length - PERFORMANCE_CONFIG.MAX_CACHE_SIZE);
+    toDelete.forEach(([key]) => domCache.delete(key));
+  }
+  
+  // Force garbage collection if available
+  if (window.gc) {
+    window.gc();
+  }
+}
+
+// Start periodic cleanup
+function startMemoryCleanup() {
+  if (cleanupTimer) clearInterval(cleanupTimer);
+  cleanupTimer = setInterval(cleanupMemory, PERFORMANCE_CONFIG.CLEANUP_INTERVAL);
+}
+
+// Performance monitoring function
+function getPerformanceMetrics() {
+  const uptime = Date.now() - performanceMetrics.startTime;
+  const memoryUsage = performance.memory ? {
+    used: Math.round(performance.memory.usedJSHeapSize / 1024 / 1024),
+    total: Math.round(performance.memory.totalJSHeapSize / 1024 / 1024),
+    limit: Math.round(performance.memory.jsHeapSizeLimit / 1024 / 1024)
+  } : null;
+  
+  return {
+    uptime: Math.round(uptime / 1000),
+    operations: performanceMetrics.operations,
+    cacheHits: performanceMetrics.cacheHits,
+    cacheMisses: performanceMetrics.cacheMisses,
+    cacheHitRate: performanceMetrics.cacheHits / (performanceMetrics.cacheHits + performanceMetrics.cacheMisses) || 0,
+    memoryUsage,
+    imageCacheSize: imageCache.size,
+    memoryCacheSize: memoryCache.size,
+    domCacheSize: domCache.size
+  };
+}
+
+// Debug function to log performance metrics
+function logPerformanceMetrics() {
+  const metrics = getPerformanceMetrics();
+  console.log('🎯 Performance Metrics:', metrics);
+  return metrics;
+}
+
 // Language support
 let currentLanguage = 'en'; // 'en' for English, 'no' for Norwegian
 const translations = {
@@ -1693,32 +1826,65 @@ function startNewRound() {
 }
 
 function clearCaches() {
+  // Clear existing caches
   validPaintingsCache = null;
   validPaintingsCacheCategory = null;
   artistBioMapCache = null;
   categoryCountsCache.clear();
+  
+  // Clear performance caches
+  memoryCache.clear();
+  domCache.clear();
+  
+  // Force memory cleanup
+  cleanupMemory();
+  
+  // Update performance metrics
+  performanceMetrics.operations++;
 }
 
 function preloadNextImages(validPaintings) {
   if (isPreloading) return;
   isPreloading = true;
   
-  // Preload next 3-5 images in background
-  const preloadCount = Math.min(5, validPaintings.length);
+  // Use performance config for preloading
+  const preloadCount = Math.min(PERFORMANCE_CONFIG.PRELOAD_COUNT, validPaintings.length);
   const startIndex = Math.floor(Math.random() * validPaintings.length);
   
+  // Batch preload with delay to prevent blocking
+  let loadedCount = 0;
+  
+  const preloadImage = (index) => {
+    const painting = validPaintings[index];
+    if (painting && painting.url && !imageCache.has(painting.url)) {
+      const img = new Image();
+      img.onload = () => {
+        imageCache.set(painting.url, img);
+        loadedCount++;
+        if (loadedCount >= preloadCount) {
+          setTimeout(() => { isPreloading = false; }, PERFORMANCE_CONFIG.PRELOAD_DELAY);
+        }
+      };
+      img.onerror = () => {
+        loadedCount++;
+        if (loadedCount >= preloadCount) {
+          setTimeout(() => { isPreloading = false; }, PERFORMANCE_CONFIG.PRELOAD_DELAY);
+        }
+      };
+      img.src = painting.url;
+    } else {
+      loadedCount++;
+      if (loadedCount >= preloadCount) {
+        setTimeout(() => { isPreloading = false; }, PERFORMANCE_CONFIG.PRELOAD_DELAY);
+      }
+    }
+  };
+  
+  // Stagger preloading to prevent blocking
   for (let i = 0; i < preloadCount; i++) {
     const index = (startIndex + i) % validPaintings.length;
-    const painting = validPaintings[index];
-    if (painting && painting.url) {
-      const img = new Image();
-      img.src = painting.url;
-    }
+    setTimeout(() => preloadImage(index), i * 50);
   }
-  
-  setTimeout(() => {
-    isPreloading = false;
-  }, 1000);
 }
 
 function updatePageMeta() {
@@ -1775,12 +1941,18 @@ function updateCategorySelector() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   try {
+    // Start performance monitoring
+    performanceMetrics.startTime = Date.now();
+    
+    // Start memory cleanup
+    startMemoryCleanup();
+    
     const res = await fetch('./data/paintings_merged.json');
     if (!res.ok) throw new Error('Failed to load paintings');
     paintings = await res.json();
     await loadArtistBios();
     
-    // Initialize all systems
+    // Initialize all systems with performance optimizations
     initializeArtistWeights();
     updateCategoryDropdown();
     updateCollectionInfo();
@@ -1826,6 +1998,28 @@ document.addEventListener('DOMContentLoaded', async () => {
         hideHowToPlayModal();
         hideRoundResults();
         document.getElementById('artists-modal').style.display = 'none';
+      }
+    });
+    
+    // Add throttled scroll and resize handlers for performance
+    window.addEventListener('scroll', throttle(() => {
+      // Handle any scroll-based updates here
+      performanceMetrics.operations++;
+    }, PERFORMANCE_CONFIG.ANIMATION_THROTTLE));
+    
+    window.addEventListener('resize', debounce(() => {
+      // Handle any resize-based updates here
+      performanceMetrics.operations++;
+    }, 250));
+    
+    // Add visibility change handler to pause operations when tab is not visible
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        // Pause heavy operations when tab is not visible
+        if (cleanupTimer) clearInterval(cleanupTimer);
+      } else {
+        // Resume operations when tab becomes visible
+        startMemoryCleanup();
       }
     });
   } catch (err) {

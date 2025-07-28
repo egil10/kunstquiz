@@ -7,6 +7,10 @@ body {
   /* Performance optimizations */
   will-change: auto;
   contain: layout style paint;
+  /* Additional performance optimizations */
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 html, body {
@@ -93,6 +97,10 @@ html, body {
   will-change: transform;
   transform: translateZ(0);
   backface-visibility: hidden;
+  /* Additional image optimizations */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  contain: layout style paint;
 }
 
 #streak-bar {
