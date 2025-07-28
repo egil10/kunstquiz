@@ -271,7 +271,7 @@ button.loading {
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0,0,0,0.35);
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1101,7 +1101,7 @@ button.loading {
 
   .custom-category-link {
     font-size: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 0.75rem 1rem;
     background: #f0f0f0;
     border-radius: 0.5rem;
     border: 1px solid #ddd;
@@ -1109,6 +1109,13 @@ button.loading {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    min-height: 44px; /* Minimum touch target size */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
   }
   
   .custom-category-menu {
@@ -1118,6 +1125,8 @@ button.loading {
     max-width: 15rem;
     max-height: 15rem;
     margin-top: 0.25rem;
+    z-index: 1001;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
   }
 
   .artist-popup.toast {

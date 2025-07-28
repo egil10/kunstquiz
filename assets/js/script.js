@@ -816,7 +816,9 @@ function renderCategorySelector() {
   });
   const current = catSelect.value || 'all';
   custom.textContent = t(options.find(o => o.value === current)?.label || 'fullCollection');
-  custom.onclick = e => {
+  // Handle both click and touch events for mobile compatibility
+  const handleCategoryClick = e => {
+    e.preventDefault();
     e.stopPropagation();
     let menu = document.getElementById('custom-category-menu');
     if (menu) {
@@ -831,7 +833,10 @@ function renderCategorySelector() {
       item.className = 'custom-category-item';
       item.type = 'button';
       item.textContent = t(opt.label);
-      item.onclick = ev => {
+      
+      // Handle both click and touch for menu items
+      const handleItemClick = ev => {
+        ev.preventDefault();
         ev.stopPropagation();
         catSelect.value = opt.value;
         selectedCategory = opt.value;
@@ -840,13 +845,32 @@ function renderCategorySelector() {
         renderCategorySelector();
         menu.remove();
       };
+      
+      item.addEventListener('click', handleItemClick);
+      item.addEventListener('touchend', handleItemClick);
+      
       menu.appendChild(item);
     });
     custom.appendChild(menu);
-    document.addEventListener('click', () => {
+    
+    // Close menu when clicking outside
+    const closeMenu = () => {
       if (menu) menu.remove();
-    }, { once: true });
+      document.removeEventListener('click', closeMenu);
+      document.removeEventListener('touchend', closeMenu);
+    };
+    
+    document.addEventListener('click', closeMenu, { once: true });
+    document.addEventListener('touchend', closeMenu, { once: true });
   };
+  
+  // Remove existing event listeners
+  custom.removeEventListener('click', handleCategoryClick);
+  custom.removeEventListener('touchend', handleCategoryClick);
+  
+  // Add new event listeners
+  custom.addEventListener('click', handleCategoryClick);
+  custom.addEventListener('touchend', handleCategoryClick);
 }
 
 function shuffleArray(array) {
