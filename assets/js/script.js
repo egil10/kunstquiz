@@ -935,56 +935,85 @@ function setupGalleryScrollLoading(modal, grid) {
     
     // Load more when user is near the bottom (within 200px)
     if (scrollHeight - scrollPosition < 200 && galleryLoadedCount < galleryPaintings.length) {
-      loadingMore = true;
-      galleryLoadingMore = true;
-      
-      // Show loading indicator
-      let loadingIndicator = grid.querySelector('.gallery-loading-indicator');
-      if (!loadingIndicator) {
-        loadingIndicator = document.createElement('div');
-        loadingIndicator.className = 'gallery-loading-indicator';
-        loadingIndicator.textContent = 'Loading more images...';
-        grid.appendChild(loadingIndicator);
-      }
-      
-      try {
-        // Load next batch
-        const batchSize = 8;
-        const nextBatch = galleryPaintings.slice(galleryLoadedCount, galleryLoadedCount + batchSize);
-        
-        // Preload the batch
-        await Promise.allSettled(
-          nextBatch.map(painting => preloadGalleryImage(painting.url))
-        );
-        
-        // Remove loading indicator
-        if (loadingIndicator) {
-          loadingIndicator.remove();
-        }
-        
-        // Add images to grid
-        nextBatch.forEach(painting => {
-          const img = createGalleryImage(painting);
-          grid.appendChild(img);
-        });
-        
-        galleryLoadedCount += batchSize;
-        
-        // Small delay to prevent rapid loading
-        await new Promise(resolve => setTimeout(resolve, 100));
-        
-      } catch (error) {
-        console.error('Error loading more gallery images:', error);
-        // Remove loading indicator on error
-        if (loadingIndicator) {
-          loadingIndicator.remove();
-        }
-      } finally {
-        loadingMore = false;
-        galleryLoadingMore = false;
-      }
+      await loadNextBatch();
     }
   };
+  
+  const loadNextBatch = async () => {
+    if (loadingMore || galleryLoadingMore || galleryLoadedCount >= galleryPaintings.length) return;
+    
+    loadingMore = true;
+    galleryLoadingMore = true;
+    
+    // Show loading indicator
+    let loadingIndicator = grid.querySelector('.gallery-loading-indicator');
+    if (!loadingIndicator) {
+      loadingIndicator = document.createElement('div');
+      loadingIndicator.className = 'gallery-loading-indicator';
+      loadingIndicator.textContent = 'Loading more images...';
+      grid.appendChild(loadingIndicator);
+    }
+    
+    try {
+      // Load next batch
+      const batchSize = 8;
+      const nextBatch = galleryPaintings.slice(galleryLoadedCount, galleryLoadedCount + batchSize);
+      
+      // Preload the batch
+      await Promise.allSettled(
+        nextBatch.map(painting => preloadGalleryImage(painting.url))
+      );
+      
+      // Remove loading indicator
+      if (loadingIndicator) {
+        loadingIndicator.remove();
+      }
+      
+      // Add images to grid
+      nextBatch.forEach(painting => {
+        const img = createGalleryImage(painting);
+        grid.appendChild(img);
+      });
+      
+      galleryLoadedCount += batchSize;
+      
+      // Update or add load more button
+      updateLoadMoreButton();
+      
+      // Small delay to prevent rapid loading
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+    } catch (error) {
+      console.error('Error loading more gallery images:', error);
+      // Remove loading indicator on error
+      if (loadingIndicator) {
+        loadingIndicator.remove();
+      }
+    } finally {
+      loadingMore = false;
+      galleryLoadingMore = false;
+    }
+  };
+  
+  const updateLoadMoreButton = () => {
+    // Remove existing load more button
+    const existingButton = grid.querySelector('.gallery-load-more-btn');
+    if (existingButton) {
+      existingButton.remove();
+    }
+    
+    // Add new load more button if there are more images
+    if (galleryLoadedCount < galleryPaintings.length) {
+      const loadMoreBtn = document.createElement('button');
+      loadMoreBtn.className = 'gallery-load-more-btn';
+      loadMoreBtn.textContent = `Load More (${galleryPaintings.length - galleryLoadedCount} remaining)`;
+      loadMoreBtn.addEventListener('click', loadNextBatch);
+      grid.appendChild(loadMoreBtn);
+    }
+  };
+  
+  // Add initial load more button
+  updateLoadMoreButton();
   
   // Throttled scroll handler
   let scrollTimeout;

@@ -1206,6 +1206,32 @@ button.loading {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+  
+  /* Gallery load more button */
+  .gallery-load-more-btn {
+    width: 100%;
+    padding: 1rem;
+    margin: 1rem 0;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 0.5rem;
+    color: #388e3c;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: inherit;
+  }
+  
+  .gallery-load-more-btn:hover {
+    background: #e6f7ee;
+    border-color: #388e3c;
+    transform: translateY(-1px);
+  }
+  
+  .gallery-load-more-btn:active {
+    transform: translateY(0);
+  }
 
   #artists-modal, #gallery-modal, #how-to-play-modal {
     position: fixed;
