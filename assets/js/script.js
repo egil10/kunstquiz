@@ -1646,6 +1646,9 @@ function updateFooterLinks() {
   
   const aboutLink = document.getElementById('show-about-link');
   if (aboutLink) aboutLink.textContent = t('about');
+
+  // Always re-attach About modal event listener in case the link was replaced
+  setupAboutModal();
 }
 
 function updateCategorySelector() {
