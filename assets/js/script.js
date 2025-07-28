@@ -643,7 +643,7 @@ function renderCategorySelector() {
       };
       menu.appendChild(item);
     });
-    selectorDiv.appendChild(menu);
+    custom.appendChild(menu);
     document.addEventListener('click', () => {
       if (menu) menu.remove();
     }, { once: true });

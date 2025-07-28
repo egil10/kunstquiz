@@ -16,7 +16,7 @@ html, body {
 }
 
 .top-bar {
-  width: 100vw;
+  width: 100%;
   padding: 32px 32px 0 32px; /* Increased top padding and added horizontal padding */
   position: absolute;
   top: 0;
@@ -25,6 +25,7 @@ html, body {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .top-left {
@@ -298,7 +299,7 @@ button.loading {
   display: inline-block;
   max-width: 12.5rem;
   white-space: nowrap;
-  overflow: hidden;
+  overflow: visible;
   text-overflow: ellipsis;
   vertical-align: middle;
   font-family: inherit;
@@ -318,13 +319,29 @@ button.loading {
   border: 0.0625rem solid #e0e0e0;
   border-radius: 0.5rem;
   box-shadow: 0 0.125rem 0.75rem 0 rgba(0,0,0,0.08);
-  min-width: 10rem;
-  max-width: 15rem;
+  min-width: 12rem;
+  max-width: 20rem;
   z-index: 100;
   padding: 0.25rem 0;
   max-height: 20rem;
   overflow-y: auto;
   margin-top: 0.25rem;
+}
+
+/* Ensure dropdown doesn't go off-screen on desktop */
+@media (min-width: 1200px) {
+  .custom-category-menu {
+    right: auto;
+    left: 0;
+  }
+}
+
+/* Medium screens - adjust positioning */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .custom-category-menu {
+    right: 0;
+    min-width: 14rem;
+  }
 }
 
 .custom-category-item {
@@ -1043,7 +1060,7 @@ button.loading {
     position: absolute;
     top: 100%;
     right: 0;
-    max-width: 12rem;
+    max-width: 15rem;
     max-height: 15rem;
     margin-top: 0.25rem;
   }
