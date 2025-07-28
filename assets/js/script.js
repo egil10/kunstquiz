@@ -816,61 +816,38 @@ function renderCategorySelector() {
   });
   const current = catSelect.value || 'all';
   custom.textContent = t(options.find(o => o.value === current)?.label || 'fullCollection');
-  // Handle both click and touch events for mobile compatibility
-  const handleCategoryClick = e => {
-    e.preventDefault();
+  custom.onclick = e => {
     e.stopPropagation();
     let menu = document.getElementById('custom-category-menu');
     if (menu) {
       menu.remove();
-      return;
+    } else {
+      menu = document.createElement('div');
+      menu.id = 'custom-category-menu';
+      menu.className = 'custom-category-menu';
+      
+      options.forEach(opt => {
+        const item = document.createElement('button');
+        item.className = 'custom-category-item';
+        item.type = 'button';
+        item.textContent = t(opt.label);
+        item.onclick = ev => {
+          ev.stopPropagation();
+          catSelect.value = opt.value;
+          selectedCategory = opt.value;
+          updateCollectionInfo();
+          loadQuiz();
+          renderCategorySelector();
+          menu.remove();
+        };
+        menu.appendChild(item);
+      });
+      custom.appendChild(menu);
+      document.addEventListener('click', () => {
+        if (menu) menu.remove();
+      }, { once: true });
     }
-    menu = document.createElement('div');
-    menu.id = 'custom-category-menu';
-    menu.className = 'custom-category-menu';
-    options.forEach(opt => {
-      const item = document.createElement('button');
-      item.className = 'custom-category-item';
-      item.type = 'button';
-      item.textContent = t(opt.label);
-      
-      // Handle both click and touch for menu items
-      const handleItemClick = ev => {
-        ev.preventDefault();
-        ev.stopPropagation();
-        catSelect.value = opt.value;
-        selectedCategory = opt.value;
-        startNewRound(); // Reset quiz completely for new category
-        updateCollectionInfo();
-        renderCategorySelector();
-        menu.remove();
-      };
-      
-      item.addEventListener('click', handleItemClick);
-      item.addEventListener('touchend', handleItemClick);
-      
-      menu.appendChild(item);
-    });
-    custom.appendChild(menu);
-    
-    // Close menu when clicking outside
-    const closeMenu = () => {
-      if (menu) menu.remove();
-      document.removeEventListener('click', closeMenu);
-      document.removeEventListener('touchend', closeMenu);
-    };
-    
-    document.addEventListener('click', closeMenu, { once: true });
-    document.addEventListener('touchend', closeMenu, { once: true });
   };
-  
-  // Remove existing event listeners
-  custom.removeEventListener('click', handleCategoryClick);
-  custom.removeEventListener('touchend', handleCategoryClick);
-  
-  // Add new event listeners
-  custom.addEventListener('click', handleCategoryClick);
-  custom.addEventListener('touchend', handleCategoryClick);
 }
 
 function shuffleArray(array) {
