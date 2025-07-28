@@ -133,6 +133,31 @@ function logPerformanceMetrics() {
   return metrics;
 }
 
+// Image optimization monitoring
+const imageOptimizationMetrics = {
+  totalImages: 0,
+  optimizedImages: 0,
+  webpImages: 0,
+  fallbackImages: 0,
+  averageLoadTime: 0,
+  loadTimes: []
+};
+
+function logImageOptimizationMetrics() {
+  const avgLoadTime = imageOptimizationMetrics.loadTimes.length > 0 
+    ? imageOptimizationMetrics.loadTimes.reduce((a, b) => a + b, 0) / imageOptimizationMetrics.loadTimes.length
+    : 0;
+    
+  console.log('🖼️ Image Optimization Metrics:', {
+    totalImages: imageOptimizationMetrics.totalImages,
+    optimizedImages: imageOptimizationMetrics.optimizedImages,
+    webpImages: imageOptimizationMetrics.webpImages,
+    fallbackImages: imageOptimizationMetrics.fallbackImages,
+    averageLoadTime: `${avgLoadTime.toFixed(2)}ms`,
+    optimizationRate: `${(imageOptimizationMetrics.optimizedImages / imageOptimizationMetrics.totalImages * 100).toFixed(1)}%`
+  });
+}
+
 // Language support
 let currentLanguage = 'en'; // 'en' for English, 'no' for Norwegian
 const translations = {
@@ -845,12 +870,16 @@ function showGalleryModal() {
   grid.className = 'gallery-collage-grid';
   shuffled.forEach(p => {
     const img = document.createElement('img');
-    img.src = p.url;
+    img.dataset.src = optimizeImageUrl(p.url, 400); // Use smaller images for gallery
+    img.dataset.fallback = p.url; // Fallback to original
     img.alt = p.title || '';
     img.className = 'gallery-collage-img';
     img.loading = 'lazy';
     grid.appendChild(img);
   });
+  
+  // Setup lazy loading for gallery images
+  setTimeout(setupLazyLoading, 100);
   collage.appendChild(grid);
   modal.style.display = 'flex';
   modal.focus();
@@ -989,13 +1018,14 @@ function loadQuiz() {
   
   const img = document.getElementById('painting');
   
-  // Preload the image for smoother experience
-  const preloadImg = new Image();
-  preloadImg.onload = () => {
+  // Use optimized image loading with progressive enhancement
+  loadImageProgressive(img, painting.url).then(() => {
+    img.alt = stripHtml(painting.title) || t('painting');
+  }).catch(() => {
+    // Fallback to original URL if optimization fails
     img.src = painting.url;
     img.alt = stripHtml(painting.title) || t('painting');
-  };
-  preloadImg.src = painting.url;
+  });
   
   // Start preloading next few images in background
   preloadNextImages(validPaintings);
@@ -1857,21 +1887,18 @@ function preloadNextImages(validPaintings) {
   const preloadImage = (index) => {
     const painting = validPaintings[index];
     if (painting && painting.url && !imageCache.has(painting.url)) {
-      const img = new Image();
-      img.onload = () => {
+      preloadOptimizedImage(painting.url).then(img => {
         imageCache.set(painting.url, img);
         loadedCount++;
         if (loadedCount >= preloadCount) {
           setTimeout(() => { isPreloading = false; }, PERFORMANCE_CONFIG.PRELOAD_DELAY);
         }
-      };
-      img.onerror = () => {
+      }).catch(() => {
         loadedCount++;
         if (loadedCount >= preloadCount) {
           setTimeout(() => { isPreloading = false; }, PERFORMANCE_CONFIG.PRELOAD_DELAY);
         }
-      };
-      img.src = painting.url;
+      });
     } else {
       loadedCount++;
       if (loadedCount >= preloadCount) {
@@ -1937,6 +1964,114 @@ function updateCategorySelector() {
   if (categorySelect) {
     categorySelect.setAttribute('aria-label', t('selectCategory'));
   }
+}
+
+// Image optimization functions
+function optimizeImageUrl(url, targetWidth = 800) {
+  if (!url || !url.includes('wikimedia.org')) return url;
+  
+  // Wikimedia Commons optimization patterns
+  const optimizations = [
+    // Try WebP first (best compression)
+    url.replace(/\.(jpg|jpeg|png)$/i, '.webp'),
+    // Try smaller thumbnail versions
+    url.replace(/\/commons\//, '/commons/thumb/').replace(/\.(jpg|jpeg|png|webp)$/i, `/${targetWidth}px-$1`),
+    // Try medium size
+    url.replace(/\/commons\//, '/commons/thumb/').replace(/\.(jpg|jpeg|png|webp)$/i, '/600px-$1'),
+    // Try small size
+    url.replace(/\/commons\//, '/commons/thumb/').replace(/\.(jpg|jpeg|png|webp)$/i, '/400px-$1')
+  ];
+  
+  return optimizations[0]; // Return WebP version
+}
+
+function getResponsiveImageUrl(url, containerWidth = 800) {
+  if (!url || !url.includes('wikimedia.org')) return url;
+  
+  // Calculate optimal size based on container
+  let targetWidth = 800;
+  if (containerWidth <= 400) targetWidth = 400;
+  else if (containerWidth <= 600) targetWidth = 600;
+  else if (containerWidth <= 800) targetWidth = 800;
+  else targetWidth = 1200;
+  
+  return optimizeImageUrl(url, targetWidth);
+}
+
+// Progressive image loading
+function loadImageProgressive(imgElement, url, fallbackUrl = null) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    
+    img.onload = () => {
+      imgElement.src = img.src;
+      imgElement.classList.add('loaded');
+      resolve(img);
+    };
+    
+    img.onerror = () => {
+      if (fallbackUrl && fallbackUrl !== url) {
+        // Try fallback URL
+        loadImageProgressive(imgElement, fallbackUrl).then(resolve).catch(reject);
+      } else {
+        // Use original URL as last resort
+        imgElement.src = url;
+        imgElement.classList.add('loaded');
+        resolve(img);
+      }
+    };
+    
+    // Start with optimized URL
+    img.src = optimizeImageUrl(url);
+  });
+}
+
+// Lazy loading with intersection observer
+function setupLazyLoading() {
+  if (!('IntersectionObserver' in window)) {
+    // Fallback for older browsers
+    document.querySelectorAll('img[data-src]').forEach(img => {
+      img.src = img.dataset.src;
+      img.classList.add('loaded');
+    });
+    return;
+  }
+  
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        const url = img.dataset.src;
+        const fallbackUrl = img.dataset.fallback;
+        
+        if (url) {
+          loadImageProgressive(img, url, fallbackUrl).then(() => {
+            img.removeAttribute('data-src');
+            img.removeAttribute('data-fallback');
+            observer.unobserve(img);
+          });
+        }
+      }
+    });
+  }, {
+    rootMargin: '50px 0px', // Start loading 50px before image enters viewport
+    threshold: 0.01
+  });
+  
+  // Observe all lazy images
+  document.querySelectorAll('img[data-src]').forEach(img => {
+    imageObserver.observe(img);
+  });
+}
+
+// Image preloading with optimization
+function preloadOptimizedImage(url) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error('Failed to load image'));
+    img.src = optimizeImageUrl(url);
+  });
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
