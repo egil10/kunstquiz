@@ -453,7 +453,7 @@ button.loading {
 
 .artist-popup.toast {
   position: fixed;
-  top: 8rem; /* Increased from 2rem to clear the top bar */
+  top: 10rem; /* Increased to always clear the top bar */
   right: 2rem;
   background: #fff;
   border-radius: 1.375rem;
@@ -466,7 +466,19 @@ button.loading {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s, transform 0.4s;
-  z-index: 1000; /* Ensure it's above other elements */
+  z-index: 1000;
+}
+
+@media (max-width: 900px) {
+  .artist-popup.toast {
+    top: 9rem; /* Increased for mobile/tablet to clear top bar */
+    right: 1rem;
+    left: 1rem;
+    min-width: auto;
+    max-width: none;
+    width: 99vw;
+    padding: 0.4375rem 0.125rem 0.625rem 0.125rem;
+  }
 }
 
 .artist-popup.toast.visible {
