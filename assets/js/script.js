@@ -1029,7 +1029,7 @@ function setupGalleryScrollLoading(modal, grid) {
     if (galleryLoadedCount < galleryPaintings.length) {
       const loadMoreBtn = document.createElement('button');
       loadMoreBtn.className = 'gallery-load-more-btn';
-      loadMoreBtn.textContent = `Load More (${galleryPaintings.length - galleryLoadedCount} remaining)`;
+      loadMoreBtn.textContent = 'Load More';
       loadMoreBtn.addEventListener('click', loadNextBatch);
       grid.appendChild(loadMoreBtn);
     }
