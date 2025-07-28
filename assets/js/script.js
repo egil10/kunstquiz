@@ -2138,16 +2138,7 @@ function showDiploma() {
     console.error('Play Again button not found!');
   }
   
-  // Click outside to close
-  setTimeout(() => {
-    function outsideClick(e) {
-      if (!modal.querySelector('.diploma-content').contains(e.target)) {
-        hideDiploma();
-        document.removeEventListener('click', outsideClick);
-      }
-    }
-    document.addEventListener('click', outsideClick);
-  }, 100);
+  // No outside click to close - diploma must be closed via buttons only
 }
 
 function hideDiploma() {
