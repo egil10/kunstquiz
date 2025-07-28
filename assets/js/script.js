@@ -1432,11 +1432,20 @@ function hideAboutModal() {
 function setupAboutModal() {
   const showLink = document.getElementById('show-about-link');
   const closeBtn = document.getElementById('close-about-modal');
-  if (showLink) showLink.addEventListener('click', e => {
-    e.preventDefault();
-    showAboutModal();
-  });
-  if (closeBtn) closeBtn.addEventListener('click', hideAboutModal);
+  // Remove previous event listeners if any
+  if (showLink) {
+    showLink.replaceWith(showLink.cloneNode(true));
+    const newShowLink = document.getElementById('show-about-link');
+    if (newShowLink) newShowLink.addEventListener('click', e => {
+      e.preventDefault();
+      showAboutModal();
+    });
+  }
+  if (closeBtn) {
+    closeBtn.replaceWith(closeBtn.cloneNode(true));
+    const newCloseBtn = document.getElementById('close-about-modal');
+    if (newCloseBtn) newCloseBtn.addEventListener('click', hideAboutModal);
+  }
 }
 
 
