@@ -835,8 +835,8 @@ function renderCategorySelector() {
           ev.stopPropagation();
           catSelect.value = opt.value;
           selectedCategory = opt.value;
+          startNewRound(); // Reset quiz completely for new category
           updateCollectionInfo();
-          loadQuiz();
           renderCategorySelector();
           menu.remove();
         };
@@ -848,6 +848,17 @@ function renderCategorySelector() {
       }, { once: true });
     }
   };
+  
+  // Add mobile-specific touch support without affecting web
+  if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+    // Only add touch events on mobile devices
+    custom.addEventListener('touchend', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      // Trigger the same logic as onclick
+      custom.onclick(e);
+    });
+  }
 }
 
 function shuffleArray(array) {
