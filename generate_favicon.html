@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Kunstquiz Favicon</title>
+</head>
+<body>
+    <h1>Kunstquiz Favicon Generator</h1>
+    <p>This page generates a favicon for Kunstquiz. Right-click on the canvas below and save as favicon.png</p>
+    
+    <canvas id="faviconCanvas" width="32" height="32" style="border: 1px solid #ccc; margin: 20px;"></canvas>
+    
+    <script>
+        const canvas = document.getElementById('faviconCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Clear canvas
+        ctx.clearRect(0, 0, 32, 32);
+        
+        // Background circle (green like the site theme)
+        ctx.fillStyle = '#4caf50';
+        ctx.beginPath();
+        ctx.arc(16, 16, 15, 0, 2 * Math.PI);
+        ctx.fill();
+        
+        // Border
+        ctx.strokeStyle = '#388e3c';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+        
+        // Art palette (white circle)
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(16, 14, 8, 0, 2 * Math.PI);
+        ctx.fill();
+        
+        // Palette border
+        ctx.strokeStyle = '#dddddd';
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+        
+        // Palette thumb hole
+        ctx.fillStyle = '#4caf50';
+        ctx.beginPath();
+        ctx.arc(16, 14, 2, 0, 2 * Math.PI);
+        ctx.fill();
+        
+        // Paint colors on palette
+        const colors = [
+            {x: 12, y: 12, color: '#f44336'}, // Red
+            {x: 20, y: 12, color: '#2196f3'}, // Blue
+            {x: 12, y: 16, color: '#ff9800'}, // Orange
+            {x: 20, y: 16, color: '#9c27b0'}  // Purple
+        ];
+        
+        colors.forEach(paint => {
+            ctx.fillStyle = paint.color;
+            ctx.beginPath();
+            ctx.arc(paint.x, paint.y, 1.5, 0, 2 * Math.PI);
+            ctx.fill();
+        });
+        
+        // Brush handle
+        ctx.fillStyle = '#8d6e63';
+        ctx.fillRect(22, 18, 2, 8);
+        
+        // Brush bristles
+        ctx.fillStyle = '#ffeb3b';
+        ctx.beginPath();
+        ctx.moveTo(22, 18);
+        ctx.lineTo(24, 18);
+        ctx.lineTo(23, 20);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Question mark for quiz
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 8px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('?', 16, 26);
+        
+        console.log('Favicon generated! Right-click the canvas and save as favicon.png');
+    </script>
+    
+    <p><strong>Instructions:</strong></p>
+    <ol>
+        <li>Right-click on the canvas above</li>
+        <li>Select "Save image as..."</li>
+        <li>Save as "favicon.png" in your project root</li>
+        <li>The favicon will automatically be used by browsers</li>
+    </ol>
+</body>
+</html> 
