@@ -482,12 +482,17 @@ function initializeArtistWeights() {
     }
   });
   
-  // Calculate weights inversely proportional to painting count
+  // Calculate balanced weights using square root scaling
+  // This provides a middle ground between pure random and extreme inverse weighting
   const maxCount = Math.max(...Object.values(artistCounts));
   Object.keys(artistCounts).forEach(artist => {
     const count = artistCounts[artist];
-    // Higher weight for artists with fewer paintings
-    artistWeights.set(artist, maxCount / count);
+    // Use square root scaling for more balanced representation
+    // Artists with fewer paintings still get higher weights, but not as extreme
+    const baseWeight = Math.sqrt(maxCount) / Math.sqrt(count);
+    // Add a small bonus for very small collections (1-3 paintings) to ensure they appear
+    const smallCollectionBonus = count <= 3 ? 1.5 : 1.0;
+    artistWeights.set(artist, baseWeight * smallCollectionBonus);
   });
 }
 
@@ -520,10 +525,10 @@ function getWeightedRandomPainting(validPaintings) {
   if (selected) {
     // Add to recently selected set
     lastSelectedArtists.add(selected.painting.artist);
-    if (lastSelectedArtists.size > 5) {
-      // Keep only last 5 artists
+    if (lastSelectedArtists.size > 3) {
+      // Keep only last 3 artists (reduced from 5 for more variety)
       const artistsArray = Array.from(lastSelectedArtists);
-      lastSelectedArtists = new Set(artistsArray.slice(-5));
+      lastSelectedArtists = new Set(artistsArray.slice(-3));
     }
     return selected.painting;
   }
