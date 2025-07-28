@@ -422,6 +422,9 @@ function updateLanguageUI() {
   // Update category selector aria-label
   updateCategorySelector();
   
+  // Render category selector
+  renderCategorySelector();
+  
   // Update modal texts
   const congratsTitle = document.getElementById('congrats-title');
   if (congratsTitle) congratsTitle.textContent = t('congratulations');
@@ -594,13 +597,17 @@ function setupCategoryChangeInfoBar() {
 function renderCategorySelector() {
   const catSelect = document.getElementById('category-select');
   const selectorDiv = document.querySelector('.category-selector');
-  if (!catSelect || !selectorDiv) return;
+  if (!catSelect || !selectorDiv) {
+    console.error('Category selector elements not found:', { catSelect: !!catSelect, selectorDiv: !!selectorDiv });
+    return;
+  }
   catSelect.style.display = 'none';
   let custom = document.getElementById('custom-category-link');
   if (!custom) {
-    custom = document.createElement('span');
+    custom = document.createElement('button');
     custom.id = 'custom-category-link';
     custom.className = 'custom-category-link';
+    custom.type = 'button';
     selectorDiv.appendChild(custom);
   }
   const options = CATEGORY_DEFS.filter(cat => {
@@ -621,8 +628,9 @@ function renderCategorySelector() {
     menu.id = 'custom-category-menu';
     menu.className = 'custom-category-menu';
     options.forEach(opt => {
-      const item = document.createElement('div');
+      const item = document.createElement('button');
       item.className = 'custom-category-item';
+      item.type = 'button';
       item.textContent = t(opt.label);
       item.onclick = ev => {
         ev.stopPropagation();
@@ -635,7 +643,7 @@ function renderCategorySelector() {
       };
       menu.appendChild(item);
     });
-    custom.appendChild(menu);
+    selectorDiv.appendChild(menu);
     document.addEventListener('click', () => {
       if (menu) menu.remove();
     }, { once: true });
@@ -918,7 +926,7 @@ function updateStreakBar() {
       // Check if this answer was correct or incorrect
       const answer = currentRound.answers[i];
       if (answer && answer.correct) {
-        circle.classList.add('active'); // Green for correct
+        circle.classList.add('filled'); // Green for correct
       } else if (answer && !answer.correct) {
         circle.classList.add('incorrect'); // Red for incorrect
       }
@@ -1658,7 +1666,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     initializeArtistWeights();
     updateCategoryDropdown();
     updateCollectionInfo();
-    renderCategorySelector();
     updateLanguageUI();
     setupLanguageToggle();
     startNewRound(); // Start with a new round
@@ -1667,6 +1674,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupAboutModal();
     setupLogoReset();
     setupCategoryChangeInfoBar();
+    
+    // Ensure category selector is properly rendered
+    console.log('Rendering category selector...');
+    renderCategorySelector();
+    console.log('Category selector rendered');
+    
+    // Test category selector
+    setTimeout(() => {
+      const customLink = document.getElementById('custom-category-link');
+      const selectorDiv = document.querySelector('.category-selector');
+      console.log('Category selector test:', {
+        customLink: !!customLink,
+        selectorDiv: !!selectorDiv,
+        customLinkText: customLink?.textContent,
+        selectorDivChildren: selectorDiv?.children?.length
+      });
+    }, 1000);
     
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) resetBtn.addEventListener('click', () => {

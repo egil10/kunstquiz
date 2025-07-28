@@ -301,6 +301,7 @@ button.loading {
   overflow: hidden;
   text-overflow: ellipsis;
   vertical-align: middle;
+  font-family: inherit;
 }
 
 /* Removed dropdown arrow for cleaner look */
@@ -311,7 +312,7 @@ button.loading {
 
 .custom-category-menu {
   position: absolute;
-  top: 1.75rem;
+  top: 100%;
   right: 0;
   background: #fff;
   border: 0.0625rem solid #e0e0e0;
@@ -323,6 +324,7 @@ button.loading {
   padding: 0.25rem 0;
   max-height: 20rem;
   overflow-y: auto;
+  margin-top: 0.25rem;
 }
 
 .custom-category-item {
@@ -337,6 +339,8 @@ button.loading {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  width: 100%;
+  display: block;
 }
 
 .custom-category-item:hover {
@@ -1036,9 +1040,12 @@ button.loading {
   }
   
   .custom-category-menu {
-    right: -0.5rem;
+    position: absolute;
+    top: 100%;
+    right: 0;
     max-width: 12rem;
     max-height: 15rem;
+    margin-top: 0.25rem;
   }
 
   .artist-popup.toast {
@@ -1323,6 +1330,7 @@ button.loading {
     right: auto;
     margin-bottom: 1rem;
     width: 100%;
+    max-width: 100%;
   }
   
   .category-selector select {
