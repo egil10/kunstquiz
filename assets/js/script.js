@@ -153,6 +153,7 @@ const translations = {
       achievement: 'Perfect Score Achievement',
       description: 'This certificate is awarded for achieving a perfect score of 10/10 in the Norwegian Art Quiz, demonstrating exceptional knowledge of Norwegian art history.',
       awardedTo: 'Awarded to',
+      category: 'Category',
       date: 'Date',
       download: 'Download the diploma',
       close: 'Close'
@@ -320,6 +321,7 @@ const translations = {
       achievement: 'Perfekt Poengsum',
       description: 'Dette beviset tildeles for å oppnå en perfekt poengsum på 10/10 i Norsk Kunstquiz, som demonstrerer enestående kunnskap om norsk kunsthistorie.',
       awardedTo: 'Tildelt til',
+      category: 'Kategori',
       date: 'Dato',
       download: 'Last ned diplom',
       close: 'Lukk'
@@ -1537,6 +1539,8 @@ function showDiploma() {
   const description = document.getElementById('diploma-description-text');
   const awardedLabel = document.getElementById('diploma-awarded-label');
   const awardedValue = document.getElementById('diploma-awarded-value');
+  const categoryLabel = document.getElementById('diploma-category-label');
+  const categoryValue = document.getElementById('diploma-category-value');
   const dateLabel = document.getElementById('diploma-date-label');
   const dateValue = document.getElementById('diploma-date-value');
   const downloadBtn = document.getElementById('diploma-download');
@@ -1590,14 +1594,24 @@ function showDiploma() {
   title.textContent = t('diploma.title');
   subtitle.textContent = t('diploma.subtitle');
   achievement.textContent = t('diploma.achievement');
-  description.textContent = t('diploma.description');
+  
+  // Add category information to description
+  const categoryNameForDesc = selectedCategory === 'all' ? t('fullCollection') : t(CATEGORY_DEFS.find(cat => cat.value === selectedCategory)?.label || 'fullCollection');
+  const descriptionWithCategory = t('diploma.description') + (selectedCategory !== 'all' ? ` (${categoryNameForDesc})` : '');
+  description.textContent = descriptionWithCategory;
+  
   awardedLabel.textContent = t('diploma.awardedTo');
+  categoryLabel.textContent = t('diploma.category');
   dateLabel.textContent = t('diploma.date');
   downloadBtn.textContent = t('diploma.download');
   playAgainBtn.textContent = t('playAgain');
   
   // Set awardee name (you could make this customizable)
   awardedValue.textContent = 'Art Enthusiast';
+  
+  // Set category name
+  const categoryName = selectedCategory === 'all' ? t('fullCollection') : t(CATEGORY_DEFS.find(cat => cat.value === selectedCategory)?.label || 'fullCollection');
+  categoryValue.textContent = categoryName;
   
   // Set current date
   const now = new Date();
@@ -1734,7 +1748,7 @@ function updateLanguageFlag() {
 function updateFooterLinks() {
   // Update footer link texts
   const artistsLink = document.getElementById('show-artists-link');
-  if (artistsLink) artistsLink.textContent = t('artists');
+  if (artistsLink) artistsLink.textContent = t('painters'); // Changed from 'artists' to 'painters'
   
   const galleryLink = document.getElementById('show-gallery-link');
   if (galleryLink) galleryLink.textContent = t('gallery');

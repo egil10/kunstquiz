@@ -453,7 +453,7 @@ button.loading {
 
 .artist-popup.toast {
   position: fixed;
-  top: 2rem;
+  top: 8rem; /* Increased from 2rem to clear the top bar */
   right: 2rem;
   background: #fff;
   border-radius: 1.375rem;
@@ -466,6 +466,7 @@ button.loading {
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.4s, transform 0.4s;
+  z-index: 1000; /* Ensure it's above other elements */
 }
 
 .artist-popup.toast.visible {
@@ -1073,6 +1074,8 @@ button.loading {
   }
 
   .artist-popup.toast {
+    position: fixed;
+    top: 7rem; /* Position below top bar on mobile */
     flex-direction: column;
     align-items: center;
     min-width: 0;
