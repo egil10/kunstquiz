@@ -691,6 +691,9 @@ function shuffleArray(array) {
 }
 
 function showGalleryModal() {
+  // Scroll to top of page
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
   const modal = document.getElementById('gallery-modal');
   const collage = document.getElementById('gallery-collage');
   if (!modal || !collage) return;
@@ -1161,17 +1164,33 @@ function setupLogoReset() {
   const logo = document.querySelector('.title');
   if (logo) {
     logo.onclick = () => {
+      // Reset everything to start a completely new quiz
       selectedCategory = 'all';
       const catSelect = document.getElementById('category-select');
       if (catSelect) catSelect.value = 'all';
       streak = 0;
       updateStreakBar();
-      loadQuiz();
+      
+      // Clear any existing messages
+      hideMessage();
+      
+      // Hide any open modals
+      hideCongratsModal();
+      hideGalleryModal();
+      hideHowToPlayModal();
+      hideRoundResults();
+      document.getElementById('artists-modal').style.display = 'none';
+      
+      // Start a completely fresh round
+      startNewRound();
     };
   }
 }
 
 function showArtistsModal() {
+  // Scroll to top of page
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
   const artistSet = new Set(paintings.map(p => p.artist).filter(Boolean));
   const artists = [...artistSet].sort((a, b) => a.localeCompare(b));
   const numCols = 3;
@@ -1349,6 +1368,9 @@ function generateAboutContent() {
 }
 
 function showHowToPlayModal() {
+  // Scroll to top of page
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
   const modal = document.getElementById('how-to-play-modal');
   const title = document.getElementById('how-to-play-title');
   
