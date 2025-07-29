@@ -1547,12 +1547,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   }
   let closeBtnHtml = persistent ? `<button class="artist-popup-close" aria-label="Close">×</button>` : '';
   let paintingsHtml = '';
-  if (persistent && artistPaintings.length > 0) {
-    paintingsHtml = `<div class="artist-paintings-grid only-images">${artistPaintings.map(p => `
-      <div class="artist-painting-thumb">
-        <img src="${p.url}" alt="${p.title}" title="${p.title}" loading="lazy" />
-      </div>`).join('')}</div>`;
-  }
+  // Remove gallery display for persistent popups to keep them simple
   popup.innerHTML = createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml });
   popup.style.opacity = '0';
   popup.style.display = 'flex';

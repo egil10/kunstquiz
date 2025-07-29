@@ -271,7 +271,7 @@ button.loading {
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -754,6 +754,9 @@ button.loading {
   max-width: 90vw;
   min-height: 11.25rem;
   position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 2000;
 }
 
