@@ -271,7 +271,7 @@ button.loading {
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  background: transparent;
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
   display: flex;
   align-items: center;
   justify-content: center;

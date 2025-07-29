@@ -875,9 +875,6 @@ let galleryLoadedCount = 0;
 let galleryLoadingMore = false;
 
 function showGalleryModal(paintingsArray = null, initialCount = 12) {
-  // Scroll to top before showing modal to ensure it appears centered
-  window.scrollTo({ top: 0, behavior: 'instant' });
-  
   const modal = document.getElementById('gallery-modal');
   const collage = document.getElementById('gallery-collage');
   if (!modal || !collage) return;
@@ -1623,9 +1620,6 @@ function setupLogoReset() {
 }
 
 function showArtistsModal() {
-  // Scroll to top before showing modal to ensure it appears centered
-  window.scrollTo({ top: 0, behavior: 'instant' });
-  
   const artistSet = new Set(paintings.map(p => p.artist).filter(Boolean));
   const artists = [...artistSet].sort((a, b) => a.localeCompare(b));
   const numCols = 3;
@@ -1803,9 +1797,6 @@ function generateAboutContent() {
 }
 
 function showAboutModal() {
-  // Scroll to top before showing modal to ensure it appears centered
-  window.scrollTo({ top: 0, behavior: 'instant' });
-  
   const modal = document.getElementById('how-to-play-modal');
   const title = document.getElementById('how-to-play-title');
   const content = document.getElementById('how-to-play-content');
@@ -1967,9 +1958,6 @@ function showPaintingViewer(painting) {
     // Fallback to original URL if current image not available
     image.src = painting.url;
   }
-  
-  // Scroll to top before showing modal to ensure it appears centered
-  window.scrollTo({ top: 0, behavior: 'instant' });
   
   // Show modal with animation
   modal.style.display = 'flex';
