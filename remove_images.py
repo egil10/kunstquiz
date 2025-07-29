@@ -52,10 +52,14 @@ def remove_images_by_url(data: List[Dict[str, Any]], urls_to_remove: List[str], 
     removed_items = []
     
     for item in data:
-        if item.get('url') in urls_set:
+        url = item.get('url', '')
+        
+        # Remove if URL is in the removal list OR if it's a TIF file
+        if url in urls_set or url.lower().endswith('.tif') or url.lower().endswith('.tiff'):
             removed_items.append(item)
             if not dry_run:
-                print(f"Removing: {item.get('artist', 'Unknown')} - {item.get('title', 'Unknown')}")
+                reason = "TIF file" if url.lower().endswith(('.tif', '.tiff')) else "Manual removal"
+                print(f"Removing: {item.get('artist', 'Unknown')} - {item.get('title', 'Unknown')} ({reason})")
         else:
             cleaned_data.append(item)
     
