@@ -1965,6 +1965,9 @@ function showPaintingViewer(painting) {
     image.src = painting.url;
   }
   
+  // Scroll to top before showing modal to ensure it appears centered
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  
   // Show modal with animation
   modal.style.display = 'flex';
   modal.classList.add('visible');
