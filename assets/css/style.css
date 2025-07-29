@@ -746,17 +746,21 @@ button.loading {
   color: #e53935;
 }
 
-.artist-popup.persistent {
-  box-shadow: 0 0.5rem 2rem 0 rgba(0,0,0,0.18);
-  border-radius: 1.125rem;
-  padding: 2rem 2rem 1.5rem 2rem;
-  min-width: 20rem;
-  max-width: 90vw;
-  min-height: 11.25rem;
+.artist-popup.toast.persistent {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  background: #fff;
+  border-radius: 1.375rem;
+  box-shadow: 0 0.5rem 3rem rgba(0,0,0,0.18);
+  flex-direction: row;
+  align-items: flex-start;
+  min-width: 23.75rem;
+  max-width: 33.75rem;
+  padding: 1.375rem;
+  opacity: 1;
+  pointer-events: auto;
   z-index: 2000;
 }
 

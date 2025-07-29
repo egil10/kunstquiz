@@ -1556,7 +1556,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   if (persistent) {
     // Remove all <a> links in the popup (if any)
     Array.from(popup.querySelectorAll('a')).forEach(link => link.remove());
-    popup.className = 'artist-popup persistent';
+    popup.className = 'artist-popup toast persistent';
     const overlay = ensureArtistPopupOverlay();
     overlay.classList.add('visible');
     const closeBtn = popup.querySelector('.artist-popup-close');
