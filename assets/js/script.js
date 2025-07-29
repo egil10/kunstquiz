@@ -703,6 +703,32 @@ function updateLanguageUI() {
       const remaining = total - loaded;
       if (remaining > 0) {
         loadMoreBtn.textContent = `${currentLanguage === 'no' ? 'Vis flere' : 'Load More'} (${remaining})`;
+      } else {
+        loadMoreBtn.style.display = 'none';
+      }
+    }
+  });
+  
+  // Also update any artist popups that might be open
+  const artistPopups = document.querySelectorAll('.artist-popup.toast.persistent');
+  artistPopups.forEach(popup => {
+    const gallery = popup.querySelector('.artist-gallery-section');
+    if (gallery) {
+      const title = gallery.querySelector('.artist-gallery-title');
+      if (title) {
+        title.textContent = currentLanguage === 'no' ? 'Malerier' : 'Paintings';
+      }
+      
+      const loadMoreBtn = gallery.querySelector('.artist-gallery-load-more');
+      if (loadMoreBtn) {
+        const total = parseInt(loadMoreBtn.dataset.total);
+        const loaded = parseInt(loadMoreBtn.dataset.loaded);
+        const remaining = total - loaded;
+        if (remaining > 0) {
+          loadMoreBtn.textContent = `${currentLanguage === 'no' ? 'Vis flere' : 'Load More'} (${remaining})`;
+        } else {
+          loadMoreBtn.style.display = 'none';
+        }
       }
     }
   });

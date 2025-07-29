@@ -152346,53 +152346,6 @@
     "birthplace": "Ålesund Municipality"
   },
   {
-    "title": "No-nb bldsa 2a149",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/a/a8/No-nb_bldsa_2a149.jpg",
-    "year": "before 1928<div style=\"display: none;\">date QS:P,+1928-00-00T00:00:00Z/7,P1326,+1928-00-00T00:00:00Z/9</div>",
-    "medium": "",
-    "dimensions": "",
-    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
-    "license": "Public domain",
-    "source": "Wikimedia Commons",
-    "artist": "Axel Revold",
-    "artist_bio": "Modernist muralist, painter, illustrator, and professor.",
-    "artist_birth": "1887",
-    "artist_death": "1962",
-    "country_of_origin": "Norway",
-    "artist_gender": "male",
-    "movement": "",
-    "genre": "Painting",
-    "century": "2000s",
-    "collection": "National Library of Norway",
-    "categories": [
-      "2000s",
-      "Norway",
-      "Painting",
-      "male",
-      "Ålesund Municipality"
-    ],
-    "artist_birthplace": "Ålesund, Norway",
-    "artist_deathplace": "Bærum, Norway",
-    "artist_movement": [
-      "Modernism"
-    ],
-    "artist_genre": [
-      "Mural painting"
-    ],
-    "artist_awards": [
-      "Kongens fortjenstmedalje i gull",
-      "Prins Eugen-medaljen (1955)",
-      "Kommandør av Dannebrogordenen",
-      "Kommandør av St. Olavs Orden (1955)",
-      "Ridder av Æreslegionen"
-    ],
-    "artist_self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/7/76/Axel_Revold_OB.%C3%8846_0006.jpg",
-    "artist_aliases": [
-      "Axel Julius Revold"
-    ],
-    "birthplace": "Ålesund Municipality"
-  },
-  {
     "title": "No-nb bldsa 7b081",
     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a1/No-nb_bldsa_7b081.jpg",
     "year": "before 1925<div style=\"display: none;\">date QS:P,+1925-00-00T00:00:00Z/7,P1326,+1925-00-00T00:00:00Z/9</div>",
@@ -152675,35 +152628,6 @@
     "collection": "Flickr: Inger Sitter (1967)",
     "categories": [
       "2000s",
-      "Norway",
-      "Painting",
-      "Trondheim",
-      "Women painters",
-      "female"
-    ],
-    "artist_birthplace": "Trondheim",
-    "birthplace": "Trondheim"
-  },
-  {
-    "title": "Inger Sitter IKL",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Inger_Sitter_IKL.jpg",
-    "year": "",
-    "medium": "",
-    "dimensions": "",
-    "location": "Illustrert Norsk kunstner leksikon ",
-    "license": "Public domain",
-    "source": "Wikimedia Commons",
-    "artist": "Inger Sitter",
-    "artist_bio": "Inger Solveig Sitter (18 October 1929 – 11 March 2015) was a Norwegian painter, graphic artist and art instructor. .",
-    "artist_birth": "1929-10-18",
-    "artist_death": "2015-03-11",
-    "country_of_origin": "Norway",
-    "artist_gender": "female",
-    "movement": "",
-    "genre": "Painting",
-    "century": null,
-    "collection": "Illustrert Norsk kunstner leksikon",
-    "categories": [
       "Norway",
       "Painting",
       "Trondheim",
@@ -162959,45 +162883,6 @@
     "collection": "Illustrert Norsk kunstner leksikon",
     "categories": [
       "2100s",
-      "Norway",
-      "Painting",
-      "Paris",
-      "male"
-    ],
-    "artist_birthplace": "Paris, France",
-    "artist_deathplace": "København, Denmark",
-    "artist_movement": [],
-    "artist_genre": [
-      "Painting"
-    ],
-    "artist_awards": [],
-    "artist_self_portrait_url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Pola_Gauguin_OB.F05882c.jpg",
-    "artist_aliases": [
-      "Paul Rollon Gauguin"
-    ],
-    "birthplace": "Paris"
-  },
-  {
-    "title": "Pola Gauguin OB.F05882c",
-    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1f/Pola_Gauguin_OB.F05882c.jpg",
-    "year": "circa 1935<div style=\"display: none;\">date QS:P,+1935-00-00T00:00:00Z/9,P1480,Q5727902</div>",
-    "medium": "",
-    "dimensions": "",
-    "location": "Oslo Museum: image no. <a rel=\"nofollow\" class=\"external text\" href=\"http://www.oslobilder.no/OMU/OB.F05882c\">OB.F05882c</a> (Byhistorisk samling), via oslobilder.no.",
-    "license": "CC BY-SA 3.0",
-    "source": "Wikimedia Commons",
-    "artist": "Pola Gauguin",
-    "artist_bio": "Painter, art critic, and pedagog, son of Paul Gauguin.",
-    "artist_birth": "1883",
-    "artist_death": "1961",
-    "country_of_origin": "Norway",
-    "artist_gender": "male",
-    "movement": "",
-    "genre": "Painting",
-    "century": "2000s",
-    "collection": "Oslo Museum: image no",
-    "categories": [
-      "2000s",
       "Norway",
       "Painting",
       "Paris",
