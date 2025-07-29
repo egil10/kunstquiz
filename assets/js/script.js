@@ -1952,16 +1952,8 @@ function setupAboutModal() {
 function showPaintingViewer(painting) {
   const modal = document.getElementById('painting-viewer-modal');
   const image = document.getElementById('painting-viewer-image');
-  const title = document.getElementById('painting-viewer-title');
-  const artist = document.getElementById('painting-viewer-artist');
-  const year = document.getElementById('painting-viewer-year');
   
-  if (!modal || !image || !title || !artist || !year) return;
-  
-  // Set painting information
-  title.textContent = painting.title || 'Untitled';
-  artist.textContent = painting.artist || 'Unknown Artist';
-  year.textContent = painting.year ? `(${painting.year})` : '';
+  if (!modal || !image) return;
   
   // Use the already loaded image URL for instant display
   const currentPaintingImg = document.getElementById('painting');
@@ -1977,12 +1969,6 @@ function showPaintingViewer(painting) {
   modal.style.display = 'flex';
   modal.classList.add('visible');
   document.body.style.overflow = 'hidden';
-  
-  // Focus management
-  const closeBtn = document.getElementById('close-painting-viewer');
-  if (closeBtn) {
-    closeBtn.focus();
-  }
 }
 
 function hidePaintingViewer() {
@@ -1996,12 +1982,6 @@ function hidePaintingViewer() {
 
 function setupPaintingViewer() {
   const modal = document.getElementById('painting-viewer-modal');
-  const closeBtn = document.getElementById('close-painting-viewer');
-  
-  // Close button functionality
-  if (closeBtn) {
-    closeBtn.onclick = hidePaintingViewer;
-  }
   
   // Close on escape key
   document.addEventListener('keydown', function(e) {
@@ -2010,12 +1990,10 @@ function setupPaintingViewer() {
     }
   });
   
-  // Close on background click
+  // Close on any click (background or image)
   if (modal) {
     modal.onclick = function(e) {
-      if (e.target === modal) {
-        hidePaintingViewer();
-      }
+      hidePaintingViewer();
     };
   }
   
