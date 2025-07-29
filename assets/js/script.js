@@ -875,7 +875,8 @@ let galleryLoadedCount = 0;
 let galleryLoadingMore = false;
 
 function showGalleryModal(paintingsArray = null, initialCount = 12) {
-  // No need to scroll to top - modal covers full screen
+  // Scroll to top before showing modal to ensure it appears centered
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   
   const modal = document.getElementById('gallery-modal');
   const collage = document.getElementById('gallery-collage');
@@ -1622,7 +1623,8 @@ function setupLogoReset() {
 }
 
 function showArtistsModal() {
-  // No need to scroll to top - modal covers full screen
+  // Scroll to top before showing modal to ensure it appears centered
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   
   const artistSet = new Set(paintings.map(p => p.artist).filter(Boolean));
   const artists = [...artistSet].sort((a, b) => a.localeCompare(b));
@@ -1801,7 +1803,8 @@ function generateAboutContent() {
 }
 
 function showAboutModal() {
-  // No need to scroll to top - modal covers full screen
+  // Scroll to top before showing modal to ensure it appears centered
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   
   const modal = document.getElementById('how-to-play-modal');
   const title = document.getElementById('how-to-play-title');
