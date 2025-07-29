@@ -2217,18 +2217,18 @@ function hideDiploma() {
 }
 
 function downloadDiploma() {
-  const diplomaModal = document.querySelector('#diploma-modal .modal-content');
-  if (!diplomaModal) return;
+  const diplomaContent = document.querySelector('.diploma-content');
+  if (!diplomaContent) return;
   
-  // Use html2canvas to capture the entire diploma modal content
+  // Use html2canvas to capture just the diploma content (without buttons)
   if (typeof html2canvas !== 'undefined') {
-    html2canvas(diplomaModal, {
+    html2canvas(diplomaContent, {
       scale: 2,
       backgroundColor: '#ffffff',
       useCORS: true,
       allowTaint: true,
-      width: diplomaModal.offsetWidth,
-      height: diplomaModal.offsetHeight
+      width: diplomaContent.offsetWidth,
+      height: diplomaContent.offsetHeight
     }).then(canvas => {
       // Create download link
       const link = document.createElement('a');
