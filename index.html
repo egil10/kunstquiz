@@ -23,7 +23,7 @@
     </div>
     <div class="top-right">
       <div class="category-selector">
-        <select id="category-select" aria-label="Select quiz category"></select>
+        <select id="category-select"></select>
       </div>
     </div>
   </div>
@@ -40,30 +40,29 @@
   </div>
   <div id="congrats-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="congrats-title">
     <div class="modal-content">
-      <h2 id="congrats-title">Congratulations!</h2>
-      <p>You got 10 in a row!</p>
-      <button id="reset-btn">Play Again</button>
+      <h2 id="congrats-title"></h2>
+      <p></p>
+      <button id="reset-btn"></button>
     </div>
   </div>
   <div id="round-results-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="round-results-title">
     <div class="modal-content round-results-content">
-      <h2 id="round-results-title">Round Results</h2>
+      <h2 id="round-results-title"></h2>
       <div class="round-results-stats">
         <div class="stat-item">
-          <span class="stat-label">Score:</span>
+          <span class="stat-label"></span>
           <span id="round-results-score" class="stat-value">0/10</span>
         </div>
       </div>
       <div class="round-results-artists">
-        <span class="stat-label">Artists featured:</span>
+        <span class="stat-label"></span>
         <div id="round-results-artists-list" class="artists-list"></div>
       </div>
-      <div id="round-results-feedback" class="round-results-feedback">
-        Feedback message here
-      </div>
+        <div id="round-results-feedback" class="round-results-feedback">
+  </div>
       <div class="round-results-buttons">
-        <button id="round-results-play-again" class="primary-btn">Play Another Round</button>
-        <button id="round-results-download" class="secondary-btn" style="display:none;">Download Certificate</button>
+        <button id="round-results-play-again" class="primary-btn"></button>
+        <button id="round-results-download" class="secondary-btn" style="display:none;"></button>
       </div>
     </div>
   </div>
@@ -78,28 +77,28 @@
         </div>
         <div class="diploma-content-inner">
           <div class="diploma-header">
-            <h1 id="diploma-title">Certificate of Excellence</h1>
-            <h2 id="diploma-subtitle">Norwegian Art Mastery</h2>
+            <h1 id="diploma-title"></h1>
+            <h2 id="diploma-subtitle"></h2>
           </div>
           <div class="diploma-body">
             <div class="diploma-achievement">
-              <h3 id="diploma-achievement-text">Perfect Score Achievement</h3>
+              <h3 id="diploma-achievement-text"></h3>
             </div>
             <div class="diploma-description">
-              <p id="diploma-description-text">This certificate is awarded for achieving a perfect score of 10/10 in the Norwegian Art Quiz, demonstrating exceptional knowledge of Norwegian art history.</p>
+              <p id="diploma-description-text"></p>
             </div>
             <div class="diploma-details">
               <div class="diploma-detail">
-                <span class="diploma-label" id="diploma-awarded-label">Awarded to:</span>
-                <span class="diploma-value" id="diploma-awarded-value">Art Enthusiast</span>
+                <span class="diploma-label" id="diploma-awarded-label"></span>
+                <span class="diploma-value" id="diploma-awarded-value"></span>
               </div>
               <div class="diploma-detail">
-                <span class="diploma-label" id="diploma-category-label">Category:</span>
-                <span class="diploma-value" id="diploma-category-value">Full Collection</span>
+                <span class="diploma-label" id="diploma-category-label"></span>
+                <span class="diploma-value" id="diploma-category-value"></span>
               </div>
               <div class="diploma-detail">
-                <span class="diploma-label" id="diploma-date-label">Date:</span>
-                <span class="diploma-value" id="diploma-date-value">Today</span>
+                <span class="diploma-label" id="diploma-date-label"></span>
+                <span class="diploma-value" id="diploma-date-value"></span>
               </div>
             </div>
           </div>
@@ -109,8 +108,8 @@
         </div>
       </div>
         <div class="diploma-buttons">
-          <button id="diploma-download" class="primary-btn">Download Diploma</button>
-          <button id="diploma-play-again" class="secondary-btn">Play Again</button>
+          <button id="diploma-download" class="primary-btn"></button>
+          <button id="diploma-play-again" class="secondary-btn"></button>
         </div>
       </div>
     </div>
@@ -124,31 +123,31 @@
       <a href="https://www.instagram.com/kunstquizart" class="social-link" aria-disabled="true">Instagram</a>
       <a href="#" class="social-link" aria-disabled="true">TikTok</a>
       <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-      <a href="#" id="show-how-to-play-link" class="footer-link">How to Play</a>
+      <a href="#" id="show-how-to-play-link" class="footer-link"></a>
       <a href="#" id="language-toggle" class="footer-link">🇬🇧</a>
     </div>
   </footer>
   <div id="artists-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="artists-title">
     <div class="modal-content artist-list-modal">
-      <h2 id="artists-title">Artists</h2>
+      <h2 id="artists-title"></h2>
       <div id="artist-list-columns"></div>
-      <button id="close-artists-modal">Close</button>
+      <button id="close-artists-modal"></button>
     </div>
   </div>
   <div id="gallery-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
     <div class="modal-content gallery-modal-content">
-      <h2 id="gallery-title">Gallery</h2>
+      <h2 id="gallery-title"></h2>
       <div id="gallery-collage"></div>
-      <button id="close-gallery-modal">Close</button>
+      <button id="close-gallery-modal"></button>
     </div>
   </div>
   <div id="how-to-play-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="how-to-play-title">
     <div class="modal-content how-to-play-modal-content">
-      <h2 id="how-to-play-title">How to Play</h2>
+      <h2 id="how-to-play-title"></h2>
       <div id="how-to-play-content">
         <!-- Content will be dynamically generated based on language -->
       </div>
-      <button id="close-how-to-play-modal">Close</button>
+      <button id="close-how-to-play-modal"></button>
     </div>
   </div>
 

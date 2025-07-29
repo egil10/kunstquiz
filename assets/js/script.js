@@ -581,8 +581,6 @@ function updateLanguageUI() {
   // Update collection info
   updateCollectionInfo();
   
-
-  
   // Update page title and meta description
   updatePageMeta();
   
@@ -614,8 +612,8 @@ function updateLanguageUI() {
   const galleryTitle = document.getElementById('gallery-title');
   if (galleryTitle) galleryTitle.textContent = t('gallery');
   
-  const aboutTitle = document.getElementById('about-title');
-  if (aboutTitle) aboutTitle.textContent = t('aboutTitle');
+  const howToPlayTitle = document.getElementById('how-to-play-title');
+  if (howToPlayTitle) howToPlayTitle.textContent = t('aboutHowToPlay');
   
   const closeArtistsBtn = document.getElementById('close-artists-modal');
   if (closeArtistsBtn) closeArtistsBtn.textContent = t('close');
@@ -623,8 +621,72 @@ function updateLanguageUI() {
   const closeGalleryBtn = document.getElementById('close-gallery-modal');
   if (closeGalleryBtn) closeGalleryBtn.textContent = t('close');
   
-  const closeAboutBtn = document.getElementById('close-about-modal');
-  if (closeAboutBtn) closeAboutBtn.textContent = t('close');
+  const closeHowToPlayBtn = document.getElementById('close-how-to-play-modal');
+  if (closeHowToPlayBtn) closeHowToPlayBtn.textContent = t('close');
+  
+  // Update round results modal elements
+  const roundResultsTitle = document.getElementById('round-results-title');
+  if (roundResultsTitle) roundResultsTitle.textContent = t('roundStats.title');
+  
+  const roundResultsScoreLabel = document.querySelector('#round-results-modal .stat-label');
+  if (roundResultsScoreLabel) roundResultsScoreLabel.textContent = t('roundStats.score') + ':';
+  
+  const roundResultsArtistsLabel = document.querySelector('#round-results-artists .stat-label');
+  if (roundResultsArtistsLabel) roundResultsArtistsLabel.textContent = t('roundStats.artists') + ':';
+  
+  const roundResultsPlayAgainBtn = document.getElementById('round-results-play-again');
+  if (roundResultsPlayAgainBtn) roundResultsPlayAgainBtn.textContent = t('roundStats.playAgain');
+  
+  // Update diploma modal elements
+  const diplomaTitle = document.getElementById('diploma-title');
+  if (diplomaTitle) diplomaTitle.textContent = t('diploma.title');
+  
+  const diplomaSubtitle = document.getElementById('diploma-subtitle');
+  if (diplomaSubtitle) diplomaSubtitle.textContent = t('diploma.subtitle');
+  
+  const diplomaAchievement = document.getElementById('diploma-achievement-text');
+  if (diplomaAchievement) diplomaAchievement.textContent = t('diploma.achievement');
+  
+  const diplomaDescription = document.getElementById('diploma-description-text');
+  if (diplomaDescription) {
+    const categoryNameForDesc = selectedCategory === 'all' ? t('fullCollection') : t(CATEGORY_DEFS.find(cat => cat.value === selectedCategory)?.label || 'fullCollection');
+    const descriptionWithCategory = t('diploma.description') + (selectedCategory !== 'all' ? ` (${categoryNameForDesc})` : '');
+    diplomaDescription.textContent = descriptionWithCategory;
+  }
+  
+  const diplomaAwardedLabel = document.getElementById('diploma-awarded-label');
+  if (diplomaAwardedLabel) diplomaAwardedLabel.textContent = t('diploma.awardedTo') + ':';
+  
+  const diplomaCategoryLabel = document.getElementById('diploma-category-label');
+  if (diplomaCategoryLabel) diplomaCategoryLabel.textContent = t('diploma.category') + ':';
+  
+  const diplomaDateLabel = document.getElementById('diploma-date-label');
+  if (diplomaDateLabel) diplomaDateLabel.textContent = t('diploma.date') + ':';
+  
+  const diplomaDownloadBtn = document.getElementById('diploma-download');
+  if (diplomaDownloadBtn) diplomaDownloadBtn.textContent = t('diploma.download');
+  
+  const diplomaPlayAgainBtn = document.getElementById('diploma-play-again');
+  if (diplomaPlayAgainBtn) diplomaPlayAgainBtn.textContent = t('playAgain');
+  
+  // Update diploma category and date values
+  const diplomaCategoryValue = document.getElementById('diploma-category-value');
+  if (diplomaCategoryValue) {
+    const categoryName = selectedCategory === 'all' ? t('fullCollection') : t(CATEGORY_DEFS.find(cat => cat.value === selectedCategory)?.label || 'fullCollection');
+    diplomaCategoryValue.textContent = categoryName;
+  }
+  
+  const diplomaDateValue = document.getElementById('diploma-date-value');
+  if (diplomaDateValue) {
+    const now = new Date();
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    diplomaDateValue.textContent = now.toLocaleDateString(currentLanguage === 'no' ? 'nb-NO' : 'en-US', options);
+  }
+  
+  const diplomaAwardedValue = document.getElementById('diploma-awarded-value');
+  if (diplomaAwardedValue) {
+    diplomaAwardedValue.textContent = 'Art Enthusiast';
+  }
 }
 
 function setupLanguageToggle() {
@@ -1809,7 +1871,7 @@ function showAboutModal() {
   if (!modal) return;
   
   // Update title
-  title.textContent = t('aboutTitle');
+  title.textContent = t('aboutHowToPlay');
   
   // Update content based on language
   if (currentLanguage === 'no') {
@@ -2059,6 +2121,13 @@ function showRoundResults() {
   title.textContent = t('roundStats.title');
   score.textContent = `${totalCorrect}/10`;
   
+  // Update labels
+  const scoreLabel = document.querySelector('#round-results-modal .stat-label');
+  if (scoreLabel) scoreLabel.textContent = t('roundStats.score') + ':';
+  
+  const artistsLabel = document.querySelector('#round-results-artists .stat-label');
+  if (artistsLabel) artistsLabel.textContent = t('roundStats.artists') + ':';
+  
   // Populate artists list
   artistsList.innerHTML = '';
   uniqueArtists.forEach(artist => {
@@ -2167,9 +2236,9 @@ function showDiploma() {
   const descriptionWithCategory = t('diploma.description') + (selectedCategory !== 'all' ? ` (${categoryNameForDesc})` : '');
   description.textContent = descriptionWithCategory;
   
-  awardedLabel.textContent = t('diploma.awardedTo');
-  categoryLabel.textContent = t('diploma.category');
-  dateLabel.textContent = t('diploma.date');
+  awardedLabel.textContent = t('diploma.awardedTo') + ':';
+  categoryLabel.textContent = t('diploma.category') + ':';
+  dateLabel.textContent = t('diploma.date') + ':';
   downloadBtn.textContent = t('diploma.download');
   playAgainBtn.textContent = t('playAgain');
   
@@ -2355,7 +2424,7 @@ function updateFooterLinks() {
   if (galleryLink) galleryLink.textContent = t('gallery');
   
   const aboutLink = document.getElementById('show-how-to-play-link');
-  if (aboutLink) aboutLink.textContent = t('about');
+  if (aboutLink) aboutLink.textContent = t('aboutHowToPlay');
 
   // Always re-attach About modal event listener in case the link was replaced
   setupAboutModal();
