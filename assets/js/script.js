@@ -1637,8 +1637,16 @@ function showArtistsModal() {
     col.forEach(name => {
       const li = document.createElement('li');
       const numPaintings = paintings.filter(p => p.artist === name).length;
-      // Render as plain text, not a link
-      li.textContent = `${name} (${numPaintings})`;
+      // Make artist names clickable to show persistent info popup
+      li.innerHTML = `<span class="clickable-artist-name" style="cursor: pointer; color: #388e3c; text-decoration: underline;">${name}</span> (${numPaintings})`;
+      
+      // Add click event to show artist info popup
+      const artistNameSpan = li.querySelector('.clickable-artist-name');
+      artistNameSpan.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent modal from closing
+        showArtistPopup(name, null, true); // persistent = true
+      });
+      
       ul.appendChild(li);
     });
     div.appendChild(ul);

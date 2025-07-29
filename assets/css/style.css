@@ -664,6 +664,18 @@ button.loading {
   font-size: 1rem;
 }
 
+.clickable-artist-name {
+  cursor: pointer;
+  color: #388e3c;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+.clickable-artist-name:hover {
+  color: #2e7d32;
+  text-decoration: none;
+}
+
 .artist-list-col a {
   color: inherit;
   text-decoration: none;
