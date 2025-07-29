@@ -1090,6 +1090,23 @@ button.loading {
 }
 
 @media (max-width: 700px) {
+  /* hide the custom dropdown UI… */
+  #custom-category-link,
+  .custom-category-menu {
+    display: none !important;
+  }
+
+  /* …and show the native select in its place */
+  #category-select {
+    display: block !important;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    background: #fff;
+  }
+  
   .top-bar {
     flex-direction: column;
     align-items: flex-start;
