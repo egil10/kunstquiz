@@ -767,8 +767,8 @@ button.loading {
 .persistent-popup-close-container {
   position: absolute;
   bottom: -3rem;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
   text-align: center;
 }
 
@@ -782,6 +782,7 @@ button.loading {
   box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.07);
   cursor: pointer;
   transition: background-color 0.2s ease;
+  width: 100%;
 }
 
 .persistent-popup-close-btn:hover {

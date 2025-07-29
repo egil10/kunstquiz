@@ -1560,7 +1560,10 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     const overlay = ensureArtistPopupOverlay();
     overlay.classList.add('visible');
     const closeBtn = popup.querySelector('.persistent-popup-close-btn');
-    if (closeBtn) closeBtn.addEventListener('click', () => hidePopup(popup, onDone));
+    if (closeBtn) closeBtn.addEventListener('click', (e) => {
+      e.stopPropagation(); // Prevent event from bubbling up
+      hidePopup(popup, onDone);
+    });
     setTimeout(() => {
       function outsideClick(e) {
         if (!popup.contains(e.target)) {
