@@ -1968,3 +1968,179 @@ button.loading {
   /* Removed diploma-seal mobile styles */
 }
 
+/* Full Screen Painting Viewer */
+.painting-viewer-modal {
+  background: rgba(0, 0, 0, 0.95);
+  backdrop-filter: blur(10px);
+  z-index: 10000;
+}
+
+.painting-viewer-content {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+.painting-viewer-image-container {
+  position: relative;
+  max-width: 100%;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.painting-viewer-image {
+  max-width: 100%;
+  max-height: calc(100vh - 200px);
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: zoom-out;
+}
+
+.painting-viewer-image:hover {
+  transform: scale(1.02);
+}
+
+.painting-viewer-info {
+  margin-top: 1.5rem;
+  text-align: center;
+  color: white;
+  background: rgba(0, 0, 0, 0.7);
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  max-width: 600px;
+  animation: fadeInUp 0.6s ease-out 0.3s both;
+}
+
+.painting-viewer-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem 0;
+  color: #ffffff;
+}
+
+.painting-viewer-artist {
+  font-size: 1.1rem;
+  margin: 0 0 0.25rem 0;
+  color: #e0e0e0;
+  font-weight: 500;
+}
+
+.painting-viewer-year {
+  font-size: 1rem;
+  margin: 0;
+  color: #b0b0b0;
+  font-style: italic;
+}
+
+.painting-viewer-close-btn {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  z-index: 10001;
+}
+
+.painting-viewer-close-btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.1);
+}
+
+.painting-viewer-close-btn:active {
+  transform: scale(0.95);
+}
+
+/* Make painting clickable in quiz */
+#painting {
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#painting:hover {
+  transform: scale(1.02);
+}
+
+#painting:active {
+  transform: scale(0.98);
+}
+
+/* Mobile styles for painting viewer */
+@media (max-width: 700px) {
+  .painting-viewer-content {
+    padding: 1rem;
+  }
+  
+  .painting-viewer-image {
+    max-height: calc(100vh - 150px);
+    border-radius: 8px;
+  }
+  
+  .painting-viewer-info {
+    margin-top: 1rem;
+    padding: 0.75rem 1rem;
+    max-width: 90vw;
+  }
+  
+  .painting-viewer-title {
+    font-size: 1.3rem;
+  }
+  
+  .painting-viewer-artist {
+    font-size: 1rem;
+  }
+  
+  .painting-viewer-year {
+    font-size: 0.9rem;
+  }
+  
+  .painting-viewer-close-btn {
+    top: 1rem;
+    right: 1rem;
+    width: 44px;
+    height: 44px;
+  }
+  
+  .painting-viewer-close-btn svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Animation for painting viewer entrance */
+@keyframes paintingViewerEntrance {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.painting-viewer-modal.visible .painting-viewer-content {
+  animation: paintingViewerEntrance 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+

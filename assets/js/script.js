@@ -1279,6 +1279,16 @@ function loadQuiz() {
     img.alt = stripHtml(painting.title) || t('painting');
   });
   
+  // Set current painting for viewer
+  currentPainting = painting;
+  
+  // Setup painting viewer click handler
+  img.onclick = function() {
+    if (currentPainting) {
+      showPaintingViewer(currentPainting);
+    }
+  };
+  
   // Start preloading next few images in background
   preloadNextImages(validPaintings);
   const optionsDiv = document.getElementById('options');
@@ -1895,11 +1905,15 @@ function showAboutModal() {
 
 function hideAboutModal() {
   const modal = document.getElementById('how-to-play-modal');
-  if (modal) modal.style.display = 'none';
+  if (modal) {
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
 }
 
 function setupAboutModal() {
   const showLink = document.getElementById('show-how-to-play-link');
+  const modal = document.getElementById('how-to-play-modal');
   const closeBtn = document.getElementById('close-how-to-play-modal');
   
   // Remove previous event listeners if any
@@ -1923,9 +1937,98 @@ function setupAboutModal() {
     // Add the event listener to the new element
     newCloseBtn.addEventListener('click', hideAboutModal);
   }
+  
+  if (modal) {
+    modal.onclick = function(e) {
+      if (e.target === modal) {
+        hideAboutModal();
+      }
+    };
+  }
 }
 
+// Painting Viewer Functions
+function showPaintingViewer(painting) {
+  const modal = document.getElementById('painting-viewer-modal');
+  const image = document.getElementById('painting-viewer-image');
+  const title = document.getElementById('painting-viewer-title');
+  const artist = document.getElementById('painting-viewer-artist');
+  const year = document.getElementById('painting-viewer-year');
+  
+  if (!modal || !image || !title || !artist || !year) return;
+  
+  // Set painting information
+  title.textContent = painting.title || 'Untitled';
+  artist.textContent = painting.artist || 'Unknown Artist';
+  year.textContent = painting.year ? `(${painting.year})` : '';
+  
+  // Use the already loaded image URL for instant display
+  const currentPaintingImg = document.getElementById('painting');
+  if (currentPaintingImg && currentPaintingImg.src) {
+    image.src = currentPaintingImg.src;
+    image.style.display = 'block';
+  } else {
+    // Fallback to original URL if current image not available
+    image.src = painting.url;
+  }
+  
+  // Show modal with animation
+  modal.style.display = 'flex';
+  modal.classList.add('visible');
+  document.body.style.overflow = 'hidden';
+  
+  // Focus management
+  const closeBtn = document.getElementById('close-painting-viewer');
+  if (closeBtn) {
+    closeBtn.focus();
+  }
+}
 
+function hidePaintingViewer() {
+  const modal = document.getElementById('painting-viewer-modal');
+  if (modal) {
+    modal.classList.remove('visible');
+    modal.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+}
+
+function setupPaintingViewer() {
+  const modal = document.getElementById('painting-viewer-modal');
+  const closeBtn = document.getElementById('close-painting-viewer');
+  
+  // Close button functionality
+  if (closeBtn) {
+    closeBtn.onclick = hidePaintingViewer;
+  }
+  
+  // Close on escape key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
+      hidePaintingViewer();
+    }
+  });
+  
+  // Close on background click
+  if (modal) {
+    modal.onclick = function(e) {
+      if (e.target === modal) {
+        hidePaintingViewer();
+      }
+    };
+  }
+  
+  // Make painting clickable in quiz
+  const paintingElement = document.getElementById('painting');
+  if (paintingElement) {
+    paintingElement.onclick = function() {
+      // Get current painting data from the quiz state
+      if (currentPainting) {
+        showPaintingViewer(currentPainting);
+      }
+    };
+  }
+}
 
 function getRandomCorrectMessage() {
   const messages = translations[currentLanguage].correctMessages;
@@ -2418,6 +2521,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupArtistModal();
     setupGalleryModal();
     setupAboutModal();
+    setupPaintingViewer();
     
     // Start background preloading of gallery images
     startGalleryBackgroundPreload();

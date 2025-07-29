@@ -151,6 +151,26 @@
       <button id="close-how-to-play-modal">Close</button>
     </div>
   </div>
+
+  <!-- Full Screen Painting Viewer -->
+  <div id="painting-viewer-modal" class="modal painting-viewer-modal" style="display:none;" role="dialog" aria-modal="true">
+    <div class="painting-viewer-content">
+      <div class="painting-viewer-image-container">
+        <img id="painting-viewer-image" class="painting-viewer-image" alt="Painting" />
+        <div class="painting-viewer-info">
+          <h3 id="painting-viewer-title" class="painting-viewer-title"></h3>
+          <p id="painting-viewer-artist" class="painting-viewer-artist"></p>
+          <p id="painting-viewer-year" class="painting-viewer-year"></p>
+        </div>
+      </div>
+      <button id="close-painting-viewer" class="painting-viewer-close-btn" aria-label="Close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="assets/js/script.js"></script>
 </body>
