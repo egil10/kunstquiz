@@ -532,6 +532,7 @@ let paintings = [];
 let lastPaintingIndex = -1;
 let selectedCategory = 'all';
 let artistBios = [];
+let currentPainting = null;
 
 // List of categories with consistent labels - Updated based on actual data
 const CATEGORY_DEFS = [
