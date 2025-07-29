@@ -666,14 +666,11 @@ button.loading {
 
 .clickable-artist-name {
   cursor: pointer;
-  color: #388e3c;
-  text-decoration: underline;
   transition: color 0.2s ease;
 }
 
 .clickable-artist-name:hover {
-  color: #2e7d32;
-  text-decoration: none;
+  color: #388e3c;
 }
 
 .artist-list-col a {

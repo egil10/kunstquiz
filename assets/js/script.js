@@ -1638,7 +1638,7 @@ function showArtistsModal() {
       const li = document.createElement('li');
       const numPaintings = paintings.filter(p => p.artist === name).length;
       // Make artist names clickable to show persistent info popup
-      li.innerHTML = `<span class="clickable-artist-name" style="cursor: pointer; color: #388e3c; text-decoration: underline;">${name}</span> (${numPaintings})`;
+      li.innerHTML = `<span class="clickable-artist-name">${name}</span> (${numPaintings})`;
       
       // Add click event to show artist info popup
       const artistNameSpan = li.querySelector('.clickable-artist-name');
