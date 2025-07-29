@@ -1977,8 +1977,7 @@ button.loading {
   left: 0 !important;
   right: 0 !important;
   bottom: 0 !important;
-  background: rgba(0, 0, 0, 0.95);
-  backdrop-filter: blur(10px);
+  background: transparent;
   z-index: 10000;
 }
 
