@@ -764,6 +764,30 @@ button.loading {
   z-index: 2000;
 }
 
+.persistent-popup-close-container {
+  position: absolute;
+  bottom: -3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+.persistent-popup-close-btn {
+  background: #eee;
+  color: #222;
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.3125rem 0.75rem;
+  font-size: 1.1rem;
+  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,0.07);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.persistent-popup-close-btn:hover {
+  background: #ddd;
+}
+
 #artist-popup-overlay {
   position: fixed;
   top: 0;

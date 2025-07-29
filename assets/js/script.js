@@ -1545,7 +1545,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     yearsHtml = lifeSpan ? `<span class="artist-years">${lifeSpan}</span>` : '';
     imgHtml = paintingOrName.artist_image ? `<img src="${paintingOrName.artist_image}" alt="${name}" class="artist-portrait toast-portrait" loading="lazy">` : '';
   }
-  let closeBtnHtml = persistent ? `<button class="artist-popup-close" aria-label="Close">×</button>` : '';
+  let closeBtnHtml = persistent ? `<div class="persistent-popup-close-container"><button class="persistent-popup-close-btn" aria-label="Close">Close</button></div>` : '';
   let paintingsHtml = '';
   // Remove gallery display for persistent popups to keep them simple
   popup.innerHTML = createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml });
@@ -1559,7 +1559,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     popup.className = 'artist-popup toast persistent';
     const overlay = ensureArtistPopupOverlay();
     overlay.classList.add('visible');
-    const closeBtn = popup.querySelector('.artist-popup-close');
+    const closeBtn = popup.querySelector('.persistent-popup-close-btn');
     if (closeBtn) closeBtn.addEventListener('click', () => hidePopup(popup, onDone));
     setTimeout(() => {
       function outsideClick(e) {
