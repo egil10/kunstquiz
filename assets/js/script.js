@@ -687,6 +687,25 @@ function updateLanguageUI() {
   if (diplomaAwardedValue) {
     diplomaAwardedValue.textContent = 'Art Enthusiast';
   }
+  
+  // Update artist gallery text if any galleries are open
+  const artistGalleries = document.querySelectorAll('.artist-gallery-section');
+  artistGalleries.forEach(gallery => {
+    const title = gallery.querySelector('.artist-gallery-title');
+    if (title) {
+      title.textContent = currentLanguage === 'no' ? 'Malerier' : 'Paintings';
+    }
+    
+    const loadMoreBtn = gallery.querySelector('.artist-gallery-load-more');
+    if (loadMoreBtn) {
+      const total = parseInt(loadMoreBtn.dataset.total);
+      const loaded = parseInt(loadMoreBtn.dataset.loaded);
+      const remaining = total - loaded;
+      if (remaining > 0) {
+        loadMoreBtn.textContent = `${currentLanguage === 'no' ? 'Vis flere' : 'Load More'} (${remaining})`;
+      }
+    }
+  });
 }
 
 function setupLanguageToggle() {
@@ -1554,7 +1573,7 @@ function ensureArtistPopupOverlay() {
   return overlay;
 }
 
-function createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml }) {
+function createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml, galleryHtml }) {
   return `
     <div class="artist-popup-content toast-content">
       ${imgHtml}
@@ -1564,10 +1583,139 @@ function createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHt
         ${bioHtml}
         ${tagsHtml}
       </div>
+      ${galleryHtml || ''}
     </div>
     ${paintingsHtml}
     ${closeBtnHtml}
   `;
+}
+
+function createArtistGalleryHtml(artistPaintings, artistName) {
+  if (!artistPaintings || artistPaintings.length === 0) {
+    return '';
+  }
+  
+  const initialCount = 8; // Show first 8 paintings
+  const initialPaintings = artistPaintings.slice(0, initialCount);
+  const hasMore = artistPaintings.length > initialCount;
+  
+  const paintingsHtml = initialPaintings.map(painting => {
+    const title = painting.title || 'Untitled';
+    const optimizedUrl = optimizeImageUrl(painting.url, 200); // Smaller thumbnails
+    return `
+      <div class="artist-gallery-item" data-painting-index="${painting.index || 0}">
+        <img src="${optimizedUrl}" alt="${title}" loading="lazy" 
+             onerror="this.src='${painting.url}'">
+        <div class="artist-gallery-item-title">${title}</div>
+      </div>
+    `;
+  }).join('');
+  
+  const loadMoreHtml = hasMore ? `
+    <button class="artist-gallery-load-more" data-artist="${artistName}" data-loaded="${initialCount}" data-total="${artistPaintings.length}">
+      ${currentLanguage === 'no' ? 'Vis flere' : 'Load More'} (${artistPaintings.length - initialCount})
+    </button>
+  ` : '';
+  
+  return `
+    <div class="artist-gallery-section">
+      <div class="artist-gallery-header">
+        <h3 class="artist-gallery-title">${currentLanguage === 'no' ? 'Malerier' : 'Paintings'}</h3>
+        <span class="artist-gallery-count">${artistPaintings.length}</span>
+      </div>
+      <div class="artist-gallery-grid">
+        ${paintingsHtml}
+      </div>
+      ${loadMoreHtml}
+    </div>
+  `;
+}
+
+function setupArtistGalleryHandlers(popup, artistPaintings, artistName) {
+  // Handle gallery item clicks to show full painting
+  const galleryItems = popup.querySelectorAll('.artist-gallery-item');
+  galleryItems.forEach(item => {
+    item.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const paintingIndex = parseInt(item.dataset.paintingIndex);
+      const painting = artistPaintings[paintingIndex];
+      if (painting) {
+        showPaintingViewer(painting);
+      }
+    });
+  });
+  
+  // Handle load more button
+  const loadMoreBtn = popup.querySelector('.artist-gallery-load-more');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn);
+    });
+  }
+}
+
+function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn) {
+  const currentLoaded = parseInt(loadMoreBtn.dataset.loaded);
+  const total = parseInt(loadMoreBtn.dataset.total);
+  const loadCount = 8; // Load 8 more paintings
+  const nextBatch = artistPaintings.slice(currentLoaded, currentLoaded + loadCount);
+  
+  if (nextBatch.length === 0) {
+    loadMoreBtn.style.display = 'none';
+    return;
+  }
+  
+  // Show loading state
+  loadMoreBtn.classList.add('loading');
+  loadMoreBtn.textContent = currentLanguage === 'no' ? 'Laster...' : 'Loading...';
+  
+  // Simulate loading delay for better UX
+  setTimeout(() => {
+    const galleryGrid = popup.querySelector('.artist-gallery-grid');
+    
+    // Add new paintings to the grid
+    nextBatch.forEach(painting => {
+      const title = painting.title || 'Untitled';
+      const optimizedUrl = optimizeImageUrl(painting.url, 200);
+      const itemHtml = `
+        <div class="artist-gallery-item" data-painting-index="${painting.index || 0}">
+          <img src="${optimizedUrl}" alt="${title}" loading="lazy" 
+               onerror="this.src='${painting.url}'">
+          <div class="artist-gallery-item-title">${title}</div>
+        </div>
+      `;
+      galleryGrid.insertAdjacentHTML('beforeend', itemHtml);
+    });
+    
+    // Update load more button
+    const newLoaded = currentLoaded + loadCount;
+    loadMoreBtn.dataset.loaded = newLoaded;
+    
+    if (newLoaded >= total) {
+      loadMoreBtn.style.display = 'none';
+    } else {
+      loadMoreBtn.textContent = `${currentLanguage === 'no' ? 'Vis flere' : 'Load More'} (${total - newLoaded})`;
+    }
+    
+    loadMoreBtn.classList.remove('loading');
+    
+    // Re-attach event handlers to new items
+    const newItems = galleryGrid.querySelectorAll('.artist-gallery-item');
+    newItems.forEach(item => {
+      if (!item.hasAttribute('data-handler-attached')) {
+        item.setAttribute('data-handler-attached', 'true');
+        item.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const paintingIndex = parseInt(item.dataset.paintingIndex);
+          const painting = artistPaintings[paintingIndex];
+          if (painting) {
+            showPaintingViewer(painting);
+          }
+        });
+      }
+    });
+  }, 300);
 }
 
 function showArtistPopup(paintingOrName, onDone, persistent = false) {
@@ -1609,12 +1757,23 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   }
   let closeBtnHtml = persistent ? `<div class="persistent-popup-close-container"><button class="persistent-popup-close-btn" aria-label="Close">Close</button></div>` : '';
   let paintingsHtml = '';
-  // Remove gallery display for persistent popups to keep them simple
-  popup.innerHTML = createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml });
+  
+  // Create gallery HTML for persistent popups
+  let galleryHtml = '';
+  if (persistent && artistPaintings.length > 0) {
+    galleryHtml = createArtistGalleryHtml(artistPaintings, name);
+  }
+  
+  popup.innerHTML = createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml, galleryHtml });
   popup.style.opacity = '0';
   popup.style.display = 'flex';
   popup.classList.add('visible');
   setTimeout(() => popup.style.opacity = '1', 10);
+  
+  // Add event handlers for gallery if it exists
+  if (persistent && artistPaintings.length > 0) {
+    setupArtistGalleryHandlers(popup, artistPaintings, name);
+  }
   if (persistent) {
     // Remove all <a> links in the popup (if any)
     Array.from(popup.querySelectorAll('a')).forEach(link => link.remove());
