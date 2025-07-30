@@ -68,8 +68,8 @@ import subprocess
 
 APPENDED_FILE = 'data/paintings_appended.json'
 MANUAL_FILE = 'data/manual_paintings.json'
-MERGE_SCRIPT = 'merge_artist_tags.py'
-DIAGNOSE_SCRIPT = 'diagnostics.py'
+MERGE_SCRIPT = 'process.py'
+DIAGNOSE_SCRIPT = 'stats.py'
 
 # --- Manual collection logic (from collect_manual_art.py) ---
 
@@ -439,11 +439,11 @@ def main():
     if args.merge:
         if not args.quiet:
             print('Running merge script...')
-        subprocess.run([sys.executable, MERGE_SCRIPT])
+        subprocess.run([sys.executable, MERGE_SCRIPT, '--merge-tags'])
     if args.diagnose:
         if not args.quiet:
             print('Running diagnostics script...')
-        subprocess.run([sys.executable, DIAGNOSE_SCRIPT])
+        subprocess.run([sys.executable, DIAGNOSE_SCRIPT, '--diagnostics'])
 
 if __name__ == '__main__':
     main() 

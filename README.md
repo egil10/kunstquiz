@@ -19,11 +19,21 @@ A fun, modern quiz where you guess the artist behind famous Norwegian paintings.
 ## 🛠️ Data Collection & Update Workflow
 1. Run `collect_art.py` to fetch new paintings by artist, URL, or file
 2. Data is appended to `data/paintings_appended.json` (never overwritten)
-3. Run `merge_artist_tags.py` to merge and enrich data for the quiz
-4. (Optional) Run `diagnostics.py` to generate a data health report and update the stats below
+3. Run `process.py --merge-tags` to merge and enrich data for the quiz
+4. (Optional) Run `stats.py --diagnostics` to generate a data health report and update the stats below
+
+## 📊 Scripts Overview
+The repository now uses consolidated scripts for better organization:
+
+- **`collect_art.py`** - Main collection script (unchanged)
+- **`clean.py`** - All cleanup operations (duplicates, quality, etc.)
+- **`stats.py`** - All analysis and statistics operations
+- **`process.py`** - All data processing operations
+- **`utils.py`** - All utility operations (URLs, backups, health checks)
+- **`diagnostics.py`** - Comprehensive diagnostics (unchanged)
 
 ## 📊 Diagnostics & Stats
-The `diagnostics.py` script checks for data consistency, category coverage, and missing info. It also updates the stats below:
+The `stats.py --diagnostics` script checks for data consistency, category coverage, and missing info. It also updates the stats below:
 
 <!-- STATS_START -->
 **Latest Art Quiz Stats**
