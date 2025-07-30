@@ -166,7 +166,7 @@ const translations = {
     collectionInfo: 'paintings, painters',
     fullCollection: 'Full Collection',
     popularPainters: 'Popular Painters',
-    landscapePainting: 'Landscape Painting',
+    landscape: 'Landscape',
     portraits: 'Portraits',
     womenPainters: 'Women Painters',
     nineteenthCentury: '19th Century',
@@ -330,7 +330,7 @@ const translations = {
     aboutCollection: 'The Collection',
     aboutCollectionText: 'Kunstquiz features 3,282 paintings from 81 Norwegian artists, making it one of the most comprehensive Norwegian art quizzes available. Our collection spans from the 19th century to contemporary works, covering various movements and styles.',
     aboutCategories: 'Quiz Categories',
-    aboutCategoriesText: 'Full Collection: All 3,282 paintings, Popular Painters: Top 10 artists with most works, Landscape Painting: 1,745 landscape works, Portraits: 584 portrait paintings, Women Painters: 259 works by female artists, Impressionism: 392 impressionist works, Expressionism: 253 expressionist paintings, Norwegian Romantic: 765 romantic nationalist works',
+    aboutCategoriesText: 'Full Collection: All paintings, Popular Painters: Top 10 artists with most works, Landscape: Landscape paintings (46 artists), Realism: Realist movement (13 artists), Impressionism: Impressionist paintings (12 artists), Romantic Nationalism: Norwegian romantic nationalism (9 artists), Modernism: Modern works (10 artists), Female Artists: Female painters (based on gender analysis)',
     aboutHowToPlay: 'How to Play',
     aboutHowToPlayText: 'Select a category, view a painting, and choose the correct artist from four options. Build streaks and learn about Norwegian art history with each answer!',
     aboutFacts: 'Interesting Facts',
@@ -343,7 +343,7 @@ const translations = {
     collectionInfo: 'malerier, malere',
     fullCollection: 'Full Samling',
     popularPainters: 'Populære Malere',
-    landscapePainting: 'Landskapsmaleri',
+    landscape: 'Landskap',
     portraits: 'Portretter',
     womenPainters: 'Kvinnelige Malere',
     nineteenthCentury: '19. Århundre',
@@ -507,7 +507,7 @@ const translations = {
     aboutCollection: 'Samlingen',
     aboutCollectionText: 'Kunstquiz inneholder 3,282 malerier fra 81 norske kunstnere, noe som gjør det til en av de mest omfattende norske kunstquizene tilgjengelig. Vår samling spenner fra 1800-tallet til samtidsverk, og dekker ulike bevegelser og stiler.',
     aboutCategories: 'Quiz-kategorier',
-    aboutCategoriesText: 'Full Samling: Alle 3,282 malerier, Populære Malere: Topp 10 kunstnere med flest verk, Landskapsmaleri: 1,745 landskapsverk, Portretter: 584 portrettmalerier, Kvinnelige Malere: 259 verk av kvinnelige kunstnere, Impressionisme: 392 impressionistiske verk, Ekspresjonisme: 253 ekspresjonistiske malerier, Norsk Romantikk: 765 romantisk nasjonalistiske verk',
+    aboutCategoriesText: 'Full Samling: Alle malerier, Populære Malere: Topp 10 kunstnere med flest verk, Landskap: Landskapsmalerier (46 kunstnere), Realisme: Realistisk bevegelse (13 kunstnere), Impressionisme: Impressionistiske malerier (12 kunstnere), Romantisk Nasjonalisme: Norsk romantisk nasjonalisme (9 kunstnere), Modernisme: Moderne verk (10 kunstnere), Kvinnelige Kunstnere: Kvinnelige malere (basert på kjønnsanalyse)',
     aboutHowToPlay: 'Slik spiller du',
     aboutHowToPlayText: 'Velg en kategori, se på et maleri, og velg riktig kunstner fra fire alternativer. Bygg opp streaks og lær om norsk kunsthistorie med hvert svar!',
     aboutFacts: 'Interessante fakta',
@@ -551,12 +551,12 @@ let currentPainting = null;
 // List of categories with consistent labels - Updated based on actual data
 const CATEGORY_DEFS = [
   { value: 'all', label: 'fullCollection' },
-  { value: 'landscape', label: 'landscapePainting' },
+  { value: 'popular', label: 'popularPainters' },
+  { value: 'landscape', label: 'landscape' },
   { value: 'realism', label: 'realism' },
   { value: 'impressionism', label: 'impressionism' },
   { value: 'romantic_nationalism', label: 'romanticNationalism' },
   { value: 'modernism', label: 'modernism' },
-  { value: 'male_artists', label: 'maleArtists' },
   { value: 'female_artists', label: 'femaleArtists' }
 ];
 
@@ -1305,6 +1305,20 @@ function getArtistBioMap() {
 }
 
 const categoryFilters = {
+  popular: (paintings) => {
+    // Get top 10 artists by number of paintings
+    const artistCounts = {};
+    paintings.forEach(p => {
+      if (p.artist) {
+        artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1;
+      }
+    });
+    const topArtists = Object.entries(artistCounts)
+      .sort(([,a], [,b]) => b - a)
+      .slice(0, 10)
+      .map(([artist]) => artist);
+    return paintings.filter(p => topArtists.includes(p.artist));
+  },
   landscape: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('landscape')),
   realism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('realism')),
   impressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('impressionism')),
@@ -1313,7 +1327,6 @@ const categoryFilters = {
     m?.toLowerCase().includes('romantic nationalism')
   ),
   modernism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('modernism')),
-  male_artists: p => p.artist_gender === 'male',
   female_artists: p => p.artist_gender === 'female'
 };
 
