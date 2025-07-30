@@ -330,7 +330,7 @@ const translations = {
     aboutCollection: 'The Collection',
     aboutCollectionText: 'Kunstquiz features 3,282 paintings from 81 Norwegian artists, making it one of the most comprehensive Norwegian art quizzes available. Our collection spans from the 19th century to contemporary works, covering various movements and styles.',
     aboutCategories: 'Quiz Categories',
-    aboutCategoriesText: 'Full Collection: All paintings, Popular Painters: Top 10 artists with most works, Landscape: Landscape paintings (46 artists), Realism: Realist movement (13 artists), Impressionism: Impressionist paintings (12 artists), Romantic Nationalism: Norwegian romantic nationalism (9 artists), Modernism: Modern works (10 artists), Female Artists: Female painters (based on gender analysis)',
+    aboutCategoriesText: 'Full Collection: All paintings, Popular Painters: Top 10 artists with most works, Landscape: Landscape paintings (34 artists), Realism: Realist movement (15 artists), Impressionism: Impressionist paintings (12 artists), Romantic Nationalism: Norwegian romantic nationalism (10 artists), Modernism: Modern works (10 artists), Female Artists: Female painters (based on gender analysis)',
     aboutHowToPlay: 'How to Play',
     aboutHowToPlayText: 'Select a category, view a painting, and choose the correct artist from four options. Build streaks and learn about Norwegian art history with each answer!',
     aboutFacts: 'Interesting Facts',
@@ -507,7 +507,7 @@ const translations = {
     aboutCollection: 'Samlingen',
     aboutCollectionText: 'Kunstquiz inneholder 3,282 malerier fra 81 norske kunstnere, noe som gjør det til en av de mest omfattende norske kunstquizene tilgjengelig. Vår samling spenner fra 1800-tallet til samtidsverk, og dekker ulike bevegelser og stiler.',
     aboutCategories: 'Quiz-kategorier',
-    aboutCategoriesText: 'Full Samling: Alle malerier, Populære Malere: Topp 10 kunstnere med flest verk, Landskap: Landskapsmalerier (46 kunstnere), Realisme: Realistisk bevegelse (13 kunstnere), Impressionisme: Impressionistiske malerier (12 kunstnere), Romantisk Nasjonalisme: Norsk romantisk nasjonalisme (9 kunstnere), Modernisme: Moderne verk (10 kunstnere), Kvinnelige Kunstnere: Kvinnelige malere (basert på kjønnsanalyse)',
+    aboutCategoriesText: 'Full Samling: Alle malerier, Populære Malere: Topp 10 kunstnere med flest verk, Landskap: Landskapsmalerier (34 kunstnere), Realisme: Realistisk bevegelse (15 kunstnere), Impressionisme: Impressionistiske malerier (12 kunstnere), Romantisk Nasjonalisme: Norsk romantisk nasjonalisme (10 kunstnere), Modernisme: Moderne verk (10 kunstnere), Kvinnelige Kunstnere: Kvinnelige malere (basert på kjønnsanalyse)',
     aboutHowToPlay: 'Slik spiller du',
     aboutHowToPlayText: 'Velg en kategori, se på et maleri, og velg riktig kunstner fra fire alternativer. Bygg opp streaks og lær om norsk kunsthistorie med hvert svar!',
     aboutFacts: 'Interessante fakta',
@@ -2836,7 +2836,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Start memory cleanup
     startMemoryCleanup();
     
-    const res = await fetch('./data/paintings_merged.json');
+    const res = await fetch('./data/paintings_with_inferred_categories.json');
     if (!res.ok) throw new Error('Failed to load paintings');
     paintings = await res.json();
     await loadArtistBios();
