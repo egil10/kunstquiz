@@ -174,6 +174,9 @@ const translations = {
     impressionism: 'Impressionism',
     expressionism: 'Expressionism',
     norwegianRomantic: 'Norwegian Romantic',
+    realism: 'Realism',
+    romanticNationalism: 'Romantic Nationalism',
+    neoRomanticism: 'Neo-Romanticism',
     correct: 'Correct!',
     incorrect: 'Incorrect!',
     congratulations: 'Congratulations!',
@@ -344,6 +347,9 @@ const translations = {
     impressionism: 'Impressionisme',
     expressionism: 'Ekspresjonisme',
     norwegianRomantic: 'Norsk Romantikk',
+    realism: 'Realisme',
+    romanticNationalism: 'Romantisk Nasjonalisme',
+    neoRomanticism: 'Neo-Romantikk',
     correct: 'Riktig!',
     incorrect: 'Feil!',
     congratulations: 'Gratulerer!',
@@ -539,13 +545,11 @@ const CATEGORY_DEFS = [
   { value: 'all', label: 'fullCollection' },
   { value: 'popular', label: 'popularPainters' },
   { value: 'landscape', label: 'landscapePainting' },
-  { value: 'portraits', label: 'portraits' },
-  { value: 'women_painters', label: 'womenPainters' },
-  { value: '19thcentury', label: 'nineteenthCentury' },
-  { value: '20thcentury', label: 'twentiethCentury' },
-  { value: 'impressionism', label: 'impressionism' },
+  { value: 'realism', label: 'realism' },
   { value: 'expressionism', label: 'expressionism' },
-  { value: 'norwegian_romantic', label: 'norwegianRomantic' }
+  { value: 'impressionism', label: 'impressionism' },
+  { value: 'romantic_nationalism', label: 'romanticNationalism' },
+  { value: 'neo_romanticism', label: 'neoRomanticism' }
 ];
 
 function t(key) {
@@ -1305,28 +1309,16 @@ const categoryFilters = {
     return validPaintings.filter(p => topArtists.includes(p.artist));
   },
   landscape: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('landscape')),
-  portraits: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('portrait')),
-  women_painters: p => p.artist_gender === 'female',
-  '19thcentury': (p, artistMap) => {
-    const bio = artistMap[p.artist];
-    const y = bio?.birth_year ? parseInt(bio.birth_year) : null;
-    return y && y >= 1800 && y < 1900;
-  },
-  '20thcentury': (p, artistMap) => {
-    const bio = artistMap[p.artist];
-    let y = bio?.birth_year ? parseInt(bio.birth_year) : (bio?.death_year ? parseInt(bio.death_year) : null);
-    const isModern = bio && (
-      (bio.movement || []).some(m => m?.toLowerCase().includes('modern')) ||
-      (bio.genre || []).some(g => g?.toLowerCase().includes('modern'))
-    );
-    return (y && y >= 1900 && y < 2000) || isModern;
-  },
-  impressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('impressionism')),
+  realism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('realism')),
   expressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('expressionism')),
-  norwegian_romantic: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
-    m?.toLowerCase().includes('nasjonalromantikk') || 
-    m?.toLowerCase().includes('norwegian romantic nationalism') || 
+  impressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('impressionism')),
+  romantic_nationalism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    m?.toLowerCase().includes('romantic nationalism') || 
     m?.toLowerCase().includes('romantic nationalism')
+  ),
+  neo_romanticism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    m?.toLowerCase().includes('neo-romanticism') || 
+    m?.toLowerCase().includes('neo romanticism')
   )
 };
 
