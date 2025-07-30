@@ -9,22 +9,22 @@ USAGE EXAMPLES:
 ==============
 
 # Apply inferred categories
-python process.py --categories
+python scripts/process.py --categories
 
 # Infer art movements
-python process.py --movements
+python scripts/process.py --movements
 
 # Analyze artist movements
-python process.py --analyze-movements
+python scripts/process.py --analyze-movements
 
 # Discover new categories
-python process.py --discover
+python scripts/process.py --discover
 
 # Merge artist tags
-python process.py --merge-tags
+python scripts/process.py --merge-tags
 
 # Full processing workflow
-python process.py --full-process
+python scripts/process.py --full-process
 
 ARGUMENTS:
 ==========
@@ -35,8 +35,8 @@ ARGUMENTS:
 --merge-tags: Merge artist tags
 --full-process: Run all processing operations
 
---input: Input JSON file (default: data/paintings_appended.json)
---output: Output JSON file (default: data/paintings_merged.json)
+--input: Input JSON file (default: data/paintings_with_inferred_categories.json)
+--output: Output JSON file (default: data/paintings_with_inferred_categories.json)
 --dry-run: Show what would be processed without actually processing
 --no-dry-run: Actually perform the processing
 """
@@ -283,7 +283,7 @@ def merge_artist_tags(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     
     # Load existing artist tags
     artist_tags = {}
-    tag_files = ['data/artist_tags.json', 'data/artist_tags_appended.json']
+    tag_files = ['data/artist_bios.json', 'data/artist_bios.json']
     
     for filepath in tag_files:
         if os.path.exists(filepath):

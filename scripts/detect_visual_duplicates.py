@@ -226,8 +226,8 @@ def save_duplicate_report(duplicate_groups: List[Dict], output_file: str = 'visu
 
 def main():
     parser = argparse.ArgumentParser(description='Detect visual duplicates in paintings dataset')
-    parser.add_argument('--input', default='data/paintings_appended.json',
-                       help='Input JSON file (default: data/paintings_appended.json)')
+    parser.add_argument('--input', default='data/paintings_with_inferred_categories.json',
+                       help='Input JSON file (default: data/paintings_with_inferred_categories.json)')
     parser.add_argument('--threshold', type=int, default=5,
                        help='Hash similarity threshold (0-64, lower = more strict)')
     parser.add_argument('--max-images', type=int, default=None,

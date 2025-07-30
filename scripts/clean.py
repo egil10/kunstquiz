@@ -9,31 +9,31 @@ USAGE EXAMPLES:
 ==============
 
 # Remove duplicates by URL (most reliable)
-python clean.py --duplicates --strategy url
+python scripts/clean.py --duplicates --strategy url
 
 # Remove duplicates by title (same painting, different URLs)
-python clean.py --duplicates --strategy title
+python scripts/clean.py --duplicates --strategy title
 
 # Remove duplicates by exact match (artist + title + URL)
-python clean.py --duplicates --strategy exact --keep-self-portraits
+python scripts/clean.py --duplicates --strategy exact --keep-self-portraits
 
 # Remove all paintings by a specific artist
-python clean.py --artist "Artist Name" --no-dry-run
+python scripts/clean.py --artist "Artist Name" --no-dry-run
 
 # Remove images by URL list
-python clean.py --urls --file urls_to_remove.txt
+python scripts/clean.py --urls --file urls_to_remove.txt
 
 # Remove small/low-quality images
-python clean.py --quality --min-width 200 --min-height 200
+python scripts/clean.py --quality --min-width 200 --min-height 200
 
 # Remove TIF files automatically
-python clean.py --tif
+python scripts/clean.py --tif
 
 # Check for duplicates without removing
-python clean.py --check-duplicates
+python scripts/clean.py --check-duplicates
 
 # Full cleanup workflow
-python clean.py --full-cleanup --no-dry-run
+python scripts/clean.py --full-cleanup --no-dry-run
 
 ARGUMENTS:
 ==========
@@ -50,7 +50,7 @@ ARGUMENTS:
 --min-width: Minimum image width for quality filter
 --min-height: Minimum image height for quality filter
 --file: File containing URLs to remove
---input: Input JSON file (default: data/paintings_appended.json)
+--input: Input JSON file (default: data/paintings_with_inferred_categories.json)
 --output: Output JSON file (default: same as input)
 --dry-run: Show what would be removed without actually removing
 --no-dry-run: Actually perform the removal
@@ -560,7 +560,7 @@ def main():
         save_json(data, args.output)
         
         # Also update merged file if it exists
-        merged_file = 'data/paintings_merged.json'
+        merged_file = 'data/paintings_with_inferred_categories.json'
         if os.path.exists(merged_file) and args.output != merged_file:
             print(f"Also updating {merged_file}...")
             save_json(data, merged_file)

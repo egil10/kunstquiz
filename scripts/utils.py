@@ -9,25 +9,25 @@ USAGE EXAMPLES:
 ==============
 
 # Check URLs for validity
-python utils.py --check-urls
+python scripts/utils.py --check-urls
 
 # Fix broken URLs
-python utils.py --fix-urls
+python scripts/utils.py --fix-urls
 
 # Check gender and period distribution
-python utils.py --gender-periods
+python scripts/utils.py --gender-periods
 
 # Create backup
-python utils.py --backup --create
+python scripts/utils.py --backup --create
 
 # List available backups
-python utils.py --backup --list
+python scripts/utils.py --backup --list
 
 # Restore from backup
-python utils.py --backup --restore backup_20231201_143022
+python scripts/utils.py --backup --restore backup_20231201_143022
 
 # Check data health
-python utils.py --health-check
+python scripts/utils.py --health-check
 
 ARGUMENTS:
 ==========
@@ -40,7 +40,7 @@ ARGUMENTS:
 --create: Create new backup
 --list: List available backups
 --restore: Restore from backup (requires backup name)
---input: Input JSON file (default: data/paintings_appended.json)
+--input: Input JSON file (default: data/paintings_with_inferred_categories.json)
 --output: Output JSON file (default: same as input)
 --dry-run: Show what would be done without actually doing it
 --no-dry-run: Actually perform the operation
@@ -292,11 +292,11 @@ def create_backup() -> str:
     
     # Files to backup
     files_to_backup = [
-        'data/paintings_merged.json',
-        'data/paintings_appended.json',
+        'data/paintings_with_inferred_categories.json',
+        'data/paintings_with_inferred_categories.json',
         'data/artist_bios.json',
-        'data/artist_tags.json',
-        'data/artist_tags_appended.json'
+        'data/artist_bios.json',
+        'data/artist_bios.json'
     ]
     
     backed_up_files = []
@@ -364,11 +364,8 @@ def restore_backup(backup_name: str) -> bool:
     
     # Files to restore
     files_to_restore = [
-        'paintings_merged.json',
-        'paintings_appended.json',
-        'artist_bios.json',
-        'artist_tags.json',
-        'artist_tags_appended.json'
+        'paintings_with_inferred_categories.json',
+        'artist_bios.json'
     ]
     
     restored_files = []
@@ -510,7 +507,7 @@ def main():
     parser.add_argument('--restore', type=str, help='Restore from backup (requires backup name)')
     
     # Options
-    parser.add_argument('--input', default='data/paintings_appended.json', help='Input JSON file')
+    parser.add_argument('--input', default='data/paintings_with_inferred_categories.json', help='Input JSON file')
     parser.add_argument('--output', default=None, help='Output JSON file (default: same as input)')
     parser.add_argument('--dry-run', action='store_true', default=True, help='Show what would be done without actually doing it (default)')
     parser.add_argument('--no-dry-run', action='store_true', help='Actually perform the operation')
@@ -532,7 +529,7 @@ def main():
         if args.create:
             if not dry_run:
                 backup_dir = create_backup()
-                print(f"💡 To restore later, use: python utils.py --backup --restore {backup_dir}")
+                print(f"💡 To restore later, use: python scripts/utils.py --backup --restore {backup_dir}")
             else:
                 print("Would create new backup")
         

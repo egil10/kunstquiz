@@ -9,25 +9,25 @@ USAGE EXAMPLES:
 ==============
 
 # Collect from a single URL (recommended for testing)
-python collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg" --max 50
+python scripts/collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg" --max 50
 
 # Collect from multiple URLs in a file (max 30 per subcategory)
-python collect_art.py --file urls.txt --max 30 --quiet --merge
+python scripts/collect_art.py --file urls.txt --max 30 --quiet --merge
 
 # Control total collection size across all subcategories
-python collect_art.py --file urls.txt --max 30 --total-max 100 --quiet --merge
+python scripts/collect_art.py --file urls.txt --max 30 --total-max 100 --quiet --merge
 
 # Collect from specific artist categories (gets ALL paintings from ALL museums automatically)
-python collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg_by_museum" --max 100
+python scripts/collect_art.py --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Christian_Krohg_by_museum" --max 100
 
 # Skip subcategories (only fetch from main category)
-python collect_art.py --url "main_category_url" --no-subcategories
+python scripts/collect_art.py --url "main_category_url" --no-subcategories
 
 # Randomize URL order for organic collection
-python collect_art.py --file urls.txt --randomize --total-max 100 --quiet
+python scripts/collect_art.py --file urls.txt --randomize --total-max 100 --quiet
 
 # Full workflow with diagnostics
-python collect_art.py --file urls.txt --max 50 --total-max 200 --quiet --merge --diagnose
+python scripts/collect_art.py --file urls.txt --max 50 --total-max 200 --quiet --merge --diagnose
 
 URL STRATEGY:
 ============
@@ -66,10 +66,10 @@ from bs4 import BeautifulSoup
 from collections import Counter
 import subprocess
 
-APPENDED_FILE = 'data/paintings_appended.json'
+APPENDED_FILE = 'data/paintings_with_inferred_categories.json'
 MANUAL_FILE = 'data/manual_paintings.json'
-MERGE_SCRIPT = 'scripts/process.py'
-DIAGNOSE_SCRIPT = 'scripts/stats.py'
+MERGE_SCRIPT = 'scripts/scripts/process.py'
+DIAGNOSE_SCRIPT = 'scripts/scripts/stats.py'
 
 # --- Manual collection logic (from collect_manual_art.py) ---
 

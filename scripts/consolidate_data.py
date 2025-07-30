@@ -55,12 +55,12 @@ def analyze_data_structure():
     
     # List of files to analyze
     files_to_analyze = [
-        'data/paintings_appended.json',
-        'data/paintings_merged.json', 
+        'data/paintings_with_inferred_categories.json',
+        'data/paintings_with_inferred_categories.json', 
         'data/paintings_with_inferred_categories.json',
         'data/artist_bios.json',
-        'data/artist_tags.json',
-        'data/artist_tags_appended.json'
+        'data/artist_bios.json',
+        'data/artist_bios.json'
     ]
     
     analysis = {}
@@ -114,8 +114,8 @@ def find_duplicates():
     
     # Load all painting files
     painting_files = [
-        'data/paintings_appended.json',
-        'data/paintings_merged.json',
+        'data/paintings_with_inferred_categories.json',
+        'data/paintings_with_inferred_categories.json',
         'data/paintings_with_inferred_categories.json'
     ]
     
@@ -206,8 +206,8 @@ def consolidate_artists() -> List[Dict[str, Any]]:
     # Load artist files
     artist_files = [
         'data/artist_bios.json',
-        'data/artist_tags.json',
-        'data/artist_tags_appended.json'
+        'data/artist_bios.json',
+        'data/artist_bios.json'
     ]
     
     all_artists = {}
@@ -298,12 +298,12 @@ def backup_existing_files():
     os.makedirs(backup_dir, exist_ok=True)
     
     files_to_backup = [
-        'data/paintings_appended.json',
-        'data/paintings_merged.json',
+        'data/paintings_with_inferred_categories.json',
+        'data/paintings_with_inferred_categories.json',
         'data/paintings_with_inferred_categories.json',
         'data/artist_bios.json',
-        'data/artist_tags.json',
-        'data/artist_tags_appended.json'
+        'data/artist_bios.json',
+        'data/artist_bios.json'
     ]
     
     backed_up = []
@@ -322,9 +322,9 @@ def cleanup_redundant_files():
     
     # Files that can be safely removed after consolidation
     files_to_remove = [
-        'data/paintings_merged.json',  # Replaced by unified structure
-        'data/artist_tags.json',       # Merged into artists.json
-        'data/artist_tags_appended.json'  # Merged into artists.json
+        'data/paintings_with_inferred_categories.json',  # Replaced by unified structure
+        'data/artist_bios.json',       # Merged into artists.json
+        'data/artist_bios.json'  # Merged into artists.json
     ]
     
     removed = []

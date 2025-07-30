@@ -3,11 +3,11 @@ from collections import Counter, defaultdict
 import os
 import re
 
-PAINTINGS_FILE = 'data/paintings_appended.json'
-PAINTINGS_MERGED_FILE = 'data/paintings_merged.json'
+PAINTINGS_FILE = 'data/paintings_with_inferred_categories.json'
+PAINTINGS_MERGED_FILE = 'data/paintings_with_inferred_categories.json'
 BIOS_FILE = 'data/artist_bios.json'
-ARTIST_TAGS_FILE = 'data/artist_tags.json'
-ARTIST_TAGS_APPENDED_FILE = 'data/artist_tags_appended.json'
+ARTIST_TAGS_FILE = 'data/artist_bios.json'
+ARTIST_TAGS_APPENDED_FILE = 'data/artist_bios.json'
 REPORT_FILE = 'diagnostics.md'
 
 CATEGORY_DEFS = [

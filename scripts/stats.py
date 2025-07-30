@@ -9,28 +9,28 @@ USAGE EXAMPLES:
 ==============
 
 # Basic dataset statistics
-python stats.py --basic
+python scripts/stats.py --basic
 
 # Category statistics by painting count
-python stats.py --categories
+python scripts/stats.py --categories
 
 # Category statistics by artist count
-python stats.py --categories --by-artists
+python scripts/stats.py --categories --by-artists
 
 # Century analysis
-python stats.py --centuries
+python scripts/stats.py --centuries
 
 # Data structure analysis
-python stats.py --structure
+python scripts/stats.py --structure
 
 # Full comprehensive analysis
-python stats.py --full
+python scripts/stats.py --full
 
 # Generate diagnostics report
-python stats.py --diagnostics
+python scripts/stats.py --diagnostics
 
 # Check gender and period distribution
-python stats.py --gender-periods
+python scripts/stats.py --gender-periods
 
 ARGUMENTS:
 ==========
@@ -43,7 +43,7 @@ ARGUMENTS:
 --gender-periods: Check gender and period distribution
 
 --by-artists: For categories, count by unique artists instead of paintings
---input: Input JSON file (default: data/paintings_appended.json)
+--input: Input JSON file (default: data/paintings_with_inferred_categories.json)
 --output: Output report file (default: diagnostics.md)
 """
 
@@ -649,7 +649,7 @@ def main():
     
     # Options
     parser.add_argument('--by-artists', action='store_true', help='For categories, count by unique artists instead of paintings')
-    parser.add_argument('--input', default='data/paintings_appended.json', help='Input JSON file')
+    parser.add_argument('--input', default='data/paintings_with_inferred_categories.json', help='Input JSON file')
     parser.add_argument('--output', default='diagnostics.md', help='Output report file')
     
     args = parser.parse_args()
