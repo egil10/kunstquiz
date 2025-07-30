@@ -712,6 +712,13 @@ function updateLanguageUI() {
   // Also update any artist popups that might be open
   const artistPopups = document.querySelectorAll('.artist-popup.toast.persistent');
   artistPopups.forEach(popup => {
+    // Update close button
+    const closeBtn = popup.querySelector('.persistent-popup-close-btn');
+    if (closeBtn) {
+      closeBtn.textContent = t('close');
+      closeBtn.setAttribute('aria-label', t('close'));
+    }
+    
     const gallery = popup.querySelector('.artist-gallery-section');
     if (gallery) {
       const title = gallery.querySelector('.artist-gallery-title');
@@ -1621,7 +1628,7 @@ function createArtistGalleryHtml(artistPaintings, artistName) {
     return '';
   }
   
-  const initialCount = 8; // Show first 8 paintings
+  const initialCount = 4; // Show first 4 paintings
   const initialPaintings = artistPaintings.slice(0, initialCount);
   const hasMore = artistPaintings.length > initialCount;
   
@@ -1697,7 +1704,7 @@ function preloadArtistGalleryImages(paintings) {
 function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn) {
   const currentLoaded = parseInt(loadMoreBtn.dataset.loaded);
   const total = parseInt(loadMoreBtn.dataset.total);
-  const loadCount = 8; // Load 8 more paintings
+  const loadCount = 4; // Load 4 more paintings
   const nextBatch = artistPaintings.slice(currentLoaded, currentLoaded + loadCount);
   
   if (nextBatch.length === 0) {
@@ -1802,7 +1809,7 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     yearsHtml = lifeSpan ? `<span class="artist-years">${lifeSpan}</span>` : '';
     imgHtml = paintingOrName.artist_image ? `<img src="${paintingOrName.artist_image}" alt="${name}" class="artist-portrait toast-portrait" loading="lazy">` : '';
   }
-  let closeBtnHtml = persistent ? `<div class="persistent-popup-close-container"><button class="persistent-popup-close-btn" aria-label="Close">Close</button></div>` : '';
+  let closeBtnHtml = persistent ? `<div class="persistent-popup-close-container"><button class="persistent-popup-close-btn" aria-label="${t('close')}">${t('close')}</button></div>` : '';
   let paintingsHtml = '';
   
   // Create gallery HTML for persistent popups
