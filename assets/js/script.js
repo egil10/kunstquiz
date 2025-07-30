@@ -1668,7 +1668,8 @@ function setupArtistGalleryHandlers(popup, artistPaintings, artistName) {
       const paintingIndex = parseInt(item.dataset.paintingIndex);
       const painting = artistPaintings[paintingIndex];
       if (painting) {
-        showPaintingViewer(painting);
+        // Pass return context so we can return to the artist popup
+        showPaintingViewer(painting, { artistPopup: true });
       }
     });
   });
@@ -1755,7 +1756,8 @@ function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn
           const paintingIndex = parseInt(item.dataset.paintingIndex);
           const painting = artistPaintings[paintingIndex];
           if (painting) {
-            showPaintingViewer(painting);
+            // Pass return context so we can return to the artist popup
+            showPaintingViewer(painting, { artistPopup: true });
           }
         });
       }
@@ -2216,11 +2218,14 @@ function setupAboutModal() {
 }
 
 // Painting Viewer Functions
-function showPaintingViewer(painting) {
+function showPaintingViewer(painting, returnContext = null) {
   const modal = document.getElementById('painting-viewer-modal');
   const image = document.getElementById('painting-viewer-image');
   
   if (!modal || !image) return;
+  
+  // Store return context for when viewer is closed
+  modal.dataset.returnContext = returnContext ? JSON.stringify(returnContext) : '';
   
   // Use the painting URL that was passed to the function
   image.src = painting.url;
@@ -2235,6 +2240,28 @@ function showPaintingViewer(painting) {
 function hidePaintingViewer() {
   const modal = document.getElementById('painting-viewer-modal');
   if (modal) {
+    // Check if there's a return context
+    const returnContextStr = modal.dataset.returnContext;
+    if (returnContextStr) {
+      try {
+        const returnContext = JSON.parse(returnContextStr);
+        
+        // If we have an artist popup to return to, make sure it's visible
+        if (returnContext.artistPopup) {
+          const artistPopup = document.querySelector('.artist-popup.toast.persistent');
+          if (artistPopup) {
+            artistPopup.style.display = 'flex';
+            artistPopup.classList.add('visible');
+          }
+        }
+        
+        // Clear the return context
+        modal.dataset.returnContext = '';
+      } catch (e) {
+        console.warn('Failed to parse return context:', e);
+      }
+    }
+    
     modal.classList.remove('visible');
     modal.style.display = 'none';
     document.body.style.overflow = '';
