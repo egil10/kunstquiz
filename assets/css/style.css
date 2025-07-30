@@ -547,6 +547,11 @@ button.loading {
   text-align: left;
 }
 
+.artist-popup-text.toast-text .artist-gallery-section {
+  max-width: none;
+  width: 100%;
+}
+
 .artist-popup-text.toast-text .artist-name {
   color: #388e3c;
   font-size: 1.25rem;
@@ -792,6 +797,7 @@ button.loading {
 .artist-gallery-section {
   margin-top: 1rem;
   padding-top: 0.5rem;
+  width: 100%;
 }
 
 .artist-gallery-header {
@@ -799,6 +805,7 @@ button.loading {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 0.75rem;
+  width: 100%;
 }
 
 .artist-gallery-title {
@@ -819,6 +826,7 @@ button.loading {
   grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 0.5rem;
   margin-bottom: 0.75rem;
+  width: 100%;
 }
 
 .artist-gallery-item {
@@ -1211,6 +1219,11 @@ button.loading {
   .artist-popup-text.toast-text {
     max-width: 70vw;
     font-size: 1rem;
+  }
+  
+  .artist-popup-text.toast-text .artist-gallery-section {
+    max-width: none;
+    width: 100%;
   }
 
   .artist-popup-columns {
