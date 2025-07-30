@@ -2222,15 +2222,9 @@ function showPaintingViewer(painting) {
   
   if (!modal || !image) return;
   
-  // Use the already loaded image URL for instant display
-  const currentPaintingImg = document.getElementById('painting');
-  if (currentPaintingImg && currentPaintingImg.src) {
-    image.src = currentPaintingImg.src;
-    image.style.display = 'block';
-  } else {
-    // Fallback to original URL if current image not available
-    image.src = painting.url;
-  }
+  // Use the painting URL that was passed to the function
+  image.src = painting.url;
+  image.style.display = 'block';
   
   // Show modal with animation
   modal.style.display = 'flex';
