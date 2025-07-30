@@ -2844,5 +2844,90 @@
     "is_female": true,
     "country": "Norway",
     "gender": "female"
+  },
+  {
+    "death": "1913-01-01T00:00:00Z",
+    "birthplace": "Levanger Municipality",
+    "birth": "1863-10-13T00:00:00Z",
+    "summary": "Zacharias Martin Aagaard (13 October 1863 – 6 December 1913) was a Norwegian painter who specialized in marine painting.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  {
+    "not_found": true
+  },
+  {
+    "death": "1969-08-02T00:00:00Z",
+    "birthplace": "Moss Municipality",
+    "birth": "1888-05-12T00:00:00Z",
+    "summary": "Charlotte Wankel (12 May 1888 – 2 August 1969) was a Norwegian painter regarded as one of the first Norwegian cubist and painters of abstract art.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  {
+    "death": "2015-03-11T00:00:00Z",
+    "birthplace": "Trondheim",
+    "birth": "1929-10-18T00:00:00Z",
+    "summary": "Inger Solveig Sitter (18 October 1929 – 11 March 2015) was a Norwegian painter, graphic artist and art instructor.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  {
+    "death": "1974-04-03T00:00:00Z",
+    "birthplace": "Christiania",
+    "birth": "1880-12-20T00:00:00Z",
+    "summary": "Sara Cecilia Görvell Fabricius (20 December 1880 – 3 April 1974), better known by her pen name Cora Sandel, was a Norwegian writer and painter who lived most of her adult life abroad. Her best-known works are the novels now known as the Alberta Trilogy. In 1961, she was nominated for the Nobel Prize in Literature by the Norwegian philosopher Harald Ofstad.",
+    "is_female": true,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "female"
+  },
+  {
+    "death": "1976-02-14T00:00:00Z",
+    "birthplace": "Copenhagen",
+    "birth": "1911-01-27T00:00:00Z",
+    "summary": "Paul René Gauguin (27 February 1911 – 14 February 1976) was a French painter, graphical artist, sculptor, book illustrator and scenographer. He was born in Copenhagen, and was a son of Pola Gauguin, and grandson of Paul Gauguin. He is particularly known for his coloured woodcuts. Among his book illustrations are books by Inger Hagerup, and he made stage design for various theatres.",
+    "is_female": false,
+    "genre": null,
+    "country": "Norway",
+    "movement": null,
+    "gender": "male"
+  },
+  {
+    "not_found": true
+  },
+  {
+    "not_found": true
+  },
+  {
+    "not_found": true
+  },
+  {
+    "not_found": true
+  },
+  {
+    "death": "1961-01-21T00:00:00Z",
+    "birthplace": "Våler Municipality",
+    "country": "Norway",
+    "birth": "1870-04-26T00:00:00Z",
+    "summary": "Alf Lundeby (født 1870 i Våler, død 1961) var en norsk maler. Han oppholdt seg i Italia 1897–99. Fra 1900 bodde han i Lillehammer. Han besøkte Matisse i 1909 og er representert på Nasjonalgalleriet i Oslo. Lundeby komponerte også Lundebydrakta. Han skrev i  tidsskriftet (ukeblad) Askeladden utgitt av foreningen Askehaugen.",
+    "not_found": true,
+    "is_female": false,
+    "movement": null,
+    "genre": null,
+    "gender": "male"
+  },
+  {
+    "not_found": true
   }
 ]

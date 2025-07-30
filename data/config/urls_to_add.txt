@@ -1,0 +1,6 @@
+# URLs to add to the collection
+# One URL per line
+# Lines starting with # are comments
+
+# Example:
+# https://commons.wikimedia.org/wiki/Category:Paintings_by_Artist_Name

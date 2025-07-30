@@ -67,7 +67,7 @@ def save_json(data: List[Dict[str, Any]], filepath: str):
 
 def apply_inferred_categories(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Apply inferred categories to paintings"""
-    print("🏷️  Applying inferred categories...")
+    print("Applying inferred categories...")
     
     # Define category mappings
     category_mappings = {
@@ -107,12 +107,12 @@ def apply_inferred_categories(data: List[Dict[str, Any]]) -> List[Dict[str, Any]
             item['inferred_categories'] = matched_categories
             processed_count += 1
     
-    print(f"✅ Applied categories to {processed_count} paintings")
+            print(f"Applied categories to {processed_count} paintings")
     return data
 
 def infer_movements(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Infer art movements based on various criteria"""
-    print("🎭 Inferring art movements...")
+    print("Inferring art movements...")
     
     # Define movement inference rules
     movement_rules = {
@@ -180,199 +180,152 @@ def infer_movements(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
             item['inferred_movements'] = matched_movements
             processed_count += 1
     
-    print(f"✅ Inferred movements for {processed_count} paintings")
+            print(f"Inferred movements for {processed_count} paintings")
     return data
 
 def analyze_artist_movements(data: List[Dict[str, Any]]) -> Dict[str, Any]:
     """Analyze movements by artist"""
-    print("👨‍🎨 Analyzing artist movements...")
+    print("Analyzing artist movements...")
     
     artist_movements = defaultdict(set)
-    artist_counts = Counter()
+    artist_periods = defaultdict(list)
     
-    for item in data:
-        artist = item.get('artist', '')
-        if not artist:
-            continue
+    for painting in data:
+        artist = painting.get('artist', '')
+        movement = painting.get('movement', '')
+        period = painting.get('period', '')
         
-        artist_counts[artist] += 1
-        
-        # Collect all movement information
-        movements = []
-        
-        # Explicit movements
-        if item.get('movement'):
-            movements.append(item['movement'])
-        
-        # Inferred movements
-        if item.get('inferred_movements'):
-            movements.extend(item['inferred_movements'])
-        
-        # Add to artist's movement set
-        for movement in movements:
+        if artist and movement:
             artist_movements[artist].add(movement)
+        if artist and period:
+            artist_periods[artist].append(period)
     
-    # Analyze results
+    # Find artists with multiple movements
+    multi_movement_artists = {artist: list(movements) for artist, movements in artist_movements.items() if len(movements) > 1}
+    
+    # Find artists with multiple periods
+    multi_period_artists = {}
+    for artist, periods in artist_periods.items():
+        unique_periods = list(set(periods))
+        if len(unique_periods) > 1:
+            multi_period_artists[artist] = unique_periods
+    
     analysis = {
-        'total_artists': len(artist_counts),
-        'artists_with_movements': len([a for a, m in artist_movements.items() if m]),
-        'movement_distribution': Counter(),
-        'artist_movement_details': {}
+        'total_artists': len(artist_movements),
+        'artists_with_movements': len(artist_movements),
+        'multi_movement_artists': len(multi_movement_artists),
+        'multi_period_artists': len(multi_period_artists),
+        'sample_multi_movement': dict(list(multi_movement_artists.items())[:5]),
+        'sample_multi_period': dict(list(multi_period_artists.items())[:5])
     }
     
-    # Count movements across all artists
-    for movements in artist_movements.values():
-        for movement in movements:
-            analysis['movement_distribution'][movement] += 1
-    
-    # Create detailed artist analysis
-    for artist, movements in artist_movements.items():
-        analysis['artist_movement_details'][artist] = {
-            'movements': list(movements),
-            'painting_count': artist_counts[artist],
-            'movement_count': len(movements)
-        }
-    
-    print(f"✅ Analyzed movements for {analysis['artists_with_movements']} artists")
+    print(f"Analyzed movements for {analysis['artists_with_movements']} artists")
     return analysis
 
-def discover_categories(data: List[Dict[str, Any]]) -> Dict[str, Any]:
-    """Discover new categories in the dataset"""
-    print("🔍 Discovering new categories...")
+def discover_categories(data: List[Dict[str, Any]]) -> List[str]:
+    """Discover potential new categories from the data"""
+    print("Discovering new categories...")
     
-    # Collect all potential category indicators
-    title_keywords = Counter()
-    genre_keywords = Counter()
-    movement_keywords = Counter()
+    # Collect all unique values
+    all_categories = set()
+    all_movements = set()
+    all_periods = set()
+    all_techniques = set()
     
-    for item in data:
-        title = item.get('title', '').lower()
-        genre = item.get('genre', '').lower()
-        movement = item.get('movement', '').lower()
-        
-        # Extract keywords from titles
-        words = re.findall(r'\b\w+\b', title)
-        for word in words:
-            if len(word) > 3:  # Skip short words
-                title_keywords[word] += 1
-        
-        # Collect genres and movements
-        if genre:
-            genre_keywords[genre] += 1
-        if movement:
-            movement_keywords[movement] += 1
+    for painting in data:
+        if painting.get('category'):
+            all_categories.add(painting['category'])
+        if painting.get('movement'):
+            all_movements.add(painting['movement'])
+        if painting.get('period'):
+            all_periods.add(painting['period'])
+        if painting.get('technique'):
+            all_techniques.add(painting['technique'])
     
-    # Analyze results
-    discovery = {
-        'common_title_keywords': title_keywords.most_common(20),
-        'genres': genre_keywords.most_common(),
-        'movements': movement_keywords.most_common(),
-        'potential_categories': []
-    }
-    
-    # Identify potential new categories
+    # Find potential new categories
     potential_categories = []
     
-    # Look for common themes in titles
-    for keyword, count in title_keywords.most_common(50):
-        if count >= 5:  # At least 5 occurrences
-            potential_categories.append({
-                'type': 'title_keyword',
-                'name': keyword,
-                'count': count,
-                'confidence': 'medium'
-            })
+    # Movements that aren't categories yet
+    for movement in all_movements:
+        if movement and movement not in all_categories:
+            potential_categories.append(f"Movement: {movement}")
     
-    # Look for underrepresented genres
-    for genre, count in genre_keywords.items():
-        if count >= 3 and count <= 20:  # Not too common, not too rare
-            potential_categories.append({
-                'type': 'genre',
-                'name': genre,
-                'count': count,
-                'confidence': 'high'
-            })
+    # Periods that aren't categories yet
+    for period in all_periods:
+        if period and period not in all_categories:
+            potential_categories.append(f"Period: {period}")
     
-    discovery['potential_categories'] = potential_categories
+    # Techniques that aren't categories yet
+    for technique in all_techniques:
+        if technique and technique not in all_categories:
+            potential_categories.append(f"Technique: {technique}")
     
-    print(f"✅ Discovered {len(potential_categories)} potential categories")
-    return discovery
+    # Find common themes in titles
+    title_words = defaultdict(int)
+    for painting in data:
+        title = painting.get('title', '').lower()
+        if title:
+            words = re.findall(r'\b\w{4,}\b', title)  # Words with 4+ characters
+            for word in words:
+                title_words[word] += 1
+    
+    # Add common title words as potential categories
+    common_words = {word: count for word, count in title_words.items() if count >= 3}
+    for word, count in sorted(common_words.items(), key=lambda x: x[1], reverse=True)[:10]:
+        potential_categories.append(f"Title Theme: {word.title()} ({count} occurrences)")
+    
+    print(f"Discovered {len(potential_categories)} potential categories")
+    return potential_categories
 
 def merge_artist_tags(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Merge artist tags and bios into paintings data"""
-    print("🔗 Merging artist tags and bios...")
+    """Merge artist tag data from multiple sources"""
+    print("Merging artist tags...")
     
-    # Load artist bios
-    bios_file = 'data/artist_bios.json'
-    artist_bios = {}
-    
-    if os.path.exists(bios_file):
-        try:
-            with open(bios_file, 'r', encoding='utf-8') as f:
-                bios_data = json.load(f)
-            
-            for artist in bios_data:
-                name = artist.get('name', '')
-                if name:
-                    artist_bios[name] = artist
-            
-            print(f"Loaded bios for {len(artist_bios)} artists")
-        except Exception as e:
-            print(f"Error loading artist bios: {e}")
-    else:
-        print("Artist bios file not found")
-    
-    # Load artist tags
-    tags_file = 'data/artist_tags.json'
+    # Load existing artist tags
     artist_tags = {}
+    tag_files = ['data/artist_tags.json', 'data/artist_tags_appended.json']
     
-    if os.path.exists(tags_file):
-        try:
-            with open(tags_file, 'r', encoding='utf-8') as f:
-                tags_data = json.load(f)
-            
-            for artist in tags_data:
-                name = artist.get('name', '')
-                if name:
-                    artist_tags[name] = artist
-            
-            print(f"Loaded tags for {len(artist_tags)} artists")
-        except Exception as e:
-            print(f"Error loading artist tags: {e}")
-    else:
-        print("Artist tags file not found")
+    for filepath in tag_files:
+        if os.path.exists(filepath):
+            try:
+                tags_data = load_json(filepath)
+                if isinstance(tags_data, dict):
+                    artist_tags.update(tags_data)
+                elif isinstance(tags_data, list):
+                    for artist in tags_data:
+                        name = artist.get('name', '')
+                        if name:
+                            artist_tags[name] = artist
+            except Exception as e:
+                print(f"Warning: Could not load {filepath}: {e}")
     
-    # Merge data
+    # Merge tags into paintings data
     merged_count = 0
-    
-    for item in data:
-        artist = item.get('artist', '')
-        if not artist:
-            continue
-        
-        # Add bio information
-        if artist in artist_bios:
-            bio = artist_bios[artist]
-            item['artist_bio'] = bio.get('bio', '')
-            item['artist_birth_year'] = bio.get('birth_year', '')
-            item['artist_death_year'] = bio.get('death_year', '')
-            item['artist_gender'] = bio.get('gender', '')
-            merged_count += 1
-        
-        # Add tag information
-        if artist in artist_tags:
-            tags = artist_tags[artist]
-            item['artist_tags'] = tags.get('tags', [])
-            item['artist_movements'] = tags.get('movements', [])
-            item['artist_genres'] = tags.get('genres', [])
+    for painting in data:
+        artist = painting.get('artist', '')
+        if artist and artist in artist_tags:
+            artist_data = artist_tags[artist]
+            
+            # Merge tags
+            if 'tags' in artist_data and artist_data['tags']:
+                if 'tags' not in painting:
+                    painting['tags'] = []
+                painting['tags'].extend(artist_data['tags'])
+                painting['tags'] = list(set(painting['tags']))  # Remove duplicates
+            
+            # Merge other fields
+            for key in ['bio', 'nationality', 'birth_year', 'death_year']:
+                if key in artist_data and artist_data[key] and key not in painting:
+                    painting[key] = artist_data[key]
+            
             merged_count += 1
     
-    print(f"✅ Merged data for {merged_count} paintings")
+    print(f"Merged data for {merged_count} paintings")
     return data
 
 def full_process(data: List[Dict[str, Any]], input_file: str, output_file: str) -> List[Dict[str, Any]]:
     """Run full processing workflow"""
-    print("🔄 Running full processing workflow...")
+    print("Running full processing workflow...")
     
     # Step 1: Apply inferred categories
     data = apply_inferred_categories(data)
@@ -380,35 +333,25 @@ def full_process(data: List[Dict[str, Any]], input_file: str, output_file: str) 
     # Step 2: Infer movements
     data = infer_movements(data)
     
-    # Step 3: Merge artist tags and bios
+    # Step 3: Analyze artist movements
+    analysis = analyze_artist_movements(data)
+    
+    # Step 4: Discover categories
+    potential_categories = discover_categories(data)
+    
+    # Step 5: Merge artist tags
     data = merge_artist_tags(data)
     
-    # Step 4: Analyze artist movements
-    movement_analysis = analyze_artist_movements(data)
-    
-    # Step 5: Discover new categories
-    category_discovery = discover_categories(data)
-    
-    # Save processed data
-    print(f"💾 Saving processed data to {output_file}...")
+    # Save results
+    print(f"Saving processed data to {output_file}...")
     save_json(data, output_file)
     
-    # Save analysis results
-    analysis_file = 'data/processing_analysis.json'
-    analysis_data = {
-        'movement_analysis': movement_analysis,
-        'category_discovery': category_discovery,
-        'processing_summary': {
-            'total_paintings': len(data),
-            'paintings_with_categories': len([item for item in data if item.get('inferred_categories')]),
-            'paintings_with_movements': len([item for item in data if item.get('inferred_movements')]),
-            'paintings_with_bios': len([item for item in data if item.get('artist_bio')])
-        }
-    }
+    # Print summary
+    print(f"Full processing workflow complete!")
+    print(f"  - Processed {len(data)} paintings")
+    print(f"  - Artists with movements: {analysis['artists_with_movements']}")
+    print(f"  - Potential categories: {len(potential_categories)}")
     
-    save_json(analysis_data, analysis_file)
-    
-    print("✅ Full processing workflow complete!")
     return data
 
 def main():
@@ -443,25 +386,25 @@ def main():
     dry_run = args.dry_run and not args.no_dry_run
     
     if dry_run:
-        print("\n🔍 DRY RUN - No changes will be made")
+        print("\nDRY RUN - No changes will be made")
     
     # Run requested operations
     if args.categories:
-        print("\n🏷️  Applying inferred categories...")
+        print("\nApplying inferred categories...")
         if not dry_run:
             data = apply_inferred_categories(data)
         else:
             print("Would apply inferred categories")
     
     if args.movements:
-        print("\n🎭 Inferring art movements...")
+        print("\nInferring art movements...")
         if not dry_run:
             data = infer_movements(data)
         else:
             print("Would infer art movements")
     
     if args.analyze_movements:
-        print("\n👨‍🎨 Analyzing artist movements...")
+        print("\nAnalyzing artist movements...")
         if not dry_run:
             analysis = analyze_artist_movements(data)
             print(f"Analysis complete for {analysis['artists_with_movements']} artists")
@@ -469,15 +412,15 @@ def main():
             print("Would analyze artist movements")
     
     if args.discover:
-        print("\n🔍 Discovering new categories...")
+        print("\nDiscovering new categories...")
         if not dry_run:
-            discovery = discover_categories(data)
-            print(f"Discovered {len(discovery['potential_categories'])} potential categories")
+            potential_categories = discover_categories(data)
+            print(f"Discovered {len(potential_categories)} potential categories")
         else:
             print("Would discover new categories")
     
     if args.merge_tags:
-        print("\n🔗 Merging artist tags...")
+        print("\nMerging artist tags...")
         if not dry_run:
             data = merge_artist_tags(data)
         else:
@@ -491,14 +434,14 @@ def main():
     
     # Save results if not dry run and operations were performed
     if not dry_run and any([args.categories, args.movements, args.merge_tags, args.full_process]):
-        print(f"\n💾 Saving processed data to {args.output}...")
+        print(f"\nSaving processed data to {args.output}...")
         save_json(data, args.output)
-        print("✅ Processing complete!")
+        print("Processing complete!")
     elif dry_run:
-        print("\n📊 DRY RUN SUMMARY:")
+        print("\nDRY RUN SUMMARY:")
         print("No actual processing performed. To process, run with --no-dry-run")
     else:
-        print("\n✅ No processing operations specified")
+        print("\nNo processing operations specified")
 
 if __name__ == '__main__':
     main() 

@@ -16,21 +16,48 @@ A fun, modern quiz where you guess the artist behind famous Norwegian paintings.
 3. Get instant feedback and learn about each artist
 4. Try to build a streak and explore the gallery!
 
-## 🛠️ Data Collection & Update Workflow
-1. Run `collect_art.py` to fetch new paintings by artist, URL, or file
-2. Data is appended to `data/paintings_appended.json` (never overwritten)
-3. Run `process.py --merge-tags` to merge and enrich data for the quiz
-4. (Optional) Run `stats.py --diagnostics` to generate a data health report and update the stats below
+## 🛠️ Complete Workflow (6 Steps)
+
+The repository now supports a complete 6-step workflow:
+
+1. **Finding new images** → `workflow.py --collect`
+2. **Cleaning them and deleting bad ones** → `workflow.py --clean`
+3. **Finding manual URLs to add** → `workflow.py --add-urls`
+4. **Finding manual URLs to remove** → `workflow.py --remove-urls`
+5. **Push to app** → `workflow.py --process` + `workflow.py --deploy`
+6. **App with working game logic** → Ready to use!
+
+### Quick Start:
+```bash
+# Initialize the workflow structure
+python workflow.py --init
+
+# Run complete workflow (all 6 steps)
+python workflow.py --full
+
+# Run quick workflow (collect, clean, process, deploy)
+python workflow.py --quick
+
+# Individual steps
+python workflow.py --collect --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Artist"
+python workflow.py --clean --quality --duplicates
+python workflow.py --add-urls --file data/config/urls_to_add.txt
+python workflow.py --remove-urls --file data/config/urls_to_remove.txt
+python workflow.py --process
+python workflow.py --deploy
+```
 
 ## 📊 Scripts Overview
 The repository now uses consolidated scripts for better organization:
 
+- **`workflow.py`** - Complete 6-step workflow management
 - **`collect_art.py`** - Main collection script (unchanged)
 - **`clean.py`** - All cleanup operations (duplicates, quality, etc.)
 - **`stats.py`** - All analysis and statistics operations
 - **`process.py`** - All data processing operations
 - **`utils.py`** - All utility operations (URLs, backups, health checks)
 - **`diagnostics.py`** - Comprehensive diagnostics (unchanged)
+- **`consolidate_data.py`** - Data consolidation and cleanup
 
 ## 📊 Diagnostics & Stats
 The `stats.py --diagnostics` script checks for data consistency, category coverage, and missing info. It also updates the stats below:

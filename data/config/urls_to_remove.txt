@@ -1,0 +1,6 @@
+# URLs to remove from the collection
+# One URL per line
+# Lines starting with # are comments
+
+# Example:
+# https://commons.wikimedia.org/wiki/File:example.jpg

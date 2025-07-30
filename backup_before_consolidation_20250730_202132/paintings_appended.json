@@ -3259,6 +3259,30 @@
     ]
   },
   {
+    "title": "View at Larsens Plads Copenhagen",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Johan%20Christian%20Dahl%20-%20View%20at%20Larsens%20Plads%20Copenhagen%20-%20NG.M.00426-013%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
+    "year": "1834-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Johan Christian Dahl",
+    "artist_bio": "Johan Christian Claussen Dahl (24 February 1788 – 14 October 1857), often known as J.  C.  Dahl or I.",
+    "artist_birth": "1788-02-24",
+    "artist_death": "1857-10-14",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": null,
+    "categories": [
+      "Popular painters",
+      "1900s"
+    ]
+  },
+  {
     "title": "Portrait of a Man",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Johan%20Christian%20Dahl%20-%20Portrait%20of%20a%20Man%20-%20NG.M.01206%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
     "year": "1815-01-01T00:00:00Z",
@@ -5399,6 +5423,31 @@
     ]
   },
   {
+    "title": "Christian Krohg - View over Frederiksberg, Copenhagen - Fra Frederiksberg, København - Nasjonalmuseet - NG.M.00806",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/26/Christian_Krohg_-_View_over_Frederiksberg%2C_Copenhagen_-_Fra_Frederiksberg%2C_K%C3%B8benhavn_-_Nasjonalmuseet_-_NG.M.00806.jpg",
+    "year": "",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no/en/collection/object/NG.M.00806\">Nasjonalmuseet for kunst, arkitektur og design</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Christian Krohg",
+    "artist_bio": "Christian Krohg (13 August 1852 – 16 October 1925) was a Norwegian naturalist painter, illustrator, author and journalist.  Krohg was inspired by the realism art movement and often chose motifs from everyday life.  He was the director and  served as the first professor at the Norwegian Academy of Arts from 1909 to 1925.",
+    "artist_birth": "1852-08-13",
+    "artist_death": "1925-10-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "realism",
+    "genre": "Painting",
+    "century": null,
+    "collection": "Nasjonalmuseet for kunst, arkitektur og",
+    "categories": [
+      "Popular painters",
+      "Landscapes",
+      "Historical/Nationalism"
+    ]
+  },
+  {
     "title": "Villa Britannia, Belgium title QS:P1476,en:\"Villa Britannia, Belgium \" label QS:Len,\"Villa Britannia, Belgium \" label QS:Lnb,\"Villa Britannia, Belgia\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e9/Christian_Krohg_-_Villa_Britannia%2C_Belgium_-_NG.M.00514_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
     "year": "1885 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55425797#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -5566,6 +5615,29 @@
     "categories": [
       "Popular painters",
       "1900s"
+    ]
+  },
+  {
+    "title": "Struggle for Survival title QS:P1476,en:\"Struggle for Survival \" label QS:Len,\"Struggle for Survival \" label QS:Lnb,\"Kampen for tilværelsen\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1a/%27The_Struggle_for_Existance%27_by_Christian_Krohg%2C_c._1890.JPG",
+    "year": "between 1889 and 1890<div style=\"display: none;\">date QS:P,+1850-00-00T00:00:00Z/7,P1319,+1889-00-00T00:00:00Z/9,P1326,+1890-00-00T00:00:00Z/9</div> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q122956271#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Christian Krohg",
+    "artist_bio": "Christian Krohg (13 August 1852 – 16 October 1925) was a Norwegian naturalist painter, illustrator, author and journalist.  Krohg was inspired by the realism art movement and often chose motifs from everyday life.  He was the director and  served as the first professor at the Norwegian Academy of Arts from 1909 to 1925.",
+    "artist_birth": "1852-08-13",
+    "artist_death": "1925-10-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "realism",
+    "genre": "Painting",
+    "century": null,
+    "collection": "Own work",
+    "categories": [
+      "Popular painters"
     ]
   },
   {
@@ -6377,6 +6449,29 @@
     ]
   },
   {
+    "title": "Swedish: Skådespelerskan Naima Wifstrand Naima Wifstrand, the Actresstitle QS:P1476,sv:\"Skådespelerskan Naima Wifstrand \" label QS:Lsv,\"Skådespelerskan Naima Wifstrand \" label QS:Len,\"Naima Wifstrand, the Actress\" label QS:Lnb,\"Skådespelerskan Naima Wifstrand\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Christian_Krohgs_utstilling_-_no-nb_digifoto_20160422_00041_NB_NS_NM_10390.jpg",
+    "year": "between 1 January 1910 and 31 December 1925<div style=\"display: none;\">date QS:P571,+1950-00-00T00:00:00Z/7,P1319,+1910-01-01T00:00:00Z/11,P1326,+1925-12-31T00:00:00Z/11</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Christian Krohg",
+    "artist_bio": "Christian Krohg (13 August 1852 – 16 October 1925) was a Norwegian naturalist painter, illustrator, author and journalist.  Krohg was inspired by the realism art movement and often chose motifs from everyday life.  He was the director and  served as the first professor at the Norwegian Academy of Arts from 1909 to 1925.",
+    "artist_birth": "1852-08-13",
+    "artist_death": "1925-10-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "realism",
+    "genre": "Painting",
+    "century": null,
+    "collection": "National Library of Norway",
+    "categories": [
+      "Popular painters"
+    ]
+  },
+  {
     "title": "Dagen derpå, selvportræt",
     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c6/Dagen_derp%C3%A5%2C_selvportr%C3%A6t.jpg",
     "year": "1883<div style=\"display: none;\">date QS:P571,+1883-00-00T00:00:00Z/9</div>",
@@ -6546,6 +6641,31 @@
       "Popular painters",
       "Landscapes",
       "Portraits",
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Sketch for \"Strike\" title QS:P1476,en:\"Sketch for \"Strike\" \" label QS:Len,\"Sketch for \"Strike\" \" label QS:Lnb,\"Streik\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/eb/Theodor_Kittelsen_-_Sketch_for_%22Strike%22_-_NG.M.02136_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1879 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55425113#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.02136\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Theodor Kittelsen",
+    "artist_bio": "Theodor Severin Kittelsen (27 April 1857 – 21 January 1914) was a Norwegian artist.   He is one of the most popular artists in Norway.   Kittelsen became famous for his nature paintings, as well as for his illustrations of fairy tales and legends, especially of trolls.",
+    "artist_birth": "1857-04-27",
+    "artist_death": "1914-01-21",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
       "1900s",
       "National Museum of Norway"
     ]
@@ -7557,6 +7677,30 @@
     "categories": [
       "Popular painters",
       "Portraits",
+      "1900s"
+    ]
+  },
+  {
+    "title": "Sketch for \"Strike\"",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Theodor%20Kittelsen%20-%20Sketch%20for%20%22Strike%22%20-%20NG.M.02136%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
+    "year": "1879-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Theodor Kittelsen",
+    "artist_bio": "Theodor Severin Kittelsen (27 April 1857 – 21 January 1914) was a Norwegian artist.   He is one of the most popular artists in Norway.   Kittelsen became famous for his nature paintings, as well as for his illustrations of fairy tales and legends, especially of trolls.",
+    "artist_birth": "1857-04-27",
+    "artist_death": "1914-01-21",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": null,
+    "categories": [
+      "Popular painters",
       "1900s"
     ]
   },
@@ -17749,6 +17893,32 @@
     ]
   },
   {
+    "title": "Night, the Church at Røros. Sketch for Night 1904 title QS:P1476,en:\"Night, the Church at Røros. Sketch for Night 1904 \" label QS:Len,\"Night, the Church at Røros. Sketch for Night 1904 \" label QS:Lnb,\"Natt, Røros kirke\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/15/Harald_Sohlberg_-_Night%2C_the_Church_at_R%C3%B8ros._Sketch_for_Night_1904_-_NG.M.01676_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1903 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55424069#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no/en/collection/object/NG.M.01676\">National Museum of Art, Architecture and Design</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Harald Sohlberg",
+    "artist_bio": "Harald Oskar Sohlberg (29 November 1869 – 19 June 1935) was a Norwegian Neo-romantic painter. .",
+    "artist_birth": "1869-11-29",
+    "artist_death": "1935-06-19",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 20,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
+      "Landscapes",
+      "2000s",
+      "National Museum of Norway"
+    ]
+  },
+  {
     "title": "On the Veranda title QS:P1476,en:\"On the Veranda \" label QS:Len,\"On the Veranda \" label QS:Lnb,\"På verandaen\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e4/Harald_Sohlberg_-_On_the_Veranda_-_NG.M.01828_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
     "year": "1892 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55424398#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -18364,6 +18534,32 @@
     "categories": [
       "Popular painters",
       "Portraits",
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Sketch for Summer Night 1899 title QS:P1476,en:\"Sketch for Summer Night 1899 \" label QS:Len,\"Sketch for Summer Night 1899 \" label QS:Lnb,\"Sommernatt, skisse\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/80/Harald_Sohlberg_-_Sketch_for_Summer_Night_1899_-_NG.M.01829_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1899 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55424950#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.01829\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Harald Sohlberg",
+    "artist_bio": "Harald Oskar Sohlberg (29 November 1869 – 19 June 1935) was a Norwegian Neo-romantic painter. .",
+    "artist_birth": "1869-11-29",
+    "artist_death": "1935-06-19",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
+      "Landscapes",
       "1900s",
       "National Museum of Norway"
     ]
@@ -19288,6 +19484,30 @@
     "categories": [
       "Popular painters",
       "1900s"
+    ]
+  },
+  {
+    "title": "Sketch for Portrait of Theater Director Bjørn Bjørnson, Inv.No. 946 title QS:P1476,en:\"Sketch for Portrait of Theater Director Bjørn Bjørnson, Inv.No. 946 \" label QS:Len,\"Sketch for Portrait of Theater Director Bjørn Bjørnson, Inv.No. 946 \" label QS:Lnb,\"Teatersjef Bjørn Bjørnson\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/93/Erik_Werenskiold_-_Sketch_for_Portrait_of_Theater_Director_Bj%C3%B8rn_Bj%C3%B8rnson%2C_Inv.No._946_-_NG.M.02367_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "presumably between 1906 and 1907<div style=\"display: none;\">date QS:P,+1906-00-00T00:00:00Z/8,P1319,+1906-00-00T00:00:00Z/9,P1326,+1907-00-00T00:00:00Z/9,P1480,Q18122778</div> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55425255#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no/en/collection/object/NG.M.02367\">Nasjonalmuseet for kunst, arkitektur og design</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Erik Werenskiold",
+    "artist_bio": "Erik Theodor Werenskiold (11 February 1855 – 23 November 1938) was a Norwegian painter and illustrator.  He is especially known for his drawings for the Asbjørnsen and Moe collection of Norske Folkeeventyr, and his illustrations for the Norwegian edition of the Snorri Sturlason Heimskringla. .",
+    "artist_birth": "1855-02-11",
+    "artist_death": "1938-11-23",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Portrait",
+    "century": null,
+    "collection": "Nasjonalmuseet for kunst, arkitektur og",
+    "categories": [
+      "Popular painters",
+      "Portraits"
     ]
   },
   {
@@ -20253,6 +20473,31 @@
     ]
   },
   {
+    "title": "Norwegian Bokmål: Dikteren Henrik Ibsen Portrait of the Poet Henrik Ibsentitle QS:P1476,nb:\"Dikteren Henrik Ibsen \" label QS:Lnb,\"Dikteren Henrik Ibsen \" label QS:Len,\"Portrait of the Poet Henrik Ibsen\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/00/Ibsen_av_Werenskiold_-_no-nb_digifoto_20160715_00162_NB_MIT_FNR_18711.jpg",
+    "year": "1958<div style=\"display: none;\">date QS:P571,+1958-00-00T00:00:00Z/9</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Erik Werenskiold",
+    "artist_bio": "Erik Theodor Werenskiold (11 February 1855 – 23 November 1938) was a Norwegian painter and illustrator.  He is especially known for his drawings for the Asbjørnsen and Moe collection of Norske Folkeeventyr, and his illustrations for the Norwegian edition of the Snorri Sturlason Heimskringla. .",
+    "artist_birth": "1855-02-11",
+    "artist_death": "1938-11-23",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Portrait",
+    "century": 20,
+    "collection": "National Library of Norway",
+    "categories": [
+      "Popular painters",
+      "Portraits",
+      "2000s"
+    ]
+  },
+  {
     "title": "Norway - Oslo, The National Museum of Art - panoramio",
     "url": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Norway_-_Oslo%2C_The_National_Museum_of_Art_-_panoramio.jpg",
     "year": "Taken on 29 July 2014",
@@ -20349,6 +20594,31 @@
       "Popular painters",
       "Portraits",
       "1900s"
+    ]
+  },
+  {
+    "title": "Christ on the Globe. Sketch for an altar piece title QS:P1476,en:\"Christ on the Globe. Sketch for an altar piece \" label QS:Len,\"Christ on the Globe. Sketch for an altar piece \" label QS:Lnb,\"Stående Kristus på en sky over jordkloden\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Adolph_Tidemand_-_Christ_on_the_Globe._Sketch_for_an_altar_piece_-_NG.M.00302-054_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1842",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no/en/collection/object/NG.M.00302-054\">National Museum of Art, Architecture and Design</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Adolph Tidemand",
+    "artist_bio": "Adolph Tidemand (14 August 1814 – 8 August 1876) was a noted Norwegian romantic nationalism painter.  Among his best known paintings  are Haugianerne (The Haugeans; 1852) and Brudeferd i Hardanger (The Bridal Procession in Hardanger; 1848), painted in collaboration with Hans Gude. .",
+    "artist_birth": "1814-08-14",
+    "artist_death": "1876-08-25",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "romantic nationalism",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
+      "1900s",
+      "National Museum of Norway"
     ]
   },
   {
@@ -20957,6 +21227,32 @@
     ]
   },
   {
+    "title": "Norwegian Bokmål: Lensmann Hans Anfinsen fra Tinn Portrait of Sheriff Hans Anfinsen from Tinntitle QS:P1476,nb:\"Lensmann Hans Anfinsen fra Tinn \" label QS:Lnb,\"Lensmann Hans Anfinsen fra Tinn \" label QS:Len,\"Portrait of Sheriff Hans Anfinsen from Tinn\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Adolph_Tidemand_-_Portrait_of_Sheriff_Hans_Anfinsen_from_Tinn_-_NG.M.00302-063_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1848 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55421026#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.00302-063\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Adolph Tidemand",
+    "artist_bio": "Adolph Tidemand (14 August 1814 – 8 August 1876) was a noted Norwegian romantic nationalism painter.  Among his best known paintings  are Haugianerne (The Haugeans; 1852) and Brudeferd i Hardanger (The Bridal Procession in Hardanger; 1848), painted in collaboration with Hans Gude. .",
+    "artist_birth": "1814-08-14",
+    "artist_death": "1876-08-25",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "romantic nationalism",
+    "genre": "Portrait",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
+      "Portraits",
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
     "title": "Norwegian Bokmål: Simon Toldstad. Portrettstudie Portrait of Simon Toldstad. Studytitle QS:P1476,nb:\"Simon Toldstad. Portrettstudie \" label QS:Lnb,\"Simon Toldstad. Portrettstudie \" label QS:Len,\"Portrait of Simon Toldstad. Study\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Adolph_Tidemand_-_Portrait_of_Simon_Toldstad._Study_-_NG.M.00302-031_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
     "year": "1869 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55421276#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -21158,6 +21454,30 @@
     "categories": [
       "Popular painters",
       "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Norwegian Bokmål: Bjørnejegerens hjemkomst Sketch for The Return of the Bear Huntertitle QS:P1476,nb:\"Bjørnejegerens hjemkomst \" label QS:Lnb,\"Bjørnejegerens hjemkomst \" label QS:Len,\"Sketch for The Return of the Bear Hunter\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Adolph_Tidemand_-_Sketch_for_The_Return_of_the_Bear_Hunter_-_NG.M.00302-026_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "presumably between 1857 and 1861<div style=\"display: none;\">date QS:P,+1850-00-00T00:00:00Z/7,P1319,+1857-00-00T00:00:00Z/9,P1326,+1861-00-00T00:00:00Z/9,P1480,Q18122778</div> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55421177#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.00302-026\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Adolph Tidemand",
+    "artist_bio": "Adolph Tidemand (14 August 1814 – 8 August 1876) was a noted Norwegian romantic nationalism painter.  Among his best known paintings  are Haugianerne (The Haugeans; 1852) and Brudeferd i Hardanger (The Bridal Procession in Hardanger; 1848), painted in collaboration with Hans Gude. .",
+    "artist_birth": "1814-08-14",
+    "artist_death": "1876-08-25",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "romantic nationalism",
+    "genre": "Painting",
+    "century": null,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
       "National Museum of Norway"
     ]
   },
@@ -22208,6 +22528,31 @@
     "categories": [
       "Popular painters",
       "Portraits",
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Norwegian Bokmål: Fridtjofs avskjed, skisse til tapt bilde Sketch for The Departure of Fridtjoftitle QS:P1476,nb:\"Fridtjofs avskjed, skisse til tapt bilde \" label QS:Lnb,\"Fridtjofs avskjed, skisse til tapt bilde \" label QS:Len,\"Sketch for The Departure of Fridtjof\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/1b/Adolph_Tidemand_-_Sketch_for_The_Departure_of_Fridtjof_-_NG.M.00302-084_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1836 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55420711#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.00302-084\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Adolph Tidemand",
+    "artist_bio": "Adolph Tidemand (14 August 1814 – 8 August 1876) was a noted Norwegian romantic nationalism painter.  Among his best known paintings  are Haugianerne (The Haugeans; 1852) and Brudeferd i Hardanger (The Bridal Procession in Hardanger; 1848), painted in collaboration with Hans Gude. .",
+    "artist_birth": "1814-08-14",
+    "artist_death": "1876-08-25",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "romantic nationalism",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
       "1900s",
       "National Museum of Norway"
     ]
@@ -24773,6 +25118,52 @@
     "collection": "https://digitaltmuseum.no/011012888879/f",
     "categories": [
       "2000s"
+    ]
+  },
+  {
+    "title": "Johanneskirken. Altertavlen. 1904. - no-nb digifoto 20160118 00060 NB NS 000087Z",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0c/Johanneskirken._Altertavlen._1904._-_no-nb_digifoto_20160118_00060_NB_NS_000087Z.jpg",
+    "year": "between 1 January 1904 and 31 December 1904<div style=\"display: none;\">date QS:P,+1904-00-00T00:00:00Z/9,P1319,+1904-01-01T00:00:00Z/11,P1326,+1904-12-31T00:00:00Z/11</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Eilif Peterssen",
+    "artist_bio": "Hjalmar Eilif Emanuel Peterssen (4 September 1852 – 29 December 1928) was a Norwegian painter.  He is most commonly associated with his landscapes and portraits.  He gained early recognition for the history painting Christian II signing the Death Warrant of Torben Oxe and established himself as one of Norway's foremost portrait painters, with portraits of, among others, Henrik Ibsen and Edvard Grieg.",
+    "artist_birth": "1852-09-04",
+    "artist_death": "1928-12-29",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": "National Library of Norway",
+    "categories": [
+      "Other"
+    ]
+  },
+  {
+    "title": "Johanneskirken 1904. Altertavlen. - no-nb digifoto 20160118 00059 NB NS 000087Y",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Johanneskirken_1904._Altertavlen._-_no-nb_digifoto_20160118_00059_NB_NS_000087Y.jpg",
+    "year": "between 1 January 1904 and 31 December 1904<div style=\"display: none;\">date QS:P,+1904-00-00T00:00:00Z/9,P1319,+1904-01-01T00:00:00Z/11,P1326,+1904-12-31T00:00:00Z/11</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Eilif Peterssen",
+    "artist_bio": "Hjalmar Eilif Emanuel Peterssen (4 September 1852 – 29 December 1928) was a Norwegian painter.  He is most commonly associated with his landscapes and portraits.  He gained early recognition for the history painting Christian II signing the Death Warrant of Torben Oxe and established himself as one of Norway's foremost portrait painters, with portraits of, among others, Henrik Ibsen and Edvard Grieg.",
+    "artist_birth": "1852-09-04",
+    "artist_death": "1928-12-29",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": "National Library of Norway",
+    "categories": [
+      "Other"
     ]
   },
   {
@@ -29389,6 +29780,30 @@
     ]
   },
   {
+    "title": "Sketch of the Farm Äse in Telemark title QS:P1476,en:\"Sketch of the Farm Äse in Telemark \" label QS:Len,\"Sketch of the Farm Äse in Telemark \" label QS:Lnb,\"Tunet på Åse, Telemark\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Halfdan_Egedius_-_Sketch_of_the_Farm_%C3%84se_in_Telemark_-_NG.M.01890_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1893 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55418518#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.01890\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Halfdan Egedius",
+    "artist_bio": "Halfdan Egedius (May 5, 1877 –  February 2, 1899) was a Norwegian painter and illustrator. .",
+    "artist_birth": "1877-05-05",
+    "artist_death": "1899-02-02",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "Symbolism",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
     "title": "Norwegian Bokmål: Lørdagskveld, Telemark Evening of Summertitle QS:P1476,nb:\"Lørdagskveld, Telemark \" label QS:Lnb,\"Lørdagskveld, Telemark \" label QS:Lsv,\"Lördagkväll, Telemark\" label QS:Len,\"Evening of Summer\" label QS:Lfr,\"Soir d'été\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Halfdan_Egedius_-_Soir_d%27%C3%A9t%C3%A9.jpg",
     "year": "1893 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q20112515#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -30714,6 +31129,29 @@
     ]
   },
   {
+    "title": "Schooner",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Martin%20Aagaard%20-%20Lensende%20Skonnert.jpg",
+    "year": "",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Martin Aagaard",
+    "artist_bio": "Zacharias Martin Aagaard (13 October 1863 – 6 December 1913) was a Norwegian painter who specialized in marine painting. .",
+    "artist_birth": "1863-10-13",
+    "artist_death": "1913-01-01",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": null,
+    "categories": [
+      "Other"
+    ]
+  },
+  {
     "title": "Sailing Ship and Steamship",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Martin%20Aagaard%20-%20Seilskute%20Og%20Dampskip.jpg",
     "year": "1886-01-01T00:00:00Z",
@@ -30803,6 +31241,29 @@
     "collection": null,
     "categories": [
       "Other"
+    ]
+  },
+  {
+    "title": "Two vessels off a Scandinavian coast",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Martin%20Aagaard%20-%20To%20fart%C3%B8yer%20p%C3%A5%20et%20skandinavisk%20kysten.jpg",
+    "year": "",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Martin Aagaard",
+    "artist_bio": "Zacharias Martin Aagaard (13 October 1863 – 6 December 1913) was a Norwegian painter who specialized in marine painting. .",
+    "artist_birth": "1863-10-13",
+    "artist_death": "1913-01-01",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": null,
+    "categories": [
+      "Landscapes"
     ]
   },
   {
@@ -31605,6 +32066,30 @@
     ]
   },
   {
+    "title": "Norwegian: Snekkerverksted A Carpenter's Workshoptitle QS:P1476,no:\"Snekkerverksted \" label QS:Lno,\"Snekkerverksted \" label QS:Len,\"A Carpenter's Workshop\" label QS:Lnb,\"Et snekkerverksted\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/8/8b/Gustav_Wentzel_-_A_Carpenter%27s_Workshop_-_NMK.2004.0340_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1881 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55410956#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NMK.2004.0340\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Gustav Wentzel",
+    "artist_bio": "Gustav Wentzel (1859–1927) was a Norwegian painter.  He was best known for interiors and domestic and rural scenes.  His artistic style was associated with Naturalism and noted for accurate observations and attention to detail.",
+    "artist_birth": "1859-10-07",
+    "artist_death": "1927-02-10",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
     "title": "At the Loom title QS:P1476,en:\"At the Loom \" label QS:Len,\"At the Loom \" label QS:Lnb,\"Veversken\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/2/23/Gustav_Wentzel_-_At_the_Loom_-_NG.M.00866_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
     "year": "1890 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55411263#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -32367,6 +32852,29 @@
     ]
   },
   {
+    "title": "Presidiets ordforade Dagfinn Hoybraten vid Nordiska Radets session i Oslo. 2007-10-30. Foto- Magnus Froderberg-norden.org",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/da/Presidiets_ordforade_Dagfinn_Hoybraten_vid_Nordiska_Radets_session_i_Oslo._2007-10-30._Foto-_Magnus_Froderberg-norden.org.jpg",
+    "year": "30 October 2007 (from <span lang=\"en\" dir=\"ltr\"><a href=\"https://en.wikipedia.org/wiki/Exif\" class=\"extiw\" title=\"en:Exif\">Exif</a></span>)",
+    "medium": "",
+    "dimensions": "",
+    "location": "Nordic Co-operation website (norden.org), <a rel=\"nofollow\" class=\"external free\" href=\"http://www.norden.org/en/news-and-events/images/people/the-nordic-council-delegations/norway/dagfinn-hoeybraaten-2669/view?gallery=275bcedf964209f7f38ca6db58f7634a\">http://www.norden.org/en/news-and-events/images/people/the-nordic-council-delegations/norway/dagfinn-hoeybraaten-2669/view?gallery=275bcedf964209f7f38ca6db58f7634a</a>",
+    "license": "CC BY 2.5 dk",
+    "source": "Wikimedia Commons",
+    "artist": "Oscar Wergeland",
+    "artist_bio": "Oscar Arnold Wergeland (12 October 1844 – 20 May 1910)  was a Norwegian painter.  He is best known for his historical painting of the Constituent Assembly at Eidsvoll (Riksforsamlingen på Eidsvoll 1814).  Two of his paintings are held in the National Gallery of Norway.",
+    "artist_birth": "1844-10-12",
+    "artist_death": "1910-05-20",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": "Nordic Co-operation website (norden.org)",
+    "categories": [
+      "Other"
+    ]
+  },
+  {
     "title": "After the Fight title QS:P1476,en:\"After the Fight \" label QS:Len,\"After the Fight \" label QS:Lnb,\"Etter slagsmålet\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/3/32/Carl_Fredrik_Sundt-Hansen_-_After_the_Fight_-_NG.M.00987_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
     "year": "1882 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55421993#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -32386,6 +32894,31 @@
     "century": 19,
     "collection": "National Museum of Art",
     "categories": [
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Communion in Jail title QS:P1476,en:\"Communion in Jail \" label QS:Len,\"Communion in Jail \" label QS:Lnb,\"I lensmannsarresten\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/08/Carl_Fredrik_Sundt-Hansen_-_Communion_in_Jail_-_NG.M.00264_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1875 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55422866#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.00264\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Carl Sundt-Hansen",
+    "artist_bio": "Carl Fredrik Sundt-Hansen (30 January 1841, Stavanger – 27 August 1907, Stavanger) was a Norwegian-Danish genre painter in the Romantic Nationalist style. .",
+    "artist_birth": "1841-01-30",
+    "artist_death": "1907-08-27",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Portraits",
       "1900s",
       "National Museum of Norway"
     ]
@@ -32507,6 +33040,30 @@
     "categories": [
       "1900s",
       "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Communion in Jail title QS:P1476,en:\"Communion in Jail \" label QS:Len,\"Communion in Jail \" label QS:Lnb,\"I lensmannsarresten\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Carl_Sundt-Hansen_-_I_lensmannsarresten_-_Communion_in_Jail_-_Nasjonalmuseet_-_NG.M.00264.jpg",
+    "year": "1875 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55422866#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://nkl.snl.no/Carl_Sundt-Hansen\">Norsk Kunstnerleksikon</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Carl Sundt-Hansen",
+    "artist_bio": "Carl Fredrik Sundt-Hansen (30 January 1841, Stavanger – 27 August 1907, Stavanger) was a Norwegian-Danish genre painter in the Romantic Nationalist style. .",
+    "artist_birth": "1841-01-30",
+    "artist_death": "1907-08-27",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "Norsk Kunstnerleksikon",
+    "categories": [
+      "Portraits",
+      "1900s"
     ]
   },
   {
@@ -32865,6 +33422,30 @@
     ]
   },
   {
+    "title": "Børsbillede or From Copenhagen Stock Exchange",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/9/91/Fra_K%C3%B8benhavns_B%C3%B8rs.jpg",
+    "year": "1895<div style=\"display: none;\">date QS:P571,+1895-00-00T00:00:00Z/9</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<span class=\"int-own-work\" lang=\"en\">Own work</span> from <a href=\"//commons.wikimedia.org/wiki/B%C3%B8rsen\" title=\"Børsen\">Børsen</a> København, Danmark 2016-05-14 14:11:45",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Peder Severin Krøyer",
+    "artist_bio": "Peder Severin Krøyer (Danish: [ˈpʰe̝ːðɐ ˈse̝vəˌʁiˀn ˈkʰʁʌjˀɐ]; 23 July 1851 – 21 November 1909), also known as P.  S.  Krøyer, was a Danish painter.",
+    "artist_birth": "1851-07-23",
+    "artist_death": "1909-11-21",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "Impressionism",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "Own work from Børsen København, Danmark",
+    "categories": [
+      "Impressionism",
+      "1900s"
+    ]
+  },
+  {
     "title": "Portrait of Frederikke Tuxenlabel QS:Len,\"Portrait of Frederikke Tuxen\" label QS:Lda,\"Portræt af Frederikke Tuxen\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Frederikke_Tuxen_by_Peter_Severin_Kr%C3%B8yer.jpg",
     "year": "1882<div style=\"display: none;\">date QS:P571,+1882-00-00T00:00:00Z/9</div>",
@@ -32985,6 +33566,29 @@
       "Portraits",
       "Impressionism",
       "1900s"
+    ]
+  },
+  {
+    "title": "Members of the French exhibition committee meeting in Copenhagen",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/64/Members_of_the_French_exhibition_committee_meeting_in_Copenh_Wellcome_V0006878.jpg",
+    "year": "",
+    "medium": "",
+    "dimensions": "",
+    "location": "<p><a rel=\"nofollow\" class=\"external free\" href=\"https://wellcomeimages.org/indexplus/obf_images/c3/d3/93136b42b7a7df73dc3ea6841a11.jpg\">https://wellcomeimages.org/indexplus/obf_images/c3/d3/93136b42b7a7df73dc3ea6841a11.jpg</a>\n</p>\n<ul><li>Gallery: <a rel=\"nofollow\" class=\"external free\" href=\"https://wellcomeimages.org/indexplus/image/V0006878.html\">https://wellcomeimages.org/indexplus/image/V0006878.html</a></li>\n<li>Wellcome Collection gallery (2018-03-31): <a rel=\"nofollow\" class=\"external free\" href=\"https://wellcomecollection.org/works/w22k4w3z\">https://wellcomecollection.org/works/w22k4w3z</a> <a rel=\"nofollow\" class=\"external text\" href=\"https://creativecommons.org/licenses/by/4.0/\">CC-BY-4.0</a></li></ul>",
+    "license": "CC BY 4.0",
+    "source": "Wikimedia Commons",
+    "artist": "Peder Severin Krøyer",
+    "artist_bio": "Peder Severin Krøyer (Danish: [ˈpʰe̝ːðɐ ˈse̝vəˌʁiˀn ˈkʰʁʌjˀɐ]; 23 July 1851 – 21 November 1909), also known as P.  S.  Krøyer, was a Danish painter.",
+    "artist_birth": "1851-07-23",
+    "artist_death": "1909-11-21",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "Impressionism",
+    "genre": "Painting",
+    "century": null,
+    "collection": "Wellcome Collection gallery (2018-03-31): https://wellcomecollection",
+    "categories": [
+      "Impressionism"
     ]
   },
   {
@@ -33633,6 +34237,29 @@
     ]
   },
   {
+    "title": "Danish: Studie fra Sogn, NorgeSketch from Parish in Norwaytitle QS:P1476,da:\"Studie fra Sogn, Norge\" label QS:Lda,\"Studie fra Sogn, Norge\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/7e/Thomas_Fearnley%2C_Studie_fra_Sogn%2C_Norge%2C_1826%2C_KMS3434%2C_Statens_Museum_for_Kunst.jpg",
+    "year": "1826<div style=\"display: none;\">date QS:P571,+1826-00-00T00:00:00Z/9</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "image",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Thomas Fearnley",
+    "artist_bio": "Thomas Fearnley (Norwegian pronunciation: [ˈfæːɳlɪ], 27 December 1802 – 16 January 1842) was a Norwegian romantic painter, a pupil of Johan Christian Dahl and a leading representative of Norwegian romantic nationalism in painting. \nHis son Thomas Fearnley (1841–1927) founded the Fearnley dynasty of shipping magnates. .",
+    "artist_birth": "1802-12-27",
+    "artist_death": "1842-01-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "image",
+    "categories": [
+      "1900s"
+    ]
+  },
+  {
     "title": "Norwegian Bokmål: Skoginteriør med krusifiks A Forest Road with an Altartitle QS:P1476,nb:\"Skoginteriør med krusifiks \" label QS:Lnb,\"Skoginteriør med krusifiks \" label QS:Len,\"A Forest Road with an Altar\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/Thomas_Fearnley_-_A_Forest_Road_with_an_Altar_-_NG.M.00455a_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
     "year": "1830 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55424762#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -33678,6 +34305,30 @@
     "collection": "National Museum of Art",
     "categories": [
       "Landscapes",
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Norwegian Bokmål: Strandbredd, Winkel i Sveits At the Bank, Winkel in Switzerlandtitle QS:P1476,nb:\"Strandbredd, Winkel i Sveits \" label QS:Lnb,\"Strandbredd, Winkel i Sveits \" label QS:Len,\"At the Bank, Winkel in Switzerland\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/38/Thomas_Fearnley_-_At_the_Bank%2C_Winkel_in_Switzerland_-_NG.M.01873_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1835 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55425085#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.01873\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Thomas Fearnley",
+    "artist_bio": "Thomas Fearnley (Norwegian pronunciation: [ˈfæːɳlɪ], 27 December 1802 – 16 January 1842) was a Norwegian romantic painter, a pupil of Johan Christian Dahl and a leading representative of Norwegian romantic nationalism in painting. \nHis son Thomas Fearnley (1841–1927) founded the Fearnley dynasty of shipping magnates. .",
+    "artist_birth": "1802-12-27",
+    "artist_death": "1842-01-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
       "1900s",
       "National Museum of Norway"
     ]
@@ -34058,6 +34709,29 @@
     "categories": [
       "Landscapes",
       "1900s"
+    ]
+  },
+  {
+    "title": "Baade Alpenlandschaft",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/46/Baade_Alpenlandschaft.jpg",
+    "year": "2023-01-05",
+    "medium": "",
+    "dimensions": "",
+    "location": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+    "license": "CC BY-SA 4.0",
+    "source": "Wikimedia Commons",
+    "artist": "Knud Baade",
+    "artist_bio": "Knud Baade (28 March 1808 – 24 November 1879) was a Norwegian painter, mostly of portraits and landscapes.  He was particularly known for his moonlight paintings which are characterized by strong and dramatic contrasts between light and shadow. .",
+    "artist_birth": "1808-03-28",
+    "artist_death": "1879-11-24",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 21,
+    "collection": "Own work",
+    "categories": [
+      "2100s"
     ]
   },
   {
@@ -35349,6 +36023,52 @@
     "title": "B21496626 0005 0643 Les merveilles de la science Inventions scientifiques dupuis 1870 Supplément au aérostats. Le ballon de Rolier, aéronaute du siège de Paris, rase la surface des flots. La Ville d’Orléans Norway 1870-11-2",
     "url": "https://upload.wikimedia.org/wikipedia/commons/5/52/B21496626_0005_0643_Les_merveilles_de_la_science_Inventions_scientifiques_dupuis_1870_Suppl%C3%A9ment_au_a%C3%A9rostats._Le_ballon_de_Rolier%2C_a%C3%A9ronaute_du_si%C3%A8ge_de_Paris%2C_rase_la_surface_des_flots._La_Ville_d%E2%80%99Orl%C3%A9ans_Norway_1870-11-2.jpg",
     "year": "2015-04-09 15:42:31",
+    "medium": "",
+    "dimensions": "",
+    "location": "<p>Illustration from <i>Supplement 1 &amp; 2 Description des inventions scientifiques depuis 1870</i> of <i>Les merveilles de la science, ou Description populaire des inventions modernes</i>\n</p>\nby Louis Figuier (1819-1894) published from 1867 and onwards, found as a digital copy at  <a rel=\"nofollow\" class=\"external free\" href=\"https://archive.org/details/b21496626_0005/page/632/mode/2up\">https://archive.org/details/b21496626_0005/page/632/mode/2up</a>",
+    "license": "CC BY-SA 4.0",
+    "source": "Wikimedia Commons",
+    "artist": "Morten Müller",
+    "artist_bio": "Morten Müller (13 February 1828 – 10 February 1911)  was a Norwegian landscape painter. .",
+    "artist_birth": "1828-02-13",
+    "artist_death": "1911-02-10",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 21,
+    "collection": "Illustration from Supplement 1 &amp; 2 D",
+    "categories": [
+      "2100s"
+    ]
+  },
+  {
+    "title": "B21496626 0005 0645 Les merveilles de la science Inventions scientifiques dupuis 1870 Supplément au aerostats. Chute, en Norvège, du ballon de Rolier et Bezier La Ville d'Orléans 1870-11-25 Illustration",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bc/B21496626_0005_0645_Les_merveilles_de_la_science_Inventions_scientifiques_dupuis_1870_Suppl%C3%A9ment_au_aerostats._Chute%2C_en_Norv%C3%A8ge%2C_du_ballon_de_Rolier_et_Bezier_La_Ville_d%27Orl%C3%A9ans_1870-11-25_Illustration.jpg",
+    "year": "2015-04-09 15:42:51",
+    "medium": "",
+    "dimensions": "",
+    "location": "<p>Illustration from <i>Supplement 1 &amp; 2 Description des inventions scientifiques depuis 1870</i> of <i>Les merveilles de la science, ou Description populaire des inventions modernes</i>\n</p>\nby Louis Figuier (1819-1894) published from 1867 and onwards, found as a digital copy at  <a rel=\"nofollow\" class=\"external free\" href=\"https://archive.org/details/b21496626_0005/page/632/mode/2up\">https://archive.org/details/b21496626_0005/page/632/mode/2up</a>",
+    "license": "CC BY-SA 4.0",
+    "source": "Wikimedia Commons",
+    "artist": "Morten Müller",
+    "artist_bio": "Morten Müller (13 February 1828 – 10 February 1911)  was a Norwegian landscape painter. .",
+    "artist_birth": "1828-02-13",
+    "artist_death": "1911-02-10",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": 21,
+    "collection": "Illustration from Supplement 1 &amp; 2 D",
+    "categories": [
+      "2100s"
+    ]
+  },
+  {
+    "title": "B21496626 0005 0645 Les merveilles de la science Inventions scientifiques dupuis 1870 Supplément au aerostats. Chute, en Norvège, du ballon de Rolier et Bezier La Ville d'Orléans 1870-11-25 Illustration (contrast)",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/30/B21496626_0005_0645_Les_merveilles_de_la_science_Inventions_scientifiques_dupuis_1870_Suppl%C3%A9ment_au_aerostats._Chute%2C_en_Norv%C3%A8ge%2C_du_ballon_de_Rolier_et_Bezier_La_Ville_d%27Orl%C3%A9ans_1870-11-25_Illustration_%28contrast%29.jpg",
+    "year": "2015-04-09 15:42:51",
     "medium": "",
     "dimensions": "",
     "location": "<p>Illustration from <i>Supplement 1 &amp; 2 Description des inventions scientifiques depuis 1870</i> of <i>Les merveilles de la science, ou Description populaire des inventions modernes</i>\n</p>\nby Louis Figuier (1819-1894) published from 1867 and onwards, found as a digital copy at  <a rel=\"nofollow\" class=\"external free\" href=\"https://archive.org/details/b21496626_0005/page/632/mode/2up\">https://archive.org/details/b21496626_0005/page/632/mode/2up</a>",
@@ -37095,6 +37815,29 @@
     ]
   },
   {
+    "title": "Avfotografering av Eyolf Soots maleri av Bjørnstjerne Bjørnson - no-nb digifoto 20160202 00110 bldsa BB1727",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Avfotografering_av_Eyolf_Soots_maleri_av_Bj%C3%B8rnstjerne_Bj%C3%B8rnson_-_no-nb_digifoto_20160202_00110_bldsa_BB1727.jpg",
+    "year": "Unknown date",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Eyolf Soot",
+    "artist_bio": "Eyolf Soot (24 April 1859 – 30 August 1928) was a Norwegian painter. .",
+    "artist_birth": "1858-04-24",
+    "artist_death": "1928-03-30",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": "National Library of Norway",
+    "categories": [
+      "Other"
+    ]
+  },
+  {
     "title": "Olav Johan Sopplabel QS:Len,\"Olav Johan Sopp\" label QS:Lnn,\"Olav Johan Sopp\" label QS:Lnb,\"Olav Johan Sopp\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/7/79/Eyolf_Soot_-_Dr._Sopp.png",
     "year": "1898 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q120998499#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -37740,6 +38483,30 @@
     ]
   },
   {
+    "title": "Sketch of a newborn child",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c0/Ludvig_Karsten_-_Skitse_af_et_nyf%C3%B8dt_barn_-_1911_-_NK_778.png",
+    "year": "1911<div style=\"display: none;\">date QS:P571,+1911-00-00T00:00:00Z/9</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"https://collection.kunsten.dk/artworks/f39a4911-61b7-418d-8a25-e17ffdb75c6d\">https://collection.kunsten.dk/artworks/f39a4911-61b7-418d-8a25-e17ffdb75c6d</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Ludvig Karsten",
+    "artist_bio": "Ludvig Karsten (8 May 1876 – 19 October 1926) was a Norwegian painter.  He was a neo-impressionist influenced by Edvard Munch, Henri Matisse and contemporary French painting.  He first participated at the Autumn exhibition in Kristiania in 1901, and had his first separate exhibition in 1904.",
+    "artist_birth": "1876-05-08",
+    "artist_death": "1926-10-19",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "pointillism",
+    "genre": "Painting",
+    "century": 20,
+    "collection": "https://collection.kunsten.dk/artworks/f",
+    "categories": [
+      "Portraits",
+      "2000s"
+    ]
+  },
+  {
     "title": "Spring Evening at Ula",
     "url": "https://upload.wikimedia.org/wikipedia/commons/a/a6/Ludvig_Karsten_-_Spring_Evening_at_Ula_-_Google_Art_Project.jpg",
     "year": "1905<div style=\"display: none;\">date QS:P571,+1905-00-00T00:00:00Z/9</div>",
@@ -38331,6 +39098,31 @@
     ]
   },
   {
+    "title": "Interior from Copenhagen title QS:P1476,en:\"Interior from Copenhagen \" label QS:Len,\"Interior from Copenhagen \" label QS:Lnb,\"Interiør fra København\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/a/af/Thorvald_Erichsen_-_Interior_from_Copenhagen_-_NG.M.01115_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1900 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55419781#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.01115\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Thorvald Erichsen",
+    "artist_bio": "Thorvald Erichsen (18 July 1868 - 23 December 1939) was a Norwegian Post-Impressionist painter; known primarily for landscapes and still-lifes. .",
+    "artist_birth": "1868-07-18",
+    "artist_death": "1939-12-23",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Interior",
+    "century": 19,
+    "collection": "National Museum of Art",
+    "categories": [
+      "Landscapes",
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
     "title": "Interior with the Artists Oluf and Kris Wold-Torne title QS:P1476,en:\"Interior with the Artists Oluf and Kris Wold-Torne \" label QS:Len,\"Interior with the Artists Oluf and Kris Wold-Torne \" label QS:Lnb,\"Interiør med kunstnerne Oluf og Kris Wold-Torne\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/3/3b/Thorvald_Erichsen_-_Interior_with_the_Artists_Oluf_and_Kris_Wold-Torne_-_NG.M.01814_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
     "year": "from 1900 until 1904<div style=\"display: none;\">date QS:P,+1900-00-00T00:00:00Z/8,P580,+1900-00-00T00:00:00Z/9,P582,+1904-00-00T00:00:00Z/9</div> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55419617#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -38444,6 +39236,30 @@
     "century": 20,
     "collection": "DigitaltMuseum",
     "categories": [
+      "2000s"
+    ]
+  },
+  {
+    "title": "Swedish: Landskap (Balbergkampen) Landscape (Balbergkampen)title QS:P1476,sv:\"Landskap (Balbergkampen) \" label QS:Lsv,\"Landskap (Balbergkampen) \" label QS:Lfi,\"Maisema (Balbergkampen)\" label QS:Len,\"Landscape (Balbergkampen)\" label QS:Lnn,\"Landskap (Balbergkampen)\" label QS:Lnb,\"Landskap (Balbergkampen)\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/54/Thorvald_Erichsen_-_Landscape_%28Balbergkampen%29_-_A_II_1269_-_Finnish_National_Gallery.jpg",
+    "year": "1907 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q20792533#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"http://kokoelmat.fng.fi/app?si=A+II+1269\">http://kokoelmat.fng.fi/app?si=A+II+1269</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Thorvald Erichsen",
+    "artist_bio": "Thorvald Erichsen (18 July 1868 - 23 December 1939) was a Norwegian Post-Impressionist painter; known primarily for landscapes and still-lifes. .",
+    "artist_birth": "1868-07-18",
+    "artist_death": "1939-12-23",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Landscape",
+    "century": 20,
+    "collection": "http://kokoelmat.fng.fi/app?si=A+II+1269",
+    "categories": [
+      "Landscapes",
       "2000s"
     ]
   },
@@ -42599,6 +43415,32 @@
     ]
   },
   {
+    "title": "Two Women by the Veranda Steps title QS:P1476,en:\"Two Women by the Veranda Steps \" label QS:Len,\"Two Women by the Veranda Steps \" label QS:Lnb,\"To kvinner ved verandatrappen\" label QS:Lfr,\"Deux Femmes sur les marches de la véranda\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Munch_-_Two_Women_by_the_Veranda_Steps%2C_1942%2C_MM.M.00623.jpg",
+    "year": "1942 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q18891304#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"https://foto.munchmuseet.no/fotoweb/archives/5026-Malerier/\">https://foto.munchmuseet.no/fotoweb/archives/5026-Malerier/</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Edvard Munch",
+    "artist_bio": "Edvard Munch ( MUUNK; Norwegian: [ˈɛ̀dvɑɖ ˈmʊŋk] ; 12 December 1863 – 23 January 1944) was a Norwegian painter.  His 1893 work The Scream has become one of Western art's most acclaimed images. \nHis childhood was overshadowed by illness, bereavement and the dread of inheriting a mental condition that ran in the family.",
+    "artist_birth": "1863-12-12",
+    "artist_death": "1944-01-23",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "Expressionism",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "https://foto.munchmuseet.no/fotoweb/arch",
+    "categories": [
+      "Popular painters",
+      "Portraits",
+      "Expressionism",
+      "2000s"
+    ]
+  },
+  {
     "title": "Woman in a Blue Dress title QS:P1476,en:\"Woman in a Blue Dress \" label QS:Len,\"Woman in a Blue Dress \" label QS:Lnb,\"Kvinne i blå kjole\" label QS:Lfr,\"Femme à la robe bleue\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Munch_-_Woman_in_a_Blue_Dress%2C_1924%E2%80%9326%2C_MM.M.00672.jpg",
     "year": "from 1924 until 1926<div style=\"display: none;\">date QS:P,+1924-00-00T00:00:00Z/8,P580,+1924-00-00T00:00:00Z/9,P582,+1926-00-00T00:00:00Z/9</div> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q18891441#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -44097,6 +44939,31 @@
     ]
   },
   {
+    "title": "The seaward approach to Copenhagen",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Indsejlingen%20til%20K%C3%B8benhavn%20%29J.%20C.%20Dahl%29.jpg",
+    "year": "1830-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Johan Christian Dahl",
+    "artist_bio": "Johan Christian Claussen Dahl (24 February 1788 – 14 October 1857), often known as J.  C.  Dahl or I.",
+    "artist_birth": "1788-02-24",
+    "artist_death": "1857-10-14",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": null,
+    "categories": [
+      "Popular painters",
+      "Landscapes",
+      "1900s"
+    ]
+  },
+  {
     "title": "View of Christiania and Akershus Castle",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Johan%20Christian%20Dahl%20-%20Christiania%20sett%20fra%20vest.jpg",
     "year": "1839-01-01T00:00:00Z",
@@ -44270,6 +45137,30 @@
     "title": "Grotto by the Bay of Naples. Moonlight",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Bugten%20ved%20Napoli%20set%20fra%20en%20grotte.JPG",
     "year": "1821-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Johan Christian Dahl",
+    "artist_bio": "Johan Christian Claussen Dahl (24 February 1788 – 14 October 1857), often known as J.  C.  Dahl or I.",
+    "artist_birth": "1788-02-24",
+    "artist_death": "1857-10-14",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": null,
+    "categories": [
+      "Popular painters",
+      "1900s"
+    ]
+  },
+  {
+    "title": "Prospect of Dresden seen from Pieschen. Morning Haze",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Prospect%20of%20Dresden%20Seen%20from%20Pieschen%2C%20March%20Haze%2C%20by%20Johan%20Christian%20Dahl%20-%20Ny%20Carlsberg%20Glyptotek%20-%20Copenhagen%20-%20DSC09249.JPG",
+    "year": "1844-01-01T00:00:00Z",
     "medium": "",
     "dimensions": "",
     "location": "",
@@ -45335,6 +46226,55 @@
     ]
   },
   {
+    "title": "Norwegian: Kampen for tilværelsen Struggle for Survivaltitle QS:P1476,no:\"Kampen for tilværelsen \" label QS:Lno,\"Kampen for tilværelsen \" label QS:Lsv,\"Kampen för tillvaron\" label QS:Len,\"Struggle for Survival\" label QS:Lnn,\"Kampen for tilværelsen\" label QS:Lnb,\"Kampen for tilværelsen\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c8/Christian_Krohg_-_Struggle_for_Survival_-_NG.M.00348_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1889 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q19398982#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.00348\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Christian Krohg",
+    "artist_bio": "Christian Krohg (13 August 1852 – 16 October 1925) was a Norwegian naturalist painter, illustrator, author and journalist.  Krohg was inspired by the realism art movement and often chose motifs from everyday life.  He was the director and  served as the first professor at the Norwegian Academy of Arts from 1909 to 1925.",
+    "artist_birth": "1852-08-13",
+    "artist_death": "1925-10-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "realism",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
+      "1900s",
+      "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Christian Krohg - Sunday Morning in Grez. Sketch - Søndag morgen, Grez (skisse) - Nasjonalmuseet - NG.M.03641",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/11/Christian_Krohg_-_Sunday_Morning_in_Grez._Sketch_-_S%C3%B8ndag_morgen%2C_Grez_%28skisse%29_-_Nasjonalmuseet_-_NG.M.03641.jpg",
+    "year": "",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no/en/collection/object/NG.M.03641\">Nasjonalmuseet for kunst, arkitektur og design</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Christian Krohg",
+    "artist_bio": "Christian Krohg (13 August 1852 – 16 October 1925) was a Norwegian naturalist painter, illustrator, author and journalist.  Krohg was inspired by the realism art movement and often chose motifs from everyday life.  He was the director and  served as the first professor at the Norwegian Academy of Arts from 1909 to 1925.",
+    "artist_birth": "1852-08-13",
+    "artist_death": "1925-10-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "realism",
+    "genre": "Painting",
+    "century": null,
+    "collection": "Nasjonalmuseet for kunst, arkitektur og",
+    "categories": [
+      "Popular painters",
+      "Historical/Nationalism"
+    ]
+  },
+  {
     "title": "Norwegian Bokmål: Utenfor \"Engebret\" c. 1895 title QS:P1476,nb:\"Utenfor \"Engebret\" c. 1895 \" label QS:Lnb,\"Utenfor \"Engebret\" c. 1895 \"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Christian_Krohg_-_Utenfor_Engebret_c._1895_-_Oslo_Museum_-_OB.01665.jpg",
     "year": "1895",
@@ -45356,6 +46296,54 @@
     "categories": [
       "Popular painters",
       "1900s"
+    ]
+  },
+  {
+    "title": "Christian Krohgs utstilling - no-nb digifoto 20160422 00039 NB NS NM 10388",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d1/Christian_Krohgs_utstilling_-_no-nb_digifoto_20160422_00039_NB_NS_NM_10388.jpg",
+    "year": "between 1 January 1910 and 31 December 1925<div style=\"display: none;\">date QS:P,+1950-00-00T00:00:00Z/7,P1319,+1910-01-01T00:00:00Z/11,P1326,+1925-12-31T00:00:00Z/11</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Christian Krohg",
+    "artist_bio": "Christian Krohg (13 August 1852 – 16 October 1925) was a Norwegian naturalist painter, illustrator, author and journalist.  Krohg was inspired by the realism art movement and often chose motifs from everyday life.  He was the director and  served as the first professor at the Norwegian Academy of Arts from 1909 to 1925.",
+    "artist_birth": "1852-08-13",
+    "artist_death": "1925-10-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "realism",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "Popular painters",
+      "2000s"
+    ]
+  },
+  {
+    "title": "Christian Krohgs utstilling - no-nb digifoto 20160422 00039 NB NS NM 10388 (cropped-2)",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6b/Christian_Krohgs_utstilling_-_no-nb_digifoto_20160422_00039_NB_NS_NM_10388_%28cropped-2%29.jpg",
+    "year": "between 1 January 1910 and 31 December 1925<div style=\"display: none;\">date QS:P,+1950-00-00T00:00:00Z/7,P1319,+1910-01-01T00:00:00Z/11,P1326,+1925-12-31T00:00:00Z/11</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Christian Krohg",
+    "artist_bio": "Christian Krohg (13 August 1852 – 16 October 1925) was a Norwegian naturalist painter, illustrator, author and journalist.  Krohg was inspired by the realism art movement and often chose motifs from everyday life.  He was the director and  served as the first professor at the Norwegian Academy of Arts from 1909 to 1925.",
+    "artist_birth": "1852-08-13",
+    "artist_death": "1925-10-16",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "realism",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "Popular painters",
+      "2000s"
     ]
   },
   {
@@ -50825,6 +51813,30 @@
     ]
   },
   {
+    "title": "en:Gaustatoppen",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b8/Peder_Balke-Gaustatoppen.jpg",
+    "year": "circa 1858<div style=\"display: none;\">date QS:P571,+1858-00-00T00:00:00Z/9,P1480,Q5727902</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"https://gwpa.no/nb/lots/1297\">https://gwpa.no/nb/lots/1297</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Peder Balke",
+    "artist_bio": "Peder Balke (November 4, 1804 – February 5, 1887) was a Norwegian painter.  He is known for portraying the landscape of Norway in a romantic and dramatic manner. .",
+    "artist_birth": "1804-11-04",
+    "artist_death": "1887-02-05",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": "https://gwpa.no/nb/lots/1297",
+    "categories": [
+      "Popular painters",
+      "1900s"
+    ]
+  },
+  {
     "title": "From North Cape title QS:P1476,en:\"From North Cape \" label QS:Len,\"From North Cape \" label QS:Lnb,\"Fra Nordkapp\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Peder_Balke-Nordkapp.jpg",
     "year": "circa 1840<div style=\"display: none;\">date QS:P571,+1840-00-00T00:00:00Z/9,P1480,Q5727902</div>",
@@ -51583,6 +52595,32 @@
       "Impressionism",
       "1900s",
       "National Museum of Norway"
+    ]
+  },
+  {
+    "title": "Danish: Parti fra Amerikavej i København View of Amerikavej in Copenhagenlabel QS:Len,\"View of Amerikavej in Copenhagen\" label QS:Lda,\"Parti fra Amerikavej i København\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e8/Frits_Thaulow_-_View_of_Amerikavej_in_Copenhagen_-_KMS1740_-_Statens_Museum_for_Kunst.jpg",
+    "year": "1881 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q20535958#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"http://collection.smk.dk/#/en/detail/KMS1740\">http://collection.smk.dk/#/en/detail/KMS1740</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Frits Thaulow",
+    "artist_bio": "Frits Thaulow (20 October 1847 – 5 November 1906) was a Norwegian Impressionist painter, best known for his naturalistic depictions of landscape. .",
+    "artist_birth": "1847-10-20",
+    "artist_death": "1906-11-05",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "Impressionism",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": "http://collection.smk.dk/#/en/detail/KMS",
+    "categories": [
+      "Popular painters",
+      "Landscapes",
+      "Impressionism",
+      "1900s"
     ]
   },
   {
@@ -52992,6 +54030,30 @@
     ]
   },
   {
+    "title": "Astrup N StHans bonfire sketch",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/b6/Astrup_N_StHans_bonfire_sketch.jpg",
+    "year": "2019",
+    "medium": "",
+    "dimensions": "",
+    "location": "<span class=\"int-own-work\" lang=\"en\">Own work</span>",
+    "license": "CC0",
+    "source": "Wikimedia Commons",
+    "artist": "Nikolai Astrup",
+    "artist_bio": "Nikolai Astrup (Norwegian pronunciation: [nɪkʊˈlɑ̀i̯ ˈɑ̀stɾʉp]) (30 August 1880 – 21 January 1928) was a Norwegian modernist painter.  Astrup was a distinctive, innovative artist noted principally for his intense use of color depicting the lush landscapes of Vestlandet featuring the traditional way of life in the region. .",
+    "artist_birth": "1880-08-30",
+    "artist_death": "1928-01-21",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2100s",
+    "collection": "Own work",
+    "categories": [
+      "Popular painters",
+      "2100s"
+    ]
+  },
+  {
     "title": "Warmth Enters the Earth title QS:P1476,en:\"Warmth Enters the Earth \" label QS:Len,\"Warmth Enters the Earth \" label QS:Lnb,\"Varmen kommer i jorden\" label QS:Lnn,\"Varmen kommer i jorden\" label QS:Lda,\"Varmen kommer i jorden\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/6/6f/Astrup_Varmen_kommer_i_jorden.jpg",
     "year": "1908 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q116159429#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
@@ -53037,6 +54099,30 @@
     "categories": [
       "Popular painters",
       "2000s"
+    ]
+  },
+  {
+    "title": "By the Open Door, Nicolai Astrup - 1902-1911",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/04/By_the_Open_Door%2C_Nicolai_Astrup_-_1902-1911.jpg",
+    "year": "2016-08-05",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"http://www.the-athenaeum.org/art/detail.php?ID=229374\">http://www.the-athenaeum.org/art/detail.php?ID=229374</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Nikolai Astrup",
+    "artist_bio": "Nikolai Astrup (Norwegian pronunciation: [nɪkʊˈlɑ̀i̯ ˈɑ̀stɾʉp]) (30 August 1880 – 21 January 1928) was a Norwegian modernist painter.  Astrup was a distinctive, innovative artist noted principally for his intense use of color depicting the lush landscapes of Vestlandet featuring the traditional way of life in the region. .",
+    "artist_birth": "1880-08-30",
+    "artist_death": "1928-01-21",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2100s",
+    "collection": "http://www.the-athenaeum.org/art/detail.",
+    "categories": [
+      "Popular painters",
+      "2100s"
     ]
   },
   {
@@ -53747,6 +54833,30 @@
     ]
   },
   {
+    "title": "Night, the Church at Røros. Sketch for Night 1904",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Harald%20Sohlberg%20-%20Night%2C%20the%20Church%20at%20R%C3%B8ros.%20Sketch%20for%20Night%201904%20-%20NG.M.01676%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
+    "year": "1903-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Harald Sohlberg",
+    "artist_bio": "Harald Oskar Sohlberg (29 November 1869 – 19 June 1935) was a Norwegian Neo-romantic painter. .",
+    "artist_birth": "1869-11-29",
+    "artist_death": "1935-06-19",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": null,
+    "categories": [
+      "Popular painters",
+      "2000s"
+    ]
+  },
+  {
     "title": "Evening Glow",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Harald%20Sohlberg%20-%20Evening%20Glow%20-%20Google%20Art%20Project.jpg",
     "year": "1893-01-01T00:00:00Z",
@@ -53797,6 +54907,30 @@
   {
     "title": "Summer Night",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Harald%20Sohlberg%20-%20Summer%20Night%20-%20NG.M.00525%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
+    "year": "1899-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Harald Sohlberg",
+    "artist_bio": "Harald Oskar Sohlberg (29 November 1869 – 19 June 1935) was a Norwegian Neo-romantic painter. .",
+    "artist_birth": "1869-11-29",
+    "artist_death": "1935-06-19",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": null,
+    "categories": [
+      "Popular painters",
+      "1900s"
+    ]
+  },
+  {
+    "title": "Sketch for Summer Night 1899",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Harald%20Sohlberg%20-%20Sketch%20for%20Summer%20Night%201899%20-%20NG.M.01829%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
     "year": "1899-01-01T00:00:00Z",
     "medium": "",
     "dimensions": "",
@@ -54812,6 +55946,31 @@
     "collection": "Photo by Mattias Blomgren",
     "categories": [
       "Popular painters",
+      "1900s"
+    ]
+  },
+  {
+    "title": "Fishermen Looking into the Water title QS:P1476,en:\"Fishermen Looking into the Water \" label QS:Len,\"Fishermen Looking into the Water \" label QS:Lnb,\"Vannkikkere\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/be/Werenskiold_Drinking.jpg",
+    "year": "1894 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q111080777#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"http://www.artexpertswebsite.com/pages/artists/werenskiold.php\">http://www.artexpertswebsite.com/pages/artists/werenskiold.php</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Erik Werenskiold",
+    "artist_bio": "Erik Theodor Werenskiold (11 February 1855 – 23 November 1938) was a Norwegian painter and illustrator.  He is especially known for his drawings for the Asbjørnsen and Moe collection of Norske Folkeeventyr, and his illustrations for the Norwegian edition of the Snorri Sturlason Heimskringla. .",
+    "artist_birth": "1855-02-11",
+    "artist_death": "1938-11-23",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": "http://www.artexpertswebsite.com/pages/a",
+    "categories": [
+      "Popular painters",
+      "Landscapes",
       "1900s"
     ]
   },
@@ -56504,6 +57663,30 @@
     ]
   },
   {
+    "title": "Fishermen Looking into the Water",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Werenskiold%20Drinking.jpg",
+    "year": "1894-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Erik Werenskiold",
+    "artist_bio": "Erik Theodor Werenskiold (11 February 1855 – 23 November 1938) was a Norwegian painter and illustrator.  He is especially known for his drawings for the Asbjørnsen and Moe collection of Norske Folkeeventyr, and his illustrations for the Norwegian edition of the Snorri Sturlason Heimskringla. .",
+    "artist_birth": "1855-02-11",
+    "artist_death": "1938-11-23",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": null,
+    "categories": [
+      "Popular painters",
+      "1900s"
+    ]
+  },
+  {
     "title": "Yellow flowers",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/%27Golden%20Flowers%27%20by%20Erik%20Werenskiold%2C%20Bergen%20Kunstmuseum.JPG",
     "year": "1913-01-01T00:00:00Z",
@@ -56796,6 +57979,31 @@
     "categories": [
       "Popular painters",
       "1900s"
+    ]
+  },
+  {
+    "title": "Norwegian Bokmål: Årestue på Sogneskar i Valle Open-Hearth Room at the Farm Sogneskar in Valletitle QS:P1476,nb:\"Årestue på Sogneskar i Valle \" label QS:Lnb,\"Årestue på Sogneskar i Valle \" label QS:Len,\"Open-Hearth Room at the Farm Sogneskar in Valle\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Adolph_Tidemand_-_Open-Hearth_Room_at_the_Farm_Sogneskar_in_Valle_-_NG.M.00302-012_-_National_Museum_of_Art%2C_Architecture_and_Design.jpg",
+    "year": "1848 <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"https://www.wikidata.org/wiki/Q55421309#P571\" title=\"Edit this at Wikidata\"><img alt=\"Edit this at Wikidata\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://www.nasjonalmuseet.no//en/collection/object/NG.M.00302-012\">National Museum of Art, Architecture and Design</a> <span class=\"mw-valign-text-top\" typeof=\"mw:File/Frameless\"><a href=\"//commons.wikimedia.org/wiki/File:OOjs_UI_icon_edit-ltr-progressive.svg\" class=\"mw-file-description\" title=\"Edit this at Structured Data on Commons\"><img alt=\"Edit this at Structured Data on Commons\" src=\"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/OOjs_UI_icon_edit-ltr-progressive.svg/20px-OOjs_UI_icon_edit-ltr-progressive.svg.png\" decoding=\"async\" width=\"10\" height=\"10\" class=\"mw-file-element\" data-file-width=\"20\" data-file-height=\"20\"></a></span>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Adolph Tidemand",
+    "artist_bio": "Adolph Tidemand (14 August 1814 – 8 August 1876) was a noted Norwegian romantic nationalism painter.  Among his best known paintings  are Haugianerne (The Haugeans; 1852) and Brudeferd i Hardanger (The Bridal Procession in Hardanger; 1848), painted in collaboration with Hans Gude. .",
+    "artist_birth": "1814-08-14",
+    "artist_death": "1876-08-25",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "romantic nationalism",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": "National Museum of Art",
+    "categories": [
+      "Popular painters",
+      "1900s",
+      "National Museum of Norway"
     ]
   },
   {
@@ -57144,6 +58352,30 @@
     "categories": [
       "Popular painters",
       "Portraits",
+      "1900s"
+    ]
+  },
+  {
+    "title": "Norwegian Bokmål: Fanatikere. Skisse til bilde Fanatics. Sketchtitle QS:P1476,nb:\"Fanatikere. Skisse til bilde \" label QS:Lnb,\"Fanatikere. Skisse til bilde \" label QS:Len,\"Fanatics. Sketch\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/f/f6/Adolph_Tidemand_-_Fanatics._Sketch_-_Fanatikere._Skisse_til_bilde_-_Nasjonalmuseet_-_NG.M.00302-079.png",
+    "year": "1865",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"https://nkl.snl.no/Adolph_Tidemand\">Norsk kunstnerleksikon</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Adolph Tidemand",
+    "artist_bio": "Adolph Tidemand (14 August 1814 – 8 August 1876) was a noted Norwegian romantic nationalism painter.  Among his best known paintings  are Haugianerne (The Haugeans; 1852) and Brudeferd i Hardanger (The Bridal Procession in Hardanger; 1848), painted in collaboration with Hans Gude. .",
+    "artist_birth": "1814-08-14",
+    "artist_death": "1876-08-25",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "romantic nationalism",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": "Norsk kunstnerleksikon",
+    "categories": [
+      "Popular painters",
       "1900s"
     ]
   },
@@ -65569,6 +66801,29 @@
     ]
   },
   {
+    "title": "Schoonerlabel QS:Lja,\"スクーナー\" label QS:Lfr,\"Goëlette\" label QS:Len,\"Schooner\" label QS:Lnb,\"Lensende skonnert\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/3/39/Martin_Aagaard_-_Lensende_Skonnert.jpg",
+    "year": "",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"http://www.arcadja.com/auctions/de/private/aagaard_martin/kunstwerken/74517/0/\">Grev Wedels, Oslo, 05.12.2011, lot 176 via ARCADJA auction results</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Martin Aagaard",
+    "artist_bio": "Zacharias Martin Aagaard (13 October 1863 – 6 December 1913) was a Norwegian painter who specialized in marine painting. .",
+    "artist_birth": "1863-10-13",
+    "artist_death": "1913-01-01",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": "Grev Wedels, Oslo, 05.12.2011, lot 176 v",
+    "categories": [
+      "Other"
+    ]
+  },
+  {
     "title": "Sailor with binocularslabel QS:Lsv,\"Sjöman med Kikare\" label QS:Lde,\"Seemann mit Fernrohr\" label QS:Len,\"Sailor with binoculars\" label QS:Lru,\"Матрос с биноклем\" label QS:Lno,\"Sailor med kikkert\"",
     "url": "https://upload.wikimedia.org/wikipedia/commons/c/c2/Martin_Aagaard_-_Sailor_med_kikkert.jpg",
     "year": "",
@@ -65635,6 +66890,29 @@
     "collection": "Lilla Bukowskis, Stockholm, 24.09.2007,",
     "categories": [
       "Other"
+    ]
+  },
+  {
+    "title": "Norwegian: To fartøyer på et skandinavisk kystenTwo vessels off a Scandinavian coasttitle QS:P1476,no:\"To fartøyer på et skandinavisk kysten\" label QS:Lno,\"To fartøyer på et skandinavisk kysten\" label QS:Lsv,\"Två fartyg till en skandinavisk kust\" label QS:Len,\"Two vessels off a Scandinavian coast\" label QS:Lru,\"Два судна в скандинавском побережье\" label QS:Lde,\"Zwei Schiffe an einer skandinavischen Küste\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Martin_Aagaard_-_To_fart%C3%B8yer_p%C3%A5_et_skandinavisk_kysten.jpg",
+    "year": "",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external text\" href=\"http://www.arcadja.com/auctions/de/private/aagaard_martin/kunstwerken/74517/0/\">Lawrences, Crewkerne UK, 15.04.2011, lot 1897 via ARCADJA auction results</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Martin Aagaard",
+    "artist_bio": "Zacharias Martin Aagaard (13 October 1863 – 6 December 1913) was a Norwegian painter who specialized in marine painting. .",
+    "artist_birth": "1863-10-13",
+    "artist_death": "1913-01-01",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": "Lawrences, Crewkerne UK, 15.04.2011, lot",
+    "categories": [
+      "Landscapes"
     ]
   },
   {
@@ -66658,6 +67936,29 @@
     ]
   },
   {
+    "title": "Frühschoppen",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Glaspalast_M%C3%BCnchen_1883_256.jpg",
+    "year": "",
+    "medium": "",
+    "dimensions": "",
+    "location": "see below",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Oscar Wergeland",
+    "artist_bio": "Oscar Arnold Wergeland (12 October 1844 – 20 May 1910)  was a Norwegian painter.  He is best known for his historical painting of the Constituent Assembly at Eidsvoll (Riksforsamlingen på Eidsvoll 1814).  Two of his paintings are held in the National Gallery of Norway.",
+    "artist_birth": "1844-10-12",
+    "artist_death": "1910-05-20",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": null,
+    "collection": "see below",
+    "categories": [
+      "Other"
+    ]
+  },
+  {
     "title": "Norsemen Landing in Iceland",
     "url": "https://upload.wikimedia.org/wikipedia/commons/d/d0/Norsemen_Landing_in_Iceland.jpg",
     "year": "Published in 1909",
@@ -67131,6 +68432,29 @@
   {
     "title": "Communion in Jail",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Carl%20Fredrik%20Sundt-Hansen%20-%20Communion%20in%20Jail%20-%20NG.M.00264%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
+    "year": "1875-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Carl Sundt-Hansen",
+    "artist_bio": "Carl Fredrik Sundt-Hansen (30 January 1841, Stavanger – 27 August 1907, Stavanger) was a Norwegian-Danish genre painter in the Romantic Nationalist style. .",
+    "artist_birth": "1841-01-30",
+    "artist_death": "1907-08-27",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": null,
+    "categories": [
+      "1900s"
+    ]
+  },
+  {
+    "title": "Communion in Jail",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Carl%20Sundt-Hansen%20-%20I%20lensmannsarresten%20-%20Communion%20in%20Jail%20-%20Nasjonalmuseet%20-%20NG.M.00264.jpg",
     "year": "1875-01-01T00:00:00Z",
     "medium": "",
     "dimensions": "",
@@ -68610,6 +69934,121 @@
     ]
   },
   {
+    "title": "Axel Revold - no-nb digifoto 20160211 00179 NB MIT FNR 23105A",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/6/6a/Axel_Revold_-_no-nb_digifoto_20160211_00179_NB_MIT_FNR_23105A.jpg",
+    "year": "1965",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Axel Revold",
+    "artist_bio": "Axel Revold (24 December 1887 – 11 April 1962) was a Norwegian painter, illustrator, and art professor at the Norwegian National Academy of Fine Arts for twenty years.  He was highly decorated for his merits. .",
+    "artist_birth": "1887-12-24",
+    "artist_death": "1962-04-11",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "2000s"
+    ]
+  },
+  {
+    "title": "Axel Revold - no-nb digifoto 20160211 00181 NB MIT FNR 23106",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/e/e7/Axel_Revold_-_no-nb_digifoto_20160211_00181_NB_MIT_FNR_23106.jpg",
+    "year": "1965",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Axel Revold",
+    "artist_bio": "Axel Revold (24 December 1887 – 11 April 1962) was a Norwegian painter, illustrator, and art professor at the Norwegian National Academy of Fine Arts for twenty years.  He was highly decorated for his merits. .",
+    "artist_birth": "1887-12-24",
+    "artist_death": "1962-04-11",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "2000s"
+    ]
+  },
+  {
+    "title": "Axel Revold - no-nb digifoto 20160211 00184 NB MIT FNR 23105B",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/b/bb/Axel_Revold_-_no-nb_digifoto_20160211_00184_NB_MIT_FNR_23105B.jpg",
+    "year": "1965",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Axel Revold",
+    "artist_bio": "Axel Revold (24 December 1887 – 11 April 1962) was a Norwegian painter, illustrator, and art professor at the Norwegian National Academy of Fine Arts for twenty years.  He was highly decorated for his merits. .",
+    "artist_birth": "1887-12-24",
+    "artist_death": "1962-04-11",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "2000s"
+    ]
+  },
+  {
+    "title": "Billedteppe i Oslo rådhus - no-nb digifoto 20151106 00050 NB MIT FNR 11688",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/c/c7/Billedteppe_i_Oslo_r%C3%A5dhus_-_no-nb_digifoto_20151106_00050_NB_MIT_FNR_11688.jpg",
+    "year": "between 1952 and 1953<div style=\"display: none;\">date QS:P,+1952-00-00T00:00:00Z/8,P1319,+1952-00-00T00:00:00Z/9,P1326,+1953-00-00T00:00:00Z/9</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Axel Revold",
+    "artist_bio": "Axel Revold (24 December 1887 – 11 April 1962) was a Norwegian painter, illustrator, and art professor at the Norwegian National Academy of Fine Arts for twenty years.  He was highly decorated for his merits. .",
+    "artist_birth": "1887-12-24",
+    "artist_death": "1962-04-11",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "2000s"
+    ]
+  },
+  {
+    "title": "Festgalleriet, Oslo rådhus - no-nb digifoto 20150217 00212 NB MIT FNR 16729",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Festgalleriet%2C_Oslo_r%C3%A5dhus_-_no-nb_digifoto_20150217_00212_NB_MIT_FNR_16729.jpg",
+    "year": "before 1957<div style=\"display: none;\">date QS:P,+1957-00-00T00:00:00Z/7,P1326,+1957-00-00T00:00:00Z/9</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Axel Revold",
+    "artist_bio": "Axel Revold (24 December 1887 – 11 April 1962) was a Norwegian painter, illustrator, and art professor at the Norwegian National Academy of Fine Arts for twenty years.  He was highly decorated for his merits. .",
+    "artist_birth": "1887-12-24",
+    "artist_death": "1962-04-11",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "2000s"
+    ]
+  },
+  {
     "title": "Fredskapellet alter",
     "url": "https://upload.wikimedia.org/wikipedia/commons/2/2c/Fredskapellet_alter.JPG",
     "year": "2007-08-08",
@@ -68795,6 +70234,31 @@
     "century": "1900s",
     "collection": "http://img.listen.no/copper/albums/uploa",
     "categories": [
+      "Impressionism",
+      "1900s"
+    ]
+  },
+  {
+    "title": "Sketch for \"The roses\"label QS:Len,\"Sketch for \"The roses\"\" label QS:Lda,\"I haven. Skagen\"",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Kroyer%2C_Sketch_for_Roses.jpg",
+    "year": "13 July 1893<div style=\"display: none;\">date QS:P571,+1893-07-13T00:00:00Z/11</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.pinterest.com/pin/332984966172401340/\">https://www.pinterest.com/pin/332984966172401340/</a>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Peder Severin Krøyer",
+    "artist_bio": "Peder Severin Krøyer (Danish: [ˈpʰe̝ːðɐ ˈse̝vəˌʁiˀn ˈkʰʁʌjˀɐ]; 23 July 1851 – 21 November 1909), also known as P.  S.  Krøyer, was a Danish painter.",
+    "artist_birth": "1851-07-23",
+    "artist_death": "1909-11-21",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "Impressionism",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": "https://www.pinterest.com/pin/3329849661",
+    "categories": [
+      "Landscapes",
       "Impressionism",
       "1900s"
     ]
@@ -70232,6 +71696,52 @@
     "title": "Cloud Study",
     "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Knud%20Baade%20-%20Cloud%20Study%20-%20NG.M.02661%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
     "year": "1838-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Knud Baade",
+    "artist_bio": "Knud Baade (28 March 1808 – 24 November 1879) was a Norwegian painter, mostly of portraits and landscapes.  He was particularly known for his moonlight paintings which are characterized by strong and dramatic contrasts between light and shadow. .",
+    "artist_birth": "1808-03-28",
+    "artist_death": "1879-11-24",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": null,
+    "categories": [
+      "1900s"
+    ]
+  },
+  {
+    "title": "Scene from the Academy in Copenhagen",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Knud%20Baade%20-%20Scene%20from%20the%20Academy%20in%20Copenhagen%20-%20Google%20Art%20Project.jpg",
+    "year": "1827-01-01T00:00:00Z",
+    "medium": "",
+    "dimensions": "",
+    "location": "",
+    "license": "",
+    "source": "Wikidata",
+    "artist": "Knud Baade",
+    "artist_bio": "Knud Baade (28 March 1808 – 24 November 1879) was a Norwegian painter, mostly of portraits and landscapes.  He was particularly known for his moonlight paintings which are characterized by strong and dramatic contrasts between light and shadow. .",
+    "artist_birth": "1808-03-28",
+    "artist_death": "1879-11-24",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "1900s",
+    "collection": null,
+    "categories": [
+      "1900s"
+    ]
+  },
+  {
+    "title": "Scene from the Academy in Copenhagen",
+    "url": "http://commons.wikimedia.org/wiki/Special:FilePath/Knud%20Baade%20-%20Scene%20from%20the%20Academy%20in%20Copenhagen%20-%20NG.M.01589%20-%20National%20Museum%20of%20Art%2C%20Architecture%20and%20Design.jpg",
+    "year": "1827-01-01T00:00:00Z",
     "medium": "",
     "dimensions": "",
     "location": "",
@@ -72703,6 +74213,75 @@
     ]
   },
   {
+    "title": "Hamar - no-nb digifoto 20151127 00162 NB MIT FNR 14104",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/5/56/Hamar_-_no-nb_digifoto_20151127_00162_NB_MIT_FNR_14104.jpg",
+    "year": "1954",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Henrik Sørensen",
+    "artist_bio": "Henrik Sørensen (12 February 1882 – 24 February 1962) was a Norwegian painter. .",
+    "artist_birth": "1882-02-12",
+    "artist_death": "1962-02-24",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "2000s"
+    ]
+  },
+  {
+    "title": "Hamar - no-nb digifoto 20151127 00171 NB MIT FNR 14102",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/4/4b/Hamar_-_no-nb_digifoto_20151127_00171_NB_MIT_FNR_14102.jpg",
+    "year": "1954",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Henrik Sørensen",
+    "artist_bio": "Henrik Sørensen (12 February 1882 – 24 February 1962) was a Norwegian painter. .",
+    "artist_birth": "1882-02-12",
+    "artist_death": "1962-02-24",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "2000s"
+    ]
+  },
+  {
+    "title": "Hamar domkirke. - no-nb digifoto 20160519 00008 NB NKF P 05 A 010",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/1/19/Hamar_domkirke._-_no-nb_digifoto_20160519_00008_NB_NKF_P_05_A_010.jpg",
+    "year": "between 1 January 1960 and 31 December 1969<div style=\"display: none;\">date QS:P,+1960-00-00T00:00:00Z/8,P1319,+1960-01-01T00:00:00Z/11,P1326,+1969-12-31T00:00:00Z/11</div>",
+    "medium": "",
+    "dimensions": "",
+    "location": "<bdi><a href=\"https://en.wikipedia.org/wiki/en:National_Library_of_Norway\" class=\"extiw\" title=\"w:en:National Library of Norway\"><span title=\"Norwegian national library\">National Library of Norway</span></a>\n</bdi>",
+    "license": "Public domain",
+    "source": "Wikimedia Commons",
+    "artist": "Henrik Sørensen",
+    "artist_bio": "Henrik Sørensen (12 February 1882 – 24 February 1962) was a Norwegian painter. .",
+    "artist_birth": "1882-02-12",
+    "artist_death": "1962-02-24",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "National Library of Norway",
+    "categories": [
+      "2000s"
+    ]
+  },
+  {
     "title": "Hamar domkirke innvendig",
     "url": "https://upload.wikimedia.org/wikipedia/commons/2/21/Hamar_domkirke_innvendig.jpg",
     "year": "",
@@ -72723,6 +74302,29 @@
     "collection": "http://www.kirkenorge.no/index.cfm?tmpl=",
     "categories": [
       "Other"
+    ]
+  },
+  {
+    "title": "Henrik Sørensen - Opptegnelser og skisser (29934035000)",
+    "url": "https://upload.wikimedia.org/wikipedia/commons/2/25/Henrik_S%C3%B8rensen_-_Opptegnelser_og_skisser_%2829934035000%29.jpg",
+    "year": "Taken in 1964",
+    "medium": "",
+    "dimensions": "",
+    "location": "<a rel=\"nofollow\" class=\"external free\" href=\"https://www.flickr.com/photos/national_library_of_norway/29934035000/\">https://www.flickr.com/photos/national_library_of_norway/29934035000/</a>",
+    "license": "No restrictions",
+    "source": "Wikimedia Commons",
+    "artist": "Henrik Sørensen",
+    "artist_bio": "Henrik Sørensen (12 February 1882 – 24 February 1962) was a Norwegian painter. .",
+    "artist_birth": "1882-02-12",
+    "artist_death": "1962-02-24",
+    "country_of_origin": "Norway",
+    "artist_gender": "male",
+    "movement": "",
+    "genre": "Painting",
+    "century": "2000s",
+    "collection": "https://www.flickr.com/photos/national_l",
+    "categories": [
+      "2000s"
     ]
   },
   {

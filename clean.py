@@ -484,13 +484,13 @@ def main():
     dry_run = args.dry_run and not args.no_dry_run
     
     if dry_run:
-        print("\n🔍 DRY RUN - No changes will be made")
+        print("\nDRY RUN - No changes will be made")
     
     total_removed = 0
     
     # Remove duplicates
     if args.duplicates or args.full_cleanup:
-        print(f"\n🔄 Removing duplicates (strategy: {args.strategy})...")
+        print(f"\nRemoving duplicates (strategy: {args.strategy})...")
         cleaned_data, removed_items, duplicate_groups = find_duplicates(
             data, args.strategy, args.keep_self_portraits
         )
@@ -501,11 +501,11 @@ def main():
         if not dry_run:
             data = cleaned_data
             total_removed += len(removed_items)
-            print(f"✅ Removed {len(removed_items)} duplicates")
+            print(f"Removed {len(removed_items)} duplicates")
     
     # Remove by artist
     if args.artist:
-        print(f"\n🎨 Removing paintings by artist: '{args.artist}'")
+        print(f"\nRemoving paintings by artist: '{args.artist}'")
         cleaned_data, removed_items = remove_artist_paintings(data, args.artist)
         
         print(f"Found {len(removed_items)} paintings by '{args.artist}'")
@@ -513,11 +513,11 @@ def main():
         if not dry_run:
             data = cleaned_data
             total_removed += len(removed_items)
-            print(f"✅ Removed {len(removed_items)} paintings by '{args.artist}'")
+            print(f"Removed {len(removed_items)} paintings by '{args.artist}'")
     
     # Remove by URLs
     if args.urls or args.full_cleanup:
-        print(f"\n🔗 Removing images by URL list...")
+        print(f"\nRemoving images by URL list...")
         urls_to_remove = load_urls_to_remove(args.file)
         if urls_to_remove:
             cleaned_data, removed_items = remove_images_by_url(data, urls_to_remove)
@@ -527,11 +527,11 @@ def main():
             if not dry_run:
                 data = cleaned_data
                 total_removed += len(removed_items)
-                print(f"✅ Removed {len(removed_items)} items by URL")
+                print(f"Removed {len(removed_items)} items by URL")
     
     # Remove TIF files
     if args.tif:
-        print(f"\n📄 Removing TIF files...")
+        print(f"\nRemoving TIF files...")
         urls_to_remove = []  # Empty list, but TIF removal is built into remove_images_by_url
         cleaned_data, removed_items = remove_images_by_url(data, urls_to_remove)
         
@@ -540,11 +540,11 @@ def main():
         if not dry_run:
             data = cleaned_data
             total_removed += len(removed_items)
-            print(f"✅ Removed {len(removed_items)} TIF files")
+            print(f"Removed {len(removed_items)} TIF files")
     
     # Remove low-quality images
     if args.quality or args.full_cleanup:
-        print(f"\n🎯 Removing low-quality images (min: {args.min_width}x{args.min_height})...")
+        print(f"\nRemoving low-quality images (min: {args.min_width}x{args.min_height})...")
         cleaned_data, removed_items = filter_paintings(data, args.min_width, args.min_height)
         
         print(f"Would remove {len(removed_items)} low-quality items")
@@ -552,11 +552,11 @@ def main():
         if not dry_run:
             data = cleaned_data
             total_removed += len(removed_items)
-            print(f"✅ Removed {len(removed_items)} low-quality items")
+            print(f"Removed {len(removed_items)} low-quality items")
     
     # Save results
     if not dry_run and total_removed > 0:
-        print(f"\n💾 Saving cleaned data to {args.output}...")
+        print(f"\nSaving cleaned data to {args.output}...")
         save_json(data, args.output)
         
         # Also update merged file if it exists
@@ -565,15 +565,15 @@ def main():
             print(f"Also updating {merged_file}...")
             save_json(data, merged_file)
         
-        print(f"✅ Cleanup complete! Removed {total_removed} items total")
+        print(f"Cleanup complete! Removed {total_removed} items total")
         print(f"Remaining items: {len(data)}")
     elif dry_run:
-        print(f"\n📊 DRY RUN SUMMARY:")
+        print(f"\nDRY RUN SUMMARY:")
         print(f"Would remove approximately {total_removed} items total")
         print(f"Would have {len(data)} items remaining")
         print("\nTo actually perform the cleanup, run with --no-dry-run")
     else:
-        print("\n✅ No cleanup operations specified or no items to remove")
+        print("\nNo cleanup operations specified or no items to remove")
 
 if __name__ == '__main__':
     main() 
