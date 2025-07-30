@@ -1625,12 +1625,12 @@ function createArtistGalleryHtml(artistPaintings, artistName) {
   const initialPaintings = artistPaintings.slice(0, initialCount);
   const hasMore = artistPaintings.length > initialCount;
   
-  const paintingsHtml = initialPaintings.map(painting => {
+  const paintingsHtml = initialPaintings.map((painting, index) => {
     const title = painting.title || 'Untitled';
     const optimizedUrl = optimizeImageUrl(painting.url, 150); // Even smaller thumbnails for better performance
     return `
-      <div class="artist-gallery-item" data-painting-index="${painting.index || 0}">
-        <img src="${optimizedUrl}" alt="${title}" loading="lazy" 
+      <div class="artist-gallery-item" data-painting-index="${index}">
+        <img src="${optimizedUrl}" alt="${title}" title="" loading="lazy" 
              onerror="this.src='${painting.url}'"
              onload="this.style.opacity='1'"
              style="opacity: 0; transition: opacity 0.3s ease;">
@@ -1717,12 +1717,13 @@ function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn
     const galleryGrid = popup.querySelector('.artist-gallery-grid');
     
     // Add new paintings to the grid
-    nextBatch.forEach(painting => {
+    nextBatch.forEach((painting, batchIndex) => {
       const title = painting.title || 'Untitled';
       const optimizedUrl = optimizeImageUrl(painting.url, 150);
+      const actualIndex = currentLoaded + batchIndex; // Calculate the actual index in the full array
       const itemHtml = `
-        <div class="artist-gallery-item" data-painting-index="${painting.index || 0}">
-          <img src="${optimizedUrl}" alt="${title}" loading="lazy" 
+        <div class="artist-gallery-item" data-painting-index="${actualIndex}">
+          <img src="${optimizedUrl}" alt="${title}" title="" loading="lazy" 
                onerror="this.src='${painting.url}'"
                onload="this.style.opacity='1'"
                style="opacity: 0; transition: opacity 0.3s ease;">
