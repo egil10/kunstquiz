@@ -841,7 +841,7 @@ button.loading {
 
 .artist-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 0.5rem;
   margin-bottom: 0.75rem;
   width: 100%;
@@ -946,7 +946,7 @@ button.loading {
   }
   
   .artist-gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    grid-template-columns: repeat(3, 1fr);
     gap: 0.4rem;
   }
   
@@ -967,7 +967,7 @@ button.loading {
 
 @media (max-width: 500px) {
   .artist-gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 0.3rem;
   }
   
