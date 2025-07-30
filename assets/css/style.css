@@ -528,6 +528,12 @@ button.loading {
   width: 100%;
 }
 
+.artist-popup.toast.persistent .artist-popup-content.toast-content {
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
 .artist-portrait.toast-portrait {
   width: 7.5rem;
   height: 11.25rem;
@@ -535,6 +541,11 @@ button.loading {
   box-shadow: 0 0.25rem 1.125rem rgba(0,0,0,0.13);
   border: 0.1875rem solid #388e3c;
   flex-shrink: 0;
+}
+
+.artist-popup.toast.persistent .artist-portrait.toast-portrait {
+  width: 8rem;
+  height: 12rem;
 }
 
 .artist-popup-text.toast-text {
@@ -545,6 +556,13 @@ button.loading {
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+}
+
+.artist-popup.toast.persistent .artist-popup-text.toast-text {
+  max-width: none;
+  width: 100%;
+  align-items: center;
+  text-align: center;
 }
 
 .artist-popup-text.toast-text .artist-gallery-section {
