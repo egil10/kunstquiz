@@ -294,7 +294,7 @@ def backup_existing_files():
     """Create backup of existing files before consolidation"""
     print("💾 Creating backup of existing files...")
     
-    backup_dir = f"backup_before_consolidation_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    backup_dir = f"backups/backup_before_consolidation_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     os.makedirs(backup_dir, exist_ok=True)
     
     files_to_backup = [

@@ -285,7 +285,7 @@ def create_backup() -> str:
     
     # Create backup directory name
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    backup_dir = f"backup_{timestamp}"
+    backup_dir = f"backups/backup_{timestamp}"
     
     # Create backup directory
     os.makedirs(backup_dir, exist_ok=True)
@@ -323,8 +323,13 @@ def list_backups() -> List[str]:
     
     backups = []
     
-    for item in os.listdir('.'):
-        if item.startswith('backup_') and os.path.isdir(item):
+    # Check if backups directory exists
+    if not os.path.exists('backups'):
+        print("  No backups directory found")
+        return []
+    
+    for item in os.listdir('backups'):
+        if item.startswith('backup_') and os.path.isdir(os.path.join('backups', item)):
             backups.append(item)
     
     if not backups:
@@ -352,7 +357,7 @@ def restore_backup(backup_name: str) -> bool:
     """Restore from backup"""
     print(f"🔄 Restoring from backup: {backup_name}")
     
-    backup_path = os.path.join('.', backup_name)
+    backup_path = os.path.join('backups', backup_name)
     
     if not os.path.exists(backup_path):
         print(f"❌ Backup not found: {backup_name}")
