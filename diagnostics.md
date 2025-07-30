@@ -45,14 +45,12 @@
 ## Quiz Categories
 - **Full Collection:** 3036 paintings, 59 painters
 - **Popular Painters:** 1444 paintings, 10 painters
-- **Landscape Painting:** 310 paintings, 34 painters
-- **Portraits:** 276 paintings, 32 painters
-- **Women Painters:** 240 paintings, 4 painters
-- **19th Century:** 2775 paintings, 51 painters
-- **20th Century:** 20 paintings, 4 painters
+- **Landscape:** 310 paintings, 34 painters
+- **Realism:** 225 paintings, 2 painters
 - **Impressionism:** 175 paintings, 2 painters
-- **Expressionism:** 192 paintings, 2 painters
-- **Norwegian Romantic:** 132 paintings, 1 painters
+- **Romantic Nationalism:** 132 paintings, 1 painters
+- **Modernism:** 70 paintings, 1 painters
+- **Female Artists:** 240 paintings, 4 painters
 
 ## All Genres (from bios)
 - Landscape painting: 33

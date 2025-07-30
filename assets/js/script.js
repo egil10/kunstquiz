@@ -167,19 +167,10 @@ const translations = {
     fullCollection: 'Full Collection',
     popularPainters: 'Popular Painters',
     landscape: 'Landscape',
-    portraits: 'Portraits',
-    womenPainters: 'Women Painters',
-    nineteenthCentury: '19th Century',
-    twentiethCentury: '20th Century',
-    impressionism: 'Impressionism',
-    expressionism: 'Expressionism',
-    norwegianRomantic: 'Norwegian Romantic',
     realism: 'Realism',
+    impressionism: 'Impressionism',
     romanticNationalism: 'Romantic Nationalism',
-    neoRomanticism: 'Neo-Romanticism',
     modernism: 'Modernism',
-    neoClassicism: 'Neo-Classicism',
-    maleArtists: 'Male Artists',
     femaleArtists: 'Female Artists',
     correct: 'Correct!',
     incorrect: 'Incorrect!',
@@ -330,7 +321,7 @@ const translations = {
     aboutCollection: 'The Collection',
     aboutCollectionText: 'Kunstquiz features 3,282 paintings from 81 Norwegian artists, making it one of the most comprehensive Norwegian art quizzes available. Our collection spans from the 19th century to contemporary works, covering various movements and styles.',
     aboutCategories: 'Quiz Categories',
-    aboutCategoriesText: 'Full Collection: All paintings, Popular Painters: Top 10 artists with most works, Landscape: Landscape paintings (34 artists), Realism: Realist movement (15 artists), Impressionism: Impressionist paintings (12 artists), Romantic Nationalism: Norwegian romantic nationalism (10 artists), Modernism: Modern works (10 artists), Female Artists: Female painters (based on gender analysis)',
+    aboutCategoriesText: 'Full Collection: All paintings, Popular Painters: Top 10 artists by painting count, Landscape: Landscape paintings (34 artists), Realism: Realist movement (15 artists), Impressionism: Impressionist paintings (12 artists), Romantic Nationalism: Norwegian romantic nationalism (10 artists), Modernism: Modern works (10 artists), Female Artists: Female painters (4 artists)',
     aboutHowToPlay: 'How to Play',
     aboutHowToPlayText: 'Select a category, view a painting, and choose the correct artist from four options. Build streaks and learn about Norwegian art history with each answer!',
     aboutFacts: 'Interesting Facts',
@@ -344,19 +335,10 @@ const translations = {
     fullCollection: 'Full Samling',
     popularPainters: 'Populære Malere',
     landscape: 'Landskap',
-    portraits: 'Portretter',
-    womenPainters: 'Kvinnelige Malere',
-    nineteenthCentury: '19. Århundre',
-    twentiethCentury: '20. Århundre',
-    impressionism: 'Impressionisme',
-    expressionism: 'Ekspresjonisme',
-    norwegianRomantic: 'Norsk Romantikk',
     realism: 'Realisme',
+    impressionism: 'Impressionisme',
     romanticNationalism: 'Romantisk Nasjonalisme',
-    neoRomanticism: 'Neo-Romantikk',
     modernism: 'Modernisme',
-    neoClassicism: 'Neo-Klassisisme',
-    maleArtists: 'Mannlige Kunstnere',
     femaleArtists: 'Kvinnelige Kunstnere',
     correct: 'Riktig!',
     incorrect: 'Feil!',
@@ -507,7 +489,7 @@ const translations = {
     aboutCollection: 'Samlingen',
     aboutCollectionText: 'Kunstquiz inneholder 3,282 malerier fra 81 norske kunstnere, noe som gjør det til en av de mest omfattende norske kunstquizene tilgjengelig. Vår samling spenner fra 1800-tallet til samtidsverk, og dekker ulike bevegelser og stiler.',
     aboutCategories: 'Quiz-kategorier',
-    aboutCategoriesText: 'Full Samling: Alle malerier, Populære Malere: Topp 10 kunstnere med flest verk, Landskap: Landskapsmalerier (34 kunstnere), Realisme: Realistisk bevegelse (15 kunstnere), Impressionisme: Impressionistiske malerier (12 kunstnere), Romantisk Nasjonalisme: Norsk romantisk nasjonalisme (10 kunstnere), Modernisme: Moderne verk (10 kunstnere), Kvinnelige Kunstnere: Kvinnelige malere (basert på kjønnsanalyse)',
+    aboutCategoriesText: 'Full Samling: Alle malerier, Populære Malere: Topp 10 kunstnere etter antall malerier, Landskap: Landskapsmalerier (34 kunstnere), Realisme: Realistisk bevegelse (15 kunstnere), Impressionisme: Impressionistiske malerier (12 kunstnere), Romantisk Nasjonalisme: Norsk romantisk nasjonalisme (10 kunstnere), Modernisme: Moderne verk (10 kunstnere), Kvinnelige Kunstnere: Kvinnelige malere (4 kunstnere)',
     aboutHowToPlay: 'Slik spiller du',
     aboutHowToPlayText: 'Velg en kategori, se på et maleri, og velg riktig kunstner fra fire alternativer. Bygg opp streaks og lær om norsk kunsthistorie med hvert svar!',
     aboutFacts: 'Interessante fakta',
@@ -552,14 +534,12 @@ let currentPainting = null;
 const CATEGORY_DEFS = [
   { value: 'all', label: 'fullCollection' },
   { value: 'popular', label: 'popularPainters' },
-  { value: 'landscape', label: 'landscapePainting' },
-  { value: 'portraits', label: 'portraits' },
-  { value: 'women_painters', label: 'womenPainters' },
-  { value: '1800s', label: 'nineteenthCentury' },
-  { value: '1900s', label: 'twentiethCentury' },
+  { value: 'landscape', label: 'landscape' },
+  { value: 'realism', label: 'realism' },
   { value: 'impressionism', label: 'impressionism' },
-  { value: 'expressionism', label: 'expressionism' },
-  { value: 'romantic_nationalism', label: 'norwegianRomantic' }
+  { value: 'romantic_nationalism', label: 'romanticNationalism' },
+  { value: 'modernism', label: 'modernism' },
+  { value: 'female_artists', label: 'femaleArtists' }
 ];
 
 function t(key) {
@@ -1321,52 +1301,21 @@ const categoryFilters = {
       .map(([artist]) => artist);
     return paintings.filter(p => topArtists.includes(p.artist));
   },
-  landscape: p => {
-    // Check both the inferred categories and the original genre/movement fields
-    const categories = p.categories || [];
-    const hasLandscapeCategory = categories.some(cat => 
-      cat?.toLowerCase().includes('landscape')
-    );
-    const hasLandscapeGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
-      g?.toLowerCase().includes('landscape')
-    );
-    return hasLandscapeCategory || hasLandscapeGenre;
-  },
-  portraits: p => {
-    // Check both the inferred categories and the original genre/movement fields
-    const categories = p.categories || [];
-    const hasPortraitCategory = categories.some(cat => 
-      cat?.toLowerCase().includes('portrait')
-    );
-    const hasPortraitGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
-      g?.toLowerCase().includes('portrait')
-    );
-    return hasPortraitCategory || hasPortraitGenre;
-  },
-  women_painters: p => p.artist_gender === 'female',
-  '1800s': p => {
-    const artistMap = getArtistBioMap();
-    const bio = artistMap[p.artist];
-    return bio && bio.birth_year && parseInt(bio.birth_year) >= 1800 && parseInt(bio.birth_year) < 1900;
-  },
-  '1900s': p => {
-    const artistMap = getArtistBioMap();
-    const bio = artistMap[p.artist];
-    return bio && bio.birth_year && parseInt(bio.birth_year) >= 1900 && parseInt(bio.birth_year) < 2000;
-  },
   impressionism: p => {
-    // Check both the inferred categories and the original genre/movement fields
     const categories = p.categories || [];
+    const inferredCategories = p.inferred_categories || [];
     const hasImpressionismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('impressionism')
+    );
+    const hasInferredImpressionism = inferredCategories.some(cat => 
       cat?.toLowerCase().includes('impressionism')
     );
     const hasImpressionismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
       m?.toLowerCase().includes('impressionism')
     );
-    return hasImpressionismCategory || hasImpressionismMovement;
+    return hasImpressionismCategory || hasInferredImpressionism || hasImpressionismMovement;
   },
   expressionism: p => {
-    // Check both the inferred categories and the original genre/movement fields
     const categories = p.categories || [];
     const hasExpressionismCategory = categories.some(cat => 
       cat?.toLowerCase().includes('expressionism')
@@ -1376,18 +1325,173 @@ const categoryFilters = {
     );
     return hasExpressionismCategory || hasExpressionismMovement;
   },
-  romantic_nationalism: p => {
-    // Check both the inferred categories and the original genre/movement fields
+  romanticism: p => {
     const categories = p.categories || [];
     const hasRomanticCategory = categories.some(cat => 
-      cat?.toLowerCase().includes('romantic nationalism') || 
-      cat?.toLowerCase().includes('norwegian romantic')
+      cat?.toLowerCase().includes('romantic')
     );
     const hasRomanticMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
-      m?.toLowerCase().includes('romantic nationalism') || 
-      m?.toLowerCase().includes('norwegian romantic')
+      m?.toLowerCase().includes('romantic')
     );
     return hasRomanticCategory || hasRomanticMovement;
+  },
+  realism: p => {
+    const categories = p.categories || [];
+    const inferredCategories = p.inferred_categories || [];
+    const hasRealismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('realism')
+    );
+    const hasInferredRealism = inferredCategories.some(cat => 
+      cat?.toLowerCase().includes('realism')
+    );
+    const hasRealismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('realism')
+    );
+    return hasRealismCategory || hasInferredRealism || hasRealismMovement;
+  },
+  naturalism: p => {
+    const categories = p.categories || [];
+    const hasNaturalismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('naturalism')
+    );
+    const hasNaturalismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('naturalism')
+    );
+    return hasNaturalismCategory || hasNaturalismMovement;
+  },
+  symbolism: p => {
+    const categories = p.categories || [];
+    const hasSymbolismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('symbolism')
+    );
+    const hasSymbolismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('symbolism')
+    );
+    return hasSymbolismCategory || hasSymbolismMovement;
+  },
+  modernism: p => {
+    const categories = p.categories || [];
+    const inferredCategories = p.inferred_categories || [];
+    const hasModernismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('modernism')
+    );
+    const hasInferredModern = inferredCategories.some(cat => 
+      cat?.toLowerCase().includes('modern')
+    );
+    const hasModernismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('modernism')
+    );
+    const hasModernistBio = p.artist_bio?.toLowerCase().includes('modernist') || 
+                           p.artist_bio?.toLowerCase().includes('modernism');
+    return hasModernismCategory || hasInferredModern || hasModernismMovement || hasModernistBio;
+  },
+  contemporary: p => {
+    const categories = p.categories || [];
+    const hasContemporaryCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('contemporary')
+    );
+    const hasContemporaryMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('contemporary')
+    );
+    return hasContemporaryCategory || hasContemporaryMovement;
+  },
+  landscape: p => {
+    const categories = p.categories || [];
+    const inferredCategories = p.inferred_categories || [];
+    const hasLandscapeCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('landscape')
+    );
+    const hasInferredLandscape = inferredCategories.some(cat => 
+      cat?.toLowerCase().includes('landscape')
+    );
+    const hasLandscapeGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('landscape')
+    );
+    return hasLandscapeCategory || hasInferredLandscape || hasLandscapeGenre;
+  },
+  portraits: p => {
+    const categories = p.categories || [];
+    const hasPortraitCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('portrait')
+    );
+    const hasPortraitGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('portrait')
+    );
+    return hasPortraitCategory || hasPortraitGenre;
+  },
+  historical: p => {
+    const categories = p.categories || [];
+    const hasHistoricalCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('historical')
+    );
+    const hasHistoricalGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('historical')
+    );
+    return hasHistoricalCategory || hasHistoricalGenre;
+  },
+  religious: p => {
+    const categories = p.categories || [];
+    const hasReligiousCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('religious')
+    );
+    const hasReligiousGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('religious')
+    );
+    return hasReligiousCategory || hasReligiousGenre;
+  },
+  genre: p => {
+    const categories = p.categories || [];
+    const hasGenreCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('genre')
+    );
+    const hasGenreGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('genre')
+    );
+    return hasGenreCategory || hasGenreGenre;
+  },
+  still_life: p => {
+    const categories = p.categories || [];
+    const hasStillLifeCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('still life') || cat?.toLowerCase().includes('stilleben')
+    );
+    const hasStillLifeGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('still life') || g?.toLowerCase().includes('stilleben')
+    );
+    return hasStillLifeCategory || hasStillLifeGenre;
+  },
+  abstract: p => {
+    const categories = p.categories || [];
+    const hasAbstractCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('abstract')
+    );
+    const hasAbstractGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('abstract')
+    );
+    return hasAbstractCategory || hasAbstractGenre;
+  },
+  women_painters: p => p.artist_gender === 'female',
+  female_artists: p => p.artist_gender === 'female',
+  romantic_nationalism: p => {
+    const categories = p.categories || [];
+    const inferredCategories = p.inferred_categories || [];
+    const hasRomanticNationalismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('romantic nationalism') || 
+      cat?.toLowerCase().includes('romantisk nasjonalisme') ||
+      cat?.toLowerCase().includes('nasjonalromantikk')
+    );
+    const hasInferredRomantic = inferredCategories.some(cat => 
+      cat?.toLowerCase().includes('romantic')
+    );
+    const hasRomanticNationalismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('romantic nationalism') || 
+      m?.toLowerCase().includes('romantisk nasjonalisme') ||
+      m?.toLowerCase().includes('national romantic') ||
+      m?.toLowerCase().includes('nasjonalromantikk') ||
+      m?.toLowerCase().includes('norwegian romantic nationalism')
+    );
+    const hasRomanticNationalismBio = p.artist_bio?.toLowerCase().includes('romantic nationalism') || 
+                                     p.artist_bio?.toLowerCase().includes('nasjonalromantikk');
+    return hasRomanticNationalismCategory || hasInferredRomantic || hasRomanticNationalismMovement || hasRomanticNationalismBio;
   }
 };
 

@@ -81,18 +81,14 @@ The `stats.py --diagnostics` script checks for data consistency, category covera
 <!-- STATS_END -->
 
 ## 🗂️ Categories
-- Full Collection
-- Popular Painters
-- Landscapes
-- Portraits
-- Romanticism
-- Expressionism
-- Impressionism
-- Historical / Nationalism
-- 1800s
-- National Museum of Norway
-- Women Painters
-- Gonna make some changes after this.
+- Full Collection: All paintings
+- Popular Painters: Top 10 artists by painting count
+- Landscape: Landscape paintings (34 artists)
+- Realism: Realist movement (15 artists)
+- Impressionism: Impressionist paintings (12 artists)
+- Romantic Nationalism: Norwegian romantic nationalism (10 artists)
+- Modernism: Modern works (10 artists)
+- Female Artists: Female painters (4 artists)
 
 ## 🤝 Contributing
 Pull requests and suggestions are welcome! See [issues](https://github.com/egil10/kunstquiz/issues) or open a PR.

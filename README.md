@@ -88,17 +88,14 @@ The repository uses consolidated scripts for better organization:
 The `scripts/stats.py --diagnostics` script checks for data consistency, category coverage, and missing info.
 
 ## 🗂️ Categories
-- Full Collection
-- Popular Painters
-- Landscapes
-- Portraits
-- Romanticism
-- Expressionism
-- Impressionism
-- Historical / Nationalism
-- 1800s
-- National Museum of Norway
-- Women Painters
+- Full Collection: All paintings
+- Popular Painters: Top 10 artists by painting count
+- Landscape: Landscape paintings (34 artists)
+- Realism: Realist movement (15 artists)
+- Impressionism: Impressionist paintings (12 artists)
+- Romantic Nationalism: Norwegian romantic nationalism (10 artists)
+- Modernism: Modern works (10 artists)
+- Female Artists: Female painters (4 artists)
 
 ## 🤝 Contributing
 Pull requests and suggestions are welcome! See [issues](https://github.com/egil10/kunstquiz/issues) or open a PR.
@@ -119,12 +116,10 @@ MIT. All painting images and artist data are from open Wikimedia/Wikidata source
 - Categories:
   - Full Collection: 3036 paintings, 59 painters
   - Popular Painters: 1444 paintings, 10 painters
-  - Landscape Painting: 310 paintings, 34 painters
-  - Portraits: 276 paintings, 32 painters
-  - Women Painters: 276 paintings, 32 painters
-  - 19th Century: 0 paintings, 0 painters
-  - 20th Century: 0 paintings, 0 painters
+  - Landscape: 310 paintings, 34 painters
+  - Realism: 225 paintings, 2 painters
   - Impressionism: 175 paintings, 2 painters
-  - Expressionism: 192 paintings, 2 painters
-  - Norwegian Romantic: 0 paintings, 0 painters
+  - Romantic Nationalism: 132 paintings, 1 painters
+  - Modernism: 70 paintings, 1 painters
+  - Female Artists: 240 paintings, 4 painters
 <!-- STATS_END -->
