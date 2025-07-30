@@ -20,65 +20,72 @@ A fun, modern quiz where you guess the artist behind famous Norwegian paintings.
 
 The repository now supports a complete 6-step workflow:
 
-1. **Finding new images** → `workflow.py --collect`
-2. **Cleaning them and deleting bad ones** → `workflow.py --clean`
-3. **Finding manual URLs to add** → `workflow.py --add-urls`
-4. **Finding manual URLs to remove** → `workflow.py --remove-urls`
-5. **Push to app** → `workflow.py --process` + `workflow.py --deploy`
+1. **Finding new images** → `python scripts/workflow.py --collect`
+2. **Cleaning them and deleting bad ones** → `python scripts/workflow.py --clean`
+3. **Finding manual URLs to add** → `python scripts/workflow.py --add-urls`
+4. **Finding manual URLs to remove** → `python scripts/workflow.py --remove-urls`
+5. **Push to app** → `python scripts/workflow.py --process` + `python scripts/workflow.py --deploy`
 6. **App with working game logic** → Ready to use!
 
 ### Quick Start:
 ```bash
 # Initialize the workflow structure
-python workflow.py --init
+python scripts/workflow.py --init
 
 # Run complete workflow (all 6 steps)
-python workflow.py --full
+python scripts/workflow.py --full
 
 # Run quick workflow (collect, clean, process, deploy)
-python workflow.py --quick
+python scripts/workflow.py --quick
 
 # Individual steps
-python workflow.py --collect --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Artist"
-python workflow.py --clean --quality --duplicates
-python workflow.py --add-urls --file data/config/urls_to_add.txt
-python workflow.py --remove-urls --file data/config/urls_to_remove.txt
-python workflow.py --process
-python workflow.py --deploy
+python scripts/workflow.py --collect --url "https://commons.wikimedia.org/wiki/Category:Paintings_by_Artist"
+python scripts/workflow.py --clean --quality --duplicates
+python scripts/workflow.py --add-urls --file data/config/urls_to_add.txt
+python scripts/workflow.py --remove-urls --file data/config/urls_to_remove.txt
+python scripts/workflow.py --process
+python scripts/workflow.py --deploy
+```
+
+## 📁 Project Structure
+```
+kunstquiz/
+├── scripts/                    # All Python scripts
+│   ├── workflow.py            # Complete 6-step workflow
+│   ├── collect_art.py         # Main collection script
+│   ├── clean.py               # All cleanup operations
+│   ├── stats.py               # All analysis operations
+│   ├── process.py             # All data processing
+│   ├── utils.py               # All utility operations
+│   ├── diagnostics.py         # Comprehensive diagnostics
+│   └── consolidate_data.py    # Data consolidation
+├── data/                      # Data files
+│   ├── paintings_with_inferred_categories.json  # Web app paintings
+│   ├── artist_bios.json       # Web app artists
+│   ├── raw/                   # Raw collected data
+│   ├── processed/             # Clean, processed data
+│   └── config/                # Configuration files
+├── config/                    # Project configuration
+├── docs/                      # Documentation
+├── assets/                    # Web app assets (CSS, JS)
+├── index.html                 # Main web app
+└── README.md                  # This file
 ```
 
 ## 📊 Scripts Overview
-The repository now uses consolidated scripts for better organization:
+The repository uses consolidated scripts for better organization:
 
-- **`workflow.py`** - Complete 6-step workflow management
-- **`collect_art.py`** - Main collection script (unchanged)
-- **`clean.py`** - All cleanup operations (duplicates, quality, etc.)
-- **`stats.py`** - All analysis and statistics operations
-- **`process.py`** - All data processing operations
-- **`utils.py`** - All utility operations (URLs, backups, health checks)
-- **`diagnostics.py`** - Comprehensive diagnostics (unchanged)
-- **`consolidate_data.py`** - Data consolidation and cleanup
+- **`scripts/workflow.py`** - Complete 6-step workflow management
+- **`scripts/collect_art.py`** - Main collection script
+- **`scripts/clean.py`** - All cleanup operations (duplicates, quality, etc.)
+- **`scripts/stats.py`** - All analysis and statistics operations
+- **`scripts/process.py`** - All data processing operations
+- **`scripts/utils.py`** - All utility operations (URLs, backups, health checks)
+- **`scripts/diagnostics.py`** - Comprehensive diagnostics
+- **`scripts/consolidate_data.py`** - Data consolidation and cleanup
 
 ## 📊 Diagnostics & Stats
-The `stats.py --diagnostics` script checks for data consistency, category coverage, and missing info. It also updates the stats below:
-
-<!-- STATS_START -->
-**Latest Art Quiz Stats**
-- Total paintings: 3282
-- Total unique artists in paintings: 81
-- Total artists in bios: 91
-- Categories:
-  - Full Collection: 3282 paintings, 81 painters
-  - Popular Painters: 1513 paintings, 10 painters
-  - Landscape Painting: 1745 paintings, 41 painters
-  - Portraits: 584 paintings, 34 painters
-  - Women Painters: 584 paintings, 34 painters
-  - 19th Century: 0 paintings, 0 painters
-  - 20th Century: 0 paintings, 0 painters
-  - Impressionism: 392 paintings, 9 painters
-  - Expressionism: 253 paintings, 5 painters
-  - Norwegian Romantic: 0 paintings, 0 painters
-<!-- STATS_END -->
+The `scripts/stats.py --diagnostics` script checks for data consistency, category coverage, and missing info.
 
 ## 🗂️ Categories
 - Full Collection
@@ -92,7 +99,6 @@ The `stats.py --diagnostics` script checks for data consistency, category covera
 - 1800s
 - National Museum of Norway
 - Women Painters
-- Gonna make some changes after this.
 
 ## 🤝 Contributing
 Pull requests and suggestions are welcome! See [issues](https://github.com/egil10/kunstquiz/issues) or open a PR.
@@ -103,4 +109,3 @@ MIT. All painting images and artist data are from open Wikimedia/Wikidata source
 ---
 
 *Made with ❤️ for Norwegian art lovers.*
-*B.r*

@@ -366,8 +366,8 @@ def main():
     parser.add_argument('--full-process', action='store_true', help='Run all processing operations')
     
     # Options
-    parser.add_argument('--input', default='data/paintings_appended.json', help='Input JSON file')
-    parser.add_argument('--output', default='data/paintings_merged.json', help='Output JSON file')
+    parser.add_argument('--input', default='data/paintings_with_inferred_categories.json', help='Input JSON file')
+    parser.add_argument('--output', default='data/paintings_with_inferred_categories.json', help='Output JSON file')
     parser.add_argument('--dry-run', action='store_true', default=True, help='Show what would be processed without actually processing (default)')
     parser.add_argument('--no-dry-run', action='store_true', help='Actually perform the processing')
     

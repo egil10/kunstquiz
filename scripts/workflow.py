@@ -102,7 +102,7 @@ def step1_collect(url: str = None, max_images: int = 50, total_max: int = 200):
     if url:
         # Collect from specific URL
         cmd = [
-            sys.executable, 'collect_art.py',
+            sys.executable, 'scripts/collect_art.py',
             '--url', url,
             '--max', str(max_images),
             '--total-max', str(total_max),
@@ -112,7 +112,7 @@ def step1_collect(url: str = None, max_images: int = 50, total_max: int = 200):
         # Collect from URLs file if it exists
         if os.path.exists(CONFIG_ADD_URLS):
             cmd = [
-                sys.executable, 'collect_art.py',
+                sys.executable, 'scripts/collect_art.py',
                 '--file', CONFIG_ADD_URLS,
                 '--max', str(max_images),
                 '--total-max', str(total_max),
@@ -137,7 +137,7 @@ def step2_clean(quality: bool = True, duplicates: bool = True):
     print("Step 2: Cleaning images...")
     
     # Load current data
-    current_data = load_json('data/paintings_appended.json')
+    current_data = load_json('data/paintings_with_inferred_categories.json')
     if not current_data:
         print("⚠️  No data to clean")
         return False
@@ -145,7 +145,7 @@ def step2_clean(quality: bool = True, duplicates: bool = True):
     print(f"Loaded {len(current_data)} paintings to clean")
     
     # Build clean command
-    cmd = [sys.executable, 'clean.py']
+    cmd = [sys.executable, 'scripts/clean.py']
     
     if duplicates:
         cmd.extend(['--duplicates', '--strategy', 'url'])
@@ -215,7 +215,7 @@ def step4_remove_urls(file_path: str = None):
     
     # Run clean script with URL removal
     cmd = [
-        sys.executable, 'clean.py',
+        sys.executable, 'scripts/clean.py',
         '--urls',
         '--file', urls_file,
         '--no-dry-run'
@@ -237,7 +237,7 @@ def step5_process():
     
     # Run full processing workflow
     cmd = [
-        sys.executable, 'process.py',
+        sys.executable, 'scripts/process.py',
         '--full-process',
         '--no-dry-run'
     ]
@@ -257,7 +257,7 @@ def step6_deploy():
     print("Step 6: Deploying to app...")
     
     # Load processed data
-    paintings_data = load_json('data/paintings_merged.json')
+    paintings_data = load_json('data/paintings_with_inferred_categories.json')
     artists_data = load_json('data/artist_bios.json')
     
     if not paintings_data:

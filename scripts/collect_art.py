@@ -68,8 +68,8 @@ import subprocess
 
 APPENDED_FILE = 'data/paintings_appended.json'
 MANUAL_FILE = 'data/manual_paintings.json'
-MERGE_SCRIPT = 'process.py'
-DIAGNOSE_SCRIPT = 'stats.py'
+MERGE_SCRIPT = 'scripts/process.py'
+DIAGNOSE_SCRIPT = 'scripts/stats.py'
 
 # --- Manual collection logic (from collect_manual_art.py) ---
 
