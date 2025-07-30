@@ -1632,7 +1632,7 @@ function cleanWorkTitle(title) {
 
 async function loadArtistBios() {
   try {
-    const res = await fetch('./data/artist_bios.json');
+            const res = await fetch('./data/artists.json');
     if (!res.ok) throw new Error('Failed to load artist bios');
     artistBios = await res.json();
   } catch (err) {
@@ -2836,7 +2836,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Start memory cleanup
     startMemoryCleanup();
     
-    const res = await fetch('./data/paintings_with_inferred_categories.json');
+            const res = await fetch('./data/paintings.json');
     if (!res.ok) throw new Error('Failed to load paintings');
     paintings = await res.json();
     await loadArtistBios();

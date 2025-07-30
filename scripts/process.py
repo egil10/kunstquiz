@@ -35,8 +35,8 @@ ARGUMENTS:
 --merge-tags: Merge artist tags
 --full-process: Run all processing operations
 
---input: Input JSON file (default: data/paintings_with_inferred_categories.json)
---output: Output JSON file (default: data/paintings_with_inferred_categories.json)
+--input: Input JSON file (default: data/paintings.json)
+--output: Output JSON file (default: data/paintings.json)
 --dry-run: Show what would be processed without actually processing
 --no-dry-run: Actually perform the processing
 """
@@ -283,7 +283,7 @@ def merge_artist_tags(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     
     # Load existing artist tags
     artist_tags = {}
-    tag_files = ['data/artist_bios.json', 'data/artist_bios.json']
+    tag_files = ['data/artists.json', 'data/artists.json']
     
     for filepath in tag_files:
         if os.path.exists(filepath):
@@ -366,8 +366,8 @@ def main():
     parser.add_argument('--full-process', action='store_true', help='Run all processing operations')
     
     # Options
-    parser.add_argument('--input', default='data/paintings_with_inferred_categories.json', help='Input JSON file')
-    parser.add_argument('--output', default='data/paintings_with_inferred_categories.json', help='Output JSON file')
+    parser.add_argument('--input', default='data/paintings.json', help='Input JSON file')
+    parser.add_argument('--output', default='data/paintings.json', help='Output JSON file')
     parser.add_argument('--dry-run', action='store_true', default=True, help='Show what would be processed without actually processing (default)')
     parser.add_argument('--no-dry-run', action='store_true', help='Actually perform the processing')
     

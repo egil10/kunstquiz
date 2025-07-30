@@ -137,7 +137,7 @@ def step2_clean(quality: bool = True, duplicates: bool = True):
     print("Step 2: Cleaning images...")
     
     # Load current data
-    current_data = load_json('data/paintings_with_inferred_categories.json')
+    current_data = load_json('data/paintings.json')
     if not current_data:
         print("⚠️  No data to clean")
         return False
@@ -257,8 +257,8 @@ def step6_deploy():
     print("Step 6: Deploying to app...")
     
     # Load processed data
-    paintings_data = load_json('data/paintings_with_inferred_categories.json')
-    artists_data = load_json('data/artist_bios.json')
+    paintings_data = load_json('data/paintings.json')
+    artists_data = load_json('data/artists.json')
     
     if not paintings_data:
         print("❌ No paintings data found")
@@ -280,8 +280,8 @@ def step6_deploy():
     save_json(app_data, 'data/app_data.json')
     
     # Also save individual files for backward compatibility
-    save_json(paintings_data, 'data/paintings_with_inferred_categories.json')
-    save_json(artists_data, 'data/artist_bios.json')
+    save_json(paintings_data, 'data/paintings.json')
+    save_json(artists_data, 'data/artists.json')
     
     print(f"App deployment complete!")
     print(f"  - Total paintings: {len(paintings_data)}")

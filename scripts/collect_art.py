@@ -66,7 +66,7 @@ from bs4 import BeautifulSoup
 from collections import Counter
 import subprocess
 
-APPENDED_FILE = 'data/paintings_with_inferred_categories.json'
+APPENDED_FILE = 'data/paintings.json'
 MANUAL_FILE = 'data/manual_paintings.json'
 MERGE_SCRIPT = 'scripts/scripts/process.py'
 DIAGNOSE_SCRIPT = 'scripts/scripts/stats.py'

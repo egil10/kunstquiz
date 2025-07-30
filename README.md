@@ -109,3 +109,22 @@ MIT. All painting images and artist data are from open Wikimedia/Wikidata source
 ---
 
 *Made with ❤️ for Norwegian art lovers.*
+
+
+<!-- STATS_START -->
+**Latest Art Quiz Stats**
+- Total paintings: 3036
+- Total unique artists in paintings: 59
+- Total artists in bios: 91
+- Categories:
+  - Full Collection: 3036 paintings, 59 painters
+  - Popular Painters: 1444 paintings, 10 painters
+  - Landscape Painting: 310 paintings, 34 painters
+  - Portraits: 276 paintings, 32 painters
+  - Women Painters: 276 paintings, 32 painters
+  - 19th Century: 0 paintings, 0 painters
+  - 20th Century: 0 paintings, 0 painters
+  - Impressionism: 175 paintings, 2 painters
+  - Expressionism: 192 paintings, 2 painters
+  - Norwegian Romantic: 0 paintings, 0 painters
+<!-- STATS_END -->

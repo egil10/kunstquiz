@@ -40,7 +40,7 @@ ARGUMENTS:
 --create: Create new backup
 --list: List available backups
 --restore: Restore from backup (requires backup name)
---input: Input JSON file (default: data/paintings_with_inferred_categories.json)
+--input: Input JSON file (default: data/paintings.json)
 --output: Output JSON file (default: same as input)
 --dry-run: Show what would be done without actually doing it
 --no-dry-run: Actually perform the operation
@@ -204,7 +204,7 @@ def check_gender_periods(data: List[Dict[str, Any]]) -> Dict[str, Any]:
     print("👥 Checking gender and period distribution...")
     
     # Load artist bios for gender information
-    bios_file = 'data/artist_bios.json'
+    bios_file = 'data/artists.json'
     artist_genders = {}
     
     if os.path.exists(bios_file):
@@ -292,11 +292,11 @@ def create_backup() -> str:
     
     # Files to backup
     files_to_backup = [
-        'data/paintings_with_inferred_categories.json',
-        'data/paintings_with_inferred_categories.json',
-        'data/artist_bios.json',
-        'data/artist_bios.json',
-        'data/artist_bios.json'
+        'data/paintings.json',
+        'data/paintings.json',
+        'data/artists.json',
+        'data/artists.json',
+        'data/artists.json'
     ]
     
     backed_up_files = []
@@ -364,8 +364,8 @@ def restore_backup(backup_name: str) -> bool:
     
     # Files to restore
     files_to_restore = [
-        'paintings_with_inferred_categories.json',
-        'artist_bios.json'
+        'paintings.json',
+        'artists.json'
     ]
     
     restored_files = []
@@ -507,7 +507,7 @@ def main():
     parser.add_argument('--restore', type=str, help='Restore from backup (requires backup name)')
     
     # Options
-    parser.add_argument('--input', default='data/paintings_with_inferred_categories.json', help='Input JSON file')
+    parser.add_argument('--input', default='data/paintings.json', help='Input JSON file')
     parser.add_argument('--output', default=None, help='Output JSON file (default: same as input)')
     parser.add_argument('--dry-run', action='store_true', default=True, help='Show what would be done without actually doing it (default)')
     parser.add_argument('--no-dry-run', action='store_true', help='Actually perform the operation')

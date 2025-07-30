@@ -55,12 +55,12 @@ def analyze_data_structure():
     
     # List of files to analyze
     files_to_analyze = [
-        'data/paintings_with_inferred_categories.json',
-        'data/paintings_with_inferred_categories.json', 
-        'data/paintings_with_inferred_categories.json',
-        'data/artist_bios.json',
-        'data/artist_bios.json',
-        'data/artist_bios.json'
+                'data/paintings.json',
+        'data/paintings.json',
+        'data/paintings.json',
+        'data/artists.json',
+        'data/artists.json',
+        'data/artists.json'
     ]
     
     analysis = {}
@@ -114,9 +114,9 @@ def find_duplicates():
     
     # Load all painting files
     painting_files = [
-        'data/paintings_with_inferred_categories.json',
-        'data/paintings_with_inferred_categories.json',
-        'data/paintings_with_inferred_categories.json'
+        'data/paintings.json',
+        'data/paintings.json',
+        'data/paintings.json'
     ]
     
     all_paintings = []
@@ -298,12 +298,12 @@ def backup_existing_files():
     os.makedirs(backup_dir, exist_ok=True)
     
     files_to_backup = [
-        'data/paintings_with_inferred_categories.json',
-        'data/paintings_with_inferred_categories.json',
-        'data/paintings_with_inferred_categories.json',
-        'data/artist_bios.json',
-        'data/artist_bios.json',
-        'data/artist_bios.json'
+        'data/paintings.json',
+        'data/paintings.json',
+        'data/paintings.json',
+        'data/artists.json',
+        'data/artists.json',
+        'data/artists.json'
     ]
     
     backed_up = []
@@ -322,9 +322,9 @@ def cleanup_redundant_files():
     
     # Files that can be safely removed after consolidation
     files_to_remove = [
-        'data/paintings_with_inferred_categories.json',  # Replaced by unified structure
-        'data/artist_bios.json',       # Merged into artists.json
-        'data/artist_bios.json'  # Merged into artists.json
+        'data/paintings.json',  # Replaced by unified structure
+        'data/artists.json',       # Merged into artists.json
+        'data/artists.json'  # Merged into artists.json
     ]
     
     removed = []
@@ -351,8 +351,8 @@ def update_web_app_compatibility():
     artists = app_data.get('artists', [])
     
     # Create files that the web app expects
-    save_json(paintings, 'data/paintings_with_inferred_categories.json')
-    save_json(artists, 'data/artist_bios.json')
+    save_json(paintings, 'data/paintings.json')
+    save_json(artists, 'data/artists.json')
     
     print("✅ Created web app compatibility files")
     return True

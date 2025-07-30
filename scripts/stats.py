@@ -43,7 +43,7 @@ ARGUMENTS:
 --gender-periods: Check gender and period distribution
 
 --by-artists: For categories, count by unique artists instead of paintings
---input: Input JSON file (default: data/paintings_with_inferred_categories.json)
+--input: Input JSON file (default: data/paintings.json)
 --output: Output report file (default: diagnostics.md)
 """
 
@@ -549,7 +549,7 @@ def gender_period_analysis(data: List[Dict[str, Any]]):
     print("-" * 50)
     
     # Load artist bios to get gender information
-    bios_file = 'data/artist_bios.json'
+    bios_file = 'data/artists.json'
     artist_genders = {}
     
     if os.path.exists(bios_file):
@@ -649,7 +649,7 @@ def main():
     
     # Options
     parser.add_argument('--by-artists', action='store_true', help='For categories, count by unique artists instead of paintings')
-    parser.add_argument('--input', default='data/paintings_with_inferred_categories.json', help='Input JSON file')
+    parser.add_argument('--input', default='data/paintings.json', help='Input JSON file')
     parser.add_argument('--output', default='diagnostics.md', help='Output report file')
     
     args = parser.parse_args()

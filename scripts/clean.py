@@ -50,7 +50,7 @@ ARGUMENTS:
 --min-width: Minimum image width for quality filter
 --min-height: Minimum image height for quality filter
 --file: File containing URLs to remove
---input: Input JSON file (default: data/paintings_with_inferred_categories.json)
+--input: Input JSON file (default: data/paintings.json)
 --output: Output JSON file (default: same as input)
 --dry-run: Show what would be removed without actually removing
 --no-dry-run: Actually perform the removal
@@ -451,8 +451,8 @@ def main():
                        help='Minimum image height for quality filter (default: 200)')
     parser.add_argument('--file', default='urls_to_remove.txt',
                        help='File containing URLs to remove (default: urls_to_remove.txt)')
-    parser.add_argument('--input', default='data/paintings_with_inferred_categories.json',
-                       help='Input JSON file (default: data/paintings_with_inferred_categories.json)')
+        parser.add_argument('--input', default='data/paintings.json',
+                        help='Input JSON file (default: data/paintings.json)')
     parser.add_argument('--output', default=None,
                        help='Output JSON file (default: same as input)')
     parser.add_argument('--dry-run', action='store_true', default=True,
@@ -560,7 +560,7 @@ def main():
         save_json(data, args.output)
         
         # Also update merged file if it exists
-        merged_file = 'data/paintings_with_inferred_categories.json'
+        merged_file = 'data/paintings.json'
         if os.path.exists(merged_file) and args.output != merged_file:
             print(f"Also updating {merged_file}...")
             save_json(data, merged_file)
