@@ -177,6 +177,10 @@ const translations = {
     realism: 'Realism',
     romanticNationalism: 'Romantic Nationalism',
     neoRomanticism: 'Neo-Romanticism',
+    modernism: 'Modernism',
+    neoClassicism: 'Neo-Classicism',
+    maleArtists: 'Male Artists',
+    femaleArtists: 'Female Artists',
     correct: 'Correct!',
     incorrect: 'Incorrect!',
     congratulations: 'Congratulations!',
@@ -350,6 +354,10 @@ const translations = {
     realism: 'Realisme',
     romanticNationalism: 'Romantisk Nasjonalisme',
     neoRomanticism: 'Neo-Romantikk',
+    modernism: 'Modernisme',
+    neoClassicism: 'Neo-Klassisisme',
+    maleArtists: 'Mannlige Kunstnere',
+    femaleArtists: 'Kvinnelige Kunstnere',
     correct: 'Riktig!',
     incorrect: 'Feil!',
     congratulations: 'Gratulerer!',
@@ -543,13 +551,13 @@ let currentPainting = null;
 // List of categories with consistent labels - Updated based on actual data
 const CATEGORY_DEFS = [
   { value: 'all', label: 'fullCollection' },
-  { value: 'popular', label: 'popularPainters' },
   { value: 'landscape', label: 'landscapePainting' },
   { value: 'realism', label: 'realism' },
-  { value: 'expressionism', label: 'expressionism' },
   { value: 'impressionism', label: 'impressionism' },
   { value: 'romantic_nationalism', label: 'romanticNationalism' },
-  { value: 'neo_romanticism', label: 'neoRomanticism' }
+  { value: 'modernism', label: 'modernism' },
+  { value: 'male_artists', label: 'maleArtists' },
+  { value: 'female_artists', label: 'femaleArtists' }
 ];
 
 function t(key) {
@@ -1297,29 +1305,16 @@ function getArtistBioMap() {
 }
 
 const categoryFilters = {
-  popular: validPaintings => {
-    const artistCounts = validPaintings.reduce((counts, p) => {
-      if (p.artist) counts[p.artist] = (counts[p.artist] || 0) + 1;
-      return counts;
-    }, {});
-    const topArtists = Object.entries(artistCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 10)
-      .map(([name]) => name);
-    return validPaintings.filter(p => topArtists.includes(p.artist));
-  },
   landscape: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('landscape')),
   realism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('realism')),
-  expressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('expressionism')),
   impressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('impressionism')),
   romantic_nationalism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
     m?.toLowerCase().includes('romantic nationalism') || 
     m?.toLowerCase().includes('romantic nationalism')
   ),
-  neo_romanticism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
-    m?.toLowerCase().includes('neo-romanticism') || 
-    m?.toLowerCase().includes('neo romanticism')
-  )
+  modernism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('modernism')),
+  male_artists: p => p.artist_gender === 'male',
+  female_artists: p => p.artist_gender === 'female'
 };
 
 function getValidPaintings() {
