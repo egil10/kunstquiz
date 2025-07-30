@@ -1319,14 +1319,63 @@ const categoryFilters = {
       .map(([artist]) => artist);
     return paintings.filter(p => topArtists.includes(p.artist));
   },
-  landscape: p => [...(p.artist_genre || []), ...(p.genre || [])].some(g => g?.toLowerCase().includes('landscape')),
-  realism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('realism')),
-  impressionism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('impressionism')),
-  romantic_nationalism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
-    m?.toLowerCase().includes('romantic nationalism') || 
-    m?.toLowerCase().includes('romantic nationalism')
-  ),
-  modernism: p => [...(p.artist_movement || []), ...(p.movement || [])].some(m => m?.toLowerCase().includes('modernism')),
+  landscape: p => {
+    // Check both the inferred categories and the original genre/movement fields
+    const categories = p.categories || [];
+    const hasLandscapeCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('landscape')
+    );
+    const hasLandscapeGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('landscape')
+    );
+    return hasLandscapeCategory || hasLandscapeGenre;
+  },
+  realism: p => {
+    // Check both the inferred categories and the original genre/movement fields
+    const categories = p.categories || [];
+    const hasRealismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('realism')
+    );
+    const hasRealismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('realism')
+    );
+    return hasRealismCategory || hasRealismMovement;
+  },
+  impressionism: p => {
+    // Check both the inferred categories and the original genre/movement fields
+    const categories = p.categories || [];
+    const hasImpressionismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('impressionism')
+    );
+    const hasImpressionismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('impressionism')
+    );
+    return hasImpressionismCategory || hasImpressionismMovement;
+  },
+  romantic_nationalism: p => {
+    // Check both the inferred categories and the original genre/movement fields
+    const categories = p.categories || [];
+    const hasRomanticCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('romantic nationalism') || 
+      cat?.toLowerCase().includes('romantic nationalism')
+    );
+    const hasRomanticMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('romantic nationalism') || 
+      m?.toLowerCase().includes('romantic nationalism')
+    );
+    return hasRomanticCategory || hasRomanticMovement;
+  },
+  modernism: p => {
+    // Check both the inferred categories and the original genre/movement fields
+    const categories = p.categories || [];
+    const hasModernismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('modernism')
+    );
+    const hasModernismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('modernism')
+    );
+    return hasModernismCategory || hasModernismMovement;
+  },
   female_artists: p => p.artist_gender === 'female'
 };
 
