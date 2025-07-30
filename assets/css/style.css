@@ -828,7 +828,7 @@ button.loading {
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   cursor: pointer;
-  background: #fff;
+  background: #f5f5f5;
 }
 
 .artist-gallery-item:hover {
@@ -841,11 +841,12 @@ button.loading {
   height: 100px;
   object-fit: cover;
   display: block;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+  background: #f5f5f5;
 }
 
 .artist-gallery-item:hover img {
-  transform: scale(1.05);
+  transform: scale(1.02);
 }
 
 .artist-gallery-item-title {
@@ -862,6 +863,7 @@ button.loading {
   transition: opacity 0.2s ease;
   font-weight: 500;
   line-height: 1.2;
+  pointer-events: none;
 }
 
 .artist-gallery-item:hover .artist-gallery-item-title {

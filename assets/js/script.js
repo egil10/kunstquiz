@@ -1627,11 +1627,13 @@ function createArtistGalleryHtml(artistPaintings, artistName) {
   
   const paintingsHtml = initialPaintings.map(painting => {
     const title = painting.title || 'Untitled';
-    const optimizedUrl = optimizeImageUrl(painting.url, 200); // Smaller thumbnails
+    const optimizedUrl = optimizeImageUrl(painting.url, 150); // Even smaller thumbnails for better performance
     return `
       <div class="artist-gallery-item" data-painting-index="${painting.index || 0}">
         <img src="${optimizedUrl}" alt="${title}" loading="lazy" 
-             onerror="this.src='${painting.url}'">
+             onerror="this.src='${painting.url}'"
+             onload="this.style.opacity='1'"
+             style="opacity: 0; transition: opacity 0.3s ease;">
         <div class="artist-gallery-item-title">${title}</div>
       </div>
     `;
@@ -1681,6 +1683,16 @@ function setupArtistGalleryHandlers(popup, artistPaintings, artistName) {
   }
 }
 
+function preloadArtistGalleryImages(paintings) {
+  if (!paintings || paintings.length === 0) return;
+  
+  paintings.forEach(painting => {
+    const optimizedUrl = optimizeImageUrl(painting.url, 150);
+    const img = new Image();
+    img.src = optimizedUrl;
+  });
+}
+
 function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn) {
   const currentLoaded = parseInt(loadMoreBtn.dataset.loaded);
   const total = parseInt(loadMoreBtn.dataset.total);
@@ -1696,6 +1708,10 @@ function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn
   loadMoreBtn.classList.add('loading');
   loadMoreBtn.textContent = currentLanguage === 'no' ? 'Laster...' : 'Loading...';
   
+  // Preload next batch for smoother experience
+  const nextNextBatch = artistPaintings.slice(currentLoaded + loadCount, currentLoaded + loadCount * 2);
+  preloadArtistGalleryImages(nextNextBatch);
+  
   // Simulate loading delay for better UX
   setTimeout(() => {
     const galleryGrid = popup.querySelector('.artist-gallery-grid');
@@ -1703,11 +1719,13 @@ function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn
     // Add new paintings to the grid
     nextBatch.forEach(painting => {
       const title = painting.title || 'Untitled';
-      const optimizedUrl = optimizeImageUrl(painting.url, 200);
+      const optimizedUrl = optimizeImageUrl(painting.url, 150);
       const itemHtml = `
         <div class="artist-gallery-item" data-painting-index="${painting.index || 0}">
           <img src="${optimizedUrl}" alt="${title}" loading="lazy" 
-               onerror="this.src='${painting.url}'">
+               onerror="this.src='${painting.url}'"
+               onload="this.style.opacity='1'"
+               style="opacity: 0; transition: opacity 0.3s ease;">
           <div class="artist-gallery-item-title">${title}</div>
         </div>
       `;
@@ -1799,6 +1817,8 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   // Add event handlers for gallery if it exists
   if (persistent && artistPaintings.length > 0) {
     setupArtistGalleryHandlers(popup, artistPaintings, name);
+    // Preload next batch of images for smoother experience
+    preloadArtistGalleryImages(artistPaintings.slice(8, 16));
   }
   if (persistent) {
     // Remove all <a> links in the popup (if any)
