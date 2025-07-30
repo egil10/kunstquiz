@@ -552,12 +552,14 @@ let currentPainting = null;
 const CATEGORY_DEFS = [
   { value: 'all', label: 'fullCollection' },
   { value: 'popular', label: 'popularPainters' },
-  { value: 'landscape', label: 'landscape' },
-  { value: 'realism', label: 'realism' },
+  { value: 'landscape', label: 'landscapePainting' },
+  { value: 'portraits', label: 'portraits' },
+  { value: 'women_painters', label: 'womenPainters' },
+  { value: '1800s', label: 'nineteenthCentury' },
+  { value: '1900s', label: 'twentiethCentury' },
   { value: 'impressionism', label: 'impressionism' },
-  { value: 'romantic_nationalism', label: 'romanticNationalism' },
-  { value: 'modernism', label: 'modernism' },
-  { value: 'female_artists', label: 'femaleArtists' }
+  { value: 'expressionism', label: 'expressionism' },
+  { value: 'romantic_nationalism', label: 'norwegianRomantic' }
 ];
 
 function t(key) {
@@ -1330,16 +1332,27 @@ const categoryFilters = {
     );
     return hasLandscapeCategory || hasLandscapeGenre;
   },
-  realism: p => {
+  portraits: p => {
     // Check both the inferred categories and the original genre/movement fields
     const categories = p.categories || [];
-    const hasRealismCategory = categories.some(cat => 
-      cat?.toLowerCase().includes('realism')
+    const hasPortraitCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('portrait')
     );
-    const hasRealismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
-      m?.toLowerCase().includes('realism')
+    const hasPortraitGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+      g?.toLowerCase().includes('portrait')
     );
-    return hasRealismCategory || hasRealismMovement;
+    return hasPortraitCategory || hasPortraitGenre;
+  },
+  women_painters: p => p.artist_gender === 'female',
+  '1800s': p => {
+    const artistMap = getArtistBioMap();
+    const bio = artistMap[p.artist];
+    return bio && bio.birth_year && parseInt(bio.birth_year) >= 1800 && parseInt(bio.birth_year) < 1900;
+  },
+  '1900s': p => {
+    const artistMap = getArtistBioMap();
+    const bio = artistMap[p.artist];
+    return bio && bio.birth_year && parseInt(bio.birth_year) >= 1900 && parseInt(bio.birth_year) < 2000;
   },
   impressionism: p => {
     // Check both the inferred categories and the original genre/movement fields
@@ -1352,31 +1365,30 @@ const categoryFilters = {
     );
     return hasImpressionismCategory || hasImpressionismMovement;
   },
+  expressionism: p => {
+    // Check both the inferred categories and the original genre/movement fields
+    const categories = p.categories || [];
+    const hasExpressionismCategory = categories.some(cat => 
+      cat?.toLowerCase().includes('expressionism')
+    );
+    const hasExpressionismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+      m?.toLowerCase().includes('expressionism')
+    );
+    return hasExpressionismCategory || hasExpressionismMovement;
+  },
   romantic_nationalism: p => {
     // Check both the inferred categories and the original genre/movement fields
     const categories = p.categories || [];
     const hasRomanticCategory = categories.some(cat => 
       cat?.toLowerCase().includes('romantic nationalism') || 
-      cat?.toLowerCase().includes('romantic nationalism')
+      cat?.toLowerCase().includes('norwegian romantic')
     );
     const hasRomanticMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
       m?.toLowerCase().includes('romantic nationalism') || 
-      m?.toLowerCase().includes('romantic nationalism')
+      m?.toLowerCase().includes('norwegian romantic')
     );
     return hasRomanticCategory || hasRomanticMovement;
-  },
-  modernism: p => {
-    // Check both the inferred categories and the original genre/movement fields
-    const categories = p.categories || [];
-    const hasModernismCategory = categories.some(cat => 
-      cat?.toLowerCase().includes('modernism')
-    );
-    const hasModernismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
-      m?.toLowerCase().includes('modernism')
-    );
-    return hasModernismCategory || hasModernismMovement;
-  },
-  female_artists: p => p.artist_gender === 'female'
+  }
 };
 
 function getValidPaintings() {
@@ -2037,13 +2049,13 @@ function generateAboutContent() {
   categoryCounts.women_painters = validPaintings.filter(p => p.artist_gender === 'female').length;
   
   // 19th century
-  categoryCounts.nineteenthCentury = validPaintings.filter(p => {
+  categoryCounts['1800s'] = validPaintings.filter(p => {
     const bio = artistBios.find(b => b.name === p.artist);
     return bio && bio.birth_year && 1800 <= parseInt(bio.birth_year) && parseInt(bio.birth_year) < 1900;
   }).length;
   
   // 20th century
-  categoryCounts.twentiethCentury = validPaintings.filter(p => {
+  categoryCounts['1900s'] = validPaintings.filter(p => {
     const bio = artistBios.find(b => b.name === p.artist);
     return bio && bio.birth_year && 1900 <= parseInt(bio.birth_year) && parseInt(bio.birth_year) < 2000;
   }).length;
@@ -2061,7 +2073,7 @@ function generateAboutContent() {
   ).length;
   
   // Norwegian Romantic
-  categoryCounts.norwegianRomantic = validPaintings.filter(p => 
+  categoryCounts.romantic_nationalism = validPaintings.filter(p => 
     (p.artist_movement && p.artist_movement.some(m => 
       m && (m.toLowerCase().includes('nasjonalromantikk') || 
            m.toLowerCase().includes('norwegian romantic nationalism') ||
