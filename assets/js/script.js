@@ -530,6 +530,92 @@ let selectedCategory = 'all';
 let artistBios = [];
 let currentPainting = null;
 
+// Analytics tracking
+let analyticsData = {
+  sessionStart: Date.now(),
+  totalCorrect: 0,
+  totalIncorrect: 0,
+  perfectScores: 0,
+  gamesPlayed: 0,
+  categoryUsage: {},
+  sessionDuration: 0
+};
+
+// Analytics tracking functions
+function trackEvent(eventName, parameters = {}) {
+  if (typeof gtag !== 'undefined') {
+    gtag('event', eventName, {
+      ...parameters,
+      custom_parameter_1: 'game_events',
+      custom_parameter_2: 'quiz_metrics'
+    });
+  }
+}
+
+function trackGameStart() {
+  analyticsData.gamesPlayed++;
+  trackEvent('game_start', {
+    category: selectedCategory,
+    games_played: analyticsData.gamesPlayed
+  });
+}
+
+function trackAnswer(isCorrect, artist, category) {
+  if (isCorrect) {
+    analyticsData.totalCorrect++;
+  } else {
+    analyticsData.totalIncorrect++;
+  }
+  
+  trackEvent('answer_submitted', {
+    correct: isCorrect,
+    artist: artist,
+    category: category,
+    total_correct: analyticsData.totalCorrect,
+    total_incorrect: analyticsData.totalIncorrect,
+    accuracy_rate: analyticsData.totalCorrect / (analyticsData.totalCorrect + analyticsData.totalIncorrect)
+  });
+}
+
+function trackPerfectScore() {
+  analyticsData.perfectScores++;
+  trackEvent('perfect_score', {
+    perfect_scores: analyticsData.perfectScores,
+    category: selectedCategory
+  });
+}
+
+function trackCategoryChange(newCategory) {
+  analyticsData.categoryUsage[newCategory] = (analyticsData.categoryUsage[newCategory] || 0) + 1;
+  trackEvent('category_changed', {
+    new_category: newCategory,
+    category_usage: analyticsData.categoryUsage
+  });
+}
+
+function trackSessionEnd() {
+  analyticsData.sessionDuration = Date.now() - analyticsData.sessionStart;
+  trackEvent('session_end', {
+    session_duration: analyticsData.sessionDuration,
+    total_correct: analyticsData.totalCorrect,
+    total_incorrect: analyticsData.totalIncorrect,
+    games_played: analyticsData.gamesPlayed,
+    perfect_scores: analyticsData.perfectScores
+  });
+}
+
+// Track page visibility changes for session duration
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) {
+    trackSessionEnd();
+  }
+});
+
+// Track before user leaves the page
+window.addEventListener('beforeunload', () => {
+  trackSessionEnd();
+});
+
 // List of categories with consistent labels - Updated based on actual data
 const CATEGORY_DEFS = [
   { value: 'all', label: 'fullCollection' },
@@ -895,7 +981,9 @@ function setupCategoryChangeInfoBar() {
   const catSelect = document.getElementById('category-select');
   if (catSelect) {
     catSelect.addEventListener('change', () => {
-      selectedCategory = catSelect.value;
+      const newCategory = catSelect.value;
+      trackCategoryChange(newCategory);
+      selectedCategory = newCategory;
       startNewRound(); // Reset quiz completely for new category
       updateCollectionInfo();
     });
@@ -943,6 +1031,7 @@ function renderCategorySelector() {
         item.onclick = ev => {
           ev.stopPropagation();
           catSelect.value = opt.value;
+          trackCategoryChange(opt.value);
           selectedCategory = opt.value;
           startNewRound(); // Reset quiz completely for new category
           updateCollectionInfo();
@@ -1612,6 +1701,9 @@ function loadQuiz() {
         streak++;
         selectedBtn.classList.add('correct');
         
+        // Track analytics
+        trackAnswer(true, painting.artist, selectedCategory);
+        
         // Show correct message
         const correctMessage = getRandomCorrectMessage();
         showMessage(correctMessage, '#388e3c');
@@ -1636,6 +1728,10 @@ function loadQuiz() {
         streak = 0;
         selectedBtn.classList.add('wrong');
         correctBtn.classList.add('correct');
+        
+        // Track analytics
+        trackAnswer(false, artist, selectedCategory);
+        
         const incorrectMessage = getRandomIncorrectMessage();
         showMessage(incorrectMessage, '#e53935');
         
@@ -2512,6 +2608,7 @@ function showRoundResults() {
   
   // For perfect scores, go directly to diploma
   if (totalCorrect === 10) {
+    trackPerfectScore();
     showDiploma();
     return;
   }
@@ -2719,6 +2816,9 @@ function startNewRound() {
   };
   streak = 0;
   updateStreakBar();
+  
+  // Track game start
+  trackGameStart();
   
   // Clear caches when starting new round
   clearCaches();
