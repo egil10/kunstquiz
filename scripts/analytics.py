@@ -74,14 +74,18 @@ def export_analytics(data, format='json'):
     """Export analytics data"""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
+    # Create analytics directory if it doesn't exist
+    export_dir = "analytics"
+    os.makedirs(export_dir, exist_ok=True)
+    
     if format == 'json':
-        filename = f"analytics_export_{timestamp}.json"
+        filename = os.path.join(export_dir, f"analytics_export_{timestamp}.json")
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(data, f, indent=2, ensure_ascii=False)
         print(f"\n✅ Analytics exported to: {filename}")
     
     elif format == 'csv':
-        filename = f"analytics_export_{timestamp}.csv"
+        filename = os.path.join(export_dir, f"analytics_export_{timestamp}.csv")
         # Implementation for CSV export
         print(f"\n✅ Analytics exported to: {filename}")
 
