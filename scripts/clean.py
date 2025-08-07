@@ -451,8 +451,8 @@ def main():
                        help='Minimum image height for quality filter (default: 200)')
     parser.add_argument('--file', default='urls_to_remove.txt',
                        help='File containing URLs to remove (default: urls_to_remove.txt)')
-        parser.add_argument('--input', default='data/paintings.json',
-                        help='Input JSON file (default: data/paintings.json)')
+    parser.add_argument('--input', default='data/paintings.json',
+                       help='Input JSON file (default: data/paintings.json)')
     parser.add_argument('--output', default=None,
                        help='Output JSON file (default: same as input)')
     parser.add_argument('--dry-run', action='store_true', default=True,
