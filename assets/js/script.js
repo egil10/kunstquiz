@@ -1375,6 +1375,12 @@ function getArtistBioMap() {
   return bioMap;
 }
 
+// Normalize value to array for robust category/movement/genre handling
+function toArray(value) {
+  if (value == null) return [];
+  return Array.isArray(value) ? value : [value];
+}
+
 const categoryFilters = {
   popular: (paintings) => {
     // Get top 10 artists by number of paintings
@@ -1391,83 +1397,83 @@ const categoryFilters = {
     return paintings.filter(p => topArtists.includes(p.artist));
   },
   impressionism: p => {
-    const categories = p.categories || [];
-    const inferredCategories = p.inferred_categories || [];
+    const categories = toArray(p.categories);
+    const inferredCategories = toArray(p.inferred_categories);
     const hasImpressionismCategory = categories.some(cat => 
       cat?.toLowerCase().includes('impressionism')
     );
     const hasInferredImpressionism = inferredCategories.some(cat => 
       cat?.toLowerCase().includes('impressionism')
     );
-    const hasImpressionismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasImpressionismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('impressionism')
     );
     return hasImpressionismCategory || hasInferredImpressionism || hasImpressionismMovement;
   },
   expressionism: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasExpressionismCategory = categories.some(cat => 
       cat?.toLowerCase().includes('expressionism')
     );
-    const hasExpressionismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasExpressionismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('expressionism')
     );
     return hasExpressionismCategory || hasExpressionismMovement;
   },
   romanticism: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasRomanticCategory = categories.some(cat => 
       cat?.toLowerCase().includes('romantic')
     );
-    const hasRomanticMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasRomanticMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('romantic')
     );
     return hasRomanticCategory || hasRomanticMovement;
   },
   realism: p => {
-    const categories = p.categories || [];
-    const inferredCategories = p.inferred_categories || [];
+    const categories = toArray(p.categories);
+    const inferredCategories = toArray(p.inferred_categories);
     const hasRealismCategory = categories.some(cat => 
       cat?.toLowerCase().includes('realism')
     );
     const hasInferredRealism = inferredCategories.some(cat => 
       cat?.toLowerCase().includes('realism')
     );
-    const hasRealismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasRealismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('realism')
     );
     return hasRealismCategory || hasInferredRealism || hasRealismMovement;
   },
   naturalism: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasNaturalismCategory = categories.some(cat => 
       cat?.toLowerCase().includes('naturalism')
     );
-    const hasNaturalismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasNaturalismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('naturalism')
     );
     return hasNaturalismCategory || hasNaturalismMovement;
   },
   symbolism: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasSymbolismCategory = categories.some(cat => 
       cat?.toLowerCase().includes('symbolism')
     );
-    const hasSymbolismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasSymbolismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('symbolism')
     );
     return hasSymbolismCategory || hasSymbolismMovement;
   },
   modernism: p => {
-    const categories = p.categories || [];
-    const inferredCategories = p.inferred_categories || [];
+    const categories = toArray(p.categories);
+    const inferredCategories = toArray(p.inferred_categories);
     const hasModernismCategory = categories.some(cat => 
       cat?.toLowerCase().includes('modernism')
     );
     const hasInferredModern = inferredCategories.some(cat => 
       cat?.toLowerCase().includes('modern')
     );
-    const hasModernismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasModernismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('modernism')
     );
     const hasModernistBio = p.artist_bio?.toLowerCase().includes('modernist') || 
@@ -1475,85 +1481,85 @@ const categoryFilters = {
     return hasModernismCategory || hasInferredModern || hasModernismMovement || hasModernistBio;
   },
   contemporary: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasContemporaryCategory = categories.some(cat => 
       cat?.toLowerCase().includes('contemporary')
     );
-    const hasContemporaryMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasContemporaryMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('contemporary')
     );
     return hasContemporaryCategory || hasContemporaryMovement;
   },
   landscape: p => {
-    const categories = p.categories || [];
-    const inferredCategories = p.inferred_categories || [];
+    const categories = toArray(p.categories);
+    const inferredCategories = toArray(p.inferred_categories);
     const hasLandscapeCategory = categories.some(cat => 
       cat?.toLowerCase().includes('landscape')
     );
     const hasInferredLandscape = inferredCategories.some(cat => 
       cat?.toLowerCase().includes('landscape')
     );
-    const hasLandscapeGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+    const hasLandscapeGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
       g?.toLowerCase().includes('landscape')
     );
     return hasLandscapeCategory || hasInferredLandscape || hasLandscapeGenre;
   },
   portraits: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasPortraitCategory = categories.some(cat => 
       cat?.toLowerCase().includes('portrait')
     );
-    const hasPortraitGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+    const hasPortraitGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
       g?.toLowerCase().includes('portrait')
     );
     return hasPortraitCategory || hasPortraitGenre;
   },
   historical: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasHistoricalCategory = categories.some(cat => 
       cat?.toLowerCase().includes('historical')
     );
-    const hasHistoricalGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+    const hasHistoricalGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
       g?.toLowerCase().includes('historical')
     );
     return hasHistoricalCategory || hasHistoricalGenre;
   },
   religious: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasReligiousCategory = categories.some(cat => 
       cat?.toLowerCase().includes('religious')
     );
-    const hasReligiousGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+    const hasReligiousGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
       g?.toLowerCase().includes('religious')
     );
     return hasReligiousCategory || hasReligiousGenre;
   },
   genre: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasGenreCategory = categories.some(cat => 
       cat?.toLowerCase().includes('genre')
     );
-    const hasGenreGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+    const hasGenreGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
       g?.toLowerCase().includes('genre')
     );
     return hasGenreCategory || hasGenreGenre;
   },
   still_life: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasStillLifeCategory = categories.some(cat => 
       cat?.toLowerCase().includes('still life') || cat?.toLowerCase().includes('stilleben')
     );
-    const hasStillLifeGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+    const hasStillLifeGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
       g?.toLowerCase().includes('still life') || g?.toLowerCase().includes('stilleben')
     );
     return hasStillLifeCategory || hasStillLifeGenre;
   },
   abstract: p => {
-    const categories = p.categories || [];
+    const categories = toArray(p.categories);
     const hasAbstractCategory = categories.some(cat => 
       cat?.toLowerCase().includes('abstract')
     );
-    const hasAbstractGenre = [...(p.artist_genre || []), ...(p.genre || [])].some(g => 
+    const hasAbstractGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
       g?.toLowerCase().includes('abstract')
     );
     return hasAbstractCategory || hasAbstractGenre;
@@ -1561,8 +1567,8 @@ const categoryFilters = {
   women_painters: p => p.artist_gender === 'female',
   female_artists: p => p.artist_gender === 'female',
   romantic_nationalism: p => {
-    const categories = p.categories || [];
-    const inferredCategories = p.inferred_categories || [];
+    const categories = toArray(p.categories);
+    const inferredCategories = toArray(p.inferred_categories);
     const hasRomanticNationalismCategory = categories.some(cat => 
       cat?.toLowerCase().includes('romantic nationalism') || 
       cat?.toLowerCase().includes('romantisk nasjonalisme') ||
@@ -1571,7 +1577,7 @@ const categoryFilters = {
     const hasInferredRomantic = inferredCategories.some(cat => 
       cat?.toLowerCase().includes('romantic')
     );
-    const hasRomanticNationalismMovement = [...(p.artist_movement || []), ...(p.movement || [])].some(m => 
+    const hasRomanticNationalismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m?.toLowerCase().includes('romantic nationalism') || 
       m?.toLowerCase().includes('romantisk nasjonalisme') ||
       m?.toLowerCase().includes('national romantic') ||
@@ -2235,14 +2241,12 @@ function generateAboutContent() {
   
   // Landscape paintings
   categoryCounts.landscape = validPaintings.filter(p => 
-    (p.artist_genre && p.artist_genre.some(g => g && g.toLowerCase().includes('landscape'))) ||
-    (p.genre && p.genre.some(g => g && g.toLowerCase().includes('landscape')))
+    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('landscape'))
   ).length;
   
   // Portraits
   categoryCounts.portraits = validPaintings.filter(p => 
-    (p.artist_genre && p.artist_genre.some(g => g && g.toLowerCase().includes('portrait'))) ||
-    (p.genre && p.genre.some(g => g && g.toLowerCase().includes('portrait')))
+    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('portrait'))
   ).length;
   
   // Women painters
@@ -2262,28 +2266,21 @@ function generateAboutContent() {
   
   // Impressionism
   categoryCounts.impressionism = validPaintings.filter(p => 
-    (p.artist_movement && p.artist_movement.some(m => m && m.toLowerCase().includes('impressionism'))) ||
-    (p.movement && p.movement.some(m => m && m.toLowerCase().includes('impressionism')))
+    toArray(p.artist_movement).concat(toArray(p.movement)).some(m => m && m.toLowerCase().includes('impressionism'))
   ).length;
   
   // Expressionism
   categoryCounts.expressionism = validPaintings.filter(p => 
-    (p.artist_movement && p.artist_movement.some(m => m && m.toLowerCase().includes('expressionism'))) ||
-    (p.movement && p.movement.some(m => m && m.toLowerCase().includes('expressionism')))
+    toArray(p.artist_movement).concat(toArray(p.movement)).some(m => m && m.toLowerCase().includes('expressionism'))
   ).length;
   
   // Norwegian Romantic
   categoryCounts.romantic_nationalism = validPaintings.filter(p => 
-    (p.artist_movement && p.artist_movement.some(m => 
+    toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
       m && (m.toLowerCase().includes('nasjonalromantikk') || 
-           m.toLowerCase().includes('norwegian romantic nationalism') ||
-           m.toLowerCase().includes('romantic nationalism'))
-    )) ||
-    (p.movement && p.movement.some(m => 
-      m && (m.toLowerCase().includes('nasjonalromantikk') || 
-           m.toLowerCase().includes('norwegian romantic nationalism') ||
-           m.toLowerCase().includes('romantic nationalism'))
-    ))
+             m.toLowerCase().includes('norwegian romantic nationalism') ||
+             m.toLowerCase().includes('romantic nationalism'))
+    )
   ).length;
   
   // Count unique artists
