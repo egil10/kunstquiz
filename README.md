@@ -116,10 +116,10 @@ MIT. All painting images and artist data are from open Wikimedia/Wikidata source
 - Categories:
   - Full Collection: 3036 paintings, 59 painters
   - Popular Painters: 1444 paintings, 10 painters
-  - Landscape: 310 paintings, 34 painters
-  - Realism: 225 paintings, 2 painters
-  - Impressionism: 175 paintings, 2 painters
-  - Romantic Nationalism: 132 paintings, 1 painters
-  - Modernism: 70 paintings, 1 painters
+  - Landscape: 1661 paintings, 40 painters
+  - Realism: 379 paintings, 3 painters
+  - Impressionism: 376 paintings, 8 painters
+  - Romantic Nationalism: 732 paintings, 7 painters
+  - Modernism: 73 paintings, 2 painters
   - Female Artists: 240 paintings, 4 painters
 <!-- STATS_END -->

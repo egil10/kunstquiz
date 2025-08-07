@@ -313,10 +313,33 @@ def merge_artist_tags(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
                 painting['tags'].extend(artist_data['tags'])
                 painting['tags'] = list(set(painting['tags']))  # Remove duplicates
             
-            # Merge other fields
+            # Merge other basic fields
             for key in ['bio', 'nationality', 'birth_year', 'death_year']:
                 if key in artist_data and artist_data[key] and key not in painting:
                     painting[key] = artist_data[key]
+
+            # Merge movement and genre from artist bios for richer category filters
+            # Normalize to arrays on the painting: 'artist_movement', 'artist_genre'
+            def to_list(value):
+                if value is None:
+                    return []
+                return value if isinstance(value, list) else [value]
+
+            if 'movement' in artist_data and artist_data['movement']:
+                painting['artist_movement'] = to_list(artist_data['movement'])
+
+            if 'genre' in artist_data and artist_data['genre']:
+                painting['artist_genre'] = to_list(artist_data['genre'])
+
+            # Merge gender so category filters like female_artists work reliably
+            if 'gender' in artist_data and artist_data['gender']:
+                painting['artist_gender'] = artist_data['gender']
+
+            # Provide a simple artist_bio text for filters that scan bio text (e.g., modernism)
+            if 'english_bio' in artist_data and artist_data['english_bio']:
+                painting.setdefault('artist_bio', artist_data['english_bio'])
+            elif 'norwegian_bio' in artist_data and artist_data['norwegian_bio']:
+                painting.setdefault('artist_bio', artist_data['norwegian_bio'])
             
             merged_count += 1
     

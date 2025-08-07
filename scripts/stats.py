@@ -51,6 +51,7 @@ import json
 import os
 import re
 from collections import Counter, defaultdict
+import argparse
 from typing import Dict, List, Any
 
 def load_json(filepath: str) -> List[Dict[str, Any]]:
@@ -252,6 +253,8 @@ def category_stats(data: List[Dict[str, Any]], by_artists: bool = False):
             'expressionism': 'Expressionism', 
             'impressionism': 'Impressionism',
             'romantic_nationalism': 'Romantic Nationalism',
+            'modernism': 'Modernism',
+            'female_artists': 'Female Artists',
             'neo_romanticism': 'Neo-Romanticism'
         }
         
@@ -274,28 +277,51 @@ def category_stats(data: List[Dict[str, Any]], by_artists: bool = False):
                     # We'll handle this separately
                     continue
                 elif category_key == 'landscape':
-                    genre = item.get('genre', '')
-                    if 'landscape' in genre.lower():
+                    genres = item.get('genre', [])
+                    artist_genres = item.get('artist_genre', [])
+                    values = (genres if isinstance(genres, list) else [genres]) + (artist_genres if isinstance(artist_genres, list) else [artist_genres])
+                    if any('landscape' in (g or '').lower() for g in values):
                         belongs_to_category = True
                 elif category_key == 'realism':
-                    movement = item.get('movement', '')
-                    if 'realism' in movement.lower():
+                    movements = item.get('movement', [])
+                    artist_movements = item.get('artist_movement', [])
+                    values = (movements if isinstance(movements, list) else [movements]) + (artist_movements if isinstance(artist_movements, list) else [artist_movements])
+                    if any('realism' in (m or '').lower() for m in values):
                         belongs_to_category = True
                 elif category_key == 'expressionism':
-                    movement = item.get('movement', '')
-                    if 'expressionism' in movement.lower():
+                    movements = item.get('movement', [])
+                    artist_movements = item.get('artist_movement', [])
+                    values = (movements if isinstance(movements, list) else [movements]) + (artist_movements if isinstance(artist_movements, list) else [artist_movements])
+                    if any('expressionism' in (m or '').lower() for m in values):
                         belongs_to_category = True
                 elif category_key == 'impressionism':
-                    movement = item.get('movement', '')
-                    if 'impressionism' in movement.lower():
+                    movements = item.get('movement', [])
+                    artist_movements = item.get('artist_movement', [])
+                    values = (movements if isinstance(movements, list) else [movements]) + (artist_movements if isinstance(artist_movements, list) else [artist_movements])
+                    if any('impressionism' in (m or '').lower() for m in values):
                         belongs_to_category = True
                 elif category_key == 'romantic_nationalism':
-                    movement = item.get('movement', '')
-                    if 'romantic nationalism' in movement.lower():
+                    movements = item.get('movement', [])
+                    artist_movements = item.get('artist_movement', [])
+                    values = (movements if isinstance(movements, list) else [movements]) + (artist_movements if isinstance(artist_movements, list) else [artist_movements])
+                    synonyms = ['nasjonalromantikk', 'norwegian romantic nationalism', 'romantic nationalism', 'national romantic']
+                    if any(any(s in (m or '').lower() for s in synonyms) for m in values):
+                        belongs_to_category = True
+                elif category_key == 'modernism':
+                    movements = item.get('movement', [])
+                    artist_movements = item.get('artist_movement', [])
+                    values = (movements if isinstance(movements, list) else [movements]) + (artist_movements if isinstance(artist_movements, list) else [artist_movements])
+                    bio_text = (item.get('artist_bio', '') or '')
+                    if any('modernism' in (m or '').lower() for m in values) or ('modernist' in bio_text.lower()) or ('modernism' in bio_text.lower()):
+                        belongs_to_category = True
+                elif category_key == 'female_artists':
+                    if item.get('artist_gender') == 'female':
                         belongs_to_category = True
                 elif category_key == 'neo_romanticism':
-                    movement = item.get('movement', '')
-                    if 'neo-romanticism' in movement.lower():
+                    movements = item.get('movement', [])
+                    artist_movements = item.get('artist_movement', [])
+                    values = (movements if isinstance(movements, list) else [movements]) + (artist_movements if isinstance(artist_movements, list) else [artist_movements])
+                    if any('neo-romanticism' in (m or '').lower() for m in values):
                         belongs_to_category = True
                 
                 if belongs_to_category:

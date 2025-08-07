@@ -622,6 +622,7 @@ const CATEGORY_DEFS = [
   { value: 'popular', label: 'popularPainters' },
   { value: 'landscape', label: 'landscape' },
   { value: 'realism', label: 'realism' },
+  { value: 'expressionism', label: 'expressionism' },
   { value: 'impressionism', label: 'impressionism' },
   { value: 'romantic_nationalism', label: 'romanticNationalism' },
   { value: 'modernism', label: 'modernism' },

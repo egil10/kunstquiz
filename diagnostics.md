@@ -2,16 +2,16 @@
 
 ## 📊 File Health & Performance
 ### 📁 All JSON Files Status
-- **Paintings (Appended):** 4.68 MB (87,865 lines)
-- **Paintings (Merged):** 4.68 MB (87,865 lines)
+- **Paintings (Appended):** 5.02 MB (105,412 lines)
+- **Paintings (Merged):** 5.02 MB (105,412 lines)
 - **Artist Bios:** 0.12 MB (2,848 lines)
 - **Artist Tags:** 0.12 MB (2,848 lines)
 - **Artist Tags (Appended):** 0.12 MB (2,848 lines)
 
 ### 🎨 Paintings Collection Health
-- **File size:** 4.68 MB (87,865 lines)
+- **File size:** 5.02 MB (105,412 lines)
 - **File size status:** 🟢 Good
-- **Line count status:** 🟢 Good
+- **Line count status:** 🟡 Warning
 - **Total paintings:** 3,036
 - **Collection size status:** 🟢 Good
 
@@ -26,7 +26,7 @@
 
 ### 🔗 Merged Data Health
 - **Merged paintings:** 3,036
-- **Merged file size:** 4.68 MB (87,865 lines)
+- **Merged file size:** 5.02 MB (105,412 lines)
 - **Merged file status:** 🟢 Good
 - **Total unique artists in paintings:** 59
 
@@ -45,11 +45,11 @@
 ## Quiz Categories
 - **Full Collection:** 3036 paintings, 59 painters
 - **Popular Painters:** 1444 paintings, 10 painters
-- **Landscape:** 310 paintings, 34 painters
-- **Realism:** 225 paintings, 2 painters
-- **Impressionism:** 175 paintings, 2 painters
-- **Romantic Nationalism:** 132 paintings, 1 painters
-- **Modernism:** 70 paintings, 1 painters
+- **Landscape:** 1661 paintings, 40 painters
+- **Realism:** 379 paintings, 3 painters
+- **Impressionism:** 376 paintings, 8 painters
+- **Romantic Nationalism:** 732 paintings, 7 painters
+- **Modernism:** 73 paintings, 2 painters
 - **Female Artists:** 240 paintings, 4 painters
 
 ## All Genres (from bios)
@@ -224,17 +224,17 @@ Odd Nerdrum, Jakob Weidemann, Zacharias Martin Aagaard, Rolf Aamot, Rolf Groven,
 
 ## Largest/Smallest Categories (by genre)
 Largest genres:
-- Painting: 2386
+- Painting: 2671
+- Landscape painting: 1613
+- Portrait painting: 432
 - Landscape: 310
 - Portrait: 276
-- Interior: 53
-- Historical/Nationalism: 4
 Smallest genres:
-- Landscape: 310
-- Portrait: 276
-- Interior: 53
 - Historical/Nationalism: 4
+- Caricature: 3
 - Still Life: 2
+- Printmaking: 1
+- Figurative painting: 1
 
 ## All Painters and Number of Paintings
 - Hans Gude: 222
