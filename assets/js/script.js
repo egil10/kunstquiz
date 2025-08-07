@@ -169,8 +169,8 @@ const translations = {
     landscape: 'Landscape',
     realism: 'Realism',
     impressionism: 'Impressionism',
+    expressionism: 'Expressionism',
     romanticNationalism: 'Romantic Nationalism',
-    modernism: 'Modernism',
     femaleArtists: 'Female Artists',
     correct: 'Correct!',
     incorrect: 'Incorrect!',
@@ -321,7 +321,7 @@ const translations = {
     aboutCollection: 'The Collection',
     aboutCollectionText: 'Kunstquiz features 3,282 paintings from 81 Norwegian artists, making it one of the most comprehensive Norwegian art quizzes available. Our collection spans from the 19th century to contemporary works, covering various movements and styles.',
     aboutCategories: 'Quiz Categories',
-    aboutCategoriesText: 'Full Collection: All paintings, Popular Painters: Top 10 artists by painting count, Landscape: Landscape paintings (34 artists), Realism: Realist movement (15 artists), Impressionism: Impressionist paintings (12 artists), Romantic Nationalism: Norwegian romantic nationalism (10 artists), Modernism: Modern works (10 artists), Female Artists: Female painters (4 artists)',
+    aboutCategoriesText: 'Full Collection: All paintings, Popular Painters: Top 10 artists by painting count, Landscape: Landscape paintings (34 artists), Realism: Realist movement (15 artists), Impressionism: Impressionist paintings (12 artists), Expressionism: Expressionist paintings (8 artists), Romantic Nationalism: Norwegian romantic nationalism (10 artists), Female Artists: Female painters (4 artists)',
     aboutHowToPlay: 'How to Play',
     aboutHowToPlayText: 'Select a category, view a painting, and choose the correct artist from four options. Build streaks and learn about Norwegian art history with each answer!',
     aboutFacts: 'Interesting Facts',
@@ -337,8 +337,8 @@ const translations = {
     landscape: 'Landskap',
     realism: 'Realisme',
     impressionism: 'Impressionisme',
+    expressionism: 'Ekspresjonisme',
     romanticNationalism: 'Romantisk Nasjonalisme',
-    modernism: 'Modernisme',
     femaleArtists: 'Kvinnelige Kunstnere',
     correct: 'Riktig!',
     incorrect: 'Feil!',
@@ -489,7 +489,7 @@ const translations = {
     aboutCollection: 'Samlingen',
     aboutCollectionText: 'Kunstquiz inneholder 3,282 malerier fra 81 norske kunstnere, noe som gjør det til en av de mest omfattende norske kunstquizene tilgjengelig. Vår samling spenner fra 1800-tallet til samtidsverk, og dekker ulike bevegelser og stiler.',
     aboutCategories: 'Quiz-kategorier',
-    aboutCategoriesText: 'Full Samling: Alle malerier, Populære Malere: Topp 10 kunstnere etter antall malerier, Landskap: Landskapsmalerier (34 kunstnere), Realisme: Realistisk bevegelse (15 kunstnere), Impressionisme: Impressionistiske malerier (12 kunstnere), Romantisk Nasjonalisme: Norsk romantisk nasjonalisme (10 kunstnere), Modernisme: Moderne verk (10 kunstnere), Kvinnelige Kunstnere: Kvinnelige malere (4 kunstnere)',
+    aboutCategoriesText: 'Full Samling: Alle malerier, Populære Malere: Topp 10 kunstnere etter antall malerier, Landskap: Landskapsmalerier (34 kunstnere), Realisme: Realistisk bevegelse (15 kunstnere), Impressionisme: Impressionistiske malerier (12 kunstnere), Ekspresjonisme: Ekspresjonistiske malerier (8 kunstnere), Romantisk Nasjonalisme: Norsk romantisk nasjonalisme (10 kunstnere), Kvinnelige Kunstnere: Kvinnelige malere (4 kunstnere)',
     aboutHowToPlay: 'Slik spiller du',
     aboutHowToPlayText: 'Velg en kategori, se på et maleri, og velg riktig kunstner fra fire alternativer. Bygg opp streaks og lær om norsk kunsthistorie med hvert svar!',
     aboutFacts: 'Interessante fakta',
@@ -625,7 +625,6 @@ const CATEGORY_DEFS = [
   { value: 'expressionism', label: 'expressionism' },
   { value: 'impressionism', label: 'impressionism' },
   { value: 'romantic_nationalism', label: 'romanticNationalism' },
-  { value: 'modernism', label: 'modernism' },
   { value: 'female_artists', label: 'femaleArtists' }
 ];
 
@@ -1465,22 +1464,7 @@ const categoryFilters = {
     );
     return hasSymbolismCategory || hasSymbolismMovement;
   },
-  modernism: p => {
-    const categories = toArray(p.categories);
-    const inferredCategories = toArray(p.inferred_categories);
-    const hasModernismCategory = categories.some(cat => 
-      cat?.toLowerCase().includes('modernism')
-    );
-    const hasInferredModern = inferredCategories.some(cat => 
-      cat?.toLowerCase().includes('modern')
-    );
-    const hasModernismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
-      m?.toLowerCase().includes('modernism')
-    );
-    const hasModernistBio = p.artist_bio?.toLowerCase().includes('modernist') || 
-                           p.artist_bio?.toLowerCase().includes('modernism');
-    return hasModernismCategory || hasInferredModern || hasModernismMovement || hasModernistBio;
-  },
+
   contemporary: p => {
     const categories = toArray(p.categories);
     const hasContemporaryCategory = categories.some(cat => 
