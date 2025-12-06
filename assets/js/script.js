@@ -519,6 +519,10 @@ let artistBioMapCache = null;
 let categoryCountsCache = new Map();
 let imagePreloadQueue = [];
 let isPreloading = false;
+// Preload queue for upcoming quiz images
+let upcomingPaintingsQueue = [];
+let upcomingPaintingsPreloaded = new Set();
+let isPreloadingRound = false;
 
 // Encouraging message counter
 let encouragingMessageIndex = 0;
@@ -822,18 +826,24 @@ function updateLanguageUI() {
 }
 
 function setupLanguageToggle() {
-  const languageToggle = document.getElementById('language-toggle');
-  
-  if (languageToggle) {
-    languageToggle.addEventListener('click', (e) => {
-      e.preventDefault();
-      // Toggle between languages
-      currentLanguage = currentLanguage === 'en' ? 'no' : 'en';
-      updateLanguageUI();
-      renderCategorySelector();
-      updateStreakBar();
-    });
-  }
+  // Setup all language toggles (on quiz page and other pages)
+  const languageToggles = document.querySelectorAll('#language-toggle, #language-toggle-painters, #language-toggle-gallery, #language-toggle-how-to-play');
+  languageToggles.forEach(languageToggle => {
+    if (languageToggle) {
+      languageToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        // Toggle between languages
+        currentLanguage = currentLanguage === 'en' ? 'no' : 'en';
+        updateLanguageUI();
+        renderCategorySelector();
+        updateStreakBar();
+        return false;
+      });
+      // Prevent default link behavior
+      languageToggle.href = '#';
+    }
+  });
 }
 
 
@@ -949,6 +959,14 @@ function updateCollectionInfo() {
   infoBar.textContent = `${count} ${t('paintings')}, ${painterCount} ${t('painters')}`;
 }
 
+function updateCollectionInfoForElement(element) {
+  if (!element) return;
+  const catSelect = document.getElementById('category-select');
+  const selected = catSelect ? (catSelect.value || 'all') : 'all';
+  const { count, painterCount } = getCategoryCounts(selected);
+  element.textContent = `${count} ${t('paintings')}, ${painterCount} ${t('painters')}`;
+}
+
 function updateCategoryDropdown() {
   const catSelect = document.getElementById('category-select');
   if (!catSelect) return;
@@ -1040,10 +1058,36 @@ function renderCategorySelector() {
         };
         menu.appendChild(item);
       });
-      custom.appendChild(menu);
-      document.addEventListener('click', () => {
-        if (menu) menu.remove();
-      }, { once: true });
+      // Append to body instead of button to avoid stacking context issues
+      document.body.appendChild(menu);
+      
+      // Calculate position for fixed positioning
+      const rect = custom.getBoundingClientRect();
+      menu.style.position = 'fixed';
+      menu.style.top = `${rect.bottom + window.scrollY + 4}px`;
+      menu.style.left = `${rect.left + window.scrollX}px`;
+      
+      // Ensure menu is visible and above everything
+      requestAnimationFrame(() => {
+        menu.style.display = 'block';
+        menu.style.opacity = '1';
+        menu.style.visibility = 'visible';
+        menu.style.zIndex = '99999';
+        menu.style.pointerEvents = 'auto';
+      });
+      
+      // Close menu when clicking outside
+      const closeMenu = (e) => {
+        if (menu && !custom.contains(e.target) && !menu.contains(e.target)) {
+          menu.remove();
+          document.removeEventListener('click', closeMenu);
+        }
+      };
+      
+      // Use setTimeout to avoid immediate closure
+      setTimeout(() => {
+        document.addEventListener('click', closeMenu);
+      }, 10);
     }
   };
   
@@ -1096,7 +1140,9 @@ function showGalleryModal(paintingsArray = null, initialCount = 12) {
     const p = galleryPaintings[i];
     if (p) {
       const img = createGalleryImage(p);
-      grid.appendChild(img);
+      if (img) { // Only append if image was created successfully
+        grid.appendChild(img);
+      }
     }
   }
   
@@ -1120,13 +1166,109 @@ function showGalleryModal(paintingsArray = null, initialCount = 12) {
 }
 
 function createGalleryImage(painting) {
+  // Validate that we have a valid image URL
+  if (!painting || !painting.url || typeof painting.url !== 'string') {
+    return null;
+  }
+  
+  // Check if URL looks like an image URL (has image extension or is from wikimedia)
+  const url = painting.url.trim();
+  const isImageUrl = url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) || 
+                     url.includes('wikimedia.org') || 
+                     url.includes('upload.wikimedia.org');
+  
+  if (!isImageUrl) {
+    // Skip non-image URLs
+    return null;
+  }
+  
   const img = document.createElement('img');
   // Use preloaded URL if available, otherwise fallback to optimized URL
   const preloadedUrl = galleryPreloadCache.get(painting.url);
-  img.src = preloadedUrl || optimizeImageUrl(painting.url, 400);
-  img.alt = painting.title || '';
+  const imageUrl = preloadedUrl || optimizeImageUrl(painting.url, 400);
+  
+  // Final validation of the processed URL
+  if (!imageUrl || typeof imageUrl !== 'string' || imageUrl.trim() === '') {
+    return null;
+  }
+  
+  img.alt = ''; // Empty alt to prevent text from showing
   img.className = 'gallery-collage-img';
   img.loading = 'eager';
+  
+  // Initially hide until loaded
+  img.style.display = 'none';
+  img.style.visibility = 'hidden';
+  img.style.opacity = '0';
+  
+  // Make image clickable to show full-size viewer
+  img.addEventListener('click', () => {
+    showPaintingViewer(painting, { gallery: true });
+  });
+  
+  // Function to show the image
+  const showImage = function() {
+    if (this && this.style) {
+      this.style.display = 'block';
+      this.style.visibility = 'visible';
+      this.style.opacity = '1';
+    }
+  };
+  
+  // Handle image load errors - try fallback URL first
+  img.onerror = function() {
+    // Try original URL as fallback
+    if (this.src !== painting.url) {
+      const fallbackImg = new Image();
+      fallbackImg.onload = () => {
+        // Replace the broken image with the working one
+        this.src = fallbackImg.src;
+        showImage.call(this);
+      };
+      fallbackImg.onerror = () => {
+        // Both URLs failed - remove from DOM
+        try {
+          if (this.parentNode) {
+            this.parentNode.removeChild(this);
+          }
+        } catch (e) {
+          // Ignore errors if already removed
+        }
+      };
+      fallbackImg.src = painting.url;
+    } else {
+      // Original URL also failed - remove from DOM
+      try {
+        if (this.parentNode) {
+          this.parentNode.removeChild(this);
+        }
+      } catch (e) {
+        // Ignore errors if already removed
+      }
+    }
+  };
+  
+  // Show image only when successfully loaded
+  img.onload = showImage;
+  
+  // Set src AFTER setting up handlers
+  img.src = imageUrl;
+  
+  // Polling check for cached images - check multiple times to catch cached images
+  let checkCount = 0;
+  const maxChecks = 10;
+  const checkInterval = setInterval(() => {
+    checkCount++;
+    if (img.complete && img.naturalHeight !== 0 && img.naturalWidth !== 0) {
+      clearInterval(checkInterval);
+      if (img.style.display === 'none') {
+        showImage.call(img);
+      }
+    } else if (checkCount >= maxChecks) {
+      clearInterval(checkInterval);
+    }
+  }, 50);
+  
   return img;
 }
 
@@ -1179,7 +1321,9 @@ function setupGalleryScrollLoading(modal, grid) {
       // Add images to grid
       nextBatch.forEach(painting => {
         const img = createGalleryImage(painting);
-        grid.appendChild(img);
+        if (img) { // Only append if image was created successfully
+          grid.appendChild(img);
+        }
       });
       
       galleryLoadedCount += batchSize;
@@ -1239,12 +1383,17 @@ function hideGalleryModal() {
 }
 
 function setupGalleryModal() {
-  const showLink = document.getElementById('show-gallery-link');
+  // Back link handler
+  const backLink = document.getElementById('back-to-quiz-link-gallery');
+  if (backLink) {
+    backLink.addEventListener('click', e => {
+      e.preventDefault();
+      window.location.hash = '';
+    });
+  }
+  
+  // Keep modal functionality for backward compatibility (if needed)
   const closeBtn = document.getElementById('close-gallery-modal');
-  if (showLink) showLink.addEventListener('click', e => {
-    e.preventDefault();
-    preloadAndShowGallery();
-  });
   if (closeBtn) closeBtn.addEventListener('click', hideGalleryModal);
 }
 
@@ -1607,150 +1756,201 @@ function getValidPaintings() {
 }
 
 function loadQuiz() {
-  const validPaintings = getValidPaintings();
-  if (!validPaintings.length) {
-    document.getElementById('options').innerHTML = `<p>${t('noPaintings')}</p>`;
-    return;
-  }
-  
-  // Check if round is complete
-  if (currentRound.questionNumber > 10) {
-    showRoundResults();
-    return;
-  }
-  
-  let painting;
-  for (let i = 0; i < 10; i++) {
-    painting = getWeightedRandomPainting(validPaintings);
-    if (painting && painting.artist && painting.url) break;
-  }
-  if (!painting || !painting.artist || !painting.url) return;
-  
-  const img = document.getElementById('painting');
-  
-  // Use optimized image loading with progressive enhancement
-  loadImageProgressive(img, painting.url).then(() => {
-    img.alt = stripHtml(painting.title) || t('painting');
-  }).catch(() => {
-    // Fallback to original URL if optimization fails
-    img.src = painting.url;
-    img.alt = stripHtml(painting.title) || t('painting');
-  });
-  
-  // Set current painting for viewer
-  currentPainting = painting;
-  
-  // Setup painting viewer click handler
-  img.onclick = function() {
-    if (currentPainting) {
-      showPaintingViewer(currentPainting);
-    }
-  };
-  
-  // Start preloading next few images in background
-  preloadNextImages(validPaintings);
-  const optionsDiv = document.getElementById('options');
-  
-  // Clear options and ensure no leftover classes
-  optionsDiv.innerHTML = '';
-  
-  const artists = generateOptions(painting.artist, validPaintings);
-  if (artists.length < 2) {
-    optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
-    return;
-  }
-  
-  // Create all buttons at once to reduce DOM operations
-  const fragment = document.createDocumentFragment();
-  artists.forEach(artist => {
-    const btn = document.createElement('button');
-    btn.textContent = artist;
-    btn.onclick = () => {
-      // Add loading state to prevent multiple clicks
-      Array.from(optionsDiv.children).forEach(b => {
-        b.classList.add('loading');
-        b.disabled = true;
-        b.classList.remove('correct', 'wrong');
-      });
-      
-      const correctBtn = Array.from(optionsDiv.children).find(b => b.textContent === painting.artist);
-      const selectedBtn = btn;
-      
-      // Track this answer
-      const isCorrect = artist === painting.artist;
-      currentRound.answers.push({
-        question: currentRound.questionNumber,
-        correct: isCorrect,
-        selectedArtist: artist,
-        correctArtist: painting.artist,
-        painting: painting
-      });
-      
-      if (isCorrect) {
-        // Correct answer
-        currentRound.correctAnswers++;
-        streak++;
-        selectedBtn.classList.add('correct');
-        
-        // Track analytics
-        trackAnswer(true, painting.artist, selectedCategory);
-        
-        // Show correct message
-        const correctMessage = getRandomCorrectMessage();
-        showMessage(correctMessage, '#388e3c');
-        
-        // Add artist to set
-        currentRound.artists.add(painting.artist);
-        
-        // Quick transition for correct answers
-        setTimeout(() => {
-          hideMessage(); // Hide the correct message
-          // Remove loading state and reset buttons
-          Array.from(optionsDiv.children).forEach(b => {
-            b.classList.remove('loading', 'correct', 'wrong');
-            b.disabled = false;
-          });
-          currentRound.questionNumber++;
-          loadQuiz();
-        }, 1000);
-      } else {
-        // Incorrect answer
-        currentRound.incorrectAnswers++;
-        streak = 0;
-        selectedBtn.classList.add('wrong');
-        correctBtn.classList.add('correct');
-        
-        // Track analytics
-        trackAnswer(false, artist, selectedCategory);
-        
-        const incorrectMessage = getRandomIncorrectMessage();
-        showMessage(incorrectMessage, '#e53935');
-        
-        // Add correct artist to set (only count the actual featured artist)
-        currentRound.artists.add(painting.artist);
-        
-        updateStreakBar();
-        setTimeout(() => {
-          showArtistPopup(painting, () => {
-            hideMessage();
-            // Remove loading state and reset buttons
-            Array.from(optionsDiv.children).forEach(b => {
-              b.classList.remove('loading', 'correct', 'wrong');
-              b.disabled = false;
-            });
-            currentRound.questionNumber++;
-            loadQuiz();
-          });
-        }, 500);
+  // Use requestAnimationFrame for smooth DOM updates
+  requestAnimationFrame(() => {
+    const validPaintings = getValidPaintings();
+    if (!validPaintings.length) {
+      const optionsDiv = document.getElementById('options');
+      if (optionsDiv) {
+        optionsDiv.innerHTML = `<p>${t('noPaintings')}</p>`;
       }
+      return;
+    }
+    
+    // Check if round is complete
+    if (currentRound.questionNumber > 10) {
+      showRoundResults();
+      return;
+    }
+    
+    // Use preloaded queue if available, otherwise fallback to random
+    let painting;
+    if (upcomingPaintingsQueue.length > 0 && currentRound.questionNumber <= upcomingPaintingsQueue.length) {
+      // Use the preloaded painting from the queue
+      painting = upcomingPaintingsQueue[currentRound.questionNumber - 1];
+    }
+    
+    // Fallback to random if queue is empty or invalid
+    if (!painting || !painting.artist || !painting.url) {
+      for (let i = 0; i < 10; i++) {
+        painting = getWeightedRandomPainting(validPaintings);
+        if (painting && painting.artist && painting.url) break;
+      }
+    }
+    
+    if (!painting || !painting.artist || !painting.url) return;
+    
+    const img = document.getElementById('painting');
+    if (!img) return;
+    
+    // Image should already be preloaded - use it instantly
+    let imageUrl = painting.url;
+    
+    if (imageCache.has(painting.url)) {
+      // Image is in cache - use cached version
+      const cachedImg = imageCache.get(painting.url);
+      imageUrl = cachedImg.src || painting.url;
+    } else {
+      // Fallback: try optimized URL
+      imageUrl = optimizeImageUrl(painting.url);
+    }
+    
+    // Set image immediately (it's already loaded)
+    requestAnimationFrame(() => {
+      img.src = imageUrl;
+      img.alt = stripHtml(painting.title) || t('painting');
+      img.classList.add('loaded');
+      img.style.opacity = '1';
+      img.style.visibility = 'visible';
+    });
+    
+    // Set current painting for viewer
+    currentPainting = painting;
+    
+    // Setup painting viewer click handler (use event delegation for better performance)
+    const paintingContainer = document.querySelector('.painting-container');
+    if (paintingContainer) {
+      paintingContainer.onclick = function() {
+        if (currentPainting) {
+          requestAnimationFrame(() => {
+            showPaintingViewer(currentPainting);
+          });
+        }
+      };
+    }
+    
+    // Check if we have a preloaded image ready
+    const preloadedUrl = upcomingPaintingsPreloaded.has(painting.url) ? painting.url : null;
+    
+    // Continue preloading more images in background (non-blocking)
+    requestIdleCallback ? requestIdleCallback(() => preloadNextImages(validPaintings)) : 
+      setTimeout(() => preloadNextImages(validPaintings), 100);
+    
+    const optionsDiv = document.getElementById('options');
+    if (!optionsDiv) return;
+    
+    // Clear options and ensure no leftover classes
+    optionsDiv.innerHTML = '';
+    
+    const artists = generateOptions(painting.artist, validPaintings);
+    if (artists.length < 2) {
+      optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
+      return;
+    }
+    
+    // Create all buttons at once to reduce DOM operations
+    const fragment = document.createDocumentFragment();
+    artists.forEach(artist => {
+      const btn = document.createElement('button');
+      btn.textContent = artist;
+      // Use event delegation pattern for better performance
+      btn.onclick = () => {
+        // Use requestAnimationFrame for smooth UI updates
+        requestAnimationFrame(() => {
+          // Add loading state to prevent multiple clicks
+          const buttons = Array.from(optionsDiv.children);
+          buttons.forEach(b => {
+            b.classList.add('loading');
+            b.disabled = true;
+            b.classList.remove('correct', 'wrong');
+          });
+          
+          const correctBtn = buttons.find(b => b.textContent === painting.artist);
+          const selectedBtn = btn;
+          
+          // Track this answer
+          const isCorrect = artist === painting.artist;
+          currentRound.answers.push({
+            question: currentRound.questionNumber,
+            correct: isCorrect,
+            selectedArtist: artist,
+            correctArtist: painting.artist,
+            painting: painting
+          });
+          
+          if (isCorrect) {
+            // Correct answer
+            currentRound.correctAnswers++;
+            streak++;
+            selectedBtn.classList.add('correct');
+            
+            // Track analytics
+            trackAnswer(true, painting.artist, selectedCategory);
+            
+            // Show correct message
+            const correctMessage = getRandomCorrectMessage();
+            showMessage(correctMessage, '#388e3c');
+            
+            // Add artist to set
+            currentRound.artists.add(painting.artist);
+            
+            // Quick transition for correct answers
+            setTimeout(() => {
+              requestAnimationFrame(() => {
+                hideMessage(); // Hide the correct message
+                // Remove loading state and reset buttons
+                buttons.forEach(b => {
+                  b.classList.remove('loading', 'correct', 'wrong');
+                  b.disabled = false;
+                });
+                currentRound.questionNumber++;
+                loadQuiz();
+              });
+            }, 1000);
+          } else {
+            // Incorrect answer
+            currentRound.incorrectAnswers++;
+            streak = 0;
+            selectedBtn.classList.add('wrong');
+            if (correctBtn) correctBtn.classList.add('correct');
+            
+            // Track analytics
+            trackAnswer(false, artist, selectedCategory);
+            
+            const incorrectMessage = getRandomIncorrectMessage();
+            showMessage(incorrectMessage, '#e53935');
+            
+            // Add correct artist to set (only count the actual featured artist)
+            currentRound.artists.add(painting.artist);
+            
+            updateStreakBar();
+            setTimeout(() => {
+              showArtistPopup(painting, () => {
+                requestAnimationFrame(() => {
+                  hideMessage();
+                  // Remove loading state and reset buttons
+                  buttons.forEach(b => {
+                    b.classList.remove('loading', 'correct', 'wrong');
+                    b.disabled = false;
+                  });
+                  currentRound.questionNumber++;
+                  loadQuiz();
+                });
+              });
+            }, 500);
+          }
+          updateStreakBar();
+        });
+      };
+      fragment.appendChild(btn);
+    });
+    
+    // Append all buttons at once using requestAnimationFrame for smooth rendering
+    requestAnimationFrame(() => {
+      optionsDiv.appendChild(fragment);
       updateStreakBar();
-    };
-    fragment.appendChild(btn);
+    });
   });
-  
-  // Append all buttons at once
-  optionsDiv.appendChild(fragment);
-  updateStreakBar();
 }
 
 function getRandomPainting(validPaintings) {
@@ -1781,41 +1981,68 @@ function stripHtml(html) {
 }
 
 function updateStreakBar() {
-  const streakBar = document.getElementById('streak-bar');
-  if (!streakBar) return;
-  
-  streakBar.innerHTML = '';
-  
-  // Create 10 circles for the round
-  for (let i = 0; i < 10; i++) {
-    const circle = document.createElement('div');
-    circle.className = 'streak-circle';
+  // Use requestAnimationFrame for smooth updates
+  requestAnimationFrame(() => {
+    const streakBar = document.getElementById('streak-bar');
+    if (!streakBar) return;
     
-    // Color based on round progress
-    if (i < currentRound.questionNumber - 1) {
-      // Check if this answer was correct or incorrect
-      const answer = currentRound.answers[i];
-      if (answer && answer.correct) {
-        circle.classList.add('filled'); // Green for correct
-      } else if (answer && !answer.correct) {
-        circle.classList.add('incorrect'); // Red for incorrect
+    // Update ARIA attributes for accessibility
+    streakBar.setAttribute('aria-valuenow', currentRound.questionNumber - 1);
+    streakBar.setAttribute('aria-label', `Quiz progress: ${currentRound.questionNumber - 1} of 10 questions completed`);
+    
+    // Use DocumentFragment for better performance
+    const fragment = document.createDocumentFragment();
+    
+    // Create 10 circles for the round
+    for (let i = 0; i < 10; i++) {
+      const circle = document.createElement('div');
+      circle.className = 'streak-circle';
+      circle.setAttribute('aria-label', `Question ${i + 1}`);
+      
+      // Color based on round progress
+      if (i < currentRound.questionNumber - 1) {
+        // Check if this answer was correct or incorrect
+        const answer = currentRound.answers[i];
+        if (answer && answer.correct) {
+          circle.classList.add('filled'); // Green for correct
+          circle.setAttribute('aria-label', `Question ${i + 1}: Correct`);
+        } else if (answer && !answer.correct) {
+          circle.classList.add('incorrect'); // Red for incorrect
+          circle.setAttribute('aria-label', `Question ${i + 1}: Incorrect`);
+        }
+      } else if (i === currentRound.questionNumber - 1) {
+        // Current question - active state
+        circle.classList.add('active');
+        circle.setAttribute('aria-label', `Question ${i + 1}: Current`);
+      } else {
+        circle.setAttribute('aria-label', `Question ${i + 1}: Not started`);
       }
+      
+      fragment.appendChild(circle);
     }
     
-    streakBar.appendChild(circle);
-  }
+    // Clear and append in one operation
+    streakBar.innerHTML = '';
+    streakBar.appendChild(fragment);
+  });
 }
 
 function showMessage(text, color) {
-  const msg = document.getElementById('message');
-  msg.textContent = text;
-  msg.style.color = color;
-  msg.classList.add('visible');
+  requestAnimationFrame(() => {
+    const msg = document.getElementById('message');
+    if (!msg) return;
+    msg.textContent = text;
+    msg.style.color = color;
+    msg.classList.add('visible');
+  });
 }
 
 function hideMessage() {
-  const msg = document.getElementById('message');
-  msg.classList.remove('visible');
+  requestAnimationFrame(() => {
+    const msg = document.getElementById('message');
+    if (!msg) return;
+    msg.classList.remove('visible');
+  });
 }
 
 function showCongratsModal() {
@@ -2194,12 +2421,17 @@ function showArtistsModal() {
 }
 
 function setupArtistModal() {
-  const showLink = document.getElementById('show-artists-link');
+  // Back link handler
+  const backLink = document.getElementById('back-to-quiz-link');
+  if (backLink) {
+    backLink.addEventListener('click', e => {
+      e.preventDefault();
+      window.location.hash = '';
+    });
+  }
+  
+  // Keep modal functionality for backward compatibility (if needed)
   const closeBtn = document.getElementById('close-artists-modal');
-  if (showLink) showLink.addEventListener('click', e => {
-    e.preventDefault();
-    showArtistsModal();
-  });
   if (closeBtn) closeBtn.addEventListener('click', () => {
     document.getElementById('artists-modal').style.display = 'none';
   });
@@ -2431,31 +2663,193 @@ function hideAboutModal() {
   }
 }
 
-function setupAboutModal() {
-  const showLink = document.getElementById('show-how-to-play-link');
-  const modal = document.getElementById('how-to-play-modal');
-  const closeBtn = document.getElementById('close-how-to-play-modal');
+function renderHowToPlayPage() {
+  const container = document.getElementById('how-to-play-page-content');
+  if (!container) return;
   
-  // Remove previous event listeners if any
-  if (showLink) {
-    // Remove all existing event listeners by cloning
-    const newShowLink = showLink.cloneNode(true);
-    showLink.parentNode.replaceChild(newShowLink, showLink);
-    
-    // Add the event listener to the new element
-    newShowLink.addEventListener('click', e => {
-      e.preventDefault();
-      showAboutModal();
+  // Generate content using the existing function logic
+  const categoryCounts = {};
+  const validPaintings = paintings.filter(p => p.artist && p.url);
+  
+  // Calculate category counts
+  categoryCounts.all = validPaintings.length;
+  
+  // Popular painters (top 10)
+  const artistCounts = {};
+  validPaintings.forEach(p => {
+    artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1;
+  });
+  const topArtists = Object.entries(artistCounts)
+    .sort(([,a], [,b]) => b - a)
+    .slice(0, 10)
+    .map(([artist]) => artist);
+  categoryCounts.popular = validPaintings.filter(p => topArtists.includes(p.artist)).length;
+  
+  // Landscape paintings
+  categoryCounts.landscape = validPaintings.filter(p =>
+    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('landscape'))
+  ).length;
+  
+  // Portraits
+  categoryCounts.portraits = validPaintings.filter(p =>
+    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('portrait'))
+  ).length;
+  
+  // Women painters
+  categoryCounts.women_painters = validPaintings.filter(p => p.artist_gender === 'female').length;
+  
+  // Realism
+  categoryCounts.realism = validPaintings.filter(p =>
+    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('realism'))
+  ).length;
+  
+  // Expressionism
+  categoryCounts.expressionism = validPaintings.filter(p =>
+    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('expressionism'))
+  ).length;
+  
+  // Impressionism
+  categoryCounts.impressionism = validPaintings.filter(p =>
+    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('impressionism'))
+  ).length;
+  
+  // Romantic Nationalism
+  categoryCounts.romantic_nationalism = validPaintings.filter(p =>
+    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('romantic') || g && g.toLowerCase().includes('nationalism'))
+  ).length;
+  
+  // Update page title
+  const title = document.getElementById('how-to-play-page-title');
+  if (title) title.textContent = t('aboutHowToPlay');
+  
+  // Update collection info
+  const collectionInfo = document.getElementById('how-to-play-collection-info');
+  if (collectionInfo) {
+    updateCollectionInfoForElement(collectionInfo);
+  }
+  
+  // Make title clickable to go back to quiz
+  const titleElement = document.querySelector('#how-to-play-page .page-header-left .title');
+  if (titleElement) {
+    titleElement.style.cursor = 'pointer';
+    titleElement.addEventListener('click', () => {
+      window.location.hash = '';
     });
   }
   
+  // Generate content based on language
+  if (currentLanguage === 'no') {
+    container.innerHTML = `
+      <div class="how-to-play-section">
+        <h3>Utfordringen</h3>
+        <p>Test din kunnskap om norsk kunsthistorie! Du vil bli vist berømte norske malerier og må identifisere kunstneren som skapte dem.</p>
+      </div>
+
+      <div class="how-to-play-section">
+        <h3>Slik fungerer det</h3>
+        <ul>
+          <li>Se på maleriet som vises til venstre</li>
+          <li>Velg riktig kunstner fra de fire alternativene til høyre</li>
+          <li>Få umiddelbar tilbakemelding på svaret ditt</li>
+          <li>Følg fremgangen din med strek-indikatoren</li>
+        </ul>
+      </div>
+
+      <div class="how-to-play-section">
+        <h3>Poengsum</h3>
+        <ul>
+          <li>Hvert riktig svar legger til i strekken din</li>
+          <li>Få 10 på rad for en perfekt poengsum!</li>
+          <li>Se resultatene dine på slutten av hver runde</li>
+          <li>Last ned sertifikater for perfekte poengsummer</li>
+        </ul>
+      </div>
+
+      <div class="how-to-play-section">
+        <h3>Kategorier</h3>
+        <p>Velg fra forskjellige kategorier for å fokusere på spesifikke kunstnere eller tidsperioder. Bruk rullegardinmenyen øverst til høyre for å velge din foretrukne kategori.</p>
+        <ul>
+          <li><strong>Fullt samling</strong>: ${categoryCounts.all} malerier</li>
+          <li><strong>Populære malere</strong>: ${categoryCounts.popular} malerier</li>
+          <li><strong>Landskap</strong>: ${categoryCounts.landscape} malerier</li>
+          <li><strong>Realisme</strong>: ${categoryCounts.realism} malerier</li>
+          <li><strong>Ekspresjonisme</strong>: ${categoryCounts.expressionism} malerier</li>
+          <li><strong>Impresjonisme</strong>: ${categoryCounts.impressionism} malerier</li>
+          <li><strong>Romantisk nasjonalisme</strong>: ${categoryCounts.romantic_nationalism} malerier</li>
+          <li><strong>Kvinne malere</strong>: ${categoryCounts.women_painters} malerier</li>
+        </ul>
+      </div>
+
+      <div class="how-to-play-section">
+        <h3>Lær mer</h3>
+        <p>Klikk "Malere" for å se alle kunstnere i samlingen, eller "Galleri" for å bla gjennom alle malerier. Hver kunstner har en detaljert biografi og sine verk.</p>
+      </div>
+    `;
+  } else {
+    container.innerHTML = `
+      <div class="how-to-play-section">
+        <h3>The Challenge</h3>
+        <p>Test your knowledge of Norwegian art history! You'll be shown famous Norwegian paintings and need to identify the artist who created them.</p>
+      </div>
+
+      <div class="how-to-play-section">
+        <h3>How It Works</h3>
+        <ul>
+          <li>Look at the painting displayed on the left</li>
+          <li>Choose the correct artist from the four options on the right</li>
+          <li>Get instant feedback on your answer</li>
+          <li>Track your progress with the streak indicator</li>
+        </ul>
+      </div>
+
+      <div class="how-to-play-section">
+        <h3>Scoring</h3>
+        <ul>
+          <li>Each correct answer adds to your streak</li>
+          <li>Get 10 in a row for a perfect score!</li>
+          <li>View your results at the end of each round</li>
+          <li>Download certificates for perfect scores</li>
+        </ul>
+      </div>
+
+      <div class="how-to-play-section">
+        <h3>Categories</h3>
+        <p>Choose from different categories to focus on specific artists or time periods. Use the dropdown menu at the top right to select your preferred category.</p>
+        <ul>
+          <li><strong>Full Collection</strong>: ${categoryCounts.all} paintings</li>
+          <li><strong>Popular Painters</strong>: ${categoryCounts.popular} paintings</li>
+          <li><strong>Landscape</strong>: ${categoryCounts.landscape} paintings</li>
+          <li><strong>Realism</strong>: ${categoryCounts.realism} paintings</li>
+          <li><strong>Expressionism</strong>: ${categoryCounts.expressionism} paintings</li>
+          <li><strong>Impressionism</strong>: ${categoryCounts.impressionism} paintings</li>
+          <li><strong>Romantic Nationalism</strong>: ${categoryCounts.romantic_nationalism} paintings</li>
+          <li><strong>Female Artists</strong>: ${categoryCounts.women_painters} paintings</li>
+        </ul>
+      </div>
+
+      <div class="how-to-play-section">
+        <h3>Learn More</h3>
+        <p>Click "Painters" to see all artists in the collection, or "Gallery" to browse all paintings. Each artist has a detailed biography and their works.</p>
+      </div>
+    `;
+  }
+}
+
+function setupAboutModal() {
+  // Back link handler
+  const backLink = document.getElementById('back-to-quiz-link-how-to-play');
+  if (backLink) {
+    backLink.addEventListener('click', e => {
+      e.preventDefault();
+      window.location.hash = '';
+    });
+  }
+  
+  // Keep modal functionality for backward compatibility (if needed)
+  const modal = document.getElementById('how-to-play-modal');
+  const closeBtn = document.getElementById('close-how-to-play-modal');
   if (closeBtn) {
-    // Remove all existing event listeners by cloning
-    const newCloseBtn = closeBtn.cloneNode(true);
-    closeBtn.parentNode.replaceChild(newCloseBtn, closeBtn);
-    
-    // Add the event listener to the new element
-    newCloseBtn.addEventListener('click', hideAboutModal);
+    closeBtn.addEventListener('click', hideAboutModal);
   }
   
   if (modal) {
@@ -2804,7 +3198,12 @@ function startNewRound() {
   
   // Clear caches when starting new round
   clearCaches();
-  loadQuiz();
+  
+  // Preload ALL 10 images before starting the quiz
+  preloadAllRoundImages().then(() => {
+    // All images loaded, now start the quiz
+    loadQuiz();
+  });
 }
 
 function clearCaches() {
@@ -2814,9 +3213,11 @@ function clearCaches() {
   artistBioMapCache = null;
   categoryCountsCache.clear();
   
-  // Clear performance caches
+  // Clear performance caches (but keep image cache for preloaded images)
   memoryCache.clear();
   domCache.clear();
+  
+  // Don't clear imageCache - we want to keep preloaded images
   
   // Force memory cleanup
   cleanupMemory();
@@ -2825,17 +3226,209 @@ function clearCaches() {
   performanceMetrics.operations++;
 }
 
+// Preload ALL 10 images before starting the round
+async function preloadAllRoundImages() {
+  if (isPreloadingRound) {
+    // Already preloading, wait for it
+    return new Promise((resolve) => {
+      const checkInterval = setInterval(() => {
+        if (!isPreloadingRound) {
+          clearInterval(checkInterval);
+          resolve();
+        }
+      }, 100);
+    });
+  }
+  
+  isPreloadingRound = true;
+  const validPaintings = getValidPaintings();
+  if (!validPaintings.length) {
+    isPreloadingRound = false;
+    return;
+  }
+  
+  // Show loading indicator
+  const loadingIndicator = document.getElementById('loading-indicator');
+  const loadingText = document.getElementById('loading-text');
+  const img = document.getElementById('painting');
+  if (loadingIndicator) {
+    loadingIndicator.style.display = 'block';
+  }
+  if (loadingText) {
+    loadingText.textContent = 'Loading images... 0/10';
+  }
+  if (img) {
+    img.classList.remove('loaded');
+    img.style.opacity = '0';
+  }
+  
+  // Clear previous preload queue
+  upcomingPaintingsPreloaded.clear();
+  upcomingPaintingsQueue = [];
+  
+  // Generate exactly 10 upcoming paintings using weighted selection
+  const paintingsToPreload = [];
+  const usedUrls = new Set();
+  
+  for (let i = 0; i < 10; i++) {
+    let painting;
+    for (let attempt = 0; attempt < 50; attempt++) {
+      painting = getWeightedRandomPainting(validPaintings);
+      // Avoid duplicates
+      if (painting && painting.url && !usedUrls.has(painting.url)) {
+        paintingsToPreload.push(painting);
+        usedUrls.add(painting.url);
+        break;
+      }
+    }
+    if (!painting || !painting.url) {
+      // If we can't find enough unique paintings, break
+      break;
+    }
+  }
+  
+  upcomingPaintingsQueue = paintingsToPreload;
+  const totalImages = paintingsToPreload.length;
+  
+  // If no paintings to preload, hide loading and exit
+  if (totalImages === 0) {
+    if (loadingIndicator) {
+      loadingIndicator.style.display = 'none';
+    }
+    isPreloadingRound = false;
+    return;
+  }
+  
+  let loadedCount = 0;
+  
+  // Update loading text function
+  const updateLoadingText = () => {
+    if (loadingText) {
+      loadingText.textContent = `Loading images... ${loadedCount}/${totalImages}`;
+    }
+  };
+  
+  // Preload ALL images in parallel with progress tracking
+  const preloadPromises = paintingsToPreload.map((painting, index) => {
+    if (!painting || !painting.url) return Promise.resolve();
+    
+    return new Promise((resolve) => {
+      // Add timeout to prevent hanging forever
+      const timeout = setTimeout(() => {
+        // Timeout after 30 seconds - mark as attempted and resolve
+        upcomingPaintingsPreloaded.add(painting.url);
+        loadedCount++;
+        updateLoadingText();
+        resolve();
+      }, 30000);
+      
+      const optimizedUrl = optimizeImageUrl(painting.url);
+      const img = new Image();
+      
+      img.onload = () => {
+        clearTimeout(timeout);
+        // Store in cache
+        imageCache.set(painting.url, img);
+        upcomingPaintingsPreloaded.add(painting.url);
+        loadedCount++;
+        updateLoadingText();
+        resolve();
+      };
+      
+      img.onerror = () => {
+        clearTimeout(timeout);
+        // Try original URL as fallback
+        const fallbackImg = new Image();
+        const fallbackTimeout = setTimeout(() => {
+          // Fallback timeout after 20 seconds
+          upcomingPaintingsPreloaded.add(painting.url);
+          loadedCount++;
+          updateLoadingText();
+          resolve();
+        }, 20000);
+        
+        fallbackImg.onload = () => {
+          clearTimeout(fallbackTimeout);
+          imageCache.set(painting.url, fallbackImg);
+          upcomingPaintingsPreloaded.add(painting.url);
+          loadedCount++;
+          updateLoadingText();
+          resolve();
+        };
+        fallbackImg.onerror = () => {
+          clearTimeout(fallbackTimeout);
+          // Even if it fails, mark as attempted
+          upcomingPaintingsPreloaded.add(painting.url);
+          loadedCount++;
+          updateLoadingText();
+          resolve();
+        };
+        fallbackImg.src = painting.url;
+      };
+      
+      img.src = optimizedUrl;
+    });
+  });
+  
+  // Wait for all images to load with error handling
+  try {
+    await Promise.all(preloadPromises);
+  } catch (error) {
+    console.error('Error preloading images:', error);
+    // Continue anyway - some images may have loaded
+  } finally {
+    // Always hide loading indicator and reset flag
+    if (loadingIndicator) {
+      loadingIndicator.style.display = 'none';
+    }
+    isPreloadingRound = false;
+  }
+}
+
+// Preload a single quiz image - ensure it's fully loaded in cache
+function preloadQuizImage(url) {
+  if (!url || imageCache.has(url)) {
+    upcomingPaintingsPreloaded.add(url);
+    return;
+  }
+  
+  const optimizedUrl = optimizeImageUrl(url);
+  const img = new Image();
+  
+  img.onload = () => {
+    upcomingPaintingsPreloaded.add(url);
+    // Store the loaded image in cache for instant access
+    imageCache.set(url, img);
+  };
+  
+  img.onerror = () => {
+    // Try original URL as fallback
+    const fallbackImg = new Image();
+    fallbackImg.onload = () => {
+      upcomingPaintingsPreloaded.add(url);
+      imageCache.set(url, fallbackImg);
+    };
+    fallbackImg.onerror = () => {
+      // Even if it fails, mark as attempted
+      upcomingPaintingsPreloaded.add(url);
+    };
+    fallbackImg.src = url;
+  };
+  
+  img.src = optimizedUrl;
+}
+
 function preloadNextImages(validPaintings) {
   if (isPreloading) return;
   isPreloading = true;
-  
+
   // Use performance config for preloading
   const preloadCount = Math.min(PERFORMANCE_CONFIG.PRELOAD_COUNT, validPaintings.length);
   const startIndex = Math.floor(Math.random() * validPaintings.length);
-  
+
   // Batch preload with delay to prevent blocking
   let loadedCount = 0;
-  
+
   const preloadImage = (index) => {
     const painting = validPaintings[index];
     if (painting && painting.url && !imageCache.has(painting.url)) {
@@ -2892,7 +3485,11 @@ function updatePageMeta() {
 function updateLanguageFlag() {
   const languageToggle = document.getElementById('language-toggle');
   if (languageToggle) {
-    languageToggle.textContent = currentLanguage === 'no' ? '🇳🇴' : '🇬🇧';
+    // Ensure the languages icon is properly initialized
+    const icon = languageToggle.querySelector('i[data-lucide="languages"]');
+    if (icon && typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
   }
 }
 
@@ -3026,11 +3623,537 @@ function preloadOptimizedImage(url) {
   });
 }
 
+// Preload initial images when page loads
+function preloadInitialImages() {
+  const validPaintings = getValidPaintings();
+  if (!validPaintings.length) return;
+  
+  // Preload first 2-3 random images at initialization
+  const initialPreload = [];
+  for (let i = 0; i < 3 && initialPreload.length < 3; i++) {
+    const painting = getWeightedRandomPainting(validPaintings);
+    if (painting && painting.url && !initialPreload.find(p => p.url === painting.url)) {
+      initialPreload.push(painting);
+    }
+  }
+  
+  // Start preloading after a short delay to not block initial page load
+  setTimeout(() => {
+    initialPreload.forEach((painting, index) => {
+      if (painting && painting.url) {
+        setTimeout(() => {
+          preloadQuizImage(painting.url);
+        }, index * 100);
+      }
+    });
+  }, 1000);
+}
+
+// Theme management
+let currentTheme = localStorage.getItem('theme') || 'light';
+
+function applyTheme(theme) {
+  const html = document.documentElement;
+  // Update all theme icons on all pages
+  const themeIcons = document.querySelectorAll('#theme-toggle .theme-icon, #theme-toggle-painters .theme-icon, #theme-toggle-gallery .theme-icon, #theme-toggle-how-to-play .theme-icon');
+  
+  if (theme === 'dark') {
+    html.classList.add('dark-theme');
+    html.classList.remove('light-theme');
+    themeIcons.forEach(icon => {
+      if (icon) {
+        icon.setAttribute('data-lucide', 'moon');
+      }
+    });
+  } else {
+    html.classList.add('light-theme');
+    html.classList.remove('dark-theme');
+    themeIcons.forEach(icon => {
+      if (icon) {
+        icon.setAttribute('data-lucide', 'sun');
+      }
+    });
+  }
+  
+  // Reinitialize Lucide icons after theme change
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+  
+  localStorage.setItem('theme', theme);
+  currentTheme = theme;
+}
+
+function toggleTheme() {
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  applyTheme(newTheme);
+}
+
+function setupThemeToggle() {
+  // Setup all theme toggles (on quiz page and other pages)
+  const themeToggles = document.querySelectorAll('#theme-toggle, #theme-toggle-painters, #theme-toggle-gallery, #theme-toggle-how-to-play');
+  themeToggles.forEach(themeToggle => {
+    if (themeToggle) {
+      themeToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleTheme();
+        return false;
+      });
+      // Prevent default link behavior
+      themeToggle.href = '#';
+    }
+  });
+
+  // Apply saved theme on load
+  applyTheme(currentTheme);
+}
+
+// Page routing functions
+function showPage(pageId) {
+  // Remove any existing load more buttons when switching pages
+  const existingGalleryBtn = document.querySelector('.gallery-load-more-btn');
+  if (existingGalleryBtn) {
+    existingGalleryBtn.remove();
+  }
+  const existingArtistBtn = document.querySelector('.artist-inline-load-more-btn');
+  if (existingArtistBtn) {
+    existingArtistBtn.remove();
+  }
+  
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(page => {
+    page.style.display = 'none';
+  });
+  
+  // Show the requested page
+  const page = document.getElementById(pageId);
+  if (page) {
+    page.style.display = 'block';
+    // Scroll to top
+    window.scrollTo(0, 0);
+    // Reinitialize icons if needed (including theme/language icons on all pages)
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+    // Re-apply theme to update icons on the new page
+    applyTheme(currentTheme);
+    // Check button visibility after page switch
+    setTimeout(() => {
+      updateLoadMoreButtonVisibility();
+    }, 100);
+  }
+}
+
+function handleHashChange() {
+  const hash = window.location.hash.slice(1); // Remove the #
+  
+  if (hash === 'painters') {
+    showPage('painters-page');
+    renderPaintersPage();
+  } else if (hash === 'gallery') {
+    showPage('gallery-page');
+    renderGalleryPage();
+  } else if (hash === 'how-to-play') {
+    showPage('how-to-play-page');
+    renderHowToPlayPage();
+  } else {
+    // Default to quiz page
+    showPage('quiz-page');
+  }
+}
+
+function renderPaintersPage() {
+  const container = document.getElementById('painters-list-columns');
+  if (!container) return;
+  
+  // Check if paintings data is available
+  if (!paintings || paintings.length === 0) {
+    container.innerHTML = '<p style="color: #666; padding: 2rem; text-align: center;">Loading painters...</p>';
+    return;
+  }
+  
+  const artistSet = new Set(paintings.map(p => p.artist).filter(Boolean));
+  const artists = [...artistSet].sort((a, b) => a.localeCompare(b));
+  const numCols = 3;
+  const perCol = Math.ceil(artists.length / numCols);
+  const columns = [];
+  for (let i = 0; i < numCols; i++) {
+    columns.push(artists.slice(i * perCol, (i + 1) * perCol));
+  }
+  
+  container.innerHTML = '';
+  columns.forEach(col => {
+    const div = document.createElement('div');
+    div.className = 'artist-list-col';
+    const ul = document.createElement('ul');
+    col.forEach(name => {
+      const li = document.createElement('li');
+      const numPaintings = paintings.filter(p => p.artist === name).length;
+      li.innerHTML = `<span class="clickable-artist-name">${name}</span> (${numPaintings})`;
+      
+      const artistNameSpan = li.querySelector('.clickable-artist-name');
+      artistNameSpan.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleArtistGallery(name);
+      });
+      
+      ul.appendChild(li);
+    });
+    div.appendChild(ul);
+    container.appendChild(div);
+  });
+  
+  // Create single gallery container below all names (inside painters-content)
+  const paintersContent = document.getElementById('painters-content');
+  if (paintersContent) {
+    // Remove existing gallery container if any
+    const existingGallery = paintersContent.querySelector('.artist-inline-gallery');
+    if (existingGallery) {
+      existingGallery.remove();
+    }
+    
+    // Create new gallery container
+    const galleryContainer = document.createElement('div');
+    galleryContainer.className = 'artist-inline-gallery';
+    galleryContainer.style.display = 'none';
+    galleryContainer.id = 'painters-gallery-container';
+    paintersContent.appendChild(galleryContainer);
+  }
+  
+  // Update page title
+  const title = document.getElementById('painters-page-title');
+  if (title) title.textContent = t('painters');
+  
+  // Update collection info
+  const collectionInfo = document.getElementById('painters-collection-info');
+  if (collectionInfo) {
+    updateCollectionInfoForElement(collectionInfo);
+  }
+  
+  // Make title clickable to go back to quiz
+  const titleElement = document.querySelector('#painters-page .page-header-left .title');
+  if (titleElement) {
+    titleElement.style.cursor = 'pointer';
+    titleElement.addEventListener('click', () => {
+      window.location.hash = '';
+    });
+  }
+}
+
+function toggleArtistGallery(artistName) {
+  const container = document.getElementById('painters-gallery-container');
+  if (!container) return;
+  
+  // If clicking the same artist, toggle off
+  const currentArtist = container.dataset.artist;
+  if (currentArtist === artistName && container.style.display !== 'none') {
+    container.style.display = 'none';
+    return;
+  }
+  
+  // Show gallery and load if needed
+  container.style.display = 'block';
+  container.dataset.artist = artistName;
+  
+  // Load gallery if not already loaded for this artist
+  if (!container.dataset.loaded || container.dataset.loadedArtist !== artistName) {
+    renderArtistInlineGallery(artistName, container);
+  }
+  
+  // Scroll to gallery
+  setTimeout(() => {
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 100);
+}
+
+function renderArtistInlineGallery(artistName, container) {
+  const artistPaintings = paintings.filter(p => 
+    p.artist === artistName && 
+    p.url && 
+    typeof p.url === 'string' &&
+    (p.url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) || 
+     p.url.includes('wikimedia.org') || 
+     p.url.includes('upload.wikimedia.org'))
+  );
+  
+  if (artistPaintings.length === 0) {
+    container.innerHTML = '<p style="color: #666; padding: 1rem;">No paintings available.</p>';
+    container.dataset.loaded = 'true';
+    return;
+  }
+  
+  // Clear container first
+  container.innerHTML = '';
+  
+  // Create grid
+  const grid = document.createElement('div');
+  grid.className = 'artist-inline-gallery-grid';
+  
+  // Append grid to container first
+  container.appendChild(grid);
+  
+  // Store paintings and loaded count in container dataset
+  container.dataset.totalPaintings = artistPaintings.length;
+  let loadedCount = 0;
+  
+  const loadMore = (count = 9) => {
+    const nextBatch = artistPaintings.slice(loadedCount, loadedCount + count);
+    nextBatch.forEach(painting => {
+      const img = createGalleryImage(painting);
+      if (img) {
+        grid.appendChild(img);
+      }
+    });
+    loadedCount += nextBatch.length;
+    container.dataset.loadedCount = loadedCount;
+    
+    // Use requestAnimationFrame to ensure DOM is updated before adding button
+    requestAnimationFrame(() => {
+      // Remove existing button from anywhere (body or container)
+      const existingBtn = document.querySelector('.artist-inline-load-more-btn');
+      if (existingBtn) {
+        existingBtn.remove();
+      }
+      
+      if (loadedCount < artistPaintings.length) {
+        const loadMoreBtn = document.createElement('button');
+        loadMoreBtn.className = 'artist-inline-load-more-btn hidden';
+        loadMoreBtn.setAttribute('aria-label', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
+        loadMoreBtn.setAttribute('title', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
+        
+        // Create icon SVG (plus icon)
+        const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        iconSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+        iconSvg.setAttribute('width', '20');
+        iconSvg.setAttribute('height', '20');
+        iconSvg.setAttribute('viewBox', '0 0 24 24');
+        iconSvg.setAttribute('fill', 'none');
+        iconSvg.setAttribute('stroke', 'currentColor');
+        iconSvg.setAttribute('stroke-width', '2');
+        iconSvg.setAttribute('stroke-linecap', 'round');
+        iconSvg.setAttribute('stroke-linejoin', 'round');
+        iconSvg.setAttribute('data-lucide', 'plus');
+        iconSvg.classList.add('lucide', 'lucide-plus');
+        
+        const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path1.setAttribute('d', 'M5 12h14');
+        const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path2.setAttribute('d', 'M12 5v14');
+        
+        iconSvg.appendChild(path1);
+        iconSvg.appendChild(path2);
+        loadMoreBtn.appendChild(iconSvg);
+        
+        loadMoreBtn.addEventListener('click', () => {
+          loadMore(9);
+        });
+        // Append to body for fixed positioning
+        document.body.appendChild(loadMoreBtn);
+        // Initialize Lucide icons if available
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }
+    });
+  };
+  
+  // Load initial 9 images
+  loadMore(9);
+  container.dataset.loaded = 'true';
+  container.dataset.loadedArtist = artistName;
+}
+
+// Gallery page state
+let galleryPagePaintings = [];
+let galleryPageLoadedCount = 0;
+let galleryPageGrid = null;
+
+function renderGalleryPage() {
+  const container = document.getElementById('gallery-page-collage');
+  if (!container) return;
+  
+  // Check if paintings data is available
+  if (!paintings || paintings.length === 0) {
+    container.innerHTML = '<p style="color: #666; padding: 2rem; text-align: center;">Loading paintings...</p>';
+    return;
+  }
+  
+  container.innerHTML = '';
+  
+  // Shuffle paintings for gallery
+  galleryPagePaintings = [...paintings];
+  shuffleArray(galleryPagePaintings);
+  
+  // Filter out invalid paintings
+  galleryPagePaintings = galleryPagePaintings.filter(p =>
+    p && p.url && typeof p.url === 'string' && 
+    (p.url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) || 
+     p.url.includes('wikimedia.org') || 
+     p.url.includes('upload.wikimedia.org'))
+  );
+  
+  if (galleryPagePaintings.length === 0) {
+    container.innerHTML = '<p style="color: #666; padding: 2rem; text-align: center;">No paintings available.</p>';
+    return;
+  }
+  
+  galleryPageGrid = document.createElement('div');
+  galleryPageGrid.className = 'gallery-collage-grid';
+  
+  // Load initial 9 images
+  galleryPageLoadedCount = 0;
+  loadMoreGalleryImages(9);
+  
+  container.appendChild(galleryPageGrid);
+  
+  // Update page title
+  const title = document.getElementById('gallery-page-title');
+  if (title) title.textContent = t('gallery');
+  
+  // Update collection info
+  const collectionInfo = document.getElementById('gallery-collection-info');
+  if (collectionInfo) {
+    updateCollectionInfoForElement(collectionInfo);
+  }
+  
+  // Make title clickable to go back to quiz
+  const titleElement = document.querySelector('#gallery-page .page-header-left .title');
+  if (titleElement) {
+    titleElement.style.cursor = 'pointer';
+    titleElement.addEventListener('click', () => {
+      window.location.hash = '';
+    });
+  }
+}
+
+function loadMoreGalleryImages(count = 9) {
+  if (!galleryPageGrid || galleryPageLoadedCount >= galleryPagePaintings.length) {
+    updateLoadMoreButton();
+    return;
+  }
+  
+  const nextBatch = galleryPagePaintings.slice(galleryPageLoadedCount, galleryPageLoadedCount + count);
+  
+  // Add images to grid
+  nextBatch.forEach(painting => {
+    const img = createGalleryImage(painting);
+    if (img) { // Only append if image was created successfully
+      galleryPageGrid.appendChild(img);
+    }
+  });
+  
+  galleryPageLoadedCount += nextBatch.length;
+  
+  // Use requestAnimationFrame to ensure DOM is updated before updating button
+  requestAnimationFrame(() => {
+    // Update load more button
+    updateLoadMoreButton();
+  });
+}
+
+// Load more button visibility functions - show when scrolling down
+let lastScroll = 0;
+
+function updateLoadMoreButtonVisibility() {
+  const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  const galleryBtn = document.querySelector('.gallery-load-more-btn');
+  const artistBtn = document.querySelector('.artist-inline-load-more-btn');
+  
+  // Show button when scrolling down, hide when scrolling up
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    // Scrolling down and past 100px
+    if (galleryBtn) {
+      galleryBtn.classList.add('visible');
+      galleryBtn.classList.remove('hidden');
+    }
+    if (artistBtn) {
+      artistBtn.classList.add('visible');
+      artistBtn.classList.remove('hidden');
+    }
+  } else {
+    // Scrolling up or at top
+    if (galleryBtn) {
+      galleryBtn.classList.add('hidden');
+      galleryBtn.classList.remove('visible');
+    }
+    if (artistBtn) {
+      artistBtn.classList.add('hidden');
+      artistBtn.classList.remove('visible');
+    }
+  }
+  
+  lastScroll = currentScroll;
+}
+
+function updateLoadMoreButton() {
+  // Remove existing button from anywhere (body or container)
+  const existingBtn = document.querySelector('.gallery-load-more-btn');
+  if (existingBtn) {
+    existingBtn.remove();
+  }
+  
+  // Add button if there are more images to load
+  if (galleryPageLoadedCount < galleryPagePaintings.length) {
+    const loadMoreBtn = document.createElement('button');
+    loadMoreBtn.className = 'gallery-load-more-btn';
+    loadMoreBtn.setAttribute('aria-label', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
+    loadMoreBtn.setAttribute('title', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
+    
+    // Create icon SVG (plus icon)
+    const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    iconSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    iconSvg.setAttribute('width', '20');
+    iconSvg.setAttribute('height', '20');
+    iconSvg.setAttribute('viewBox', '0 0 24 24');
+    iconSvg.setAttribute('fill', 'none');
+    iconSvg.setAttribute('stroke', 'currentColor');
+    iconSvg.setAttribute('stroke-width', '2');
+    iconSvg.setAttribute('stroke-linecap', 'round');
+    iconSvg.setAttribute('stroke-linejoin', 'round');
+    iconSvg.setAttribute('data-lucide', 'plus');
+    iconSvg.classList.add('lucide', 'lucide-plus');
+    
+    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path1.setAttribute('d', 'M5 12h14');
+    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path2.setAttribute('d', 'M12 5v14');
+    
+    iconSvg.appendChild(path1);
+    iconSvg.appendChild(path2);
+    loadMoreBtn.appendChild(iconSvg);
+    
+    loadMoreBtn.addEventListener('click', () => {
+      loadMoreGalleryImages(9);
+    });
+    // Append to body for fixed positioning
+    document.body.appendChild(loadMoreBtn);
+    // Check visibility on creation
+    updateLoadMoreButtonVisibility();
+    // Initialize Lucide icons if available
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+  }
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
   try {
+    // Initialize Lucide icons
+    if (typeof lucide !== 'undefined') {
+      lucide.createIcons();
+    }
+
+    // Setup theme toggle
+    setupThemeToggle();
+    
+    // Setup hash routing
+    window.addEventListener('hashchange', handleHashChange);
+    handleHashChange(); // Handle initial hash
+    
     // Start performance monitoring
     performanceMetrics.startTime = Date.now();
-    
+
     // Start memory cleanup
     startMemoryCleanup();
     
@@ -3045,6 +4168,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     updateCollectionInfo();
     updateLanguageUI();
     setupLanguageToggle();
+    // Preload first 2-3 images at initialization
+    preloadInitialImages();
+    
     startNewRound(); // Start with a new round
     setupArtistModal();
     setupGalleryModal();
@@ -3053,6 +4179,9 @@ document.addEventListener('DOMContentLoaded', async () => {
     
     // Start background preloading of gallery images
     startGalleryBackgroundPreload();
+    
+    // Re-handle hash after data is loaded (in case user navigated before data loaded)
+    handleHashChange();
     setupLogoReset();
     setupCategoryChangeInfoBar();
     
@@ -3096,11 +4225,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     window.addEventListener('scroll', throttle(() => {
       // Handle any scroll-based updates here
       performanceMetrics.operations++;
+      // Update load more button visibility
+      updateLoadMoreButtonVisibility();
     }, PERFORMANCE_CONFIG.ANIMATION_THROTTLE));
     
     window.addEventListener('resize', debounce(() => {
       // Handle any resize-based updates here
       performanceMetrics.operations++;
+      // Update load more button visibility on resize
+      updateLoadMoreButtonVisibility();
     }, 250));
     
     // Add visibility change handler to pause operations when tab is not visible

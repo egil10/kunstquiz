@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="theme-color" content="#4caf50">
   <title>Kunstquiz - Norwegian Art Challenge</title>
   
          <!-- Google Analytics 4 -->
@@ -27,32 +28,179 @@
   
   <link rel="stylesheet" href="assets/css/style.css">
   <meta name="description" content="A fun quiz where you guess the artist behind famous Norwegian paintings. Test your knowledge of Norwegian art history!">
+  <!-- Preconnect to external domains for performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preconnect" href="https://unpkg.com">
+  <!-- Font loading optimization -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
   <noscript><link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet"></noscript>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-  <div class="top-bar">
-    <div class="top-left">
-      <span class="title">Kunstquiz</span>
-      <span id="collection-info" class="collection-info"></span>
+  <!-- Quiz Page (default) -->
+  <div id="quiz-page" class="page">
+    <div class="top-bar">
+      <div class="top-left">
+        <span class="title">Kunstquiz</span>
+        <span id="collection-info" class="collection-info"></span>
+      </div>
+      <div class="top-right">
+        <div class="top-nav-links">
+          <a href="#painters" id="show-artists-link" class="top-nav-link">Painters</a>
+          <a href="#gallery" id="show-gallery-link" class="top-nav-link">Gallery</a>
+          <a href="#how-to-play" id="show-how-to-play-link" class="top-nav-link">How to Play</a>
+          <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
+            <i data-lucide="github" class="icon"></i>
+          </a>
+          <a href="#" id="language-toggle" class="top-nav-link" aria-label="Toggle language">
+            <i data-lucide="languages" class="icon"></i>
+          </a>
+          <a href="#" id="theme-toggle" class="top-nav-link" aria-label="Toggle theme">
+            <i data-lucide="sun" class="icon theme-icon"></i>
+          </a>
+        </div>
+        <div class="category-selector">
+          <select id="category-select"></select>
+        </div>
+      </div>
     </div>
-    <div class="top-right">
-      <div class="category-selector">
-        <select id="category-select"></select>
+    <div class="main-flex">
+    <div class="img-col">
+      <div class="painting-container">
+        <img id="painting" src="" alt="" loading="lazy" decoding="async" role="img" aria-label="Painting to identify">
+        <div id="loading-indicator" class="loading-indicator" style="display: none;">
+          <div class="loading-spinner"></div>
+          <p id="loading-text">Loading images... 0/10</p>
+        </div>
+      </div>
+      <div id="streak-bar" role="progressbar" aria-label="Quiz progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="10"></div>
+    </div>
+    <div class="btn-col" id="btn-col">
+      <div id="options" role="group" aria-label="Answer options"></div>
+      <div id="message" role="status" aria-live="polite" aria-atomic="true"></div>
+    </div>        
+    <div id="artist-popup-container"></div>
+    </div>
+  </div>
+
+  <!-- Painters Page -->
+  <div id="painters-page" class="page" style="display: none;">
+    <div class="page-header">
+      <div class="page-header-content">
+        <div class="page-header-left">
+          <span class="title">Kunstquiz</span>
+          <span id="painters-collection-info" class="collection-info"></span>
+        </div>
+        <div class="page-header-right">
+          <div class="top-nav-links">
+            <a href="#painters" class="top-nav-link">Painters</a>
+            <a href="#gallery" class="top-nav-link">Gallery</a>
+            <a href="#how-to-play" class="top-nav-link">How to Play</a>
+            <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
+              <i data-lucide="github" class="icon"></i>
+            </a>
+            <a href="#" id="language-toggle-painters" class="top-nav-link" aria-label="Toggle language">
+              <i data-lucide="languages" class="icon"></i>
+            </a>
+            <a href="#" id="theme-toggle-painters" class="top-nav-link" aria-label="Toggle theme">
+              <i data-lucide="sun" class="icon theme-icon"></i>
+            </a>
+          </div>
+          <h1 id="painters-page-title" class="page-title">Painters</h1>
+          <a href="#" class="back-link" id="back-to-quiz-link">
+            <i data-lucide="arrow-left" class="icon"></i>
+            <span>Back to Quiz</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div id="painters-content" class="painters-content">
+        <div id="painters-list-columns" class="artist-list-columns"></div>
       </div>
     </div>
   </div>
-  <div class="main-flex">
-    <div class="img-col">
-      <img id="painting" src="" alt="">
-      <div id="streak-bar"></div>
+
+  <!-- Gallery Page -->
+  <div id="gallery-page" class="page" style="display: none;">
+    <div class="page-header">
+      <div class="page-header-content">
+        <div class="page-header-left">
+          <span class="title">Kunstquiz</span>
+          <span id="gallery-collection-info" class="collection-info"></span>
+        </div>
+        <div class="page-header-right">
+          <div class="top-nav-links">
+            <a href="#painters" class="top-nav-link">Painters</a>
+            <a href="#gallery" class="top-nav-link">Gallery</a>
+            <a href="#how-to-play" class="top-nav-link">How to Play</a>
+            <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
+              <i data-lucide="github" class="icon"></i>
+            </a>
+            <a href="#" id="language-toggle-gallery" class="top-nav-link" aria-label="Toggle language">
+              <i data-lucide="languages" class="icon"></i>
+            </a>
+            <a href="#" id="theme-toggle-gallery" class="top-nav-link" aria-label="Toggle theme">
+              <i data-lucide="sun" class="icon theme-icon"></i>
+            </a>
+          </div>
+          <h1 id="gallery-page-title" class="page-title">Gallery</h1>
+          <a href="#" class="back-link" id="back-to-quiz-link-gallery">
+            <i data-lucide="arrow-left" class="icon"></i>
+            <span>Back to Quiz</span>
+          </a>
+        </div>
+      </div>
     </div>
-    <div class="btn-col" id="btn-col">
-      <div id="options"></div>
-      <div id="message"></div>
-    </div>        
-    <div id="artist-popup-container"></div>
+    <div class="page-content">
+      <div id="gallery-content" class="gallery-content">
+        <div id="gallery-page-collage" class="gallery-page-collage"></div>
+      </div>
+    </div>
   </div>
+
+  <!-- How to Play Page -->
+  <div id="how-to-play-page" class="page" style="display: none;">
+    <div class="page-header">
+      <div class="page-header-content">
+        <div class="page-header-left">
+          <span class="title">Kunstquiz</span>
+          <span id="how-to-play-collection-info" class="collection-info"></span>
+        </div>
+        <div class="page-header-right">
+          <div class="top-nav-links">
+            <a href="#painters" class="top-nav-link">Painters</a>
+            <a href="#gallery" class="top-nav-link">Gallery</a>
+            <a href="#how-to-play" class="top-nav-link">How to Play</a>
+            <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
+              <i data-lucide="github" class="icon"></i>
+            </a>
+            <a href="#" id="language-toggle-how-to-play" class="top-nav-link" aria-label="Toggle language">
+              <i data-lucide="languages" class="icon"></i>
+            </a>
+            <a href="#" id="theme-toggle-how-to-play" class="top-nav-link" aria-label="Toggle theme">
+              <i data-lucide="sun" class="icon theme-icon"></i>
+            </a>
+          </div>
+          <h1 id="how-to-play-page-title" class="page-title">How to Play</h1>
+          <a href="#" class="back-link" id="back-to-quiz-link-how-to-play">
+            <i data-lucide="arrow-left" class="icon"></i>
+            <span>Back to Quiz</span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div id="how-to-play-page-content" class="how-to-play-page-content">
+        <!-- Content will be dynamically generated based on language -->
+      </div>
+    </div>
+  </div>
+
   <div id="congrats-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="congrats-title">
     <div class="modal-content">
       <h2 id="congrats-title"></h2>
@@ -130,18 +278,6 @@
     </div>
   </div>
 
-  <!-- Modern social footer -->
-  <footer class="footer-social">
-    <div class="footer-links">
-      <a href="#" id="show-artists-link" class="social-link">Painters</a>
-      <a href="#" id="show-gallery-link" class="footer-link">Gallery</a>
-      <a href="https://www.instagram.com/kunstquizart" class="social-link" aria-disabled="true">Instagram</a>
-      <a href="#" class="social-link" aria-disabled="true">TikTok</a>
-      <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="footer-link">GitHub</a>
-      <a href="#" id="show-how-to-play-link" class="footer-link"></a>
-      <a href="#" id="language-toggle" class="footer-link">🇬🇧</a>
-    </div>
-  </footer>
   <div id="artists-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="artists-title">
     <div class="modal-content artist-list-modal">
       <h2 id="artists-title"></h2>
@@ -169,7 +305,7 @@
   <!-- Full Screen Painting Viewer -->
   <div id="painting-viewer-modal" class="modal painting-viewer-modal" style="display:none;" role="dialog" aria-modal="true">
     <div class="painting-viewer-content">
-      <img id="painting-viewer-image" class="painting-viewer-image" alt="Painting" />
+      <img id="painting-viewer-image" class="painting-viewer-image" alt="Painting" loading="lazy" decoding="async" />
     </div>
   </div>
 
