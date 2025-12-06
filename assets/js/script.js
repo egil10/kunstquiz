@@ -1202,9 +1202,14 @@ function createGalleryImage(painting) {
   img.style.opacity = '0';
   
   // Make image clickable to show full-size viewer
-  img.addEventListener('click', () => {
+  img.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     showPaintingViewer(painting, { gallery: true });
   });
+  
+  // Ensure cursor shows pointer on hover
+  img.style.cursor = 'pointer';
   
   // Function to show the image
   const showImage = function() {
@@ -2922,10 +2927,21 @@ function setupPaintingViewer() {
     }
   });
   
-  // Close on any click (background or image)
+  // Close on background click (not on the image itself)
   if (modal) {
     modal.onclick = function(e) {
-      hidePaintingViewer();
+      // Only close if clicking the background, not the image
+      if (e.target === modal || e.target.classList.contains('painting-viewer-content')) {
+        hidePaintingViewer();
+      }
+    };
+  }
+  
+  // Prevent closing when clicking the image itself
+  const image = document.getElementById('painting-viewer-image');
+  if (image) {
+    image.onclick = function(e) {
+      e.stopPropagation();
     };
   }
   
@@ -3711,6 +3727,12 @@ function setupThemeToggle() {
 
 // Page routing functions
 function showPage(pageId) {
+  // Close full-screen image viewer when navigating between pages
+  const paintingViewerModal = document.getElementById('painting-viewer-modal');
+  if (paintingViewerModal && paintingViewerModal.style.display === 'flex') {
+    hidePaintingViewer();
+  }
+  
   // Remove any existing load more buttons when switching pages
   const existingGalleryBtn = document.querySelector('.gallery-load-more-btn');
   if (existingGalleryBtn) {
