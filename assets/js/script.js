@@ -991,6 +991,9 @@ function updateLanguageUI() {
   // Update footer links
   updateFooterLinks();
 
+  // Update all navigation links on all pages (both quiz page and subpages)
+  updateNavigationLinks();
+
   // Update category selector aria-label
   updateCategorySelector();
 
@@ -2760,30 +2763,17 @@ function hidePopup(popup, onDone) {
 }
 
 function setupLogoReset() {
-  const logo = document.querySelector('.title');
-  if (logo) {
-    logo.onclick = () => {
-      // Reset everything to start a completely new quiz
-      selectedCategory = 'all';
-      const catSelect = document.getElementById('category-select');
-      if (catSelect) catSelect.value = 'all';
-      streak = 0;
-      updateStreakBar();
-
-      // Clear any existing messages
-      hideMessage();
-
-      // Hide any open modals
-      hideCongratsModal();
-      hideGalleryModal();
-      hideAboutModal();
-      hideRoundResults();
-      document.getElementById('artists-modal').style.display = 'none';
-
-      // Start a completely fresh round
-      startNewRound();
-    };
-  }
+  const logos = document.querySelectorAll('.title');
+  logos.forEach(logo => {
+    if (logo) {
+      logo.onclick = () => {
+        // Hard refresh to kunstquiz.art
+        window.location.replace('https://kunstquiz.art/');
+      };
+      // Make it look clickable
+      logo.style.cursor = 'pointer';
+    }
+  });
 }
 
 function showArtistsModal() {
@@ -4143,6 +4133,24 @@ function updateFooterLinks() {
 
   // Always re-attach About modal event listener in case the link was replaced
   setupAboutModal();
+}
+
+function updateNavigationLinks() {
+  // Update all navigation links across all pages (quiz page and subpages)
+  // Select all top-nav-link elements and update based on their href
+  document.querySelectorAll('.top-nav-link').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href) return;
+
+    // Update text based on href target
+    if (href === '#painters' || href.includes('painters')) {
+      link.textContent = t('painters');
+    } else if (href === '#gallery' || href.includes('gallery')) {
+      link.textContent = t('gallery');
+    } else if (href === '#how-to-play' || href.includes('how-to-play')) {
+      link.textContent = t('aboutHowToPlay');
+    }
+  });
 }
 
 function updateCategorySelector() {
