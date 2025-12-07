@@ -22,7 +22,7 @@ body {
 }
 
 html.dark-theme body {
-  background: #1a1a1a;
+  background: #000000;
   color: #e0e0e0;
 }
 
@@ -113,7 +113,7 @@ html.dark-theme * {
 /* Dark theme */
 html.dark-theme,
 html.dark-theme body {
-  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  background: linear-gradient(135deg, #000000 0%, #111111 100%);
   color: #e0e0e0;
 }
 
@@ -201,7 +201,7 @@ body::before {
 }
 
 html.dark-theme .top-bar {
-  background: rgba(26, 26, 26, 0.85);
+  background: rgba(0, 0, 0, 0.9);
 }
 
 .top-left {
@@ -350,7 +350,7 @@ html.dark-theme .collection-info {
 
 
 html.dark-theme .modal-content {
-  background: #2d2d2d;
+  background: #111;
   color: #e0e0e0;
 }
 
@@ -586,8 +586,8 @@ html.dark-theme .page-header-left .collection-info {
 }
 
 html.dark-theme .page-header {
-  background: rgba(45, 45, 45, 0.95);
-  border-bottom-color: #444;
+  background: rgba(0, 0, 0, 0.95);
+  border-bottom-color: #333;
 }
 
 html.dark-theme .page-title {
@@ -4288,25 +4288,22 @@ html.dark-theme .artist-inline-load-more-btn svg {
 
     body {
       -webkit-overflow-scrolling: touch;
-      overscroll-behavior-y: none;
-      overflow-y: auto !important;
-      height: auto !important;
+      /* Use normal scroll behavior to prevent stickiness */
+      overscroll-behavior-y: auto;
+      min-height: 100vh;
+      overflow-y: auto;
+      height: auto;
     }
 
     html,
     body {
       overflow-x: hidden;
-      overflow-y: auto !important;
-      /* FORCE SCROLL */
-      width: 100%;
-      padding-bottom: max(1rem, env(safe-area-inset-bottom, 0.5rem));
-      gap: 1.5rem;
       overflow-y: auto;
-      overflow-x: hidden;
-      /* GPU acceleration for smooth scrolling */
-      will-change: scroll-position;
-      transform: translateZ(0);
-      backface-visibility: hidden;
+      width: 100%;
+      min-height: 100vh;
+      padding-bottom: max(1rem, env(safe-area-inset-bottom, 0.5rem));
+      /* Reset conflicts */
+      gap: 0;
     }
 
     /* ===== TOP BAR - MOBILE (HOMEPAGE) ===== */
@@ -4376,27 +4373,22 @@ html.dark-theme .artist-inline-load-more-btn svg {
     .main-flex {
       flex-direction: column;
       height: auto;
-      max-height: none;
-      min-height: calc(100vh - 120px);
+      min-height: auto;
       padding-top: 5px;
       padding-left: max(1rem, env(safe-area-inset-left, 0.5rem));
       padding-right: max(1rem, env(safe-area-inset-right, 0.5rem));
       padding-bottom: max(1rem, env(safe-area-inset-bottom, 0.5rem));
       gap: 1.5rem;
-      overflow-y: auto;
-      overflow-x: hidden;
-      will-change: scroll-position;
-      transform: translateZ(0);
-      backface-visibility: hidden;
+      /* Let body handle the scroll */
+      overflow: visible;
     }
 
     #quiz-page {
-      overflow-y: auto !important;
-      overflow-x: hidden !important;
+      overflow: visible !important;
+      /* Allow body scroll */
       height: auto !important;
       max-height: none !important;
       min-height: 100vh;
-      -webkit-overflow-scrolling: touch;
     }
 
     /* Fix popup positioning on mobile to be centered on screen */
@@ -5040,6 +5032,12 @@ html.dark-theme .artist-inline-load-more-btn svg {
     .category-selector #custom-category-link,
     .category-selector .custom-category-menu {
       display: none !important;
+    }
+
+    /* FIX: Force white text for native select in dark mode on mobile */
+    html.dark-theme .category-selector #category-select {
+      color: #ffffff !important;
+      background-color: #000000 !important;
     }
   }
 
