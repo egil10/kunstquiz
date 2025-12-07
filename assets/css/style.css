@@ -4500,6 +4500,9 @@ html.dark-theme .artist-inline-load-more-btn svg {
       padding: 1rem 0.875rem;
       font-size: 1rem;
       min-height: 52px;
+      /* Force visibility on mobile to prevent fade-in glitches */
+      opacity: 1 !important;
+      visibility: visible !important;
       /* Larger touch target on mobile */
       margin-bottom: 0;
       /* Touch optimization */
