@@ -4460,51 +4460,37 @@ html.dark-theme .artist-inline-load-more-btn svg {
       /* Middle */
     }
 
-    gap: 0.4rem;
-    padding: 0;
-    order: 2;
-    /* Middle */
-  }
 
-  .streak-circle {
-    width: 14px;
-    height: 14px;
-    min-width: 14px;
-    min-height: 14px;
-  }
 
-  /* ===== BUTTONS COLUMN - MOBILE ===== */
-  .btn-col {
-    flex: 1 1 auto;
-    max-width: 100%;
-    width: 100%;
-    height: auto;
-    padding: 0;
-    gap: 0.5rem;
-    order: 3;
-    /* Bottom */
-    align-items: stretch;
-    margin-top: 0;
-  }
+    .streak-circle {
+      width: 14px;
+      height: 14px;
+      min-width: 14px;
+      min-height: 14px;
+    }
 
-  #options {
-    gap: 0.5rem;
-    /* Reduced gap */
-    max-width: 100%;
-    width: 100%;
+    /* ===== BUTTONS COLUMN - MOBILE ===== */
+    .btn-col {
+      flex: 1 1 auto;
+      max-width: 100%;
+      width: 100%;
+      height: auto;
+      padding: 0;
+      gap: 0.5rem;
+      order: 3;
+      /* Bottom */
+      align-items: stretch;
+      margin-top: 0;
+    }
 
     #options {
       gap: 0.5rem;
-      /* Reduced gap */
       max-width: 100%;
       width: 100%;
       padding: 0;
-      /* REMOVED PADDING */
-      /* Reduced padding */
       min-height: auto;
-      /* Reduced padding */
-      min-height: auto;
-      /* Performance optimization */
+      display: flex;
+      flex-direction: column;
       will-change: contents;
       transform: translateZ(0);
     }
@@ -5014,38 +5000,111 @@ html.dark-theme .artist-inline-load-more-btn svg {
       -webkit-overflow-scrolling: touch;
     }
   }
-/* FORCE MOBILE 1 COLUMN LAYOUT */
-@media (max-width: 768px) {
-  .gallery-collage-grid,
-  #gallery-page .gallery-collage-grid,
-  .artist-inline-gallery-grid {
-    grid-template-columns: 1fr !important;
-    display: grid !important;
-  }
-  .gallery-collage-grid img,
-  .artist-inline-gallery-grid img {
-    width: 100% !important;
-    height: auto !important;
-    max-width: 100% !important;
-  }
-}
 
-/* FORCE NATIVE SELECT ON MOBILE TO FIX TEXT CROPPING */
-@media (max-width: 768px) {
-  .category-selector #category-select {
-    display: block !important;
-    width: 100% !important;
-    height: 44px !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    appearance: menulist !important;
-    -webkit-appearance: menulist !important;
-    padding: 0.5rem;
-    font-size: 1rem;
-    background-color: transparent;
+  /* FORCE MOBILE 1 COLUMN LAYOUT */
+  @media (max-width: 768px) {
+
+    .gallery-collage-grid,
+    #gallery-page .gallery-collage-grid,
+    .artist-inline-gallery-grid {
+      grid-template-columns: 1fr !important;
+      display: grid !important;
+    }
+
+    .gallery-collage-grid img,
+    .artist-inline-gallery-grid img {
+      width: 100% !important;
+      height: auto !important;
+      max-width: 100% !important;
+    }
   }
-  .category-selector #custom-category-link,
-  .category-selector .custom-category-menu {
-    display: none !important;
+
+  /* FORCE NATIVE SELECT ON MOBILE TO FIX TEXT CROPPING */
+  @media (max-width: 768px) {
+    .category-selector #category-select {
+      display: block !important;
+      width: 100% !important;
+      height: 44px !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      appearance: menulist !important;
+      -webkit-appearance: menulist !important;
+      padding: 0.5rem;
+      font-size: 1rem;
+      background-color: transparent;
+    }
+
+    .category-selector #custom-category-link,
+    .category-selector .custom-category-menu {
+      display: none !important;
+    }
   }
-}
+
+  /* =========================================
+   SURGICAL HEADER FIXES (Mobile & Desktop)
+   ========================================= */
+
+  /* Desktop Helper for new HTML structure */
+  .header-title-group {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  /* Mobile Header Overrides */
+  @media (max-width: 768px) {
+    .page-header {
+      position: relative !important;
+      /* Scroll away */
+      padding: 1rem;
+    }
+
+    /* Right section becomes a column: 
+     Row 1: Links
+     Row 2: Title + Back */
+    .page-header-right {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      width: 100%;
+      margin-top: 0.5rem;
+    }
+
+    /* Row 1: Nav Links & Icons */
+    .page-header-right .top-nav-links {
+      width: 100%;
+      justify-content: flex-end;
+      /* Align right to match "exact same row" request */
+      gap: 0.75rem;
+      flex-wrap: nowrap;
+      /* Keep on one row */
+      overflow-x: auto;
+      /* Safety scroll */
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 2px;
+    }
+
+    /* Flattened icons styling inside top-nav-links */
+    .page-header-right .top-nav-links .top-nav-link {
+      padding: 0.4rem 0.2rem;
+      white-space: nowrap;
+    }
+
+    /* Row 2: Title & Back Link */
+    .header-title-group {
+      width: 100%;
+      justify-content: space-between;
+      /* Title left, Back right */
+      gap: 1rem;
+      margin-top: 0.25rem;
+    }
+
+    .page-title {
+      font-size: 1.25rem;
+    }
+
+    /* Ensure Back Link is visible and sized right */
+    .back-link {
+      font-size: 0.95rem;
+    }
+  }
