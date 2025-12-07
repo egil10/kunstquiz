@@ -4648,9 +4648,10 @@ html.dark-theme .gallery-loading-indicator .loading-spinner {
 
   /* ===== GALLERY PAGE - MOBILE ===== */
 
-  .gallery-collage-grid {
+  .gallery-collage-grid,
+  #gallery-page .gallery-collage-grid {
     grid-template-columns: 1fr !important;
-    /* Single column on mobile */
+    /* Single column on mobile - override desktop !important */
     gap: 1rem;
     padding: 0.5rem 0;
     /* Performance optimization */
@@ -4686,6 +4687,7 @@ html.dark-theme .gallery-loading-indicator .loading-spinner {
     will-change: transform;
     transform: translateZ(0);
   }
+
 
 
   .gallery-load-more-btn,
