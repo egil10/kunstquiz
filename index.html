@@ -53,18 +53,20 @@
           <a href="#painters" id="show-artists-link" class="top-nav-link">Painters</a>
           <a href="#gallery" id="show-gallery-link" class="top-nav-link">Gallery</a>
           <a href="#how-to-play" id="show-how-to-play-link" class="top-nav-link">How to Play</a>
+        </div>
+        <div class="category-selector">
+          <select id="category-select"></select>
+        </div>
+        <div class="top-nav-icon-buttons">
           <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
             <i data-lucide="github" class="icon"></i>
           </a>
           <a href="#" id="language-toggle" class="top-nav-link" aria-label="Toggle language">
-            <i data-lucide="languages" class="icon"></i>
+            <i data-lucide="book-a" class="icon"></i>
           </a>
           <a href="#" id="theme-toggle" class="top-nav-link" aria-label="Toggle theme">
             <i data-lucide="sun" class="icon theme-icon"></i>
           </a>
-        </div>
-        <div class="category-selector">
-          <select id="category-select"></select>
         </div>
       </div>
     </div>
@@ -82,6 +84,7 @@
     <div class="btn-col" id="btn-col">
       <div id="options" role="group" aria-label="Answer options"></div>
       <div id="message" role="status" aria-live="polite" aria-atomic="true"></div>
+      <button id="main-play-again-btn" class="main-play-again-btn" style="display: none;"></button>
     </div>        
     <div id="artist-popup-container"></div>
     </div>
@@ -104,7 +107,7 @@
               <i data-lucide="github" class="icon"></i>
             </a>
             <a href="#" id="language-toggle-painters" class="top-nav-link" aria-label="Toggle language">
-              <i data-lucide="languages" class="icon"></i>
+              <i data-lucide="book-a" class="icon"></i>
             </a>
             <a href="#" id="theme-toggle-painters" class="top-nav-link" aria-label="Toggle theme">
               <i data-lucide="sun" class="icon theme-icon"></i>
@@ -119,6 +122,7 @@
       </div>
     </div>
     <div class="page-content">
+      <button id="main-play-again-btn-painters" class="main-play-again-btn" style="display: none;"></button>
       <div id="painters-content" class="painters-content">
         <div id="painters-list-columns" class="artist-list-columns"></div>
       </div>
@@ -142,7 +146,7 @@
               <i data-lucide="github" class="icon"></i>
             </a>
             <a href="#" id="language-toggle-gallery" class="top-nav-link" aria-label="Toggle language">
-              <i data-lucide="languages" class="icon"></i>
+              <i data-lucide="book-a" class="icon"></i>
             </a>
             <a href="#" id="theme-toggle-gallery" class="top-nav-link" aria-label="Toggle theme">
               <i data-lucide="sun" class="icon theme-icon"></i>
@@ -157,6 +161,7 @@
       </div>
     </div>
     <div class="page-content">
+      <button id="main-play-again-btn-gallery" class="main-play-again-btn" style="display: none;"></button>
       <div id="gallery-content" class="gallery-content">
         <div id="gallery-page-collage" class="gallery-page-collage"></div>
       </div>
@@ -180,7 +185,7 @@
               <i data-lucide="github" class="icon"></i>
             </a>
             <a href="#" id="language-toggle-how-to-play" class="top-nav-link" aria-label="Toggle language">
-              <i data-lucide="languages" class="icon"></i>
+              <i data-lucide="book-a" class="icon"></i>
             </a>
             <a href="#" id="theme-toggle-how-to-play" class="top-nav-link" aria-label="Toggle theme">
               <i data-lucide="sun" class="icon theme-icon"></i>
@@ -305,6 +310,9 @@
   <!-- Full Screen Painting Viewer -->
   <div id="painting-viewer-modal" class="modal painting-viewer-modal" style="display:none;" role="dialog" aria-modal="true">
     <div class="painting-viewer-content">
+      <button id="painting-viewer-close" class="painting-viewer-close" aria-label="Close">
+        <i data-lucide="x" class="icon"></i>
+      </button>
       <img id="painting-viewer-image" class="painting-viewer-image" alt="Painting" loading="lazy" decoding="async" />
     </div>
   </div>

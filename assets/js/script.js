@@ -158,8 +158,317 @@ function logImageOptimizationMetrics() {
   });
 }
 
-// Language support
-let currentLanguage = 'en'; // 'en' for English, 'no' for Norwegian
+// Language support - persist in localStorage
+let currentLanguage = localStorage.getItem('language') || 'en'; // 'en' for English, 'no' for Norwegian
+
+// Loading screen messages with rotating typewriter animation
+const loadingMessages = [
+  {
+    "en": "Warming up Edvard Munch's brushes… they're slightly anxious.",
+    "no": "Varmer opp penslene til Edvard Munch… de er litt engstelige."
+  },
+  {
+    "en": "Negotiating color rights with Harald Sohlberg's twilight.",
+    "no": "Forhandler fargerettigheter med skumringen til Harald Sohlberg."
+  },
+  {
+    "en": "Asking Christian Krohg to take a short break from realism.",
+    "no": "Ber Christian Krohg ta en liten pause fra realismen."
+  },
+  {
+    "en": "Checking whether this brushstroke is art or accidental genius.",
+    "no": "Sjekker om dette penselstrøket er kunst eller et genialt uhell."
+  },
+  {
+    "en": "Summoning Kitty Kielland for landscape approval.",
+    "no": "Tilkaller Kitty Kielland for landskapsgodkjenning."
+  },
+  {
+    "en": "Convincing Nikolai Astrup to share his secret greens.",
+    "no": "Prøver å få Nikolai Astrup til å dele hemmelige grønnfarger."
+  },
+  {
+    "en": "Collecting fresh fjord reflections… hold on.",
+    "no": "Samler friske fjordrefleksjoner… et øyeblikk."
+  },
+  {
+    "en": "Checking if this fjell is dramatic enough.",
+    "no": "Sjekker om dette fjellet er dramatisk nok."
+  },
+  {
+    "en": "Restoring a forgotten masterpiece left in a Bergen attic.",
+    "no": "Gjenoppretter et glemt mesterverk fra et loft i Bergen."
+  },
+  {
+    "en": "Polishing the Northern Lights to museum standards.",
+    "no": "Pusser nordlyset til museumsstandard."
+  },
+  {
+    "en": "Running the 'Is this Munch or just angst?' test.",
+    "no": "Kjører 'Er dette Munch eller bare angst?'-testen."
+  },
+  {
+    "en": "Mixing paint with 98% inspiration and 2% coffee.",
+    "no": "Mikser maling med 98% inspirasjon og 2% kaffe."
+  },
+  {
+    "en": "Asking the Oslo School if this is allowed.",
+    "no": "Spør Oslo-skolen om dette er lov."
+  },
+  {
+    "en": "Enhancing shadows according to national standards.",
+    "no": "Forsterker skygger etter nasjonale retningslinjer."
+  },
+  {
+    "en": "Checking for trolls in the background… you never know.",
+    "no": "Sjekker etter troll i bakgrunnen… man vet aldri."
+  },
+  {
+    "en": "Applying an extra layer of melancholy (Munch-certified).",
+    "no": "Legger på et ekstra lag melankoli (Munch-sertifisert)."
+  },
+  {
+    "en": "Sorting landscapes by degree of existential crisis.",
+    "no": "Sorterer landskap etter grad av eksistensiell krise."
+  },
+  {
+    "en": "Adding fjord depth… careful, it's slippery.",
+    "no": "Legger til fjorddybde… forsiktig, det er glatt."
+  },
+  {
+    "en": "Double-checking whether this village needs more snow.",
+    "no": "Dobbeltsjekker om denne bygda trenger mer snø."
+  },
+  {
+    "en": "Borrowing hues from a Sohlberg moonrise.",
+    "no": "Låner fargetoner fra en Sohlberg-måneoppgang."
+  },
+  {
+    "en": "Reheating leftover brushstrokes from last century.",
+    "no": "Varmer opp penselstrøk fra forrige århundre."
+  },
+  {
+    "en": "Verifying membership in the Norwegian Art Club.",
+    "no": "Verifiserer medlemskap i Den Norske Kunstklubben."
+  },
+  {
+    "en": "Stabilizing canvas… there was a slight breeze in Trondheim.",
+    "no": "Stabiliserer lerretet… det var litt trekk i Trondheim."
+  },
+  {
+    "en": "Gathering reference photos from 1887.",
+    "no": "Henter referansebilder fra 1887."
+  },
+  {
+    "en": "Cross-checking with the National Museum archives.",
+    "no": "Kryssjekker med arkivet til Nasjonalmuseet."
+  },
+  {
+    "en": "Digitally ironing out stubborn brush bristles.",
+    "no": "Stryker digitale penselhår som ikke vil samarbeide."
+  },
+  {
+    "en": "Interviewing the paint to learn its true feelings.",
+    "no": "Intervjuer malingen for å høre dens egentlige følelser."
+  },
+  {
+    "en": "Adjusting light conditions to match a typical Norwegian summer.",
+    "no": "Justerer lysforholdene til en typisk norsk sommer."
+  },
+  {
+    "en": "Fetching a fresh bucket of inspiration from Hardanger.",
+    "no": "Henter en bøtte inspirasjon fra Hardanger."
+  },
+  {
+    "en": "Teaching the pixels how to behave like oil paint.",
+    "no": "Lærer pikslene å oppføre seg som oljemaling."
+  },
+  {
+    "en": "Untangling a very complicated brushstroke.",
+    "no": "Løser opp et veldig komplisert penselstrøk."
+  },
+  {
+    "en": "Giving the clouds a dramatic Scandinavian makeover.",
+    "no": "Gir skyene en dramatisk skandinavisk makeover."
+  },
+  {
+    "en": "Checking for historically accurate sheep placement.",
+    "no": "Sjekker om sauene er historisk korrekt plassert."
+  },
+  {
+    "en": "Confirming whether this is a fjord or just a very wet valley.",
+    "no": "Bekrefter om dette er en fjord eller bare en veldig våt dal."
+  },
+  {
+    "en": "Brewing black coffee for the entire artist colony.",
+    "no": "Brygger svart kaffe til hele kunstnerkolonien."
+  },
+  {
+    "en": "Loading existential dread… please be patient.",
+    "no": "Laster eksistensiell uro… vennligst vent."
+  },
+  {
+    "en": "Retouching the sunset to look 12% more majestic.",
+    "no": "Retusjerer solnedgangen til å bli 12% mer majestetisk."
+  },
+  {
+    "en": "Scanning for hidden symbolism—this may take a moment.",
+    "no": "Skanner etter skjult symbolikk—dette kan ta litt tid."
+  },
+  {
+    "en": "Attempting to decode the painter's handwriting.",
+    "no": "Forsøker å tyde kunstnerens håndskrift."
+  },
+  {
+    "en": "Brushing away century-old dust particles.",
+    "no": "Børster bort støvkorn som er hundre år gamle."
+  },
+  {
+    "en": "Assembling tiny artistic details with tweezers.",
+    "no": "Setter sammen små kunstneriske detaljer med pinsett."
+  },
+  {
+    "en": "Evaluating whether this mountain looks sufficiently Norwegian.",
+    "no": "Vurderer om dette fjellet ser norsk nok ut."
+  },
+  {
+    "en": "Fine-tuning artistic melancholy levels.",
+    "no": "Finjusterer nivået av kunstnerisk melankoli."
+  },
+  {
+    "en": "Connecting to the National Romanticism server…",
+    "no": "Kobler til Nasjonalromantikk-serveren…"
+  },
+  {
+    "en": "Unpacking fresh Norwegian daylight—handle with care.",
+    "no": "Pakker ut ferskt norsk dagslys—håndter forsiktig."
+  },
+  {
+    "en": "Sharpening palette knives for improved drama.",
+    "no": "Sliper palettkniver for bedre dramatikk."
+  },
+  {
+    "en": "Checking brushstroke alignment with museum standards.",
+    "no": "Sjekker penselstrøk mot museumsstandard."
+  },
+  {
+    "en": "Trying to stop the paint from running away.",
+    "no": "Prøver å hindre malingen i å løpe sin vei."
+  },
+  {
+    "en": "Preparing a fully museum-approved loading experience.",
+    "no": "Forbereder en fullt museumsgodkjent lasteopplevelse."
+  }
+];
+
+// Loading animation state
+let loadingAnimationState = {
+  typewriterInterval: null,
+  dotInterval: null,
+  messageTimeout: null,
+  currentMessageIndex: 0,
+  currentText: '',
+  isAnimating: false,
+  loadingTextElement: null
+};
+
+// Start animated loading message with typewriter and dot effects
+function startLoadingAnimation(loadingTextElement) {
+  if (!loadingTextElement) return;
+  
+  // Stop any existing animation
+  stopLoadingAnimation();
+  
+  loadingAnimationState.isAnimating = true;
+  loadingAnimationState.loadingTextElement = loadingTextElement;
+  loadingAnimationState.currentMessageIndex = Math.floor(Math.random() * loadingMessages.length);
+  loadingAnimationState.currentText = '';
+  
+  const animateMessage = () => {
+    if (!loadingAnimationState.isAnimating) return;
+    
+    // Get current message based on language
+    const message = loadingMessages[loadingAnimationState.currentMessageIndex][currentLanguage];
+    const fullText = message;
+    
+    // Clear any existing intervals
+    if (loadingAnimationState.typewriterInterval) {
+      clearInterval(loadingAnimationState.typewriterInterval);
+    }
+    if (loadingAnimationState.dotInterval) {
+      clearInterval(loadingAnimationState.dotInterval);
+    }
+    
+    // Typewriter effect
+    let charIndex = 0;
+    loadingAnimationState.typewriterInterval = setInterval(() => {
+      if (!loadingAnimationState.isAnimating) {
+        clearInterval(loadingAnimationState.typewriterInterval);
+        return;
+      }
+      
+      if (charIndex < fullText.length) {
+        loadingAnimationState.currentText = fullText.substring(0, charIndex + 1);
+        if (loadingAnimationState.loadingTextElement) {
+          loadingAnimationState.loadingTextElement.textContent = loadingAnimationState.currentText;
+        }
+        charIndex++;
+      } else {
+        // Typewriter complete, start dot animation
+        clearInterval(loadingAnimationState.typewriterInterval);
+        loadingAnimationState.typewriterInterval = null;
+        
+        let dotCount = 0;
+        loadingAnimationState.dotInterval = setInterval(() => {
+          if (!loadingAnimationState.isAnimating) {
+            clearInterval(loadingAnimationState.dotInterval);
+            return;
+          }
+          const dots = '.'.repeat((dotCount % 3) + 1);
+          if (loadingAnimationState.loadingTextElement) {
+            loadingAnimationState.loadingTextElement.textContent = fullText + dots;
+          }
+          dotCount++;
+        }, 500);
+      }
+    }, 30); // 30ms per character for typewriter effect
+    
+    // Rotate to next message after typewriter completes + some dot animation time
+    const messageDuration = fullText.length * 30 + 3000; // Typewriter time + 3 seconds of dots
+    if (loadingAnimationState.messageTimeout) {
+      clearTimeout(loadingAnimationState.messageTimeout);
+    }
+    loadingAnimationState.messageTimeout = setTimeout(() => {
+      if (loadingAnimationState.isAnimating) {
+        // Move to next message
+        loadingAnimationState.currentMessageIndex = (loadingAnimationState.currentMessageIndex + 1) % loadingMessages.length;
+        animateMessage();
+      }
+    }, messageDuration);
+  };
+  
+  animateMessage();
+}
+
+// Stop loading animation
+function stopLoadingAnimation() {
+  if (loadingAnimationState.typewriterInterval) {
+    clearInterval(loadingAnimationState.typewriterInterval);
+    loadingAnimationState.typewriterInterval = null;
+  }
+  if (loadingAnimationState.dotInterval) {
+    clearInterval(loadingAnimationState.dotInterval);
+    loadingAnimationState.dotInterval = null;
+  }
+  if (loadingAnimationState.messageTimeout) {
+    clearTimeout(loadingAnimationState.messageTimeout);
+    loadingAnimationState.messageTimeout = null;
+  }
+  loadingAnimationState.isAnimating = false;
+  loadingAnimationState.currentText = '';
+  loadingAnimationState.loadingTextElement = null;
+}
+
 const translations = {
   en: {
     title: 'Kunstquiz',
@@ -327,7 +636,8 @@ const translations = {
     aboutFacts: 'Interesting Facts',
     aboutFactsText: 'Data sourced from open Wikimedia and Wikidata APIs, Features 33 different art genres including landscape, portrait, and abstract painting, Includes 7 major art movements from Impressionism to Contemporary art, Collection spans over 200 years of Norwegian art history, All images are freely available under open licenses',
     aboutTechnical: 'Technical Details',
-    aboutTechnicalText: 'Built with modern web technologies, featuring responsive design for all devices. The quiz uses intelligent artist weighting to ensure fair representation regardless of collection size.'
+    aboutTechnicalText: 'Built with modern web technologies, featuring responsive design for all devices. The quiz uses intelligent artist weighting to ensure fair representation regardless of collection size.',
+    backToQuiz: 'Back to Quiz'
   },
   no: {
     title: 'Kunstquiz',
@@ -495,7 +805,8 @@ const translations = {
     aboutFacts: 'Interessante fakta',
     aboutFactsText: 'Data hentet fra åpne Wikimedia og Wikidata APIer, Inneholder 33 ulike kunstgenrer inkludert landskap, portrett og abstrakt maleri, Inkluderer 7 store kunstbevegelser fra impressionisme til samtidskunst, Samlingen spenner over 200 år med norsk kunsthistorie, Alle bilder er fritt tilgjengelige under åpne lisenser',
     aboutTechnical: 'Tekniske detaljer',
-    aboutTechnicalText: 'Bygget med moderne webteknologier, med responsivt design for alle enheter. Quizen bruker intelligent kunstnervektlegging for å sikre rettferdig representasjon uansett samlingsstørrelse.'
+    aboutTechnicalText: 'Bygget med moderne webteknologier, med responsivt design for alle enheter. Quizen bruker intelligent kunstnervektlegging for å sikre rettferdig representasjon uansett samlingsstørrelse.',
+    backToQuiz: 'Tilbake til Quiz'
   }
 };
 
@@ -522,6 +833,7 @@ let isPreloading = false;
 // Preload queue for upcoming quiz images
 let upcomingPaintingsQueue = [];
 let upcomingPaintingsPreloaded = new Set();
+let artistPortraitsPreloaded = new Set(); // Track preloaded artist portraits
 let isPreloadingRound = false;
 
 // Encouraging message counter
@@ -668,7 +980,7 @@ function updateLanguageUI() {
   // Update page title and meta description
   updatePageMeta();
   
-  // Update language flag in footer
+  // Update language flag/icon on all pages
   updateLanguageFlag();
   
   // Update footer links
@@ -679,6 +991,24 @@ function updateLanguageUI() {
   
   // Render category selector
   renderCategorySelector();
+  
+  // Update subpage titles and back links
+  const paintersPageTitle = document.getElementById('painters-page-title');
+  if (paintersPageTitle) paintersPageTitle.textContent = t('artists');
+  
+  const galleryPageTitle = document.getElementById('gallery-page-title');
+  if (galleryPageTitle) galleryPageTitle.textContent = t('gallery');
+  
+  const howToPlayPageTitle = document.getElementById('how-to-play-page-title');
+  if (howToPlayPageTitle) howToPlayPageTitle.textContent = t('aboutHowToPlay');
+  
+  // Update back links on subpages
+  const backLinks = document.querySelectorAll('.back-link span');
+  backLinks.forEach(link => {
+    if (link.textContent.includes('Back to Quiz') || link.textContent.includes('Tilbake til Quiz')) {
+      link.textContent = t('backToQuiz');
+    }
+  });
   
   // Update modal texts
   const congratsTitle = document.getElementById('congrats-title');
@@ -825,25 +1155,62 @@ function updateLanguageUI() {
   });
 }
 
+// Use event delegation for language toggle - works on all pages
+let languageToggleInitialized = false;
+
 function setupLanguageToggle() {
-  // Setup all language toggles (on quiz page and other pages)
-  const languageToggles = document.querySelectorAll('#language-toggle, #language-toggle-painters, #language-toggle-gallery, #language-toggle-how-to-play');
-  languageToggles.forEach(languageToggle => {
-    if (languageToggle) {
-      languageToggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        // Toggle between languages
-        currentLanguage = currentLanguage === 'en' ? 'no' : 'en';
-        updateLanguageUI();
-        renderCategorySelector();
-        updateStreakBar();
-        return false;
-      });
-      // Prevent default link behavior
-      languageToggle.href = '#';
+  // Only set up once using event delegation
+  if (languageToggleInitialized) {
+    return;
+  }
+  
+  // Use event delegation on document to catch clicks on any language toggle
+  document.addEventListener('click', (e) => {
+    const target = e.target.closest('#language-toggle, #language-toggle-painters, #language-toggle-gallery, #language-toggle-how-to-play');
+    if (target) {
+      e.preventDefault();
+      e.stopPropagation();
+      // Toggle between languages
+      currentLanguage = currentLanguage === 'en' ? 'no' : 'en';
+      // Persist language preference
+      localStorage.setItem('language', currentLanguage);
+      updateLanguageUI();
+      renderCategorySelector();
+      updateStreakBar();
+      
+      // Re-render subpages if they are currently visible
+      const paintersPage = document.getElementById('painters-page');
+      const galleryPage = document.getElementById('gallery-page');
+      const howToPlayPage = document.getElementById('how-to-play-page');
+      
+      if (paintersPage && paintersPage.style.display !== 'none') {
+        renderPaintersPage();
+      }
+      if (galleryPage && galleryPage.style.display !== 'none') {
+        renderGalleryPage();
+      }
+      if (howToPlayPage && howToPlayPage.style.display !== 'none') {
+        renderHowToPlayPage();
+      }
+      
+      // Reinitialize icons after language change
+      if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+      }
+      return false;
     }
   });
+  
+  // Set href to # for all language toggles to prevent navigation
+  const languageToggleIds = ['language-toggle', 'language-toggle-painters', 'language-toggle-gallery', 'language-toggle-how-to-play'];
+  languageToggleIds.forEach(id => {
+    const toggle = document.getElementById(id);
+    if (toggle) {
+      toggle.href = '#';
+    }
+  });
+  
+  languageToggleInitialized = true;
 }
 
 
@@ -1837,19 +2204,34 @@ function loadQuiz() {
     // Check if we have a preloaded image ready
     const preloadedUrl = upcomingPaintingsPreloaded.has(painting.url) ? painting.url : null;
     
-    // Continue preloading more images in background (non-blocking)
+    // ✅ Smart predictive preloading: Preload i+2 and self-portrait i+1
+    // Also ensures i+1 is loaded (micro-optimization)
+    predictivePreload(currentRound.questionNumber);
+    
+    // Continue preloading more images in background (non-blocking) - legacy fallback
     requestIdleCallback ? requestIdleCallback(() => preloadNextImages(validPaintings)) : 
       setTimeout(() => preloadNextImages(validPaintings), 100);
     
     const optionsDiv = document.getElementById('options');
     if (!optionsDiv) return;
     
-    // Clear options and ensure no leftover classes
-    optionsDiv.innerHTML = '';
+    // Fade out existing buttons smoothly before clearing
+    const existingButtons = Array.from(optionsDiv.children);
+    if (existingButtons.length > 0) {
+      // Set opacity to 0 to fade out, but keep them in place to prevent layout shift
+      existingButtons.forEach(btn => {
+        btn.style.opacity = '0';
+        btn.style.transition = 'opacity 0.2s ease';
+        btn.style.pointerEvents = 'none';
+      });
+    }
     
     const artists = generateOptions(painting.artist, validPaintings);
     if (artists.length < 2) {
-      optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
+      // Wait for fade out, then update
+      setTimeout(() => {
+        optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
+      }, 200);
       return;
     }
     
@@ -1950,11 +2332,27 @@ function loadQuiz() {
       fragment.appendChild(btn);
     });
     
-    // Append all buttons at once using requestAnimationFrame for smooth rendering
-    requestAnimationFrame(() => {
+    // Wait for fade out, then replace buttons
+    setTimeout(() => {
+      // Clear old buttons and add new ones
+      optionsDiv.innerHTML = '';
       optionsDiv.appendChild(fragment);
+      
+      // Fade in new buttons
+      const newButtons = Array.from(optionsDiv.children);
+      newButtons.forEach((btn, index) => {
+        btn.style.opacity = '0';
+        btn.style.transition = 'opacity 0.3s ease';
+        // Stagger the fade-in slightly for smoother effect
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            btn.style.opacity = '1';
+          }, index * 20);
+        });
+      });
+      
       updateStreakBar();
-    });
+    }, existingButtons.length > 0 ? 200 : 0);
   });
 }
 
@@ -2273,7 +2671,10 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   let tagsHtml = '';
   if (bioInfo) {
     yearsHtml = `<span class="artist-years">${bioInfo.birth_year}–${bioInfo.death_year}</span>`;
-    imgHtml = bioInfo.self_portrait_url ? `<img src="${bioInfo.self_portrait_url}" alt="${name}" class="artist-portrait toast-portrait" loading="lazy">` : '';
+    // Use preloaded image if available, otherwise use lazy loading
+    const portraitUrl = bioInfo.self_portrait_url;
+    const loadingAttr = portraitUrl && artistPortraitsPreloaded.has(portraitUrl) ? '' : 'loading="lazy"';
+    imgHtml = portraitUrl ? `<img src="${portraitUrl}" alt="${name}" class="artist-portrait toast-portrait" ${loadingAttr}>` : '';
     
     // Use language-specific bio with proper fallback
     const bioText = currentLanguage === 'no' ? 
@@ -2291,7 +2692,10 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     const death = getYearOnly(paintingOrName.artist_death);
     const lifeSpan = (birth && death) ? `${birth}–${death}` : (birth ? `${birth}–` : (death ? `–${death}` : ''));
     yearsHtml = lifeSpan ? `<span class="artist-years">${lifeSpan}</span>` : '';
-    imgHtml = paintingOrName.artist_image ? `<img src="${paintingOrName.artist_image}" alt="${name}" class="artist-portrait toast-portrait" loading="lazy">` : '';
+    // Use preloaded image if available, otherwise use lazy loading
+    const portraitUrl = paintingOrName.artist_image;
+    const loadingAttr = portraitUrl && artistPortraitsPreloaded.has(portraitUrl) ? '' : 'loading="lazy"';
+    imgHtml = portraitUrl ? `<img src="${portraitUrl}" alt="${name}" class="artist-portrait toast-portrait" ${loadingAttr}>` : '';
   }
   let closeBtnHtml = persistent ? `<div class="persistent-popup-close-container"><button class="persistent-popup-close-btn" aria-label="${t('close')}">${t('close')}</button></div>` : '';
   let paintingsHtml = '';
@@ -2672,56 +3076,33 @@ function renderHowToPlayPage() {
   const container = document.getElementById('how-to-play-page-content');
   if (!container) return;
   
-  // Generate content using the existing function logic
+  // Generate content using the same filtering logic as categoryFilters
   const categoryCounts = {};
   const validPaintings = paintings.filter(p => p.artist && p.url);
   
-  // Calculate category counts
+  // Calculate category counts using the same filters as categoryFilters
   categoryCounts.all = validPaintings.length;
   
-  // Popular painters (top 10)
-  const artistCounts = {};
-  validPaintings.forEach(p => {
-    artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1;
-  });
-  const topArtists = Object.entries(artistCounts)
-    .sort(([,a], [,b]) => b - a)
-    .slice(0, 10)
-    .map(([artist]) => artist);
-  categoryCounts.popular = validPaintings.filter(p => topArtists.includes(p.artist)).length;
+  // Popular painters (top 10) - use the same logic as categoryFilters.popular
+  categoryCounts.popular = categoryFilters.popular(validPaintings).length;
   
-  // Landscape paintings
-  categoryCounts.landscape = validPaintings.filter(p =>
-    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('landscape'))
-  ).length;
+  // Landscape - use the same logic as categoryFilters.landscape
+  categoryCounts.landscape = validPaintings.filter(categoryFilters.landscape).length;
   
-  // Portraits
-  categoryCounts.portraits = validPaintings.filter(p =>
-    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('portrait'))
-  ).length;
+  // Realism - use the same logic as categoryFilters.realism
+  categoryCounts.realism = validPaintings.filter(categoryFilters.realism).length;
   
-  // Women painters
-  categoryCounts.women_painters = validPaintings.filter(p => p.artist_gender === 'female').length;
+  // Expressionism - use the same logic as categoryFilters.expressionism
+  categoryCounts.expressionism = validPaintings.filter(categoryFilters.expressionism).length;
   
-  // Realism
-  categoryCounts.realism = validPaintings.filter(p =>
-    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('realism'))
-  ).length;
+  // Impressionism - use the same logic as categoryFilters.impressionism
+  categoryCounts.impressionism = validPaintings.filter(categoryFilters.impressionism).length;
   
-  // Expressionism
-  categoryCounts.expressionism = validPaintings.filter(p =>
-    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('expressionism'))
-  ).length;
+  // Romantic Nationalism - use the same logic as categoryFilters.romantic_nationalism
+  categoryCounts.romantic_nationalism = validPaintings.filter(categoryFilters.romantic_nationalism).length;
   
-  // Impressionism
-  categoryCounts.impressionism = validPaintings.filter(p =>
-    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('impressionism'))
-  ).length;
-  
-  // Romantic Nationalism
-  categoryCounts.romantic_nationalism = validPaintings.filter(p =>
-    toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('romantic') || g && g.toLowerCase().includes('nationalism'))
-  ).length;
+  // Female Artists - use the same logic as categoryFilters.female_artists
+  categoryCounts.women_painters = validPaintings.filter(categoryFilters.female_artists).length;
   
   // Update page title
   const title = document.getElementById('how-to-play-page-title');
@@ -2867,11 +3248,16 @@ function setupAboutModal() {
 }
 
 // Painting Viewer Functions
+let savedScrollPosition = 0;
+
 function showPaintingViewer(painting, returnContext = null) {
   const modal = document.getElementById('painting-viewer-modal');
   const image = document.getElementById('painting-viewer-image');
   
   if (!modal || !image) return;
+  
+  // Save current scroll position
+  savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
   
   // Store return context for when viewer is closed
   modal.dataset.returnContext = returnContext ? JSON.stringify(returnContext) : '';
@@ -2880,10 +3266,20 @@ function showPaintingViewer(painting, returnContext = null) {
   image.src = painting.url;
   image.style.display = 'block';
   
-  // Show modal with animation
+  // Show modal with animation - use fixed positioning to avoid scroll issues
   modal.style.display = 'flex';
   modal.classList.add('visible');
+  
+  // Initialize lucide icons for the close button
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
+  }
+  
+  // Prevent body scroll and maintain position
   document.body.style.overflow = 'hidden';
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${savedScrollPosition}px`;
+  document.body.style.width = '100%';
 }
 
 function hidePaintingViewer() {
@@ -2913,12 +3309,29 @@ function hidePaintingViewer() {
     
     modal.classList.remove('visible');
     modal.style.display = 'none';
+    
+    // Restore body scroll and position
     document.body.style.overflow = '';
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+    
+    // Restore scroll position
+    window.scrollTo(0, savedScrollPosition);
   }
 }
 
 function setupPaintingViewer() {
   const modal = document.getElementById('painting-viewer-modal');
+  const closeButton = document.getElementById('painting-viewer-close');
+  
+  // Close button handler
+  if (closeButton) {
+    closeButton.onclick = function(e) {
+      e.stopPropagation();
+      hidePaintingViewer();
+    };
+  }
   
   // Close on escape key
   document.addEventListener('keydown', function(e) {
@@ -2930,7 +3343,7 @@ function setupPaintingViewer() {
   // Close on background click (not on the image itself)
   if (modal) {
     modal.onclick = function(e) {
-      // Only close if clicking the background, not the image
+      // Only close if clicking the background, not the image or close button
       if (e.target === modal || e.target.classList.contains('painting-viewer-content')) {
         hidePaintingViewer();
       }
@@ -2982,6 +3395,27 @@ function getRandomRoundFeedback(score) {
   const messages = translations[currentLanguage].roundFeedback[category];
   const randomIndex = Math.floor(Math.random() * messages.length);
   return messages[randomIndex];
+}
+
+// Helper function to show/hide "Play Again" buttons on all pages
+function setPlayAgainButtons(show, text, onClick) {
+  const buttons = [
+    document.getElementById('main-play-again-btn'),
+    document.getElementById('main-play-again-btn-painters'),
+    document.getElementById('main-play-again-btn-gallery')
+  ];
+  
+  buttons.forEach(btn => {
+    if (btn) {
+      if (show) {
+        if (text) btn.textContent = text;
+        if (onClick) btn.onclick = onClick;
+        btn.style.display = 'block';
+      } else {
+        btn.style.display = 'none';
+      }
+    }
+  });
 }
 
 function showRoundResults() {
@@ -3038,21 +3472,21 @@ function showRoundResults() {
     startNewRound();
   };
   
-  // Click outside to close
-  setTimeout(() => {
-    function outsideClick(e) {
-      if (!modal.querySelector('.round-results-content').contains(e.target)) {
-        hideRoundResults();
-        document.removeEventListener('click', outsideClick);
-      }
-    }
-    document.addEventListener('click', outsideClick);
-  }, 100);
+  // Show main "Play Again" button on all pages
+  setPlayAgainButtons(true, t('roundStats.playAgain'), () => {
+    hideRoundResults();
+    startNewRound();
+  });
+  
+  // No outside click to close - modal must be closed via buttons only
 }
 
 function hideRoundResults() {
   const modal = document.getElementById('round-results-modal');
   if (modal) modal.style.display = 'none';
+  
+  // Hide main "Play Again" buttons on all pages
+  setPlayAgainButtons(false);
 }
 
 function showDiploma() {
@@ -3164,12 +3598,21 @@ function showDiploma() {
     console.error('Play Again button not found!');
   }
   
+  // Show main "Play Again" button on all pages
+  setPlayAgainButtons(true, t('playAgain'), () => {
+    hideDiploma();
+    startNewRound();
+  });
+  
   // No outside click to close - diploma must be closed via buttons only
 }
 
 function hideDiploma() {
   const modal = document.getElementById('diploma-modal');
   if (modal) modal.style.display = 'none';
+  
+  // Hide main "Play Again" buttons on all pages
+  setPlayAgainButtons(false);
 }
 
 function downloadDiploma() {
@@ -3209,6 +3652,9 @@ function startNewRound() {
   streak = 0;
   updateStreakBar();
   
+  // Hide main "Play Again" buttons on all pages
+  setPlayAgainButtons(false);
+  
   // Track game start
   trackGameStart();
   
@@ -3242,7 +3688,62 @@ function clearCaches() {
   performanceMetrics.operations++;
 }
 
-// Preload ALL 10 images before starting the round
+// Helper function to get artist portrait URL for a painting
+function getArtistPortraitUrl(painting) {
+  if (!painting || !painting.artist) return null;
+  
+  // First check if painting has artist_image directly
+  if (painting.artist_image) {
+    return painting.artist_image;
+  }
+  
+  // Otherwise check artistBios for self_portrait_url
+  const bioInfo = getArtistBioInfo(painting.artist);
+  if (bioInfo && bioInfo.self_portrait_url) {
+    return bioInfo.self_portrait_url;
+  }
+  
+  return null;
+}
+
+// Preload a single artist portrait image with decode for zero-flicker
+function preloadArtistPortrait(url) {
+  if (!url || artistPortraitsPreloaded.has(url)) {
+    return Promise.resolve();
+  }
+  
+  return new Promise((resolve) => {
+    const timeout = setTimeout(() => {
+      artistPortraitsPreloaded.add(url);
+      resolve();
+    }, 15000); // 15 second timeout for portraits
+    
+    const img = new Image();
+    
+    img.onload = async () => {
+      clearTimeout(timeout);
+      // Decode image for zero-flicker display
+      try {
+        await img.decode();
+      } catch (e) {
+        // decode() may not be supported in all browsers, continue anyway
+      }
+      artistPortraitsPreloaded.add(url);
+      resolve();
+    };
+    
+    img.onerror = () => {
+      clearTimeout(timeout);
+      // Even if it fails, mark as attempted
+      artistPortraitsPreloaded.add(url);
+      resolve();
+    };
+    
+    img.src = url;
+  });
+}
+
+// Smart preloading: Only preload first 3 paintings and first 2 self-portraits on game start
 async function preloadAllRoundImages() {
   if (isPreloadingRound) {
     // Already preloading, wait for it
@@ -3271,7 +3772,9 @@ async function preloadAllRoundImages() {
     loadingIndicator.style.display = 'block';
   }
   if (loadingText) {
-    loadingText.textContent = 'Loading images... 0/10';
+    // Start animated loading message
+    stopLoadingAnimation(); // Clear any existing animation
+    startLoadingAnimation(loadingText);
   }
   if (img) {
     img.classList.remove('loaded');
@@ -3280,9 +3783,11 @@ async function preloadAllRoundImages() {
   
   // Clear previous preload queue
   upcomingPaintingsPreloaded.clear();
+  // Clear artist portraits - we'll preload new ones for this round
+  artistPortraitsPreloaded.clear();
   upcomingPaintingsQueue = [];
   
-  // Generate exactly 10 upcoming paintings using weighted selection
+  // Generate exactly 10 upcoming paintings using weighted selection (for the queue)
   const paintingsToPreload = [];
   const usedUrls = new Set();
   
@@ -3304,10 +3809,15 @@ async function preloadAllRoundImages() {
   }
   
   upcomingPaintingsQueue = paintingsToPreload;
-  const totalImages = paintingsToPreload.length;
+  
+  // ✅ Strategy: Only eager-load paintings 1-3 and self-portraits 1-2
+  const eagerLoadPaintings = paintingsToPreload.slice(0, 3); // First 3 paintings
+  const eagerLoadPortraits = paintingsToPreload.slice(0, 2); // First 2 self-portraits
+  
+  const totalEagerImages = eagerLoadPaintings.length + eagerLoadPortraits.length;
   
   // If no paintings to preload, hide loading and exit
-  if (totalImages === 0) {
+  if (eagerLoadPaintings.length === 0) {
     if (loadingIndicator) {
       loadingIndicator.style.display = 'none';
     }
@@ -3317,15 +3827,14 @@ async function preloadAllRoundImages() {
   
   let loadedCount = 0;
   
-  // Update loading text function
+  // Update loading text function - we don't update the animated text, just let it run
   const updateLoadingText = () => {
-    if (loadingText) {
-      loadingText.textContent = `Loading images... ${loadedCount}/${totalImages}`;
-    }
+    // The animated loading message continues independently
+    // We could optionally show progress, but keeping it clean with just the messages
   };
   
-  // Preload ALL images in parallel with progress tracking
-  const preloadPromises = paintingsToPreload.map((painting, index) => {
+  // Preload only first 3 quiz painting images (eager load)
+  const preloadPromises = eagerLoadPaintings.map((painting) => {
     if (!painting || !painting.url) return Promise.resolve();
     
     return new Promise((resolve) => {
@@ -3341,8 +3850,14 @@ async function preloadAllRoundImages() {
       const optimizedUrl = optimizeImageUrl(painting.url);
       const img = new Image();
       
-      img.onload = () => {
+      img.onload = async () => {
         clearTimeout(timeout);
+        // Decode image for zero-flicker display
+        try {
+          await img.decode();
+        } catch (e) {
+          // decode() may not be supported in all browsers, continue anyway
+        }
         // Store in cache
         imageCache.set(painting.url, img);
         upcomingPaintingsPreloaded.add(painting.url);
@@ -3363,8 +3878,13 @@ async function preloadAllRoundImages() {
           resolve();
         }, 20000);
         
-        fallbackImg.onload = () => {
+        fallbackImg.onload = async () => {
           clearTimeout(fallbackTimeout);
+          try {
+            await fallbackImg.decode();
+          } catch (e) {
+            // decode() may not be supported, continue anyway
+          }
           imageCache.set(painting.url, fallbackImg);
           upcomingPaintingsPreloaded.add(painting.url);
           loadedCount++;
@@ -3386,9 +3906,22 @@ async function preloadAllRoundImages() {
     });
   });
   
-  // Wait for all images to load with error handling
+  // Preload only first 2 artist portrait images (eager load)
+  const artistPortraitPromises = eagerLoadPortraits.map((painting) => {
+    const portraitUrl = getArtistPortraitUrl(painting);
+    if (portraitUrl) {
+      return preloadArtistPortrait(portraitUrl);
+    }
+    return Promise.resolve();
+  });
+  
+  // Wait for eager-loaded images with error handling
   try {
     await Promise.all(preloadPromises);
+    // Start preloading first 2 artist portraits in background (don't wait)
+    Promise.all(artistPortraitPromises).catch(err => {
+      console.warn('Error preloading artist portraits:', err);
+    });
   } catch (error) {
     console.error('Error preloading images:', error);
     // Continue anyway - some images may have loaded
@@ -3397,41 +3930,108 @@ async function preloadAllRoundImages() {
     if (loadingIndicator) {
       loadingIndicator.style.display = 'none';
     }
+    // Stop loading animation
+    stopLoadingAnimation();
+    if (loadingText) {
+      loadingText.textContent = '';
+    }
     isPreloadingRound = false;
   }
 }
 
-// Preload a single quiz image - ensure it's fully loaded in cache
+// Preload a single quiz image - ensure it's fully loaded in cache with decode
 function preloadQuizImage(url) {
   if (!url || imageCache.has(url)) {
     upcomingPaintingsPreloaded.add(url);
+    return Promise.resolve();
+  }
+  
+  return new Promise((resolve) => {
+    const optimizedUrl = optimizeImageUrl(url);
+    const img = new Image();
+    
+    img.onload = async () => {
+      // Decode image for zero-flicker display
+      try {
+        await img.decode();
+      } catch (e) {
+        // decode() may not be supported in all browsers, continue anyway
+      }
+      upcomingPaintingsPreloaded.add(url);
+      // Store the loaded image in cache for instant access
+      imageCache.set(url, img);
+      resolve(img);
+    };
+    
+    img.onerror = () => {
+      // Try original URL as fallback
+      const fallbackImg = new Image();
+      fallbackImg.onload = async () => {
+        try {
+          await fallbackImg.decode();
+        } catch (e) {
+          // decode() may not be supported, continue anyway
+        }
+        upcomingPaintingsPreloaded.add(url);
+        imageCache.set(url, fallbackImg);
+        resolve(fallbackImg);
+      };
+      fallbackImg.onerror = () => {
+        // Even if it fails, mark as attempted
+        upcomingPaintingsPreloaded.add(url);
+        resolve(null);
+      };
+      fallbackImg.src = url;
+    };
+    
+    img.src = optimizedUrl;
+  });
+}
+
+// ✅ Predictive preloading: When showing painting i, preload i+2 and self-portrait i+1
+// Also ensures i+1 is loaded (micro-optimization)
+function predictivePreload(currentQuestionIndex) {
+  if (!upcomingPaintingsQueue || upcomingPaintingsQueue.length === 0) {
     return;
   }
   
-  const optimizedUrl = optimizeImageUrl(url);
-  const img = new Image();
+  const currentIndex = currentQuestionIndex - 1; // Convert to 0-based index
   
-  img.onload = () => {
-    upcomingPaintingsPreloaded.add(url);
-    // Store the loaded image in cache for instant access
-    imageCache.set(url, img);
-  };
+  // ✅ Micro-optimization: Ensure painting i+1 is loaded when showing painting i
+  if (currentIndex + 1 < upcomingPaintingsQueue.length) {
+    const nextPainting = upcomingPaintingsQueue[currentIndex + 1];
+    if (nextPainting && nextPainting.url && !upcomingPaintingsPreloaded.has(nextPainting.url)) {
+      // Preload next painting (i+1) - should be ready by the time user answers
+      preloadQuizImage(nextPainting.url).catch(err => {
+        console.warn('Error preloading next painting:', err);
+      });
+    }
+  }
   
-  img.onerror = () => {
-    // Try original URL as fallback
-    const fallbackImg = new Image();
-    fallbackImg.onload = () => {
-      upcomingPaintingsPreloaded.add(url);
-      imageCache.set(url, fallbackImg);
-    };
-    fallbackImg.onerror = () => {
-      // Even if it fails, mark as attempted
-      upcomingPaintingsPreloaded.add(url);
-    };
-    fallbackImg.src = url;
-  };
+  // ✅ Predictive: Preload painting i+2 (two ahead)
+  if (currentIndex + 2 < upcomingPaintingsQueue.length) {
+    const futurePainting = upcomingPaintingsQueue[currentIndex + 2];
+    if (futurePainting && futurePainting.url && !upcomingPaintingsPreloaded.has(futurePainting.url)) {
+      // Preload painting two ahead
+      preloadQuizImage(futurePainting.url).catch(err => {
+        console.warn('Error preloading future painting:', err);
+      });
+    }
+  }
   
-  img.src = optimizedUrl;
+  // ✅ Predictive: Preload self-portrait i+1 (next possible penalty image)
+  if (currentIndex + 1 < upcomingPaintingsQueue.length) {
+    const nextPainting = upcomingPaintingsQueue[currentIndex + 1];
+    if (nextPainting) {
+      const portraitUrl = getArtistPortraitUrl(nextPainting);
+      if (portraitUrl && !artistPortraitsPreloaded.has(portraitUrl)) {
+        // Preload next self-portrait (for when user might get question i+1 wrong)
+        preloadArtistPortrait(portraitUrl).catch(err => {
+          console.warn('Error preloading next artist portrait:', err);
+        });
+      }
+    }
+  }
 }
 
 function preloadNextImages(validPaintings) {
@@ -3499,13 +4099,29 @@ function updatePageMeta() {
 }
 
 function updateLanguageFlag() {
-  const languageToggle = document.getElementById('language-toggle');
-  if (languageToggle) {
-    // Ensure the languages icon is properly initialized
-    const icon = languageToggle.querySelector('i[data-lucide="languages"]');
-    if (icon && typeof lucide !== 'undefined') {
-      lucide.createIcons();
+  // Update all language toggle icons on all pages
+  const languageToggleIds = ['language-toggle', 'language-toggle-painters', 'language-toggle-gallery', 'language-toggle-how-to-play'];
+  
+  languageToggleIds.forEach(id => {
+    const languageToggle = document.getElementById(id);
+    if (languageToggle) {
+      // Remove ALL children (icons, SVGs, everything) - be aggressive
+      while (languageToggle.firstChild) {
+        languageToggle.removeChild(languageToggle.firstChild);
+      }
+      
+      // Create new icon based on current language
+      const icon = document.createElement('i');
+      // English = book-a, Norwegian = book-type
+      icon.setAttribute('data-lucide', currentLanguage === 'en' ? 'book-a' : 'book-type');
+      icon.classList.add('icon');
+      languageToggle.appendChild(icon);
     }
+  });
+  
+  // Initialize Lucide icons once after all updates
+  if (typeof lucide !== 'undefined') {
+    lucide.createIcons();
   }
 }
 
@@ -3754,16 +4370,41 @@ function showPage(pageId) {
     page.style.display = 'block';
     // Scroll to top
     window.scrollTo(0, 0);
+    // Ensure language toggle hrefs are set (event delegation handles clicks)
+    const languageToggleIds = ['language-toggle', 'language-toggle-painters', 'language-toggle-gallery', 'language-toggle-how-to-play'];
+    languageToggleIds.forEach(id => {
+      const toggle = document.getElementById(id);
+      if (toggle) {
+        toggle.href = '#';
+      }
+    });
     // Reinitialize icons if needed (including theme/language icons on all pages)
     if (typeof lucide !== 'undefined') {
       lucide.createIcons();
     }
     // Re-apply theme to update icons on the new page
     applyTheme(currentTheme);
-    // Check button visibility after page switch
-    setTimeout(() => {
-      updateLoadMoreButtonVisibility();
-    }, 100);
+    // Update language icons to match current language
+    updateLanguageFlag();
+    
+    // If showing gallery page, ensure gallery is rendered and button is created
+    // Note: renderGalleryPage() will be called by handleHashChange() after showPage()
+    // So we just need to ensure visibility is checked after a delay
+    if (pageId === 'gallery-page') {
+      // Check visibility after gallery has been rendered
+      setTimeout(() => {
+        // If gallery has been rendered, update button
+        if (galleryPageGrid && galleryPageLoadedCount < galleryPagePaintings.length) {
+          updateLoadMoreButton();
+        }
+        updateLoadMoreButtonVisibility();
+      }, 200);
+    } else {
+      // Check button visibility after page switch for other pages
+      setTimeout(() => {
+        updateLoadMoreButtonVisibility();
+      }, 100);
+    }
   }
 }
 
@@ -3861,6 +4502,21 @@ function renderPaintersPage() {
       window.location.hash = '';
     });
   }
+  
+  // Add scroll listener to painters page for load more button visibility
+  const paintersPage = document.getElementById('painters-page');
+  if (paintersPage) {
+    // Remove any existing listener to avoid duplicates
+    if (paintersPage._paintersScrollHandler) {
+      paintersPage.removeEventListener('scroll', paintersPage._paintersScrollHandler);
+    }
+    paintersPage._paintersScrollHandler = throttle(() => {
+      updateLoadMoreButtonVisibility();
+    }, 100);
+    paintersPage.addEventListener('scroll', paintersPage._paintersScrollHandler);
+    // Check visibility immediately
+    setTimeout(() => updateLoadMoreButtonVisibility(), 100);
+  }
 }
 
 function toggleArtistGallery(artistName) {
@@ -3944,28 +4600,11 @@ function renderArtistInlineGallery(artistName, container) {
         loadMoreBtn.setAttribute('aria-label', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
         loadMoreBtn.setAttribute('title', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
         
-        // Create icon SVG (plus icon)
-        const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        iconSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-        iconSvg.setAttribute('width', '20');
-        iconSvg.setAttribute('height', '20');
-        iconSvg.setAttribute('viewBox', '0 0 24 24');
-        iconSvg.setAttribute('fill', 'none');
-        iconSvg.setAttribute('stroke', 'currentColor');
-        iconSvg.setAttribute('stroke-width', '2');
-        iconSvg.setAttribute('stroke-linecap', 'round');
-        iconSvg.setAttribute('stroke-linejoin', 'round');
-        iconSvg.setAttribute('data-lucide', 'plus');
-        iconSvg.classList.add('lucide', 'lucide-plus');
-        
-        const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path1.setAttribute('d', 'M5 12h14');
-        const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        path2.setAttribute('d', 'M12 5v14');
-        
-        iconSvg.appendChild(path1);
-        iconSvg.appendChild(path2);
-        loadMoreBtn.appendChild(iconSvg);
+        // Create icon using Lucide (plus icon) - same style as X button
+        const iconElement = document.createElement('i');
+        iconElement.setAttribute('data-lucide', 'plus');
+        iconElement.classList.add('icon');
+        loadMoreBtn.appendChild(iconElement);
         
         loadMoreBtn.addEventListener('click', () => {
           loadMore(9);
@@ -3976,6 +4615,8 @@ function renderArtistInlineGallery(artistName, container) {
         if (typeof lucide !== 'undefined') {
           lucide.createIcons();
         }
+        // Check visibility after button creation
+        setTimeout(() => updateLoadMoreButtonVisibility(), 100);
       }
     });
   };
@@ -3984,6 +4625,21 @@ function renderArtistInlineGallery(artistName, container) {
   loadMore(9);
   container.dataset.loaded = 'true';
   container.dataset.loadedArtist = artistName;
+  
+  // Add scroll listener to painters page for load more button visibility (for artist galleries)
+  const paintersPage = document.getElementById('painters-page');
+  if (paintersPage) {
+    // Remove any existing listener to avoid duplicates
+    if (paintersPage._artistScrollHandler) {
+      paintersPage.removeEventListener('scroll', paintersPage._artistScrollHandler);
+    }
+    paintersPage._artistScrollHandler = throttle(() => {
+      updateLoadMoreButtonVisibility();
+    }, 100);
+    paintersPage.addEventListener('scroll', paintersPage._artistScrollHandler);
+    // Check visibility immediately
+    setTimeout(() => updateLoadMoreButtonVisibility(), 100);
+  }
 }
 
 // Gallery page state
@@ -3993,7 +4649,10 @@ let galleryPageGrid = null;
 
 function renderGalleryPage() {
   const container = document.getElementById('gallery-page-collage');
-  if (!container) return;
+  if (!container) {
+    console.error('Gallery page container not found');
+    return;
+  }
   
   // Check if paintings data is available
   if (!paintings || paintings.length === 0) {
@@ -4001,7 +4660,10 @@ function renderGalleryPage() {
     return;
   }
   
+  // Clear container and reset state
   container.innerHTML = '';
+  galleryPageLoadedCount = 0;
+  galleryPageGrid = null;
   
   // Shuffle paintings for gallery
   galleryPagePaintings = [...paintings];
@@ -4020,13 +4682,9 @@ function renderGalleryPage() {
     return;
   }
   
+  // Create grid container
   galleryPageGrid = document.createElement('div');
   galleryPageGrid.className = 'gallery-collage-grid';
-  
-  // Load initial 9 images
-  galleryPageLoadedCount = 0;
-  loadMoreGalleryImages(9);
-  
   container.appendChild(galleryPageGrid);
   
   // Update page title
@@ -4047,65 +4705,314 @@ function renderGalleryPage() {
       window.location.hash = '';
     });
   }
+  
+  // Create load more button first (will be shown after first batch loads)
+  updateLoadMoreButton();
+  
+  // Load initial 9 images immediately - this will show loading text and then display images
+  // Call directly since grid is already in DOM
+  loadMoreGalleryImages(9).then(() => {
+    // After first batch loads, ensure button is visible if there are more images
+    const galleryBtn = document.querySelector('.gallery-load-more-btn');
+    const galleryPage = document.getElementById('gallery-page');
+    if (galleryBtn && galleryPage && galleryPage.style.display !== 'none' && galleryPageLoadedCount < galleryPagePaintings.length) {
+      galleryBtn.classList.add('visible');
+      galleryBtn.classList.remove('hidden');
+    }
+    // Update button again after images load
+    updateLoadMoreButton();
+  }).catch(err => {
+    console.error('Error loading initial gallery images:', err);
+    updateLoadMoreButton();
+  });
+  
+  // Add scroll listener to gallery page for load more button visibility
+  const galleryPage = document.getElementById('gallery-page');
+  if (galleryPage) {
+    // Remove any existing listener to avoid duplicates
+    if (galleryPage._scrollHandler) {
+      galleryPage.removeEventListener('scroll', galleryPage._scrollHandler);
+    }
+    galleryPage._scrollHandler = throttle(() => {
+      updateLoadMoreButtonVisibility();
+    }, 100);
+    galleryPage.addEventListener('scroll', galleryPage._scrollHandler);
+    // Check visibility immediately and after a delay to catch async updates
+    setTimeout(() => updateLoadMoreButtonVisibility(), 100);
+    setTimeout(() => updateLoadMoreButtonVisibility(), 1000); // Also check after images might have loaded
+  }
 }
 
-function loadMoreGalleryImages(count = 9) {
-  if (!galleryPageGrid || galleryPageLoadedCount >= galleryPagePaintings.length) {
+async function loadMoreGalleryImages(count = 9) {
+  // Validate state
+  if (!galleryPageGrid) {
+    console.warn('loadMoreGalleryImages: galleryPageGrid not found, attempting to recreate...');
+    const container = document.getElementById('gallery-page-collage');
+    if (container) {
+      galleryPageGrid = container.querySelector('.gallery-collage-grid');
+      if (!galleryPageGrid) {
+        galleryPageGrid = document.createElement('div');
+        galleryPageGrid.className = 'gallery-collage-grid';
+        container.appendChild(galleryPageGrid);
+      }
+    } else {
+      console.error('loadMoreGalleryImages: gallery-page-collage container not found');
+      return;
+    }
+  }
+  
+  if (galleryPageLoadedCount >= galleryPagePaintings.length) {
     updateLoadMoreButton();
     return;
   }
   
+  // Get the next batch of paintings (they're already filtered in renderGalleryPage)
   const nextBatch = galleryPagePaintings.slice(galleryPageLoadedCount, galleryPageLoadedCount + count);
   
-  // Add images to grid
-  nextBatch.forEach(painting => {
+  if (nextBatch.length === 0) {
+    // No more paintings, update button and return
+    updateLoadMoreButton();
+    return;
+  }
+  
+  // Create loading indicator
+  const loadingIndicator = document.createElement('div');
+  loadingIndicator.className = 'gallery-loading-indicator';
+  loadingIndicator.textContent = currentLanguage === 'no' ? 'Laster bilder...' : 'Loading images...';
+  loadingIndicator.style.textAlign = 'center';
+  loadingIndicator.style.padding = '2rem';
+  loadingIndicator.style.color = '#666';
+  loadingIndicator.style.fontSize = '1rem';
+  galleryPageGrid.appendChild(loadingIndicator);
+  
+  // Create all image elements but keep them hidden
+  const imageElements = [];
+  
+  nextBatch.forEach((painting, index) => {
+    if (!painting || !painting.url) {
+      console.warn(`Skipping invalid painting at index ${galleryPageLoadedCount + index}:`, painting);
+      return;
+    }
     const img = createGalleryImage(painting);
-    if (img) { // Only append if image was created successfully
+    if (img) {
+      // Mark as batch loading to prevent auto-show and auto-remove
+      img.dataset.batchLoading = 'true';
+      
+      // Store original handlers
+      const originalOnError = img.onerror;
+      const originalOnLoad = img.onload;
+      
+      // Override error handler to not remove during batch loading
+      img.onerror = function(e) {
+        // Don't remove during batch loading, just mark as failed
+        if (this.dataset.batchLoading === 'true') {
+          this.dataset.loadFailed = 'true';
+          // Still trigger the load promise resolution
+          this.dispatchEvent(new Event('batch-error'));
+          return;
+        }
+        // Call original error handler after batch loading
+        if (originalOnError) {
+          originalOnError.call(this, e);
+        }
+      };
+      
+      // Override the onload handler to prevent auto-showing
+      img.onload = function() {
+        // Don't auto-show during batch loading
+        if (this.dataset.batchLoading === 'true') {
+          return;
+        }
+        // Call original handler if it exists
+        if (originalOnLoad) {
+          originalOnLoad.call(this);
+        }
+      };
+      
+      // Ensure image stays hidden
+      img.style.display = 'none';
+      img.style.visibility = 'hidden';
+      img.style.opacity = '0';
       galleryPageGrid.appendChild(img);
+      imageElements.push(img);
     }
   });
   
+  // If we didn't create any images, something is wrong
+  if (imageElements.length === 0) {
+    loadingIndicator.remove();
+    // Try to load more if we have more paintings available
+    if (galleryPageLoadedCount < galleryPagePaintings.length) {
+      galleryPageLoadedCount += nextBatch.length; // Increment to avoid infinite loop
+      // Try loading next batch
+      setTimeout(() => loadMoreGalleryImages(count), 100);
+    } else {
+      galleryPageLoadedCount += nextBatch.length;
+    }
+    updateLoadMoreButton();
+    return;
+  }
+  
+  // Wait for all images to load (or fail) with timeout
+  const loadPromises = imageElements.map(img => {
+    return new Promise((resolve) => {
+      // Check if already loaded (cached images) - use requestAnimationFrame to check after current frame
+      requestAnimationFrame(() => {
+        if (img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) {
+          resolve({ img, success: true });
+          return;
+        }
+        
+        // Set timeout to prevent hanging
+        const timeout = setTimeout(() => {
+          img.removeEventListener('load', onLoad);
+          img.removeEventListener('error', onError);
+          img.removeEventListener('batch-error', onBatchError);
+          resolve({ img, success: false });
+        }, 15000); // 15 second timeout
+        
+        // Wait for load or error
+        const onLoad = () => {
+          clearTimeout(timeout);
+          img.removeEventListener('error', onError);
+          img.removeEventListener('batch-error', onBatchError);
+          resolve({ img, success: true });
+        };
+        const onError = () => {
+          clearTimeout(timeout);
+          img.removeEventListener('load', onLoad);
+          img.removeEventListener('batch-error', onBatchError);
+          resolve({ img, success: false });
+        };
+        const onBatchError = () => {
+          clearTimeout(timeout);
+          img.removeEventListener('load', onLoad);
+          img.removeEventListener('error', onError);
+          resolve({ img, success: false });
+        };
+        img.addEventListener('load', onLoad, { once: true });
+        img.addEventListener('error', onError, { once: true });
+        img.addEventListener('batch-error', onBatchError, { once: true });
+      });
+    });
+  });
+  
+  const results = await Promise.all(loadPromises);
+  
+  // Remove loading indicator
+  loadingIndicator.remove();
+  
+  // Show all successfully loaded images at once
+  let successCount = 0;
+  results.forEach(({ img, success }) => {
+    // Remove batch loading flag
+    delete img.dataset.batchLoading;
+    
+    if (success && img.complete && img.naturalWidth > 0 && img.src && !img.dataset.loadFailed) {
+      // Successfully loaded - show it
+      img.style.display = 'block';
+      img.style.visibility = 'visible';
+      img.style.opacity = '1';
+      successCount++;
+    } else {
+      // Failed to load - remove it
+      try {
+        if (img.parentNode) {
+          img.parentNode.removeChild(img);
+        }
+      } catch (e) {
+        // Ignore errors if already removed
+      }
+    }
+  });
+  
+  // Only increment count by the number of paintings we attempted to load
+  // This ensures we don't skip paintings
   galleryPageLoadedCount += nextBatch.length;
   
   // Use requestAnimationFrame to ensure DOM is updated before updating button
   requestAnimationFrame(() => {
-    // Update load more button
+    // Update load more button (recreate if needed)
     updateLoadMoreButton();
+    // Force button to be visible if there are more images (after batch completes)
+    const galleryBtn = document.querySelector('.gallery-load-more-btn');
+    const galleryPage = document.getElementById('gallery-page');
+    if (galleryBtn && galleryPage && galleryPage.style.display !== 'none' && galleryPageLoadedCount < galleryPagePaintings.length) {
+      galleryBtn.classList.add('visible');
+      galleryBtn.classList.remove('hidden');
+    }
+    // Update button visibility
+    updateLoadMoreButtonVisibility();
   });
 }
 
 // Load more button visibility functions - show when scrolling down
-let lastScroll = 0;
+let lastScroll = {
+  painters: 0,
+  gallery: 0,
+  window: 0
+};
 
 function updateLoadMoreButtonVisibility() {
-  const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+  // Get the active scrolling container (subpage or window)
+  const paintersPage = document.getElementById('painters-page');
+  const galleryPage = document.getElementById('gallery-page');
+  
+  let currentScroll = 0;
+  let scrollKey = 'window';
+  let scrollContainer = null;
+  
+  // Check which page is active and get its scroll position
+  if (paintersPage && paintersPage.style.display !== 'none') {
+    currentScroll = paintersPage.scrollTop;
+    scrollKey = 'painters';
+    scrollContainer = paintersPage;
+  } else if (galleryPage && galleryPage.style.display !== 'none') {
+    currentScroll = galleryPage.scrollTop;
+    scrollKey = 'gallery';
+    scrollContainer = galleryPage;
+  } else {
+    // Fallback to window scroll
+    currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    scrollKey = 'window';
+  }
+  
   const galleryBtn = document.querySelector('.gallery-load-more-btn');
   const artistBtn = document.querySelector('.artist-inline-load-more-btn');
   
-  // Show button when scrolling down, hide when scrolling up
-  if (currentScroll > lastScroll && currentScroll > 100) {
-    // Scrolling down and past 100px
-    if (galleryBtn) {
+  // For gallery page: show button if there are more images to load
+  if (galleryPage && galleryPage.style.display !== 'none' && galleryBtn) {
+    // Check if there are more images to load
+    if (galleryPageLoadedCount < galleryPagePaintings.length) {
+      // Always show the button if there are more images (user wants it visible after first batch)
       galleryBtn.classList.add('visible');
       galleryBtn.classList.remove('hidden');
-    }
-    if (artistBtn) {
-      artistBtn.classList.add('visible');
-      artistBtn.classList.remove('hidden');
-    }
-  } else {
-    // Scrolling up or at top
-    if (galleryBtn) {
+    } else {
+      // No more images - hide button
       galleryBtn.classList.add('hidden');
       galleryBtn.classList.remove('visible');
     }
+  }
+  
+  // For painters page: show artist button when scrolled down
+  if (paintersPage && paintersPage.style.display !== 'none') {
+    const scrollHeight = paintersPage.scrollHeight;
+    const clientHeight = paintersPage.clientHeight;
+    const isNearBottom = (scrollHeight - currentScroll - clientHeight) < 300;
+    const hasScrolledDown = currentScroll > 200;
+    
     if (artistBtn) {
-      artistBtn.classList.add('hidden');
-      artistBtn.classList.remove('visible');
+      if (hasScrolledDown || isNearBottom) {
+        artistBtn.classList.add('visible');
+        artistBtn.classList.remove('hidden');
+      } else {
+        artistBtn.classList.add('hidden');
+        artistBtn.classList.remove('visible');
+      }
     }
   }
   
-  lastScroll = currentScroll;
+  lastScroll[scrollKey] = currentScroll;
 }
 
 function updateLoadMoreButton() {
@@ -4118,39 +5025,26 @@ function updateLoadMoreButton() {
   // Add button if there are more images to load
   if (galleryPageLoadedCount < galleryPagePaintings.length) {
     const loadMoreBtn = document.createElement('button');
-    loadMoreBtn.className = 'gallery-load-more-btn';
+    // Check if gallery page is currently visible to determine initial visibility
+    const galleryPage = document.getElementById('gallery-page');
+    const isGalleryVisible = galleryPage && galleryPage.style.display !== 'none';
+    // Always show button if gallery is visible and there are more images (after first batch loads)
+    loadMoreBtn.className = isGalleryVisible ? 'gallery-load-more-btn visible' : 'gallery-load-more-btn hidden';
     loadMoreBtn.setAttribute('aria-label', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
     loadMoreBtn.setAttribute('title', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
     
-    // Create icon SVG (plus icon)
-    const iconSvg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    iconSvg.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
-    iconSvg.setAttribute('width', '20');
-    iconSvg.setAttribute('height', '20');
-    iconSvg.setAttribute('viewBox', '0 0 24 24');
-    iconSvg.setAttribute('fill', 'none');
-    iconSvg.setAttribute('stroke', 'currentColor');
-    iconSvg.setAttribute('stroke-width', '2');
-    iconSvg.setAttribute('stroke-linecap', 'round');
-    iconSvg.setAttribute('stroke-linejoin', 'round');
-    iconSvg.setAttribute('data-lucide', 'plus');
-    iconSvg.classList.add('lucide', 'lucide-plus');
-    
-    const path1 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path1.setAttribute('d', 'M5 12h14');
-    const path2 = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path2.setAttribute('d', 'M12 5v14');
-    
-    iconSvg.appendChild(path1);
-    iconSvg.appendChild(path2);
-    loadMoreBtn.appendChild(iconSvg);
+    // Create icon using Lucide (plus icon) - same style as X button
+    const iconElement = document.createElement('i');
+    iconElement.setAttribute('data-lucide', 'plus');
+    iconElement.classList.add('icon');
+    loadMoreBtn.appendChild(iconElement);
     
     loadMoreBtn.addEventListener('click', () => {
       loadMoreGalleryImages(9);
     });
     // Append to body for fixed positioning
     document.body.appendChild(loadMoreBtn);
-    // Check visibility on creation
+    // Update visibility (will show if gallery page is visible)
     updateLoadMoreButtonVisibility();
     // Initialize Lucide icons if available
     if (typeof lucide !== 'undefined') {
@@ -4184,12 +5078,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     paintings = await res.json();
     await loadArtistBios();
     
+    // Load saved language preference first (before updating UI)
+    const savedLanguage = localStorage.getItem('language');
+    if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'no')) {
+      currentLanguage = savedLanguage;
+    }
+    
     // Initialize all systems with performance optimizations
     initializeArtistWeights();
     updateCategoryDropdown();
     updateCollectionInfo();
     updateLanguageUI();
     setupLanguageToggle();
+    
+    // If gallery page is currently visible, re-render it now that paintings are loaded
+    const galleryPage = document.getElementById('gallery-page');
+    if (galleryPage && galleryPage.style.display !== 'none') {
+      renderGalleryPage();
+    }
     // Preload first 2-3 images at initialization
     preloadInitialImages();
     
