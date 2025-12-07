@@ -5,14 +5,14 @@ const PERFORMANCE_CONFIG = {
   // Image preloading
   PRELOAD_COUNT: 5,
   PRELOAD_DELAY: 100,
-  
+
   // Memory management
   MAX_CACHE_SIZE: 50,
   CLEANUP_INTERVAL: 30000, // 30 seconds
-  
+
   // Animation throttling
   ANIMATION_THROTTLE: 16, // ~60fps
-  
+
   // DOM updates batching
   BATCH_DELAY: 10
 };
@@ -37,10 +37,15 @@ const memoryCache = new Map();
 const imageCache = new Map();
 const domCache = new Map();
 
+// Gallery page state
+let galleryPagePaintings = [];
+let galleryPageLoadedCount = 0;
+let galleryPageGrid = null;
+
 // Throttled function wrapper
 function throttle(func, delay) {
   let lastCall = 0;
-  return function(...args) {
+  return function (...args) {
     const now = Date.now();
     if (now - lastCall >= delay) {
       lastCall = now;
@@ -52,7 +57,7 @@ function throttle(func, delay) {
 // Debounced function wrapper
 function debounce(func, delay) {
   let timeoutId;
-  return function(...args) {
+  return function (...args) {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => func.apply(this, args), delay);
   };
@@ -61,7 +66,7 @@ function debounce(func, delay) {
 // Efficient DOM updates
 function batchDOMUpdates() {
   if (batchUpdateTimer) return;
-  
+
   batchUpdateTimer = requestAnimationFrame(() => {
     pendingUpdates.forEach(update => update());
     pendingUpdates.clear();
@@ -77,21 +82,21 @@ function cleanupMemory() {
     const toDelete = entries.slice(0, entries.length - PERFORMANCE_CONFIG.MAX_CACHE_SIZE);
     toDelete.forEach(([key]) => memoryCache.delete(key));
   }
-  
+
   // Clear old image cache
   if (imageCache.size > PERFORMANCE_CONFIG.MAX_CACHE_SIZE) {
     const entries = Array.from(imageCache.entries());
     const toDelete = entries.slice(0, entries.length - PERFORMANCE_CONFIG.MAX_CACHE_SIZE);
     toDelete.forEach(([key]) => imageCache.delete(key));
   }
-  
+
   // Clear old DOM cache
   if (domCache.size > PERFORMANCE_CONFIG.MAX_CACHE_SIZE) {
     const entries = Array.from(domCache.entries());
     const toDelete = entries.slice(0, entries.length - PERFORMANCE_CONFIG.MAX_CACHE_SIZE);
     toDelete.forEach(([key]) => domCache.delete(key));
   }
-  
+
   // Force garbage collection if available
   if (window.gc) {
     window.gc();
@@ -112,7 +117,7 @@ function getPerformanceMetrics() {
     total: Math.round(performance.memory.totalJSHeapSize / 1024 / 1024),
     limit: Math.round(performance.memory.jsHeapSizeLimit / 1024 / 1024)
   } : null;
-  
+
   return {
     uptime: Math.round(uptime / 1000),
     operations: performanceMetrics.operations,
@@ -144,10 +149,10 @@ const imageOptimizationMetrics = {
 };
 
 function logImageOptimizationMetrics() {
-  const avgLoadTime = imageOptimizationMetrics.loadTimes.length > 0 
+  const avgLoadTime = imageOptimizationMetrics.loadTimes.length > 0
     ? imageOptimizationMetrics.loadTimes.reduce((a, b) => a + b, 0) / imageOptimizationMetrics.loadTimes.length
     : 0;
-    
+
   console.log('🖼️ Image Optimization Metrics:', {
     totalImages: imageOptimizationMetrics.totalImages,
     optimizedImages: imageOptimizationMetrics.optimizedImages,
@@ -375,22 +380,22 @@ let loadingAnimationState = {
 // Start animated loading message with typewriter and dot effects
 function startLoadingAnimation(loadingTextElement) {
   if (!loadingTextElement) return;
-  
+
   // Stop any existing animation
   stopLoadingAnimation();
-  
+
   loadingAnimationState.isAnimating = true;
   loadingAnimationState.loadingTextElement = loadingTextElement;
   loadingAnimationState.currentMessageIndex = Math.floor(Math.random() * loadingMessages.length);
   loadingAnimationState.currentText = '';
-  
+
   const animateMessage = () => {
     if (!loadingAnimationState.isAnimating) return;
-    
+
     // Get current message based on language
     const message = loadingMessages[loadingAnimationState.currentMessageIndex][currentLanguage];
     const fullText = message;
-    
+
     // Clear any existing intervals
     if (loadingAnimationState.typewriterInterval) {
       clearInterval(loadingAnimationState.typewriterInterval);
@@ -398,7 +403,7 @@ function startLoadingAnimation(loadingTextElement) {
     if (loadingAnimationState.dotInterval) {
       clearInterval(loadingAnimationState.dotInterval);
     }
-    
+
     // Typewriter effect
     let charIndex = 0;
     loadingAnimationState.typewriterInterval = setInterval(() => {
@@ -406,7 +411,7 @@ function startLoadingAnimation(loadingTextElement) {
         clearInterval(loadingAnimationState.typewriterInterval);
         return;
       }
-      
+
       if (charIndex < fullText.length) {
         loadingAnimationState.currentText = fullText.substring(0, charIndex + 1);
         if (loadingAnimationState.loadingTextElement) {
@@ -417,7 +422,7 @@ function startLoadingAnimation(loadingTextElement) {
         // Typewriter complete, start dot animation
         clearInterval(loadingAnimationState.typewriterInterval);
         loadingAnimationState.typewriterInterval = null;
-        
+
         let dotCount = 0;
         loadingAnimationState.dotInterval = setInterval(() => {
           if (!loadingAnimationState.isAnimating) {
@@ -432,7 +437,7 @@ function startLoadingAnimation(loadingTextElement) {
         }, 500);
       }
     }, 30); // 30ms per character for typewriter effect
-    
+
     // Rotate to next message after typewriter completes + some dot animation time
     const messageDuration = fullText.length * 30 + 3000; // Typewriter time + 3 seconds of dots
     if (loadingAnimationState.messageTimeout) {
@@ -446,7 +451,7 @@ function startLoadingAnimation(loadingTextElement) {
       }
     }, messageDuration);
   };
-  
+
   animateMessage();
 }
 
@@ -882,7 +887,7 @@ function trackAnswer(isCorrect, artist, category) {
   } else {
     analyticsData.totalIncorrect++;
   }
-  
+
   trackEvent('answer_submitted', {
     correct: isCorrect,
     artist: artist,
@@ -948,7 +953,7 @@ function t(key) {
   // Handle nested keys like 'roundStats.title'
   const keys = key.split('.');
   let value = translations[currentLanguage];
-  
+
   for (const k of keys) {
     if (value && typeof value === 'object' && k in value) {
       value = value[k];
@@ -956,7 +961,7 @@ function t(key) {
       return key; // Return the key if translation not found
     }
   }
-  
+
   return value || key;
 }
 
@@ -964,7 +969,7 @@ function updateLanguageUI() {
   // Update title
   const title = document.querySelector('.title');
   if (title) title.textContent = t('title');
-  
+
   // Update category labels
   const customLink = document.getElementById('custom-category-link');
   if (customLink) {
@@ -973,35 +978,35 @@ function updateLanguageUI() {
       customLink.textContent = t(category.label);
     }
   }
-  
+
   // Update collection info
   updateCollectionInfo();
-  
+
   // Update page title and meta description
   updatePageMeta();
-  
+
   // Update language flag/icon on all pages
   updateLanguageFlag();
-  
+
   // Update footer links
   updateFooterLinks();
-  
+
   // Update category selector aria-label
   updateCategorySelector();
-  
+
   // Render category selector
   renderCategorySelector();
-  
+
   // Update subpage titles and back links
   const paintersPageTitle = document.getElementById('painters-page-title');
   if (paintersPageTitle) paintersPageTitle.textContent = t('artists');
-  
+
   const galleryPageTitle = document.getElementById('gallery-page-title');
   if (galleryPageTitle) galleryPageTitle.textContent = t('gallery');
-  
+
   const howToPlayPageTitle = document.getElementById('how-to-play-page-title');
   if (howToPlayPageTitle) howToPlayPageTitle.textContent = t('aboutHowToPlay');
-  
+
   // Update back links on subpages
   const backLinks = document.querySelectorAll('.back-link span');
   backLinks.forEach(link => {
@@ -1009,99 +1014,99 @@ function updateLanguageUI() {
       link.textContent = t('backToQuiz');
     }
   });
-  
+
   // Update modal texts
   const congratsTitle = document.getElementById('congrats-title');
   if (congratsTitle) congratsTitle.textContent = t('congratulations');
-  
+
   const congratsMessage = document.querySelector('#congrats-modal p');
   if (congratsMessage) congratsMessage.textContent = t('streakMessage');
-  
+
   const resetBtn = document.getElementById('reset-btn');
   if (resetBtn) resetBtn.textContent = t('playAgain');
-  
+
   const artistsTitle = document.getElementById('artists-title');
   if (artistsTitle) artistsTitle.textContent = t('artists');
-  
+
   const galleryTitle = document.getElementById('gallery-title');
   if (galleryTitle) galleryTitle.textContent = t('gallery');
-  
+
   const howToPlayTitle = document.getElementById('how-to-play-title');
   if (howToPlayTitle) howToPlayTitle.textContent = t('aboutHowToPlay');
-  
+
   const closeArtistsBtn = document.getElementById('close-artists-modal');
   if (closeArtistsBtn) closeArtistsBtn.textContent = t('close');
-  
+
   const closeGalleryBtn = document.getElementById('close-gallery-modal');
   if (closeGalleryBtn) closeGalleryBtn.textContent = t('close');
-  
+
   const closeHowToPlayBtn = document.getElementById('close-how-to-play-modal');
   if (closeHowToPlayBtn) closeHowToPlayBtn.textContent = t('close');
-  
+
   // Update round results modal elements
   const roundResultsTitle = document.getElementById('round-results-title');
   if (roundResultsTitle) roundResultsTitle.textContent = t('roundStats.title');
-  
+
   const roundResultsScoreLabel = document.querySelector('#round-results-modal .stat-label');
   if (roundResultsScoreLabel) roundResultsScoreLabel.textContent = t('roundStats.score') + ':';
-  
+
   const roundResultsArtistsLabel = document.querySelector('#round-results-artists .stat-label');
   if (roundResultsArtistsLabel) roundResultsArtistsLabel.textContent = t('roundStats.artists') + ':';
-  
+
   const roundResultsPlayAgainBtn = document.getElementById('round-results-play-again');
   if (roundResultsPlayAgainBtn) roundResultsPlayAgainBtn.textContent = t('roundStats.playAgain');
-  
+
   // Update diploma modal elements
   const diplomaTitle = document.getElementById('diploma-title');
   if (diplomaTitle) diplomaTitle.textContent = t('diploma.title');
-  
+
   const diplomaSubtitle = document.getElementById('diploma-subtitle');
   if (diplomaSubtitle) diplomaSubtitle.textContent = t('diploma.subtitle');
-  
+
   const diplomaAchievement = document.getElementById('diploma-achievement-text');
   if (diplomaAchievement) diplomaAchievement.textContent = t('diploma.achievement');
-  
+
   const diplomaDescription = document.getElementById('diploma-description-text');
   if (diplomaDescription) {
     const categoryNameForDesc = selectedCategory === 'all' ? t('fullCollection') : t(CATEGORY_DEFS.find(cat => cat.value === selectedCategory)?.label || 'fullCollection');
     const descriptionWithCategory = t('diploma.description') + (selectedCategory !== 'all' ? ` (${categoryNameForDesc})` : '');
     diplomaDescription.textContent = descriptionWithCategory;
   }
-  
+
   const diplomaAwardedLabel = document.getElementById('diploma-awarded-label');
   if (diplomaAwardedLabel) diplomaAwardedLabel.textContent = t('diploma.awardedTo') + ':';
-  
+
   const diplomaCategoryLabel = document.getElementById('diploma-category-label');
   if (diplomaCategoryLabel) diplomaCategoryLabel.textContent = t('diploma.category') + ':';
-  
+
   const diplomaDateLabel = document.getElementById('diploma-date-label');
   if (diplomaDateLabel) diplomaDateLabel.textContent = t('diploma.date') + ':';
-  
+
   const diplomaDownloadBtn = document.getElementById('diploma-download');
   if (diplomaDownloadBtn) diplomaDownloadBtn.textContent = t('diploma.download');
-  
+
   const diplomaPlayAgainBtn = document.getElementById('diploma-play-again');
   if (diplomaPlayAgainBtn) diplomaPlayAgainBtn.textContent = t('playAgain');
-  
+
   // Update diploma category and date values
   const diplomaCategoryValue = document.getElementById('diploma-category-value');
   if (diplomaCategoryValue) {
     const categoryName = selectedCategory === 'all' ? t('fullCollection') : t(CATEGORY_DEFS.find(cat => cat.value === selectedCategory)?.label || 'fullCollection');
     diplomaCategoryValue.textContent = categoryName;
   }
-  
+
   const diplomaDateValue = document.getElementById('diploma-date-value');
   if (diplomaDateValue) {
     const now = new Date();
     const options = { year: 'numeric', month: 'long', day: 'numeric' };
     diplomaDateValue.textContent = now.toLocaleDateString(currentLanguage === 'no' ? 'nb-NO' : 'en-US', options);
   }
-  
+
   const diplomaAwardedValue = document.getElementById('diploma-awarded-value');
   if (diplomaAwardedValue) {
     diplomaAwardedValue.textContent = 'Art Enthusiast';
   }
-  
+
   // Update artist gallery text if any galleries are open
   const artistGalleries = document.querySelectorAll('.artist-gallery-section');
   artistGalleries.forEach(gallery => {
@@ -1109,7 +1114,7 @@ function updateLanguageUI() {
     if (title) {
       title.textContent = currentLanguage === 'no' ? 'Malerier' : 'Paintings';
     }
-    
+
     const loadMoreBtn = gallery.querySelector('.artist-gallery-load-more');
     if (loadMoreBtn) {
       const total = parseInt(loadMoreBtn.dataset.total);
@@ -1122,7 +1127,7 @@ function updateLanguageUI() {
       }
     }
   });
-  
+
   // Also update any artist popups that might be open
   const artistPopups = document.querySelectorAll('.artist-popup.toast.persistent');
   artistPopups.forEach(popup => {
@@ -1132,14 +1137,14 @@ function updateLanguageUI() {
       closeBtn.textContent = t('close');
       closeBtn.setAttribute('aria-label', t('close'));
     }
-    
+
     const gallery = popup.querySelector('.artist-gallery-section');
     if (gallery) {
       const title = gallery.querySelector('.artist-gallery-title');
       if (title) {
         title.textContent = currentLanguage === 'no' ? 'Malerier' : 'Paintings';
       }
-      
+
       const loadMoreBtn = gallery.querySelector('.artist-gallery-load-more');
       if (loadMoreBtn) {
         const total = parseInt(loadMoreBtn.dataset.total);
@@ -1163,7 +1168,7 @@ function setupLanguageToggle() {
   if (languageToggleInitialized) {
     return;
   }
-  
+
   // Use event delegation on document to catch clicks on any language toggle
   document.addEventListener('click', (e) => {
     const target = e.target.closest('#language-toggle, #language-toggle-painters, #language-toggle-gallery, #language-toggle-how-to-play');
@@ -1177,12 +1182,12 @@ function setupLanguageToggle() {
       updateLanguageUI();
       renderCategorySelector();
       updateStreakBar();
-      
+
       // Re-render subpages if they are currently visible
       const paintersPage = document.getElementById('painters-page');
       const galleryPage = document.getElementById('gallery-page');
       const howToPlayPage = document.getElementById('how-to-play-page');
-      
+
       if (paintersPage && paintersPage.style.display !== 'none') {
         renderPaintersPage();
       }
@@ -1192,7 +1197,7 @@ function setupLanguageToggle() {
       if (howToPlayPage && howToPlayPage.style.display !== 'none') {
         renderHowToPlayPage();
       }
-      
+
       // Reinitialize icons after language change
       if (typeof lucide !== 'undefined') {
         lucide.createIcons();
@@ -1200,7 +1205,7 @@ function setupLanguageToggle() {
       return false;
     }
   });
-  
+
   // Set href to # for all language toggles to prevent navigation
   const languageToggleIds = ['language-toggle', 'language-toggle-painters', 'language-toggle-gallery', 'language-toggle-how-to-play'];
   languageToggleIds.forEach(id => {
@@ -1209,7 +1214,7 @@ function setupLanguageToggle() {
       toggle.href = '#';
     }
   });
-  
+
   languageToggleInitialized = true;
 }
 
@@ -1219,49 +1224,49 @@ function setupLanguageToggle() {
 function initializeArtistWeights() {
   const validPaintings = getValidPaintings();
   const artistCounts = {};
-  
+
   validPaintings.forEach(painting => {
     if (painting.artist) {
       artistCounts[painting.artist] = (artistCounts[painting.artist] || 0) + 1;
     }
   });
-  
+
   // Calculate balanced weights using a more gentle scaling approach
   // This provides a middle ground between pure random and extreme inverse weighting
   const maxCount = Math.max(...Object.values(artistCounts));
   const minCount = Math.min(...Object.values(artistCounts));
-  
+
   Object.keys(artistCounts).forEach(artist => {
     const count = artistCounts[artist];
-    
+
     // Use a more gentle scaling: cube root instead of square root
     // This makes the weighting even less aggressive
-    const baseWeight = Math.pow(maxCount, 1/3) / Math.pow(count, 1/3);
-    
+    const baseWeight = Math.pow(maxCount, 1 / 3) / Math.pow(count, 1 / 3);
+
     // Add a very small bonus for very small collections (1-2 paintings) to ensure they appear occasionally
     const smallCollectionBonus = count <= 2 ? 1.2 : 1.0;
-    
+
     // Apply a cap to prevent extreme weighting differences
     const cappedWeight = Math.min(baseWeight * smallCollectionBonus, 3.0);
-    
+
     artistWeights.set(artist, cappedWeight);
   });
 }
 
 function getWeightedRandomPainting(validPaintings) {
   if (validPaintings.length <= 1) return validPaintings[0];
-  
+
   // Filter out recently selected artists
-  const availablePaintings = validPaintings.filter(p => 
+  const availablePaintings = validPaintings.filter(p =>
     !lastSelectedArtists.has(p.artist)
   );
-  
+
   if (availablePaintings.length === 0) {
     // If all artists were recently used, reset the set
     lastSelectedArtists.clear();
     return getWeightedRandomPainting(validPaintings);
   }
-  
+
   // Calculate total weight
   let totalWeight = 0;
   const weightedPaintings = availablePaintings.map(painting => {
@@ -1269,11 +1274,11 @@ function getWeightedRandomPainting(validPaintings) {
     totalWeight += weight;
     return { painting, weight, cumulativeWeight: totalWeight };
   });
-  
+
   // Select random painting based on weights
   const random = Math.random() * totalWeight;
   const selected = weightedPaintings.find(wp => wp.cumulativeWeight >= random);
-  
+
   if (selected) {
     // Add to recently selected set
     lastSelectedArtists.add(selected.painting.artist);
@@ -1284,7 +1289,7 @@ function getWeightedRandomPainting(validPaintings) {
     }
     return selected.painting;
   }
-  
+
   return availablePaintings[0];
 }
 
@@ -1300,7 +1305,7 @@ function getCategoryCounts(categoryValue) {
   if (categoryCountsCache.has(cacheKey)) {
     return categoryCountsCache.get(cacheKey);
   }
-  
+
   let filtered = paintings.filter(p => p.artist && p.url);
   if (categoryValue && categoryValue !== 'all') {
     const prev = selectedCategory;
@@ -1311,7 +1316,7 @@ function getCategoryCounts(categoryValue) {
   const count = filtered.length;
   const painterCount = new Set(filtered.map(p => p.artist)).size;
   const result = { count, painterCount };
-  
+
   // Cache the result
   categoryCountsCache.set(cacheKey, result);
   return result;
@@ -1337,10 +1342,10 @@ function updateCollectionInfoForElement(element) {
 function updateCategoryDropdown() {
   const catSelect = document.getElementById('category-select');
   if (!catSelect) return;
-  
+
   // Clear caches when category dropdown is updated
   clearCaches();
-  
+
   const options = CATEGORY_DEFS.filter(cat => {
     const { count } = getCategoryCounts(cat.value);
     return cat.value === 'all' || count > 0;
@@ -1352,12 +1357,12 @@ function updateCategoryDropdown() {
     option.textContent = t(opt.label);
     catSelect.appendChild(option);
   });
-  
+
   // Ensure the select has the correct value
   catSelect.value = selectedCategory;
-  
+
   updateCollectionInfo();
-  
+
   // Update aria-label
   catSelect.setAttribute('aria-label', t('selectCategory'));
 }
@@ -1407,7 +1412,7 @@ function renderCategorySelector() {
       menu = document.createElement('div');
       menu.id = 'custom-category-menu';
       menu.className = 'custom-category-menu';
-      
+
       options.forEach(opt => {
         const item = document.createElement('button');
         item.className = 'custom-category-item';
@@ -1427,13 +1432,13 @@ function renderCategorySelector() {
       });
       // Append to body instead of button to avoid stacking context issues
       document.body.appendChild(menu);
-      
+
       // Calculate position for fixed positioning
       const rect = custom.getBoundingClientRect();
       menu.style.position = 'fixed';
       menu.style.top = `${rect.bottom + window.scrollY + 4}px`;
       menu.style.left = `${rect.left + window.scrollX}px`;
-      
+
       // Ensure menu is visible and above everything
       requestAnimationFrame(() => {
         menu.style.display = 'block';
@@ -1442,7 +1447,7 @@ function renderCategorySelector() {
         menu.style.zIndex = '99999';
         menu.style.pointerEvents = 'auto';
       });
-      
+
       // Close menu when clicking outside
       const closeMenu = (e) => {
         if (menu && !custom.contains(e.target) && !menu.contains(e.target)) {
@@ -1450,14 +1455,14 @@ function renderCategorySelector() {
           document.removeEventListener('click', closeMenu);
         }
       };
-      
+
       // Use setTimeout to avoid immediate closure
       setTimeout(() => {
         document.addEventListener('click', closeMenu);
       }, 10);
     }
   };
-  
+
   // Add mobile-specific touch support without affecting web
   if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
     // Only add touch events on mobile devices
@@ -1486,7 +1491,7 @@ function showGalleryModal(paintingsArray = null, initialCount = 12) {
   const modal = document.getElementById('gallery-modal');
   const collage = document.getElementById('gallery-collage');
   if (!modal || !collage) return;
-  
+
   // Initialize gallery state
   if (paintingsArray) {
     galleryPaintings = paintingsArray;
@@ -1497,11 +1502,11 @@ function showGalleryModal(paintingsArray = null, initialCount = 12) {
     shuffleArray(galleryPaintings);
     galleryLoadedCount = initialCount;
   }
-  
+
   collage.innerHTML = '';
   const grid = document.createElement('div');
   grid.className = 'gallery-collage-grid';
-  
+
   // Add initial batch of images
   for (let i = 0; i < galleryLoadedCount; i++) {
     const p = galleryPaintings[i];
@@ -1512,14 +1517,14 @@ function showGalleryModal(paintingsArray = null, initialCount = 12) {
       }
     }
   }
-  
+
   collage.appendChild(grid);
   modal.style.display = 'flex';
   modal.focus();
-  
+
   // Setup scroll-based loading
   setupGalleryScrollLoading(modal, grid);
-  
+
   // Add click outside to close
   setTimeout(() => {
     function outsideClick(e) {
@@ -1537,58 +1542,58 @@ function createGalleryImage(painting) {
   if (!painting || !painting.url || typeof painting.url !== 'string') {
     return null;
   }
-  
+
   // Check if URL looks like an image URL (has image extension or is from wikimedia)
   const url = painting.url.trim();
-  const isImageUrl = url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) || 
-                     url.includes('wikimedia.org') || 
-                     url.includes('upload.wikimedia.org');
-  
+  const isImageUrl = url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) ||
+    url.includes('wikimedia.org') ||
+    url.includes('upload.wikimedia.org');
+
   if (!isImageUrl) {
     // Skip non-image URLs
     return null;
   }
-  
+
   const img = document.createElement('img');
   // Use preloaded URL if available, otherwise fallback to optimized URL
   const preloadedUrl = galleryPreloadCache.get(painting.url);
   const imageUrl = preloadedUrl || optimizeImageUrl(painting.url, 400);
-  
+
   // Final validation of the processed URL
   if (!imageUrl || typeof imageUrl !== 'string' || imageUrl.trim() === '') {
     return null;
   }
-  
+
   img.alt = ''; // Empty alt to prevent text from showing
   img.className = 'gallery-collage-img';
   img.loading = 'eager';
-  
+
   // Initially hide until loaded
   img.style.display = 'none';
   img.style.visibility = 'hidden';
   img.style.opacity = '0';
-  
+
   // Make image clickable to show full-size viewer
   img.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
     showPaintingViewer(painting, { gallery: true });
   });
-  
+
   // Ensure cursor shows pointer on hover
   img.style.cursor = 'pointer';
-  
+
   // Function to show the image
-  const showImage = function() {
+  const showImage = function () {
     if (this && this.style) {
       this.style.display = 'block';
       this.style.visibility = 'visible';
       this.style.opacity = '1';
     }
   };
-  
+
   // Handle image load errors - try fallback URL first
-  img.onerror = function() {
+  img.onerror = function () {
     // Try original URL as fallback
     if (this.src !== painting.url) {
       const fallbackImg = new Image();
@@ -1619,13 +1624,13 @@ function createGalleryImage(painting) {
       }
     }
   };
-  
+
   // Show image only when successfully loaded
   img.onload = showImage;
-  
+
   // Set src AFTER setting up handlers
   img.src = imageUrl;
-  
+
   // Polling check for cached images - check multiple times to catch cached images
   let checkCount = 0;
   const maxChecks = 10;
@@ -1640,32 +1645,32 @@ function createGalleryImage(painting) {
       clearInterval(checkInterval);
     }
   }, 50);
-  
+
   return img;
 }
 
 function setupGalleryScrollLoading(modal, grid) {
   const modalContent = modal.querySelector('.gallery-modal-content');
   let loadingMore = false;
-  
+
   const loadMoreImages = async () => {
     if (loadingMore || galleryLoadingMore) return;
-    
+
     const scrollPosition = modalContent.scrollTop + modalContent.clientHeight;
     const scrollHeight = modalContent.scrollHeight;
-    
+
     // Load more when user is near the bottom (within 200px)
     if (scrollHeight - scrollPosition < 200 && galleryLoadedCount < galleryPaintings.length) {
       await loadNextBatch();
     }
   };
-  
+
   const loadNextBatch = async () => {
     if (loadingMore || galleryLoadingMore || galleryLoadedCount >= galleryPaintings.length) return;
-    
+
     loadingMore = true;
     galleryLoadingMore = true;
-    
+
     // Show loading indicator
     let loadingIndicator = grid.querySelector('.gallery-loading-indicator');
     if (!loadingIndicator) {
@@ -1674,22 +1679,22 @@ function setupGalleryScrollLoading(modal, grid) {
       loadingIndicator.textContent = 'Loading more images...';
       grid.appendChild(loadingIndicator);
     }
-    
+
     try {
       // Load next batch
       const batchSize = 8;
       const nextBatch = galleryPaintings.slice(galleryLoadedCount, galleryLoadedCount + batchSize);
-      
+
       // Preload the batch
       await Promise.allSettled(
         nextBatch.map(painting => preloadGalleryImage(painting.url))
       );
-      
+
       // Remove loading indicator
       if (loadingIndicator) {
         loadingIndicator.remove();
       }
-      
+
       // Add images to grid
       nextBatch.forEach(painting => {
         const img = createGalleryImage(painting);
@@ -1697,15 +1702,15 @@ function setupGalleryScrollLoading(modal, grid) {
           grid.appendChild(img);
         }
       });
-      
+
       galleryLoadedCount += batchSize;
-      
+
       // Update or add load more button
       updateLoadMoreButton();
-      
+
       // Small delay to prevent rapid loading
       await new Promise(resolve => setTimeout(resolve, 100));
-      
+
     } catch (error) {
       console.error('Error loading more gallery images:', error);
       // Remove loading indicator on error
@@ -1717,14 +1722,14 @@ function setupGalleryScrollLoading(modal, grid) {
       galleryLoadingMore = false;
     }
   };
-  
+
   const updateLoadMoreButton = () => {
     // Remove existing load more button
     const existingButton = grid.querySelector('.gallery-load-more-btn');
     if (existingButton) {
       existingButton.remove();
     }
-    
+
     // Add new load more button if there are more images
     if (galleryLoadedCount < galleryPaintings.length) {
       const loadMoreBtn = document.createElement('button');
@@ -1734,17 +1739,17 @@ function setupGalleryScrollLoading(modal, grid) {
       grid.appendChild(loadMoreBtn);
     }
   };
-  
+
   // Add initial load more button
   updateLoadMoreButton();
-  
+
   // Throttled scroll handler
   let scrollTimeout;
   modalContent.addEventListener('scroll', () => {
     clearTimeout(scrollTimeout);
     scrollTimeout = setTimeout(loadMoreImages, 100);
   });
-  
+
   // Initial check in case content is already scrollable
   setTimeout(loadMoreImages, 500);
 }
@@ -1763,7 +1768,7 @@ function setupGalleryModal() {
       window.location.hash = '';
     });
   }
-  
+
   // Keep modal functionality for backward compatibility (if needed)
   const closeBtn = document.getElementById('close-gallery-modal');
   if (closeBtn) closeBtn.addEventListener('click', hideGalleryModal);
@@ -1779,33 +1784,33 @@ async function preloadAndShowGallery() {
     // If preloading is already in progress, wait for it
     return;
   }
-  
+
   // Show loading indicator
   const showLink = document.getElementById('show-gallery-link');
   const originalText = showLink.textContent;
   showLink.textContent = 'Loading...';
   showLink.style.pointerEvents = 'none';
   showLink.classList.add('loading');
-  
+
   try {
     galleryPreloadInProgress = true;
-    
+
     // Get paintings for gallery
     const shuffled = [...paintings];
     shuffleArray(shuffled);
-    
+
     // Preload only the first batch quickly
     const initialBatchSize = 12; // Show first 12 images immediately
     const initialBatch = shuffled.slice(0, initialBatchSize);
-    
+
     // Preload first batch
     await Promise.allSettled(
       initialBatch.map(painting => preloadGalleryImage(painting.url))
     );
-    
+
     // Show the gallery modal immediately with first batch
     showGalleryModal(shuffled, initialBatchSize);
-    
+
   } catch (error) {
     console.error('Error preloading initial gallery images:', error);
     // Still show gallery even if preloading fails
@@ -1824,11 +1829,11 @@ async function preloadGalleryImage(url) {
   if (galleryPreloadCache.has(url)) {
     return galleryPreloadCache.get(url);
   }
-  
+
   try {
     const optimizedUrl = optimizeImageUrl(url, 400);
     const img = new Image();
-    
+
     const loadPromise = new Promise((resolve, reject) => {
       img.onload = () => {
         galleryPreloadCache.set(url, optimizedUrl);
@@ -1840,10 +1845,10 @@ async function preloadGalleryImage(url) {
         resolve(url);
       };
     });
-    
+
     img.src = optimizedUrl;
     return await loadPromise;
-    
+
   } catch (error) {
     console.error('Error preloading image:', url, error);
     galleryPreloadCache.set(url, url);
@@ -1856,18 +1861,18 @@ function startGalleryBackgroundPreload() {
   if (galleryBackgroundPreloadStarted || !paintings || paintings.length === 0) {
     return;
   }
-  
+
   galleryBackgroundPreloadStarted = true;
-  
+
   // Start preloading in the background after a short delay
   setTimeout(async () => {
     try {
       const shuffled = [...paintings];
       shuffleArray(shuffled);
-      
+
       // Preload first 20 images in the background
       const imagesToPreload = shuffled.slice(0, 20);
-      
+
       for (const painting of imagesToPreload) {
         await preloadGalleryImage(painting.url);
         // Small delay to prevent blocking the main thread
@@ -1884,13 +1889,13 @@ function getArtistBioMap() {
   if (artistBioMapCache) {
     return artistBioMapCache;
   }
-  
+
   if (!Array.isArray(artistBios)) return {};
   const bioMap = artistBios.reduce((map, b) => {
     map[b.name] = b;
     return map;
   }, {});
-  
+
   // Cache the result
   artistBioMapCache = bioMap;
   return bioMap;
@@ -1912,7 +1917,7 @@ const categoryFilters = {
       }
     });
     const topArtists = Object.entries(artistCounts)
-      .sort(([,a], [,b]) => b - a)
+      .sort(([, a], [, b]) => b - a)
       .slice(0, 10)
       .map(([artist]) => artist);
     return paintings.filter(p => topArtists.includes(p.artist));
@@ -1920,33 +1925,33 @@ const categoryFilters = {
   impressionism: p => {
     const categories = toArray(p.categories);
     const inferredCategories = toArray(p.inferred_categories);
-    const hasImpressionismCategory = categories.some(cat => 
+    const hasImpressionismCategory = categories.some(cat =>
       cat?.toLowerCase().includes('impressionism')
     );
-    const hasInferredImpressionism = inferredCategories.some(cat => 
+    const hasInferredImpressionism = inferredCategories.some(cat =>
       cat?.toLowerCase().includes('impressionism')
     );
-    const hasImpressionismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
+    const hasImpressionismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
       m?.toLowerCase().includes('impressionism')
     );
     return hasImpressionismCategory || hasInferredImpressionism || hasImpressionismMovement;
   },
   expressionism: p => {
     const categories = toArray(p.categories);
-    const hasExpressionismCategory = categories.some(cat => 
+    const hasExpressionismCategory = categories.some(cat =>
       cat?.toLowerCase().includes('expressionism')
     );
-    const hasExpressionismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
+    const hasExpressionismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
       m?.toLowerCase().includes('expressionism')
     );
     return hasExpressionismCategory || hasExpressionismMovement;
   },
   romanticism: p => {
     const categories = toArray(p.categories);
-    const hasRomanticCategory = categories.some(cat => 
+    const hasRomanticCategory = categories.some(cat =>
       cat?.toLowerCase().includes('romantic')
     );
-    const hasRomanticMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
+    const hasRomanticMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
       m?.toLowerCase().includes('romantic')
     );
     return hasRomanticCategory || hasRomanticMovement;
@@ -1954,33 +1959,33 @@ const categoryFilters = {
   realism: p => {
     const categories = toArray(p.categories);
     const inferredCategories = toArray(p.inferred_categories);
-    const hasRealismCategory = categories.some(cat => 
+    const hasRealismCategory = categories.some(cat =>
       cat?.toLowerCase().includes('realism')
     );
-    const hasInferredRealism = inferredCategories.some(cat => 
+    const hasInferredRealism = inferredCategories.some(cat =>
       cat?.toLowerCase().includes('realism')
     );
-    const hasRealismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
+    const hasRealismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
       m?.toLowerCase().includes('realism')
     );
     return hasRealismCategory || hasInferredRealism || hasRealismMovement;
   },
   naturalism: p => {
     const categories = toArray(p.categories);
-    const hasNaturalismCategory = categories.some(cat => 
+    const hasNaturalismCategory = categories.some(cat =>
       cat?.toLowerCase().includes('naturalism')
     );
-    const hasNaturalismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
+    const hasNaturalismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
       m?.toLowerCase().includes('naturalism')
     );
     return hasNaturalismCategory || hasNaturalismMovement;
   },
   symbolism: p => {
     const categories = toArray(p.categories);
-    const hasSymbolismCategory = categories.some(cat => 
+    const hasSymbolismCategory = categories.some(cat =>
       cat?.toLowerCase().includes('symbolism')
     );
-    const hasSymbolismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
+    const hasSymbolismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
       m?.toLowerCase().includes('symbolism')
     );
     return hasSymbolismCategory || hasSymbolismMovement;
@@ -1988,10 +1993,10 @@ const categoryFilters = {
 
   contemporary: p => {
     const categories = toArray(p.categories);
-    const hasContemporaryCategory = categories.some(cat => 
+    const hasContemporaryCategory = categories.some(cat =>
       cat?.toLowerCase().includes('contemporary')
     );
-    const hasContemporaryMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
+    const hasContemporaryMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
       m?.toLowerCase().includes('contemporary')
     );
     return hasContemporaryCategory || hasContemporaryMovement;
@@ -1999,73 +2004,73 @@ const categoryFilters = {
   landscape: p => {
     const categories = toArray(p.categories);
     const inferredCategories = toArray(p.inferred_categories);
-    const hasLandscapeCategory = categories.some(cat => 
+    const hasLandscapeCategory = categories.some(cat =>
       cat?.toLowerCase().includes('landscape')
     );
-    const hasInferredLandscape = inferredCategories.some(cat => 
+    const hasInferredLandscape = inferredCategories.some(cat =>
       cat?.toLowerCase().includes('landscape')
     );
-    const hasLandscapeGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
+    const hasLandscapeGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g =>
       g?.toLowerCase().includes('landscape')
     );
     return hasLandscapeCategory || hasInferredLandscape || hasLandscapeGenre;
   },
   portraits: p => {
     const categories = toArray(p.categories);
-    const hasPortraitCategory = categories.some(cat => 
+    const hasPortraitCategory = categories.some(cat =>
       cat?.toLowerCase().includes('portrait')
     );
-    const hasPortraitGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
+    const hasPortraitGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g =>
       g?.toLowerCase().includes('portrait')
     );
     return hasPortraitCategory || hasPortraitGenre;
   },
   historical: p => {
     const categories = toArray(p.categories);
-    const hasHistoricalCategory = categories.some(cat => 
+    const hasHistoricalCategory = categories.some(cat =>
       cat?.toLowerCase().includes('historical')
     );
-    const hasHistoricalGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
+    const hasHistoricalGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g =>
       g?.toLowerCase().includes('historical')
     );
     return hasHistoricalCategory || hasHistoricalGenre;
   },
   religious: p => {
     const categories = toArray(p.categories);
-    const hasReligiousCategory = categories.some(cat => 
+    const hasReligiousCategory = categories.some(cat =>
       cat?.toLowerCase().includes('religious')
     );
-    const hasReligiousGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
+    const hasReligiousGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g =>
       g?.toLowerCase().includes('religious')
     );
     return hasReligiousCategory || hasReligiousGenre;
   },
   genre: p => {
     const categories = toArray(p.categories);
-    const hasGenreCategory = categories.some(cat => 
+    const hasGenreCategory = categories.some(cat =>
       cat?.toLowerCase().includes('genre')
     );
-    const hasGenreGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
+    const hasGenreGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g =>
       g?.toLowerCase().includes('genre')
     );
     return hasGenreCategory || hasGenreGenre;
   },
   still_life: p => {
     const categories = toArray(p.categories);
-    const hasStillLifeCategory = categories.some(cat => 
+    const hasStillLifeCategory = categories.some(cat =>
       cat?.toLowerCase().includes('still life') || cat?.toLowerCase().includes('stilleben')
     );
-    const hasStillLifeGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
+    const hasStillLifeGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g =>
       g?.toLowerCase().includes('still life') || g?.toLowerCase().includes('stilleben')
     );
     return hasStillLifeCategory || hasStillLifeGenre;
   },
   abstract: p => {
     const categories = toArray(p.categories);
-    const hasAbstractCategory = categories.some(cat => 
+    const hasAbstractCategory = categories.some(cat =>
       cat?.toLowerCase().includes('abstract')
     );
-    const hasAbstractGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g => 
+    const hasAbstractGenre = toArray(p.artist_genre).concat(toArray(p.genre)).some(g =>
       g?.toLowerCase().includes('abstract')
     );
     return hasAbstractCategory || hasAbstractGenre;
@@ -2075,23 +2080,23 @@ const categoryFilters = {
   romantic_nationalism: p => {
     const categories = toArray(p.categories);
     const inferredCategories = toArray(p.inferred_categories);
-    const hasRomanticNationalismCategory = categories.some(cat => 
-      cat?.toLowerCase().includes('romantic nationalism') || 
+    const hasRomanticNationalismCategory = categories.some(cat =>
+      cat?.toLowerCase().includes('romantic nationalism') ||
       cat?.toLowerCase().includes('romantisk nasjonalisme') ||
       cat?.toLowerCase().includes('nasjonalromantikk')
     );
-    const hasInferredRomantic = inferredCategories.some(cat => 
+    const hasInferredRomantic = inferredCategories.some(cat =>
       cat?.toLowerCase().includes('romantic')
     );
-    const hasRomanticNationalismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
-      m?.toLowerCase().includes('romantic nationalism') || 
+    const hasRomanticNationalismMovement = toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
+      m?.toLowerCase().includes('romantic nationalism') ||
       m?.toLowerCase().includes('romantisk nasjonalisme') ||
       m?.toLowerCase().includes('national romantic') ||
       m?.toLowerCase().includes('nasjonalromantikk') ||
       m?.toLowerCase().includes('norwegian romantic nationalism')
     );
-    const hasRomanticNationalismBio = p.artist_bio?.toLowerCase().includes('romantic nationalism') || 
-                                     p.artist_bio?.toLowerCase().includes('nasjonalromantikk');
+    const hasRomanticNationalismBio = p.artist_bio?.toLowerCase().includes('romantic nationalism') ||
+      p.artist_bio?.toLowerCase().includes('nasjonalromantikk');
     return hasRomanticNationalismCategory || hasInferredRomantic || hasRomanticNationalismMovement || hasRomanticNationalismBio;
   }
 };
@@ -2101,14 +2106,14 @@ function getValidPaintings() {
   if (validPaintingsCache && validPaintingsCacheCategory === selectedCategory) {
     return validPaintingsCache;
   }
-  
+
   let filtered = paintings.filter(p => p.artist && p.url);
   if (!selectedCategory || selectedCategory === 'all') {
     validPaintingsCache = filtered;
     validPaintingsCacheCategory = selectedCategory;
     return filtered;
   }
-  
+
   const artistMap = getArtistBioMap();
   const filterFn = categoryFilters[selectedCategory];
   if (filterFn) {
@@ -2120,7 +2125,7 @@ function getValidPaintings() {
       filtered = filtered.filter(filterFn);
     }
   }
-  
+
   // Cache the result
   validPaintingsCache = filtered;
   validPaintingsCacheCategory = selectedCategory;
@@ -2138,20 +2143,20 @@ function loadQuiz() {
       }
       return;
     }
-    
+
     // Check if round is complete
     if (currentRound.questionNumber > 10) {
       showRoundResults();
       return;
     }
-    
+
     // Use preloaded queue if available, otherwise fallback to random
     let painting;
     if (upcomingPaintingsQueue.length > 0 && currentRound.questionNumber <= upcomingPaintingsQueue.length) {
       // Use the preloaded painting from the queue
       painting = upcomingPaintingsQueue[currentRound.questionNumber - 1];
     }
-    
+
     // Fallback to random if queue is empty or invalid
     if (!painting || !painting.artist || !painting.url) {
       for (let i = 0; i < 10; i++) {
@@ -2159,15 +2164,15 @@ function loadQuiz() {
         if (painting && painting.artist && painting.url) break;
       }
     }
-    
+
     if (!painting || !painting.artist || !painting.url) return;
-    
+
     const img = document.getElementById('painting');
     if (!img) return;
-    
+
     // Image should already be preloaded - use it instantly
     let imageUrl = painting.url;
-    
+
     if (imageCache.has(painting.url)) {
       // Image is in cache - use cached version
       const cachedImg = imageCache.get(painting.url);
@@ -2176,7 +2181,7 @@ function loadQuiz() {
       // Fallback: try optimized URL
       imageUrl = optimizeImageUrl(painting.url);
     }
-    
+
     // Set image immediately (it's already loaded)
     requestAnimationFrame(() => {
       img.src = imageUrl;
@@ -2185,14 +2190,14 @@ function loadQuiz() {
       img.style.opacity = '1';
       img.style.visibility = 'visible';
     });
-    
+
     // Set current painting for viewer
     currentPainting = painting;
-    
+
     // Setup painting viewer click handler (use event delegation for better performance)
     const paintingContainer = document.querySelector('.painting-container');
     if (paintingContainer) {
-      paintingContainer.onclick = function() {
+      paintingContainer.onclick = function () {
         if (currentPainting) {
           requestAnimationFrame(() => {
             showPaintingViewer(currentPainting);
@@ -2200,21 +2205,21 @@ function loadQuiz() {
         }
       };
     }
-    
+
     // Check if we have a preloaded image ready
     const preloadedUrl = upcomingPaintingsPreloaded.has(painting.url) ? painting.url : null;
-    
+
     // ✅ Smart predictive preloading: Preload i+2 and self-portrait i+1
     // Also ensures i+1 is loaded (micro-optimization)
     predictivePreload(currentRound.questionNumber);
-    
+
     // Continue preloading more images in background (non-blocking) - legacy fallback
-    requestIdleCallback ? requestIdleCallback(() => preloadNextImages(validPaintings)) : 
+    requestIdleCallback ? requestIdleCallback(() => preloadNextImages(validPaintings)) :
       setTimeout(() => preloadNextImages(validPaintings), 100);
-    
+
     const optionsDiv = document.getElementById('options');
     if (!optionsDiv) return;
-    
+
     // Fade out existing buttons smoothly before clearing
     const existingButtons = Array.from(optionsDiv.children);
     if (existingButtons.length > 0) {
@@ -2225,7 +2230,7 @@ function loadQuiz() {
         btn.style.pointerEvents = 'none';
       });
     }
-    
+
     const artists = generateOptions(painting.artist, validPaintings);
     if (artists.length < 2) {
       // Wait for fade out, then update
@@ -2234,7 +2239,7 @@ function loadQuiz() {
       }, 200);
       return;
     }
-    
+
     // Create all buttons at once to reduce DOM operations
     const fragment = document.createDocumentFragment();
     artists.forEach(artist => {
@@ -2251,10 +2256,10 @@ function loadQuiz() {
             b.disabled = true;
             b.classList.remove('correct', 'wrong');
           });
-          
+
           const correctBtn = buttons.find(b => b.textContent === painting.artist);
           const selectedBtn = btn;
-          
+
           // Track this answer
           const isCorrect = artist === painting.artist;
           currentRound.answers.push({
@@ -2264,23 +2269,23 @@ function loadQuiz() {
             correctArtist: painting.artist,
             painting: painting
           });
-          
+
           if (isCorrect) {
             // Correct answer
             currentRound.correctAnswers++;
             streak++;
             selectedBtn.classList.add('correct');
-            
+
             // Track analytics
             trackAnswer(true, painting.artist, selectedCategory);
-            
+
             // Show correct message
             const correctMessage = getRandomCorrectMessage();
             showMessage(correctMessage, '#388e3c');
-            
+
             // Add artist to set
             currentRound.artists.add(painting.artist);
-            
+
             // Quick transition for correct answers
             setTimeout(() => {
               requestAnimationFrame(() => {
@@ -2300,16 +2305,16 @@ function loadQuiz() {
             streak = 0;
             selectedBtn.classList.add('wrong');
             if (correctBtn) correctBtn.classList.add('correct');
-            
+
             // Track analytics
             trackAnswer(false, artist, selectedCategory);
-            
+
             const incorrectMessage = getRandomIncorrectMessage();
             showMessage(incorrectMessage, '#e53935');
-            
+
             // Add correct artist to set (only count the actual featured artist)
             currentRound.artists.add(painting.artist);
-            
+
             updateStreakBar();
             setTimeout(() => {
               showArtistPopup(painting, () => {
@@ -2331,13 +2336,13 @@ function loadQuiz() {
       };
       fragment.appendChild(btn);
     });
-    
+
     // Wait for fade out, then replace buttons
     setTimeout(() => {
       // Clear old buttons and add new ones
       optionsDiv.innerHTML = '';
       optionsDiv.appendChild(fragment);
-      
+
       // Fade in new buttons
       const newButtons = Array.from(optionsDiv.children);
       newButtons.forEach((btn, index) => {
@@ -2350,7 +2355,7 @@ function loadQuiz() {
           }, index * 20);
         });
       });
-      
+
       updateStreakBar();
     }, existingButtons.length > 0 ? 200 : 0);
   });
@@ -2388,20 +2393,20 @@ function updateStreakBar() {
   requestAnimationFrame(() => {
     const streakBar = document.getElementById('streak-bar');
     if (!streakBar) return;
-    
+
     // Update ARIA attributes for accessibility
     streakBar.setAttribute('aria-valuenow', currentRound.questionNumber - 1);
     streakBar.setAttribute('aria-label', `Quiz progress: ${currentRound.questionNumber - 1} of 10 questions completed`);
-    
+
     // Use DocumentFragment for better performance
     const fragment = document.createDocumentFragment();
-    
+
     // Create 10 circles for the round
     for (let i = 0; i < 10; i++) {
       const circle = document.createElement('div');
       circle.className = 'streak-circle';
       circle.setAttribute('aria-label', `Question ${i + 1}`);
-      
+
       // Color based on round progress
       if (i < currentRound.questionNumber - 1) {
         // Check if this answer was correct or incorrect
@@ -2420,10 +2425,10 @@ function updateStreakBar() {
       } else {
         circle.setAttribute('aria-label', `Question ${i + 1}: Not started`);
       }
-      
+
       fragment.appendChild(circle);
     }
-    
+
     // Clear and append in one operation
     streakBar.innerHTML = '';
     streakBar.appendChild(fragment);
@@ -2465,7 +2470,7 @@ function cleanWorkTitle(title) {
 
 async function loadArtistBios() {
   try {
-            const res = await fetch('./data/artists.json');
+    const res = await fetch('./data/artists.json');
     if (!res.ok) throw new Error('Failed to load artist bios');
     artistBios = await res.json();
   } catch (err) {
@@ -2509,11 +2514,11 @@ function createArtistGalleryHtml(artistPaintings, artistName) {
   if (!artistPaintings || artistPaintings.length === 0) {
     return '';
   }
-  
+
   const initialCount = 4; // Show first 4 paintings
   const initialPaintings = artistPaintings.slice(0, initialCount);
   const hasMore = artistPaintings.length > initialCount;
-  
+
   const paintingsHtml = initialPaintings.map((painting, index) => {
     const title = painting.title || 'Untitled';
     const optimizedUrl = optimizeImageUrl(painting.url, 150); // Even smaller thumbnails for better performance
@@ -2527,13 +2532,13 @@ function createArtistGalleryHtml(artistPaintings, artistName) {
       </div>
     `;
   }).join('');
-  
+
   const loadMoreHtml = hasMore ? `
     <button class="artist-gallery-load-more" data-artist="${artistName}" data-loaded="${initialCount}" data-total="${artistPaintings.length}">
       ${currentLanguage === 'no' ? 'Vis flere' : 'Load More'} (${artistPaintings.length - initialCount})
     </button>
   ` : '';
-  
+
   return `
     <div class="artist-gallery-section">
       <div class="artist-gallery-header">
@@ -2562,7 +2567,7 @@ function setupArtistGalleryHandlers(popup, artistPaintings, artistName) {
       }
     });
   });
-  
+
   // Handle load more button
   const loadMoreBtn = popup.querySelector('.artist-gallery-load-more');
   if (loadMoreBtn) {
@@ -2575,7 +2580,7 @@ function setupArtistGalleryHandlers(popup, artistPaintings, artistName) {
 
 function preloadArtistGalleryImages(paintings) {
   if (!paintings || paintings.length === 0) return;
-  
+
   paintings.forEach(painting => {
     const optimizedUrl = optimizeImageUrl(painting.url, 150);
     const img = new Image();
@@ -2588,24 +2593,24 @@ function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn
   const total = parseInt(loadMoreBtn.dataset.total);
   const loadCount = 4; // Load 4 more paintings
   const nextBatch = artistPaintings.slice(currentLoaded, currentLoaded + loadCount);
-  
+
   if (nextBatch.length === 0) {
     loadMoreBtn.style.display = 'none';
     return;
   }
-  
+
   // Show loading state
   loadMoreBtn.classList.add('loading');
   loadMoreBtn.textContent = currentLanguage === 'no' ? 'Laster...' : 'Loading...';
-  
+
   // Preload next batch for smoother experience
   const nextNextBatch = artistPaintings.slice(currentLoaded + loadCount, currentLoaded + loadCount * 2);
   preloadArtistGalleryImages(nextNextBatch);
-  
+
   // Simulate loading delay for better UX
   setTimeout(() => {
     const galleryGrid = popup.querySelector('.artist-gallery-grid');
-    
+
     // Add new paintings to the grid
     nextBatch.forEach((painting, batchIndex) => {
       const title = painting.title || 'Untitled';
@@ -2622,19 +2627,19 @@ function loadMoreArtistPaintings(popup, artistPaintings, artistName, loadMoreBtn
       `;
       galleryGrid.insertAdjacentHTML('beforeend', itemHtml);
     });
-    
+
     // Update load more button
     const newLoaded = currentLoaded + loadCount;
     loadMoreBtn.dataset.loaded = newLoaded;
-    
+
     if (newLoaded >= total) {
       loadMoreBtn.style.display = 'none';
     } else {
       loadMoreBtn.textContent = `${currentLanguage === 'no' ? 'Vis flere' : 'Load More'} (${total - newLoaded})`;
     }
-    
+
     loadMoreBtn.classList.remove('loading');
-    
+
     // Re-attach event handlers to new items
     const newItems = galleryGrid.querySelectorAll('.artist-gallery-item');
     newItems.forEach(item => {
@@ -2675,13 +2680,13 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
     const portraitUrl = bioInfo.self_portrait_url;
     const loadingAttr = portraitUrl && artistPortraitsPreloaded.has(portraitUrl) ? '' : 'loading="lazy"';
     imgHtml = portraitUrl ? `<img src="${portraitUrl}" alt="${name}" class="artist-portrait toast-portrait" ${loadingAttr}>` : '';
-    
+
     // Use language-specific bio with proper fallback
-    const bioText = currentLanguage === 'no' ? 
-      (bioInfo.norwegian_bio || bioInfo.bio || '') : 
+    const bioText = currentLanguage === 'no' ?
+      (bioInfo.norwegian_bio || bioInfo.bio || '') :
       (bioInfo.english_bio || bioInfo.bio || '');
     bioHtml = bioText ? `<span class="artist-bio">${bioText}</span>` : '';
-    
+
     let tagList = [...(bioInfo.awards || []), ...(bioInfo.movement || []), ...(bioInfo.genre || [])];
     if (tagList.length) {
       tagsHtml = `<div class="artist-tags">${tagList.map(tag => `<span class="artist-tag">${tag}</span>`).join('')}</div>`;
@@ -2699,19 +2704,19 @@ function showArtistPopup(paintingOrName, onDone, persistent = false) {
   }
   let closeBtnHtml = persistent ? `<div class="persistent-popup-close-container"><button class="persistent-popup-close-btn" aria-label="${t('close')}">${t('close')}</button></div>` : '';
   let paintingsHtml = '';
-  
+
   // Create gallery HTML for persistent popups
   let galleryHtml = '';
   if (persistent && artistPaintings.length > 0) {
     galleryHtml = createArtistGalleryHtml(artistPaintings, name);
   }
-  
+
   popup.innerHTML = createPopupTemplate({ name, bioInfo, artistPaintings, persistent, imgHtml, yearsHtml, bioHtml, tagsHtml, closeBtnHtml, paintingsHtml, galleryHtml });
   popup.style.opacity = '0';
   popup.style.display = 'flex';
   popup.classList.add('visible');
   setTimeout(() => popup.style.opacity = '1', 10);
-  
+
   // Add event handlers for gallery if it exists
   if (persistent && artistPaintings.length > 0) {
     setupArtistGalleryHandlers(popup, artistPaintings, name);
@@ -2764,17 +2769,17 @@ function setupLogoReset() {
       if (catSelect) catSelect.value = 'all';
       streak = 0;
       updateStreakBar();
-      
+
       // Clear any existing messages
       hideMessage();
-      
+
       // Hide any open modals
       hideCongratsModal();
       hideGalleryModal();
       hideAboutModal();
       hideRoundResults();
       document.getElementById('artists-modal').style.display = 'none';
-      
+
       // Start a completely fresh round
       startNewRound();
     };
@@ -2801,14 +2806,14 @@ function showArtistsModal() {
       const numPaintings = paintings.filter(p => p.artist === name).length;
       // Make artist names clickable to show persistent info popup
       li.innerHTML = `<span class="clickable-artist-name">${name}</span> (${numPaintings})`;
-      
+
       // Add click event to show artist info popup
       const artistNameSpan = li.querySelector('.clickable-artist-name');
       artistNameSpan.addEventListener('click', (e) => {
         e.stopPropagation(); // Prevent modal from closing
         showArtistPopup(name, null, true); // persistent = true
       });
-      
+
       ul.appendChild(li);
     });
     div.appendChild(ul);
@@ -2838,7 +2843,7 @@ function setupArtistModal() {
       window.location.hash = '';
     });
   }
-  
+
   // Keep modal functionality for backward compatibility (if needed)
   const closeBtn = document.getElementById('close-artists-modal');
   if (closeBtn) closeBtn.addEventListener('click', () => {
@@ -2850,73 +2855,73 @@ function generateAboutContent() {
   // Get category counts dynamically
   const categoryCounts = {};
   const validPaintings = paintings.filter(p => p.artist && p.url);
-  
+
   // Calculate category counts
   categoryCounts.all = validPaintings.length;
-  
+
   // Popular painters (top 10)
   const artistCounts = {};
   validPaintings.forEach(p => {
     artistCounts[p.artist] = (artistCounts[p.artist] || 0) + 1;
   });
   const topArtists = Object.entries(artistCounts)
-    .sort(([,a], [,b]) => b - a)
+    .sort(([, a], [, b]) => b - a)
     .slice(0, 10)
     .map(([artist]) => artist);
   categoryCounts.popular = validPaintings.filter(p => topArtists.includes(p.artist)).length;
-  
+
   // Landscape paintings
-  categoryCounts.landscape = validPaintings.filter(p => 
+  categoryCounts.landscape = validPaintings.filter(p =>
     toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('landscape'))
   ).length;
-  
+
   // Portraits
-  categoryCounts.portraits = validPaintings.filter(p => 
+  categoryCounts.portraits = validPaintings.filter(p =>
     toArray(p.artist_genre).concat(toArray(p.genre)).some(g => g && g.toLowerCase().includes('portrait'))
   ).length;
-  
+
   // Women painters
   categoryCounts.women_painters = validPaintings.filter(p => p.artist_gender === 'female').length;
-  
+
   // 19th century
   categoryCounts['1800s'] = validPaintings.filter(p => {
     const bio = artistBios.find(b => b.name === p.artist);
     return bio && bio.birth_year && 1800 <= parseInt(bio.birth_year) && parseInt(bio.birth_year) < 1900;
   }).length;
-  
+
   // 20th century
   categoryCounts['1900s'] = validPaintings.filter(p => {
     const bio = artistBios.find(b => b.name === p.artist);
     return bio && bio.birth_year && 1900 <= parseInt(bio.birth_year) && parseInt(bio.birth_year) < 2000;
   }).length;
-  
+
   // Impressionism
-  categoryCounts.impressionism = validPaintings.filter(p => 
+  categoryCounts.impressionism = validPaintings.filter(p =>
     toArray(p.artist_movement).concat(toArray(p.movement)).some(m => m && m.toLowerCase().includes('impressionism'))
   ).length;
-  
+
   // Expressionism
-  categoryCounts.expressionism = validPaintings.filter(p => 
+  categoryCounts.expressionism = validPaintings.filter(p =>
     toArray(p.artist_movement).concat(toArray(p.movement)).some(m => m && m.toLowerCase().includes('expressionism'))
   ).length;
-  
+
   // Norwegian Romantic
-  categoryCounts.romantic_nationalism = validPaintings.filter(p => 
-    toArray(p.artist_movement).concat(toArray(p.movement)).some(m => 
-      m && (m.toLowerCase().includes('nasjonalromantikk') || 
-             m.toLowerCase().includes('norwegian romantic nationalism') ||
-             m.toLowerCase().includes('romantic nationalism'))
+  categoryCounts.romantic_nationalism = validPaintings.filter(p =>
+    toArray(p.artist_movement).concat(toArray(p.movement)).some(m =>
+      m && (m.toLowerCase().includes('nasjonalromantikk') ||
+        m.toLowerCase().includes('norwegian romantic nationalism') ||
+        m.toLowerCase().includes('romantic nationalism'))
     )
   ).length;
-  
+
   // Count unique artists
   const uniqueArtists = new Set(validPaintings.map(p => p.artist));
-  
+
   // Generate content based on current language
   const content = {
     collection: {
       title: t('aboutCollection'),
-      text: currentLanguage === 'no' 
+      text: currentLanguage === 'no'
         ? `Kunstquiz inneholder ${categoryCounts.all.toLocaleString()} malerier fra ${uniqueArtists.size} norske kunstnere, noe som gjør det til en av de mest omfattende norske kunstquizene tilgjengelig. Vår samling spenner fra 1800-tallet til samtidsverk, og dekker ulike bevegelser og stiler.`
         : `Kunstquiz features ${categoryCounts.all.toLocaleString()} paintings from ${uniqueArtists.size} Norwegian artists, making it one of the most comprehensive Norwegian art quizzes available. Our collection spans from the 19th century to contemporary works, covering various movements and styles.`
     },
@@ -2958,7 +2963,7 @@ function generateAboutContent() {
       text: t('aboutTechnicalText')
     }
   };
-  
+
   return content;
 }
 
@@ -2966,12 +2971,12 @@ function showAboutModal() {
   const modal = document.getElementById('how-to-play-modal');
   const title = document.getElementById('how-to-play-title');
   const content = document.getElementById('how-to-play-content');
-  
+
   if (!modal) return;
-  
+
   // Update title
   title.textContent = t('aboutHowToPlay');
-  
+
   // Update content based on language
   if (currentLanguage === 'no') {
     content.innerHTML = `
@@ -3048,10 +3053,10 @@ function showAboutModal() {
       </div>
     `;
   }
-  
+
   modal.style.display = 'flex';
   modal.focus();
-  
+
   // Add click outside to close
   setTimeout(() => {
     function outsideClick(e) {
@@ -3075,45 +3080,45 @@ function hideAboutModal() {
 function renderHowToPlayPage() {
   const container = document.getElementById('how-to-play-page-content');
   if (!container) return;
-  
+
   // Generate content using the same filtering logic as categoryFilters
   const categoryCounts = {};
   const validPaintings = paintings.filter(p => p.artist && p.url);
-  
+
   // Calculate category counts using the same filters as categoryFilters
   categoryCounts.all = validPaintings.length;
-  
+
   // Popular painters (top 10) - use the same logic as categoryFilters.popular
   categoryCounts.popular = categoryFilters.popular(validPaintings).length;
-  
+
   // Landscape - use the same logic as categoryFilters.landscape
   categoryCounts.landscape = validPaintings.filter(categoryFilters.landscape).length;
-  
+
   // Realism - use the same logic as categoryFilters.realism
   categoryCounts.realism = validPaintings.filter(categoryFilters.realism).length;
-  
+
   // Expressionism - use the same logic as categoryFilters.expressionism
   categoryCounts.expressionism = validPaintings.filter(categoryFilters.expressionism).length;
-  
+
   // Impressionism - use the same logic as categoryFilters.impressionism
   categoryCounts.impressionism = validPaintings.filter(categoryFilters.impressionism).length;
-  
+
   // Romantic Nationalism - use the same logic as categoryFilters.romantic_nationalism
   categoryCounts.romantic_nationalism = validPaintings.filter(categoryFilters.romantic_nationalism).length;
-  
+
   // Female Artists - use the same logic as categoryFilters.female_artists
   categoryCounts.women_painters = validPaintings.filter(categoryFilters.female_artists).length;
-  
+
   // Update page title
   const title = document.getElementById('how-to-play-page-title');
   if (title) title.textContent = t('aboutHowToPlay');
-  
+
   // Update collection info
   const collectionInfo = document.getElementById('how-to-play-collection-info');
   if (collectionInfo) {
     updateCollectionInfoForElement(collectionInfo);
   }
-  
+
   // Make title clickable to go back to quiz
   const titleElement = document.querySelector('#how-to-play-page .page-header-left .title');
   if (titleElement) {
@@ -3122,7 +3127,7 @@ function renderHowToPlayPage() {
       window.location.hash = '';
     });
   }
-  
+
   // Generate content based on language
   if (currentLanguage === 'no') {
     container.innerHTML = `
@@ -3230,16 +3235,16 @@ function setupAboutModal() {
       window.location.hash = '';
     });
   }
-  
+
   // Keep modal functionality for backward compatibility (if needed)
   const modal = document.getElementById('how-to-play-modal');
   const closeBtn = document.getElementById('close-how-to-play-modal');
   if (closeBtn) {
     closeBtn.addEventListener('click', hideAboutModal);
   }
-  
+
   if (modal) {
-    modal.onclick = function(e) {
+    modal.onclick = function (e) {
       if (e.target === modal) {
         hideAboutModal();
       }
@@ -3253,28 +3258,28 @@ let savedScrollPosition = 0;
 function showPaintingViewer(painting, returnContext = null) {
   const modal = document.getElementById('painting-viewer-modal');
   const image = document.getElementById('painting-viewer-image');
-  
+
   if (!modal || !image) return;
-  
+
   // Save current scroll position
   savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-  
+
   // Store return context for when viewer is closed
   modal.dataset.returnContext = returnContext ? JSON.stringify(returnContext) : '';
-  
+
   // Use the painting URL that was passed to the function
   image.src = painting.url;
   image.style.display = 'block';
-  
+
   // Show modal with animation - use fixed positioning to avoid scroll issues
   modal.style.display = 'flex';
   modal.classList.add('visible');
-  
+
   // Initialize lucide icons for the close button
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
-  
+
   // Prevent body scroll and maintain position
   document.body.style.overflow = 'hidden';
   document.body.style.position = 'fixed';
@@ -3290,7 +3295,7 @@ function hidePaintingViewer() {
     if (returnContextStr) {
       try {
         const returnContext = JSON.parse(returnContextStr);
-        
+
         // If we have an artist popup to return to, make sure it's visible
         if (returnContext.artistPopup) {
           const artistPopup = document.querySelector('.artist-popup.toast.persistent');
@@ -3299,23 +3304,23 @@ function hidePaintingViewer() {
             artistPopup.classList.add('visible');
           }
         }
-        
+
         // Clear the return context
         modal.dataset.returnContext = '';
       } catch (e) {
         console.warn('Failed to parse return context:', e);
       }
     }
-    
+
     modal.classList.remove('visible');
     modal.style.display = 'none';
-    
+
     // Restore body scroll and position
     document.body.style.overflow = '';
     document.body.style.position = '';
     document.body.style.top = '';
     document.body.style.width = '';
-    
+
     // Restore scroll position
     window.scrollTo(0, savedScrollPosition);
   }
@@ -3324,44 +3329,44 @@ function hidePaintingViewer() {
 function setupPaintingViewer() {
   const modal = document.getElementById('painting-viewer-modal');
   const closeButton = document.getElementById('painting-viewer-close');
-  
+
   // Close button handler
   if (closeButton) {
-    closeButton.onclick = function(e) {
+    closeButton.onclick = function (e) {
       e.stopPropagation();
       hidePaintingViewer();
     };
   }
-  
+
   // Close on escape key
-  document.addEventListener('keydown', function(e) {
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && modal && modal.style.display === 'flex') {
       hidePaintingViewer();
     }
   });
-  
+
   // Close on background click (not on the image itself)
   if (modal) {
-    modal.onclick = function(e) {
+    modal.onclick = function (e) {
       // Only close if clicking the background, not the image or close button
       if (e.target === modal || e.target.classList.contains('painting-viewer-content')) {
         hidePaintingViewer();
       }
     };
   }
-  
+
   // Prevent closing when clicking the image itself
   const image = document.getElementById('painting-viewer-image');
   if (image) {
-    image.onclick = function(e) {
+    image.onclick = function (e) {
       e.stopPropagation();
     };
   }
-  
+
   // Make painting clickable in quiz
   const paintingElement = document.getElementById('painting');
   if (paintingElement) {
-    paintingElement.onclick = function() {
+    paintingElement.onclick = function () {
       // Get current painting data from the quiz state
       if (currentPainting) {
         showPaintingViewer(currentPainting);
@@ -3391,7 +3396,7 @@ function getRandomRoundFeedback(score) {
   else if (score >= 7 && score <= 8) category = '7-8/10';
   else if (score === 9) category = '9/10';
   else category = '10/10';
-  
+
   const messages = translations[currentLanguage].roundFeedback[category];
   const randomIndex = Math.floor(Math.random() * messages.length);
   return messages[randomIndex];
@@ -3404,7 +3409,7 @@ function setPlayAgainButtons(show, text, onClick) {
     document.getElementById('main-play-again-btn-painters'),
     document.getElementById('main-play-again-btn-gallery')
   ];
-  
+
   buttons.forEach(btn => {
     if (btn) {
       if (show) {
@@ -3426,30 +3431,30 @@ function showRoundResults() {
   const feedback = document.getElementById('round-results-feedback');
   const playAgainBtn = document.getElementById('round-results-play-again');
   const downloadBtn = document.getElementById('round-results-download');
-  
+
   if (!modal) return;
-  
+
   const totalCorrect = currentRound.correctAnswers;
   const uniqueArtists = [...currentRound.artists].sort();
-  
+
   // For perfect scores, go directly to diploma
   if (totalCorrect === 10) {
     trackPerfectScore();
     showDiploma();
     return;
   }
-  
+
   // Update content with proper translations
   title.textContent = t('roundStats.title');
   score.textContent = `${totalCorrect}/10`;
-  
+
   // Update labels
   const scoreLabel = document.querySelector('#round-results-modal .stat-label');
   if (scoreLabel) scoreLabel.textContent = t('roundStats.score') + ':';
-  
+
   const artistsLabel = document.querySelector('#round-results-artists .stat-label');
   if (artistsLabel) artistsLabel.textContent = t('roundStats.artists') + ':';
-  
+
   // Populate artists list
   artistsList.innerHTML = '';
   uniqueArtists.forEach(artist => {
@@ -3458,33 +3463,33 @@ function showRoundResults() {
     artistTag.textContent = artist;
     artistsList.appendChild(artistTag);
   });
-  
+
   feedback.textContent = getRandomRoundFeedback(totalCorrect);
   playAgainBtn.textContent = t('roundStats.playAgain');
-  
+
   // Show modal
   modal.style.display = 'flex';
   modal.focus();
-  
+
   // Setup event listeners
   playAgainBtn.onclick = () => {
     hideRoundResults();
     startNewRound();
   };
-  
+
   // Show main "Play Again" button on all pages
   setPlayAgainButtons(true, t('roundStats.playAgain'), () => {
     hideRoundResults();
     startNewRound();
   });
-  
+
   // No outside click to close - modal must be closed via buttons only
 }
 
 function hideRoundResults() {
   const modal = document.getElementById('round-results-modal');
   if (modal) modal.style.display = 'none';
-  
+
   // Hide main "Play Again" buttons on all pages
   setPlayAgainButtons(false);
 }
@@ -3504,9 +3509,9 @@ function showDiploma() {
   const downloadBtn = document.getElementById('diploma-download');
   const playAgainBtn = document.getElementById('diploma-play-again');
   const paintingBg = document.querySelector('.diploma-painting-bg');
-  
+
   if (!modal) return;
-  
+
   // Set dynamic background painting from current round
   let backgroundPainting = null;
   if (paintingBg && currentRound.artists.size > 0) {
@@ -3519,11 +3524,11 @@ function showDiploma() {
       paintingBg.style.backgroundPosition = 'center';
       paintingBg.style.backgroundRepeat = 'no-repeat';
       paintingBg.style.opacity = '0.15';
-      
+
       // Add artist attribution to the background
       paintingBg.setAttribute('data-artist', backgroundPainting.artist);
       paintingBg.setAttribute('title', `Background: ${backgroundPainting.artist}`);
-      
+
       // Set artist attribution text
       const artistAttribution = document.querySelector('.diploma-artist-attribution');
       if (artistAttribution) {
@@ -3532,7 +3537,7 @@ function showDiploma() {
           artistAttribution.classList.add('visible');
         }, 1000);
       }
-      
+
       // Make background clickable to show full painting
       const diplomaBackground = document.querySelector('.diploma-background');
       if (diplomaBackground && backgroundPainting) {
@@ -3547,39 +3552,39 @@ function showDiploma() {
       }
     }
   }
-  
+
   // Update content with translations
   title.textContent = t('diploma.title');
   subtitle.textContent = t('diploma.subtitle');
   achievement.textContent = t('diploma.achievement');
-  
+
   // Add category information to description
   const categoryNameForDesc = selectedCategory === 'all' ? t('fullCollection') : t(CATEGORY_DEFS.find(cat => cat.value === selectedCategory)?.label || 'fullCollection');
   const descriptionWithCategory = t('diploma.description') + (selectedCategory !== 'all' ? ` (${categoryNameForDesc})` : '');
   description.textContent = descriptionWithCategory;
-  
+
   awardedLabel.textContent = t('diploma.awardedTo') + ':';
   categoryLabel.textContent = t('diploma.category') + ':';
   dateLabel.textContent = t('diploma.date') + ':';
   downloadBtn.textContent = t('diploma.download');
   playAgainBtn.textContent = t('playAgain');
-  
+
   // Set awardee name (you could make this customizable)
   awardedValue.textContent = 'Art Enthusiast';
-  
+
   // Set category name
   const categoryName = selectedCategory === 'all' ? t('fullCollection') : t(CATEGORY_DEFS.find(cat => cat.value === selectedCategory)?.label || 'fullCollection');
   categoryValue.textContent = categoryName;
-  
+
   // Set current date
   const now = new Date();
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   dateValue.textContent = now.toLocaleDateString(currentLanguage === 'no' ? 'nb-NO' : 'en-US', options);
-  
+
   // Show modal
   modal.style.display = 'flex';
   modal.focus();
-  
+
   // Setup event listeners
   if (downloadBtn) {
     downloadBtn.onclick = downloadDiploma;
@@ -3587,7 +3592,7 @@ function showDiploma() {
   } else {
     console.error('Download button not found!');
   }
-  
+
   if (playAgainBtn) {
     playAgainBtn.onclick = () => {
       hideDiploma();
@@ -3597,20 +3602,20 @@ function showDiploma() {
   } else {
     console.error('Play Again button not found!');
   }
-  
+
   // Show main "Play Again" button on all pages
   setPlayAgainButtons(true, t('playAgain'), () => {
     hideDiploma();
     startNewRound();
   });
-  
+
   // No outside click to close - diploma must be closed via buttons only
 }
 
 function hideDiploma() {
   const modal = document.getElementById('diploma-modal');
   if (modal) modal.style.display = 'none';
-  
+
   // Hide main "Play Again" buttons on all pages
   setPlayAgainButtons(false);
 }
@@ -3618,7 +3623,7 @@ function hideDiploma() {
 function downloadDiploma() {
   const diplomaContent = document.querySelector('.diploma-content');
   if (!diplomaContent) return;
-  
+
   // Use html2canvas to capture just the diploma content (without buttons)
   if (typeof html2canvas !== 'undefined') {
     html2canvas(diplomaContent, {
@@ -3651,16 +3656,16 @@ function startNewRound() {
   };
   streak = 0;
   updateStreakBar();
-  
+
   // Hide main "Play Again" buttons on all pages
   setPlayAgainButtons(false);
-  
+
   // Track game start
   trackGameStart();
-  
+
   // Clear caches when starting new round
   clearCaches();
-  
+
   // Preload ALL 10 images before starting the quiz
   preloadAllRoundImages().then(() => {
     // All images loaded, now start the quiz
@@ -3674,16 +3679,16 @@ function clearCaches() {
   validPaintingsCacheCategory = null;
   artistBioMapCache = null;
   categoryCountsCache.clear();
-  
+
   // Clear performance caches (but keep image cache for preloaded images)
   memoryCache.clear();
   domCache.clear();
-  
+
   // Don't clear imageCache - we want to keep preloaded images
-  
+
   // Force memory cleanup
   cleanupMemory();
-  
+
   // Update performance metrics
   performanceMetrics.operations++;
 }
@@ -3691,18 +3696,18 @@ function clearCaches() {
 // Helper function to get artist portrait URL for a painting
 function getArtistPortraitUrl(painting) {
   if (!painting || !painting.artist) return null;
-  
+
   // First check if painting has artist_image directly
   if (painting.artist_image) {
     return painting.artist_image;
   }
-  
+
   // Otherwise check artistBios for self_portrait_url
   const bioInfo = getArtistBioInfo(painting.artist);
   if (bioInfo && bioInfo.self_portrait_url) {
     return bioInfo.self_portrait_url;
   }
-  
+
   return null;
 }
 
@@ -3711,15 +3716,15 @@ function preloadArtistPortrait(url) {
   if (!url || artistPortraitsPreloaded.has(url)) {
     return Promise.resolve();
   }
-  
+
   return new Promise((resolve) => {
     const timeout = setTimeout(() => {
       artistPortraitsPreloaded.add(url);
       resolve();
     }, 15000); // 15 second timeout for portraits
-    
+
     const img = new Image();
-    
+
     img.onload = async () => {
       clearTimeout(timeout);
       // Decode image for zero-flicker display
@@ -3731,14 +3736,14 @@ function preloadArtistPortrait(url) {
       artistPortraitsPreloaded.add(url);
       resolve();
     };
-    
+
     img.onerror = () => {
       clearTimeout(timeout);
       // Even if it fails, mark as attempted
       artistPortraitsPreloaded.add(url);
       resolve();
     };
-    
+
     img.src = url;
   });
 }
@@ -3756,14 +3761,14 @@ async function preloadAllRoundImages() {
       }, 100);
     });
   }
-  
+
   isPreloadingRound = true;
   const validPaintings = getValidPaintings();
   if (!validPaintings.length) {
     isPreloadingRound = false;
     return;
   }
-  
+
   // Show loading indicator
   const loadingIndicator = document.getElementById('loading-indicator');
   const loadingText = document.getElementById('loading-text');
@@ -3780,17 +3785,17 @@ async function preloadAllRoundImages() {
     img.classList.remove('loaded');
     img.style.opacity = '0';
   }
-  
+
   // Clear previous preload queue
   upcomingPaintingsPreloaded.clear();
   // Clear artist portraits - we'll preload new ones for this round
   artistPortraitsPreloaded.clear();
   upcomingPaintingsQueue = [];
-  
+
   // Generate exactly 10 upcoming paintings using weighted selection (for the queue)
   const paintingsToPreload = [];
   const usedUrls = new Set();
-  
+
   for (let i = 0; i < 10; i++) {
     let painting;
     for (let attempt = 0; attempt < 50; attempt++) {
@@ -3807,15 +3812,15 @@ async function preloadAllRoundImages() {
       break;
     }
   }
-  
+
   upcomingPaintingsQueue = paintingsToPreload;
-  
+
   // ✅ Strategy: Only eager-load paintings 1-3 and self-portraits 1-2
   const eagerLoadPaintings = paintingsToPreload.slice(0, 3); // First 3 paintings
   const eagerLoadPortraits = paintingsToPreload.slice(0, 2); // First 2 self-portraits
-  
+
   const totalEagerImages = eagerLoadPaintings.length + eagerLoadPortraits.length;
-  
+
   // If no paintings to preload, hide loading and exit
   if (eagerLoadPaintings.length === 0) {
     if (loadingIndicator) {
@@ -3824,19 +3829,19 @@ async function preloadAllRoundImages() {
     isPreloadingRound = false;
     return;
   }
-  
+
   let loadedCount = 0;
-  
+
   // Update loading text function - we don't update the animated text, just let it run
   const updateLoadingText = () => {
     // The animated loading message continues independently
     // We could optionally show progress, but keeping it clean with just the messages
   };
-  
+
   // Preload only first 3 quiz painting images (eager load)
   const preloadPromises = eagerLoadPaintings.map((painting) => {
     if (!painting || !painting.url) return Promise.resolve();
-    
+
     return new Promise((resolve) => {
       // Add timeout to prevent hanging forever
       const timeout = setTimeout(() => {
@@ -3846,10 +3851,10 @@ async function preloadAllRoundImages() {
         updateLoadingText();
         resolve();
       }, 30000);
-      
+
       const optimizedUrl = optimizeImageUrl(painting.url);
       const img = new Image();
-      
+
       img.onload = async () => {
         clearTimeout(timeout);
         // Decode image for zero-flicker display
@@ -3865,7 +3870,7 @@ async function preloadAllRoundImages() {
         updateLoadingText();
         resolve();
       };
-      
+
       img.onerror = () => {
         clearTimeout(timeout);
         // Try original URL as fallback
@@ -3877,7 +3882,7 @@ async function preloadAllRoundImages() {
           updateLoadingText();
           resolve();
         }, 20000);
-        
+
         fallbackImg.onload = async () => {
           clearTimeout(fallbackTimeout);
           try {
@@ -3901,11 +3906,11 @@ async function preloadAllRoundImages() {
         };
         fallbackImg.src = painting.url;
       };
-      
+
       img.src = optimizedUrl;
     });
   });
-  
+
   // Preload only first 2 artist portrait images (eager load)
   const artistPortraitPromises = eagerLoadPortraits.map((painting) => {
     const portraitUrl = getArtistPortraitUrl(painting);
@@ -3914,7 +3919,7 @@ async function preloadAllRoundImages() {
     }
     return Promise.resolve();
   });
-  
+
   // Wait for eager-loaded images with error handling
   try {
     await Promise.all(preloadPromises);
@@ -3945,11 +3950,11 @@ function preloadQuizImage(url) {
     upcomingPaintingsPreloaded.add(url);
     return Promise.resolve();
   }
-  
+
   return new Promise((resolve) => {
     const optimizedUrl = optimizeImageUrl(url);
     const img = new Image();
-    
+
     img.onload = async () => {
       // Decode image for zero-flicker display
       try {
@@ -3962,7 +3967,7 @@ function preloadQuizImage(url) {
       imageCache.set(url, img);
       resolve(img);
     };
-    
+
     img.onerror = () => {
       // Try original URL as fallback
       const fallbackImg = new Image();
@@ -3983,7 +3988,7 @@ function preloadQuizImage(url) {
       };
       fallbackImg.src = url;
     };
-    
+
     img.src = optimizedUrl;
   });
 }
@@ -3994,9 +3999,9 @@ function predictivePreload(currentQuestionIndex) {
   if (!upcomingPaintingsQueue || upcomingPaintingsQueue.length === 0) {
     return;
   }
-  
+
   const currentIndex = currentQuestionIndex - 1; // Convert to 0-based index
-  
+
   // ✅ Micro-optimization: Ensure painting i+1 is loaded when showing painting i
   if (currentIndex + 1 < upcomingPaintingsQueue.length) {
     const nextPainting = upcomingPaintingsQueue[currentIndex + 1];
@@ -4007,7 +4012,7 @@ function predictivePreload(currentQuestionIndex) {
       });
     }
   }
-  
+
   // ✅ Predictive: Preload painting i+2 (two ahead)
   if (currentIndex + 2 < upcomingPaintingsQueue.length) {
     const futurePainting = upcomingPaintingsQueue[currentIndex + 2];
@@ -4018,7 +4023,7 @@ function predictivePreload(currentQuestionIndex) {
       });
     }
   }
-  
+
   // ✅ Predictive: Preload self-portrait i+1 (next possible penalty image)
   if (currentIndex + 1 < upcomingPaintingsQueue.length) {
     const nextPainting = upcomingPaintingsQueue[currentIndex + 1];
@@ -4067,7 +4072,7 @@ function preloadNextImages(validPaintings) {
       }
     }
   };
-  
+
   // Stagger preloading to prevent blocking
   for (let i = 0; i < preloadCount; i++) {
     const index = (startIndex + i) % validPaintings.length;
@@ -4081,7 +4086,7 @@ function updatePageMeta() {
   if (htmlElement) {
     htmlElement.lang = currentLanguage === 'no' ? 'no' : 'en';
   }
-  
+
   // Update page title
   if (currentLanguage === 'no') {
     document.title = 'Kunstquiz - Norsk Kunstutfordring';
@@ -4101,7 +4106,7 @@ function updatePageMeta() {
 function updateLanguageFlag() {
   // Update all language toggle icons on all pages
   const languageToggleIds = ['language-toggle', 'language-toggle-painters', 'language-toggle-gallery', 'language-toggle-how-to-play'];
-  
+
   languageToggleIds.forEach(id => {
     const languageToggle = document.getElementById(id);
     if (languageToggle) {
@@ -4109,7 +4114,7 @@ function updateLanguageFlag() {
       while (languageToggle.firstChild) {
         languageToggle.removeChild(languageToggle.firstChild);
       }
-      
+
       // Create new icon based on current language
       const icon = document.createElement('i');
       // English = book-a, Norwegian = book-type
@@ -4118,7 +4123,7 @@ function updateLanguageFlag() {
       languageToggle.appendChild(icon);
     }
   });
-  
+
   // Initialize Lucide icons once after all updates
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
@@ -4129,10 +4134,10 @@ function updateFooterLinks() {
   // Update footer link texts
   const artistsLink = document.getElementById('show-artists-link');
   if (artistsLink) artistsLink.textContent = t('painters'); // Changed from 'artists' to 'painters'
-  
+
   const galleryLink = document.getElementById('show-gallery-link');
   if (galleryLink) galleryLink.textContent = t('gallery');
-  
+
   const aboutLink = document.getElementById('show-how-to-play-link');
   if (aboutLink) aboutLink.textContent = t('aboutHowToPlay');
 
@@ -4149,33 +4154,20 @@ function updateCategorySelector() {
 
 // Image optimization functions
 function optimizeImageUrl(url, targetWidth = 800) {
-  if (!url || !url.includes('wikimedia.org')) return url;
-  
-  // Wikimedia Commons optimization patterns
-  const optimizations = [
-    // Try WebP first (best compression)
-    url.replace(/\.(jpg|jpeg|png)$/i, '.webp'),
-    // Try smaller thumbnail versions
-    url.replace(/\/commons\//, '/commons/thumb/').replace(/\.(jpg|jpeg|png|webp)$/i, `/${targetWidth}px-$1`),
-    // Try medium size
-    url.replace(/\/commons\//, '/commons/thumb/').replace(/\.(jpg|jpeg|png|webp)$/i, '/600px-$1'),
-    // Try small size
-    url.replace(/\/commons\//, '/commons/thumb/').replace(/\.(jpg|jpeg|png|webp)$/i, '/400px-$1')
-  ];
-  
-  return optimizations[0]; // Return WebP version
+  if (!url) return '';
+  return url; // Return original URL - webp causes 404s
 }
 
 function getResponsiveImageUrl(url, containerWidth = 800) {
   if (!url || !url.includes('wikimedia.org')) return url;
-  
+
   // Calculate optimal size based on container
   let targetWidth = 800;
   if (containerWidth <= 400) targetWidth = 400;
   else if (containerWidth <= 600) targetWidth = 600;
   else if (containerWidth <= 800) targetWidth = 800;
   else targetWidth = 1200;
-  
+
   return optimizeImageUrl(url, targetWidth);
 }
 
@@ -4183,13 +4175,13 @@ function getResponsiveImageUrl(url, containerWidth = 800) {
 function loadImageProgressive(imgElement, url, fallbackUrl = null) {
   return new Promise((resolve, reject) => {
     const img = new Image();
-    
+
     img.onload = () => {
       imgElement.src = img.src;
       imgElement.classList.add('loaded');
       resolve(img);
     };
-    
+
     img.onerror = () => {
       if (fallbackUrl && fallbackUrl !== url) {
         // Try fallback URL
@@ -4201,7 +4193,7 @@ function loadImageProgressive(imgElement, url, fallbackUrl = null) {
         resolve(img);
       }
     };
-    
+
     // Start with optimized URL
     img.src = optimizeImageUrl(url);
   });
@@ -4217,14 +4209,14 @@ function setupLazyLoading() {
     });
     return;
   }
-  
+
   const imageObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const img = entry.target;
         const url = img.dataset.src;
         const fallbackUrl = img.dataset.fallback;
-        
+
         if (url) {
           loadImageProgressive(img, url, fallbackUrl).then(() => {
             img.removeAttribute('data-src');
@@ -4238,7 +4230,7 @@ function setupLazyLoading() {
     rootMargin: '50px 0px', // Start loading 50px before image enters viewport
     threshold: 0.01
   });
-  
+
   // Observe all lazy images
   document.querySelectorAll('img[data-src]').forEach(img => {
     imageObserver.observe(img);
@@ -4259,7 +4251,7 @@ function preloadOptimizedImage(url) {
 function preloadInitialImages() {
   const validPaintings = getValidPaintings();
   if (!validPaintings.length) return;
-  
+
   // Preload first 2-3 random images at initialization
   const initialPreload = [];
   for (let i = 0; i < 3 && initialPreload.length < 3; i++) {
@@ -4268,7 +4260,7 @@ function preloadInitialImages() {
       initialPreload.push(painting);
     }
   }
-  
+
   // Start preloading after a short delay to not block initial page load
   setTimeout(() => {
     initialPreload.forEach((painting, index) => {
@@ -4288,7 +4280,7 @@ function applyTheme(theme) {
   const html = document.documentElement;
   // Update all theme icons on all pages
   const themeIcons = document.querySelectorAll('#theme-toggle .theme-icon, #theme-toggle-painters .theme-icon, #theme-toggle-gallery .theme-icon, #theme-toggle-how-to-play .theme-icon');
-  
+
   if (theme === 'dark') {
     html.classList.add('dark-theme');
     html.classList.remove('light-theme');
@@ -4306,12 +4298,12 @@ function applyTheme(theme) {
       }
     });
   }
-  
+
   // Reinitialize Lucide icons after theme change
   if (typeof lucide !== 'undefined') {
     lucide.createIcons();
   }
-  
+
   localStorage.setItem('theme', theme);
   currentTheme = theme;
 }
@@ -4348,7 +4340,7 @@ function showPage(pageId) {
   if (paintingViewerModal && paintingViewerModal.style.display === 'flex') {
     hidePaintingViewer();
   }
-  
+
   // Remove any existing load more buttons when switching pages
   const existingGalleryBtn = document.querySelector('.gallery-load-more-btn');
   if (existingGalleryBtn) {
@@ -4358,12 +4350,12 @@ function showPage(pageId) {
   if (existingArtistBtn) {
     existingArtistBtn.remove();
   }
-  
+
   // Hide all pages
   document.querySelectorAll('.page').forEach(page => {
     page.style.display = 'none';
   });
-  
+
   // Show the requested page
   const page = document.getElementById(pageId);
   if (page) {
@@ -4386,7 +4378,7 @@ function showPage(pageId) {
     applyTheme(currentTheme);
     // Update language icons to match current language
     updateLanguageFlag();
-    
+
     // If showing gallery page, ensure gallery is rendered and button is created
     // Note: renderGalleryPage() will be called by handleHashChange() after showPage()
     // So we just need to ensure visibility is checked after a delay
@@ -4410,7 +4402,7 @@ function showPage(pageId) {
 
 function handleHashChange() {
   const hash = window.location.hash.slice(1); // Remove the #
-  
+
   if (hash === 'painters') {
     showPage('painters-page');
     renderPaintersPage();
@@ -4429,13 +4421,13 @@ function handleHashChange() {
 function renderPaintersPage() {
   const container = document.getElementById('painters-list-columns');
   if (!container) return;
-  
+
   // Check if paintings data is available
   if (!paintings || paintings.length === 0) {
     container.innerHTML = '<p style="color: #666; padding: 2rem; text-align: center;">Loading painters...</p>';
     return;
   }
-  
+
   const artistSet = new Set(paintings.map(p => p.artist).filter(Boolean));
   const artists = [...artistSet].sort((a, b) => a.localeCompare(b));
   const numCols = 3;
@@ -4444,7 +4436,7 @@ function renderPaintersPage() {
   for (let i = 0; i < numCols; i++) {
     columns.push(artists.slice(i * perCol, (i + 1) * perCol));
   }
-  
+
   container.innerHTML = '';
   columns.forEach(col => {
     const div = document.createElement('div');
@@ -4454,19 +4446,19 @@ function renderPaintersPage() {
       const li = document.createElement('li');
       const numPaintings = paintings.filter(p => p.artist === name).length;
       li.innerHTML = `<span class="clickable-artist-name">${name}</span> (${numPaintings})`;
-      
+
       const artistNameSpan = li.querySelector('.clickable-artist-name');
       artistNameSpan.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleArtistGallery(name);
       });
-      
+
       ul.appendChild(li);
     });
     div.appendChild(ul);
     container.appendChild(div);
   });
-  
+
   // Create single gallery container below all names (inside painters-content)
   const paintersContent = document.getElementById('painters-content');
   if (paintersContent) {
@@ -4475,7 +4467,7 @@ function renderPaintersPage() {
     if (existingGallery) {
       existingGallery.remove();
     }
-    
+
     // Create new gallery container
     const galleryContainer = document.createElement('div');
     galleryContainer.className = 'artist-inline-gallery';
@@ -4483,17 +4475,17 @@ function renderPaintersPage() {
     galleryContainer.id = 'painters-gallery-container';
     paintersContent.appendChild(galleryContainer);
   }
-  
+
   // Update page title
   const title = document.getElementById('painters-page-title');
   if (title) title.textContent = t('painters');
-  
+
   // Update collection info
   const collectionInfo = document.getElementById('painters-collection-info');
   if (collectionInfo) {
     updateCollectionInfoForElement(collectionInfo);
   }
-  
+
   // Make title clickable to go back to quiz
   const titleElement = document.querySelector('#painters-page .page-header-left .title');
   if (titleElement) {
@@ -4502,7 +4494,7 @@ function renderPaintersPage() {
       window.location.hash = '';
     });
   }
-  
+
   // Add scroll listener to painters page for load more button visibility
   const paintersPage = document.getElementById('painters-page');
   if (paintersPage) {
@@ -4522,23 +4514,23 @@ function renderPaintersPage() {
 function toggleArtistGallery(artistName) {
   const container = document.getElementById('painters-gallery-container');
   if (!container) return;
-  
+
   // If clicking the same artist, toggle off
   const currentArtist = container.dataset.artist;
   if (currentArtist === artistName && container.style.display !== 'none') {
     container.style.display = 'none';
     return;
   }
-  
+
   // Show gallery and load if needed
   container.style.display = 'block';
   container.dataset.artist = artistName;
-  
+
   // Load gallery if not already loaded for this artist
   if (!container.dataset.loaded || container.dataset.loadedArtist !== artistName) {
     renderArtistInlineGallery(artistName, container);
   }
-  
+
   // Scroll to gallery
   setTimeout(() => {
     container.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -4546,35 +4538,35 @@ function toggleArtistGallery(artistName) {
 }
 
 function renderArtistInlineGallery(artistName, container) {
-  const artistPaintings = paintings.filter(p => 
-    p.artist === artistName && 
-    p.url && 
+  const artistPaintings = paintings.filter(p =>
+    p.artist === artistName &&
+    p.url &&
     typeof p.url === 'string' &&
-    (p.url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) || 
-     p.url.includes('wikimedia.org') || 
-     p.url.includes('upload.wikimedia.org'))
+    (p.url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) ||
+      p.url.includes('wikimedia.org') ||
+      p.url.includes('upload.wikimedia.org'))
   );
-  
+
   if (artistPaintings.length === 0) {
     container.innerHTML = '<p style="color: #666; padding: 1rem;">No paintings available.</p>';
     container.dataset.loaded = 'true';
     return;
   }
-  
+
   // Clear container first
   container.innerHTML = '';
-  
+
   // Create grid
   const grid = document.createElement('div');
   grid.className = 'artist-inline-gallery-grid';
-  
+
   // Append grid to container first
   container.appendChild(grid);
-  
+
   // Store paintings and loaded count in container dataset
   container.dataset.totalPaintings = artistPaintings.length;
   let loadedCount = 0;
-  
+
   const loadMore = (count = 9) => {
     const nextBatch = artistPaintings.slice(loadedCount, loadedCount + count);
     nextBatch.forEach(painting => {
@@ -4585,7 +4577,7 @@ function renderArtistInlineGallery(artistName, container) {
     });
     loadedCount += nextBatch.length;
     container.dataset.loadedCount = loadedCount;
-    
+
     // Use requestAnimationFrame to ensure DOM is updated before adding button
     requestAnimationFrame(() => {
       // Remove existing button from anywhere (body or container)
@@ -4593,19 +4585,19 @@ function renderArtistInlineGallery(artistName, container) {
       if (existingBtn) {
         existingBtn.remove();
       }
-      
+
       if (loadedCount < artistPaintings.length) {
         const loadMoreBtn = document.createElement('button');
         loadMoreBtn.className = 'artist-inline-load-more-btn hidden';
         loadMoreBtn.setAttribute('aria-label', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
         loadMoreBtn.setAttribute('title', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
-        
+
         // Create icon using Lucide (plus icon) - same style as X button
         const iconElement = document.createElement('i');
         iconElement.setAttribute('data-lucide', 'plus');
         iconElement.classList.add('icon');
         loadMoreBtn.appendChild(iconElement);
-        
+
         loadMoreBtn.addEventListener('click', () => {
           loadMore(9);
         });
@@ -4620,12 +4612,12 @@ function renderArtistInlineGallery(artistName, container) {
       }
     });
   };
-  
+
   // Load initial 9 images
   loadMore(9);
   container.dataset.loaded = 'true';
   container.dataset.loadedArtist = artistName;
-  
+
   // Add scroll listener to painters page for load more button visibility (for artist galleries)
   const paintersPage = document.getElementById('painters-page');
   if (paintersPage) {
@@ -4642,10 +4634,7 @@ function renderArtistInlineGallery(artistName, container) {
   }
 }
 
-// Gallery page state
-let galleryPagePaintings = [];
-let galleryPageLoadedCount = 0;
-let galleryPageGrid = null;
+// Gallery page state - AT TOP
 
 function renderGalleryPage() {
   const container = document.getElementById('gallery-page-collage');
@@ -4653,50 +4642,50 @@ function renderGalleryPage() {
     console.error('Gallery page container not found');
     return;
   }
-  
+
   // Check if paintings data is available
   if (!paintings || paintings.length === 0) {
     container.innerHTML = '<p style="color: #666; padding: 2rem; text-align: center;">Loading paintings...</p>';
     return;
   }
-  
+
   // Clear container and reset state
   container.innerHTML = '';
   galleryPageLoadedCount = 0;
   galleryPageGrid = null;
-  
+
   // Shuffle paintings for gallery
   galleryPagePaintings = [...paintings];
   shuffleArray(galleryPagePaintings);
-  
+
   // Filter out invalid paintings
   galleryPagePaintings = galleryPagePaintings.filter(p =>
-    p && p.url && typeof p.url === 'string' && 
-    (p.url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) || 
-     p.url.includes('wikimedia.org') || 
-     p.url.includes('upload.wikimedia.org'))
+    p && p.url && typeof p.url === 'string' &&
+    (p.url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) ||
+      p.url.includes('wikimedia.org') ||
+      p.url.includes('upload.wikimedia.org'))
   );
-  
+
   if (galleryPagePaintings.length === 0) {
     container.innerHTML = '<p style="color: #666; padding: 2rem; text-align: center;">No paintings available.</p>';
     return;
   }
-  
+
   // Create grid container
   galleryPageGrid = document.createElement('div');
   galleryPageGrid.className = 'gallery-collage-grid';
   container.appendChild(galleryPageGrid);
-  
+
   // Update page title
   const title = document.getElementById('gallery-page-title');
   if (title) title.textContent = t('gallery');
-  
+
   // Update collection info
   const collectionInfo = document.getElementById('gallery-collection-info');
   if (collectionInfo) {
     updateCollectionInfoForElement(collectionInfo);
   }
-  
+
   // Make title clickable to go back to quiz
   const titleElement = document.querySelector('#gallery-page .page-header-left .title');
   if (titleElement) {
@@ -4705,10 +4694,10 @@ function renderGalleryPage() {
       window.location.hash = '';
     });
   }
-  
+
   // Create load more button first (will be shown after first batch loads)
   updateLoadMoreButton();
-  
+
   // Load initial 9 images immediately - this will show loading text and then display images
   // Call directly since grid is already in DOM
   loadMoreGalleryImages(9).then(() => {
@@ -4725,7 +4714,7 @@ function renderGalleryPage() {
     console.error('Error loading initial gallery images:', err);
     updateLoadMoreButton();
   });
-  
+
   // Add scroll listener to gallery page for load more button visibility
   const galleryPage = document.getElementById('gallery-page');
   if (galleryPage) {
@@ -4760,34 +4749,42 @@ async function loadMoreGalleryImages(count = 9) {
       return;
     }
   }
-  
+
   if (galleryPageLoadedCount >= galleryPagePaintings.length) {
     updateLoadMoreButton();
     return;
   }
-  
+
   // Get the next batch of paintings (they're already filtered in renderGalleryPage)
   const nextBatch = galleryPagePaintings.slice(galleryPageLoadedCount, galleryPageLoadedCount + count);
-  
+
   if (nextBatch.length === 0) {
     // No more paintings, update button and return
     updateLoadMoreButton();
     return;
   }
-  
-  // Create loading indicator
+
+  // Create loading indicator with animated text
+  // Create loading indicator - static message to avoid lag
   const loadingIndicator = document.createElement('div');
   loadingIndicator.className = 'gallery-loading-indicator';
-  loadingIndicator.textContent = currentLanguage === 'no' ? 'Laster bilder...' : 'Loading images...';
+
+  // Pick a random funny message (static, no animation to avoid lag)
+  const randomMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
+  loadingIndicator.textContent = randomMessage[currentLanguage];
+
   loadingIndicator.style.textAlign = 'center';
   loadingIndicator.style.padding = '2rem';
   loadingIndicator.style.color = '#666';
   loadingIndicator.style.fontSize = '1rem';
+  loadingIndicator.style.gridColumn = '1 / -1'; // Span all columns
+  loadingIndicator.style.order = '9999'; // Always at bottom
+
   galleryPageGrid.appendChild(loadingIndicator);
-  
+
   // Create all image elements but keep them hidden
   const imageElements = [];
-  
+
   nextBatch.forEach((painting, index) => {
     if (!painting || !painting.url) {
       console.warn(`Skipping invalid painting at index ${galleryPageLoadedCount + index}:`, painting);
@@ -4797,13 +4794,13 @@ async function loadMoreGalleryImages(count = 9) {
     if (img) {
       // Mark as batch loading to prevent auto-show and auto-remove
       img.dataset.batchLoading = 'true';
-      
+
       // Store original handlers
       const originalOnError = img.onerror;
       const originalOnLoad = img.onload;
-      
+
       // Override error handler to not remove during batch loading
-      img.onerror = function(e) {
+      img.onerror = function (e) {
         // Don't remove during batch loading, just mark as failed
         if (this.dataset.batchLoading === 'true') {
           this.dataset.loadFailed = 'true';
@@ -4816,9 +4813,9 @@ async function loadMoreGalleryImages(count = 9) {
           originalOnError.call(this, e);
         }
       };
-      
+
       // Override the onload handler to prevent auto-showing
-      img.onload = function() {
+      img.onload = function () {
         // Don't auto-show during batch loading
         if (this.dataset.batchLoading === 'true') {
           return;
@@ -4828,7 +4825,7 @@ async function loadMoreGalleryImages(count = 9) {
           originalOnLoad.call(this);
         }
       };
-      
+
       // Ensure image stays hidden
       img.style.display = 'none';
       img.style.visibility = 'hidden';
@@ -4837,7 +4834,7 @@ async function loadMoreGalleryImages(count = 9) {
       imageElements.push(img);
     }
   });
-  
+
   // If we didn't create any images, something is wrong
   if (imageElements.length === 0) {
     loadingIndicator.remove();
@@ -4852,7 +4849,7 @@ async function loadMoreGalleryImages(count = 9) {
     updateLoadMoreButton();
     return;
   }
-  
+
   // Wait for all images to load (or fail) with timeout
   const loadPromises = imageElements.map(img => {
     return new Promise((resolve) => {
@@ -4862,7 +4859,7 @@ async function loadMoreGalleryImages(count = 9) {
           resolve({ img, success: true });
           return;
         }
-        
+
         // Set timeout to prevent hanging
         const timeout = setTimeout(() => {
           img.removeEventListener('load', onLoad);
@@ -4870,7 +4867,7 @@ async function loadMoreGalleryImages(count = 9) {
           img.removeEventListener('batch-error', onBatchError);
           resolve({ img, success: false });
         }, 15000); // 15 second timeout
-        
+
         // Wait for load or error
         const onLoad = () => {
           clearTimeout(timeout);
@@ -4896,18 +4893,18 @@ async function loadMoreGalleryImages(count = 9) {
       });
     });
   });
-  
+
   const results = await Promise.all(loadPromises);
-  
+
   // Remove loading indicator
   loadingIndicator.remove();
-  
+
   // Show all successfully loaded images at once
   let successCount = 0;
   results.forEach(({ img, success }) => {
     // Remove batch loading flag
     delete img.dataset.batchLoading;
-    
+
     if (success && img.complete && img.naturalWidth > 0 && img.src && !img.dataset.loadFailed) {
       // Successfully loaded - show it
       img.style.display = 'block';
@@ -4925,11 +4922,11 @@ async function loadMoreGalleryImages(count = 9) {
       }
     }
   });
-  
+
   // Only increment count by the number of paintings we attempted to load
   // This ensures we don't skip paintings
   galleryPageLoadedCount += nextBatch.length;
-  
+
   // Use requestAnimationFrame to ensure DOM is updated before updating button
   requestAnimationFrame(() => {
     // Update load more button (recreate if needed)
@@ -4957,11 +4954,11 @@ function updateLoadMoreButtonVisibility() {
   // Get the active scrolling container (subpage or window)
   const paintersPage = document.getElementById('painters-page');
   const galleryPage = document.getElementById('gallery-page');
-  
+
   let currentScroll = 0;
   let scrollKey = 'window';
   let scrollContainer = null;
-  
+
   // Check which page is active and get its scroll position
   if (paintersPage && paintersPage.style.display !== 'none') {
     currentScroll = paintersPage.scrollTop;
@@ -4976,10 +4973,10 @@ function updateLoadMoreButtonVisibility() {
     currentScroll = window.pageYOffset || document.documentElement.scrollTop;
     scrollKey = 'window';
   }
-  
+
   const galleryBtn = document.querySelector('.gallery-load-more-btn');
   const artistBtn = document.querySelector('.artist-inline-load-more-btn');
-  
+
   // For gallery page: show button if there are more images to load
   if (galleryPage && galleryPage.style.display !== 'none' && galleryBtn) {
     // Check if there are more images to load
@@ -4993,14 +4990,14 @@ function updateLoadMoreButtonVisibility() {
       galleryBtn.classList.remove('visible');
     }
   }
-  
+
   // For painters page: show artist button when scrolled down
   if (paintersPage && paintersPage.style.display !== 'none') {
     const scrollHeight = paintersPage.scrollHeight;
     const clientHeight = paintersPage.clientHeight;
     const isNearBottom = (scrollHeight - currentScroll - clientHeight) < 300;
     const hasScrolledDown = currentScroll > 200;
-    
+
     if (artistBtn) {
       if (hasScrolledDown || isNearBottom) {
         artistBtn.classList.add('visible');
@@ -5011,7 +5008,7 @@ function updateLoadMoreButtonVisibility() {
       }
     }
   }
-  
+
   lastScroll[scrollKey] = currentScroll;
 }
 
@@ -5021,7 +5018,7 @@ function updateLoadMoreButton() {
   if (existingBtn) {
     existingBtn.remove();
   }
-  
+
   // Add button if there are more images to load
   if (galleryPageLoadedCount < galleryPagePaintings.length) {
     const loadMoreBtn = document.createElement('button');
@@ -5032,13 +5029,13 @@ function updateLoadMoreButton() {
     loadMoreBtn.className = isGalleryVisible ? 'gallery-load-more-btn visible' : 'gallery-load-more-btn hidden';
     loadMoreBtn.setAttribute('aria-label', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
     loadMoreBtn.setAttribute('title', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
-    
+
     // Create icon using Lucide (plus icon) - same style as X button
     const iconElement = document.createElement('i');
     iconElement.setAttribute('data-lucide', 'plus');
     iconElement.classList.add('icon');
     loadMoreBtn.appendChild(iconElement);
-    
+
     loadMoreBtn.addEventListener('click', () => {
       loadMoreGalleryImages(9);
     });
@@ -5062,35 +5059,35 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Setup theme toggle
     setupThemeToggle();
-    
+
     // Setup hash routing
     window.addEventListener('hashchange', handleHashChange);
     handleHashChange(); // Handle initial hash
-    
+
     // Start performance monitoring
     performanceMetrics.startTime = Date.now();
 
     // Start memory cleanup
     startMemoryCleanup();
-    
-            const res = await fetch('./data/paintings.json');
+
+    const res = await fetch('./data/paintings.json');
     if (!res.ok) throw new Error('Failed to load paintings');
     paintings = await res.json();
     await loadArtistBios();
-    
+
     // Load saved language preference first (before updating UI)
     const savedLanguage = localStorage.getItem('language');
     if (savedLanguage && (savedLanguage === 'en' || savedLanguage === 'no')) {
       currentLanguage = savedLanguage;
     }
-    
+
     // Initialize all systems with performance optimizations
     initializeArtistWeights();
     updateCategoryDropdown();
     updateCollectionInfo();
     updateLanguageUI();
     setupLanguageToggle();
-    
+
     // If gallery page is currently visible, re-render it now that paintings are loaded
     const galleryPage = document.getElementById('gallery-page');
     if (galleryPage && galleryPage.style.display !== 'none') {
@@ -5098,26 +5095,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     // Preload first 2-3 images at initialization
     preloadInitialImages();
-    
+
     startNewRound(); // Start with a new round
     setupArtistModal();
     setupGalleryModal();
     setupAboutModal();
     setupPaintingViewer();
-    
+
     // Start background preloading of gallery images
     startGalleryBackgroundPreload();
-    
+
     // Re-handle hash after data is loaded (in case user navigated before data loaded)
     handleHashChange();
     setupLogoReset();
     setupCategoryChangeInfoBar();
-    
+
     // Ensure category selector is properly rendered
     console.log('Rendering category selector...');
     renderCategorySelector();
     console.log('Category selector rendered');
-    
+
     // Test category selector
     setTimeout(() => {
       const customLink = document.getElementById('custom-category-link');
@@ -5129,7 +5126,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         selectorDivChildren: selectorDiv?.children?.length
       });
     }, 1000);
-    
+
     const resetBtn = document.getElementById('reset-btn');
     if (resetBtn) resetBtn.addEventListener('click', () => {
       streak = 0;
@@ -5137,7 +5134,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       hideCongratsModal();
       startNewRound();
     });
-    
+
     // Add Esc key to close modals
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') {
@@ -5148,7 +5145,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         document.getElementById('artists-modal').style.display = 'none';
       }
     });
-    
+
     // Add throttled scroll and resize handlers for performance
     window.addEventListener('scroll', throttle(() => {
       // Handle any scroll-based updates here
@@ -5156,14 +5153,14 @@ document.addEventListener('DOMContentLoaded', async () => {
       // Update load more button visibility
       updateLoadMoreButtonVisibility();
     }, PERFORMANCE_CONFIG.ANIMATION_THROTTLE));
-    
+
     window.addEventListener('resize', debounce(() => {
       // Handle any resize-based updates here
       performanceMetrics.operations++;
       // Update load more button visibility on resize
       updateLoadMoreButtonVisibility();
     }, 250));
-    
+
     // Add visibility change handler to pause operations when tab is not visible
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) {

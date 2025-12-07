@@ -1,33 +1,36 @@
 <!DOCTYPE html>
 <html lang="en" id="html-element">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
   <meta name="theme-color" content="#4caf50">
   <title>Kunstquiz - Norwegian Art Challenge</title>
-  
-         <!-- Google Analytics 4 -->
-       <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCCEEJ1H4H"></script>
-       <script>
-         window.dataLayer = window.dataLayer || [];
-         function gtag(){dataLayer.push(arguments);}
-         gtag('js', new Date());
-         gtag('config', 'G-WCCEEJ1H4H', {
-           page_title: 'Kunstquiz - Norwegian Art Challenge',
-           custom_map: {
-             'custom_parameter_1': 'game_events',
-             'custom_parameter_2': 'quiz_metrics'
-           }
-         });
-       </script>
-  
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCCEEJ1H4H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-WCCEEJ1H4H', {
+      page_title: 'Kunstquiz - Norwegian Art Challenge',
+      custom_map: {
+        'custom_parameter_1': 'game_events',
+        'custom_parameter_2': 'quiz_metrics'
+      }
+    });
+  </script>
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="logo.svg">
   <link rel="icon" type="image/png" href="favicon.png">
   <link rel="shortcut icon" href="favicon.ico">
-  
+
   <link rel="stylesheet" href="assets/css/style.css">
-  <meta name="description" content="A fun quiz where you guess the artist behind famous Norwegian paintings. Test your knowledge of Norwegian art history!">
+  <meta name="description"
+    content="A fun quiz where you guess the artist behind famous Norwegian paintings. Test your knowledge of Norwegian art history!">
   <!-- Preconnect to external domains for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,11 +38,15 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="preconnect" href="https://unpkg.com">
   <!-- Font loading optimization -->
-  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
-  <noscript><link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet"></noscript>
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet" media="print"
+    onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
+  </noscript>
   <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
+
 <body>
   <!-- Quiz Page (default) -->
   <div id="quiz-page" class="page">
@@ -58,7 +65,8 @@
           <select id="category-select"></select>
         </div>
         <div class="top-nav-icon-buttons">
-          <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
+          <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link"
+            aria-label="GitHub">
             <i data-lucide="github" class="icon"></i>
           </a>
           <a href="#" id="language-toggle" class="top-nav-link" aria-label="Toggle language">
@@ -71,22 +79,23 @@
       </div>
     </div>
     <div class="main-flex">
-    <div class="img-col">
-      <div class="painting-container">
-        <img id="painting" src="" alt="" loading="lazy" decoding="async" role="img" aria-label="Painting to identify">
-        <div id="loading-indicator" class="loading-indicator" style="display: none;">
-          <div class="loading-spinner"></div>
-          <p id="loading-text">Loading images... 0/10</p>
+      <div class="img-col">
+        <div class="painting-container">
+          <img id="painting" src="" alt="" loading="lazy" decoding="async" role="img" aria-label="Painting to identify">
+          <div id="loading-indicator" class="loading-indicator" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p id="loading-text">Loading images... 0/10</p>
+          </div>
         </div>
+        <div id="streak-bar" role="progressbar" aria-label="Quiz progress" aria-valuenow="0" aria-valuemin="0"
+          aria-valuemax="10"></div>
       </div>
-      <div id="streak-bar" role="progressbar" aria-label="Quiz progress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="10"></div>
-    </div>
-    <div class="btn-col" id="btn-col">
-      <div id="options" role="group" aria-label="Answer options"></div>
-      <div id="message" role="status" aria-live="polite" aria-atomic="true"></div>
-      <button id="main-play-again-btn" class="main-play-again-btn" style="display: none;"></button>
-    </div>        
-    <div id="artist-popup-container"></div>
+      <div class="btn-col" id="btn-col">
+        <div id="options" role="group" aria-label="Answer options"></div>
+        <div id="message" role="status" aria-live="polite" aria-atomic="true"></div>
+        <button id="main-play-again-btn" class="main-play-again-btn" style="display: none;"></button>
+      </div>
+      <div id="artist-popup-container"></div>
     </div>
   </div>
 
@@ -103,15 +112,43 @@
             <a href="#painters" class="top-nav-link">Painters</a>
             <a href="#gallery" class="top-nav-link">Gallery</a>
             <a href="#how-to-play" class="top-nav-link">How to Play</a>
-            <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
-              <i data-lucide="github" class="icon"></i>
-            </a>
-            <a href="#" id="language-toggle-painters" class="top-nav-link" aria-label="Toggle language">
-              <i data-lucide="book-a" class="icon"></i>
-            </a>
-            <a href="#" id="theme-toggle-painters" class="top-nav-link" aria-label="Toggle theme">
-              <i data-lucide="sun" class="icon theme-icon"></i>
-            </a>
+            <div class="top-nav-icon-buttons">
+              <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link"
+                aria-label="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="github" class="lucide lucide-github icon">
+                  <path
+                    d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
+                  </path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+              </a>
+              <a href="#" id="language-toggle-painters" class="top-nav-link" aria-label="Toggle language"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="book-a" class="lucide lucide-book-a icon">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20">
+                  </path>
+                  <path d="m8 13 4-7 4 7"></path>
+                  <path d="M9.1 11h5.7"></path>
+                </svg></a>
+              <a href="#" id="theme-toggle-painters" class="top-nav-link" aria-label="Toggle theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="sun" class="lucide lucide-sun icon theme-icon">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v2"></path>
+                  <path d="M12 20v2"></path>
+                  <path d="m4.93 4.93 1.41 1.41"></path>
+                  <path d="m17.66 17.66 1.41 1.41"></path>
+                  <path d="M2 12h2"></path>
+                  <path d="M20 12h2"></path>
+                  <path d="m6.34 17.66-1.41 1.41"></path>
+                  <path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+              </a>
+            </div>
           </div>
           <h1 id="painters-page-title" class="page-title">Painters</h1>
           <a href="#" class="back-link" id="back-to-quiz-link">
@@ -142,15 +179,43 @@
             <a href="#painters" class="top-nav-link">Painters</a>
             <a href="#gallery" class="top-nav-link">Gallery</a>
             <a href="#how-to-play" class="top-nav-link">How to Play</a>
-            <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
-              <i data-lucide="github" class="icon"></i>
-            </a>
-            <a href="#" id="language-toggle-gallery" class="top-nav-link" aria-label="Toggle language">
-              <i data-lucide="book-a" class="icon"></i>
-            </a>
-            <a href="#" id="theme-toggle-gallery" class="top-nav-link" aria-label="Toggle theme">
-              <i data-lucide="sun" class="icon theme-icon"></i>
-            </a>
+            <div class="top-nav-icon-buttons">
+              <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link"
+                aria-label="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="github" class="lucide lucide-github icon">
+                  <path
+                    d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
+                  </path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+              </a>
+              <a href="#" id="language-toggle-gallery" class="top-nav-link" aria-label="Toggle language"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="book-a" class="lucide lucide-book-a icon">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20">
+                  </path>
+                  <path d="m8 13 4-7 4 7"></path>
+                  <path d="M9.1 11h5.7"></path>
+                </svg></a>
+              <a href="#" id="theme-toggle-gallery" class="top-nav-link" aria-label="Toggle theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="sun" class="lucide lucide-sun icon theme-icon">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v2"></path>
+                  <path d="M12 20v2"></path>
+                  <path d="m4.93 4.93 1.41 1.41"></path>
+                  <path d="m17.66 17.66 1.41 1.41"></path>
+                  <path d="M2 12h2"></path>
+                  <path d="M20 12h2"></path>
+                  <path d="m6.34 17.66-1.41 1.41"></path>
+                  <path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+              </a>
+            </div>
           </div>
           <h1 id="gallery-page-title" class="page-title">Gallery</h1>
           <a href="#" class="back-link" id="back-to-quiz-link-gallery">
@@ -181,15 +246,43 @@
             <a href="#painters" class="top-nav-link">Painters</a>
             <a href="#gallery" class="top-nav-link">Gallery</a>
             <a href="#how-to-play" class="top-nav-link">How to Play</a>
-            <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link" aria-label="GitHub">
-              <i data-lucide="github" class="icon"></i>
-            </a>
-            <a href="#" id="language-toggle-how-to-play" class="top-nav-link" aria-label="Toggle language">
-              <i data-lucide="book-a" class="icon"></i>
-            </a>
-            <a href="#" id="theme-toggle-how-to-play" class="top-nav-link" aria-label="Toggle theme">
-              <i data-lucide="sun" class="icon theme-icon"></i>
-            </a>
+            <div class="top-nav-icon-buttons">
+              <a href="https://github.com/egil10/kunstquiz" target="_blank" rel="noopener" class="top-nav-link"
+                aria-label="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="github" class="lucide lucide-github icon">
+                  <path
+                    d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4">
+                  </path>
+                  <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                </svg>
+              </a>
+              <a href="#" id="language-toggle-how-to-play" class="top-nav-link" aria-label="Toggle language"><svg
+                  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="book-a" class="lucide lucide-book-a icon">
+                  <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20">
+                  </path>
+                  <path d="m8 13 4-7 4 7"></path>
+                  <path d="M9.1 11h5.7"></path>
+                </svg></a>
+              <a href="#" id="theme-toggle-how-to-play" class="top-nav-link" aria-label="Toggle theme">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="sun" class="lucide lucide-sun icon theme-icon">
+                  <circle cx="12" cy="12" r="4"></circle>
+                  <path d="M12 2v2"></path>
+                  <path d="M12 20v2"></path>
+                  <path d="m4.93 4.93 1.41 1.41"></path>
+                  <path d="m17.66 17.66 1.41 1.41"></path>
+                  <path d="M2 12h2"></path>
+                  <path d="M20 12h2"></path>
+                  <path d="m6.34 17.66-1.41 1.41"></path>
+                  <path d="m19.07 4.93-1.41 1.41"></path>
+                </svg>
+              </a>
+            </div>
           </div>
           <h1 id="how-to-play-page-title" class="page-title">How to Play</h1>
           <a href="#" class="back-link" id="back-to-quiz-link-how-to-play">
@@ -206,14 +299,16 @@
     </div>
   </div>
 
-  <div id="congrats-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="congrats-title">
+  <div id="congrats-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
+    aria-labelledby="congrats-title">
     <div class="modal-content">
       <h2 id="congrats-title"></h2>
       <p></p>
       <button id="reset-btn"></button>
     </div>
   </div>
-  <div id="round-results-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="round-results-title">
+  <div id="round-results-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
+    aria-labelledby="round-results-title">
     <div class="modal-content round-results-content">
       <h2 id="round-results-title"></h2>
       <div class="round-results-stats">
@@ -226,8 +321,8 @@
         <span class="stat-label"></span>
         <div id="round-results-artists-list" class="artists-list"></div>
       </div>
-        <div id="round-results-feedback" class="round-results-feedback">
-  </div>
+      <div id="round-results-feedback" class="round-results-feedback">
+      </div>
       <div class="round-results-buttons">
         <button id="round-results-play-again" class="primary-btn"></button>
         <button id="round-results-download" class="secondary-btn" style="display:none;"></button>
@@ -236,7 +331,8 @@
   </div>
 
   <!-- Diploma Modal for Perfect Scores -->
-  <div id="diploma-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="diploma-title">
+  <div id="diploma-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
+    aria-labelledby="diploma-title">
     <div class="modal-content diploma-content">
       <div class="diploma-container">
         <div class="diploma-background">
@@ -275,29 +371,32 @@
           </div>
         </div>
       </div>
-        <div class="diploma-buttons">
-          <button id="diploma-download" class="primary-btn"></button>
-          <button id="diploma-play-again" class="secondary-btn"></button>
-        </div>
+      <div class="diploma-buttons">
+        <button id="diploma-download" class="primary-btn"></button>
+        <button id="diploma-play-again" class="secondary-btn"></button>
       </div>
     </div>
   </div>
+  </div>
 
-  <div id="artists-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="artists-title">
+  <div id="artists-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
+    aria-labelledby="artists-title">
     <div class="modal-content artist-list-modal">
       <h2 id="artists-title"></h2>
       <div id="artist-list-columns"></div>
       <button id="close-artists-modal"></button>
     </div>
   </div>
-  <div id="gallery-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="gallery-title">
+  <div id="gallery-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
+    aria-labelledby="gallery-title">
     <div class="modal-content gallery-modal-content">
       <h2 id="gallery-title"></h2>
       <div id="gallery-collage"></div>
       <button id="close-gallery-modal"></button>
     </div>
   </div>
-  <div id="how-to-play-modal" class="modal" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="how-to-play-title">
+  <div id="how-to-play-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
+    aria-labelledby="how-to-play-title">
     <div class="modal-content how-to-play-modal-content">
       <h2 id="how-to-play-title"></h2>
       <div id="how-to-play-content">
@@ -308,7 +407,8 @@
   </div>
 
   <!-- Full Screen Painting Viewer -->
-  <div id="painting-viewer-modal" class="modal painting-viewer-modal" style="display:none;" role="dialog" aria-modal="true">
+  <div id="painting-viewer-modal" class="modal painting-viewer-modal" style="display:none;" role="dialog"
+    aria-modal="true">
     <div class="painting-viewer-content">
       <button id="painting-viewer-close" class="painting-viewer-close" aria-label="Close">
         <i data-lucide="x" class="icon"></i>
@@ -318,6 +418,7 @@
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-  <script src="assets/js/script.js"></script>
+  <script src="assets/js/script.js?v=3-columns"></script>
 </body>
+
 </html>
