@@ -311,36 +311,19 @@
       <button id="reset-btn"></button>
     </div>
   </div>
-  <div id="round-results-modal" class="modal results-modal" style="display:none;" role="dialog" aria-modal="true"
+  <div id="round-results-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
     aria-labelledby="round-results-title">
-    <div class="results-card">
-      <div class="results-header">
-        <div class="score-circle">
-          <span id="round-results-score-current" class="score-current">0</span>
-          <span class="score-total">/10</span>
-        </div>
-        <h2 id="round-results-title" class="results-title">Round Complete!</h2>
-        <p id="round-results-subtitle" class="results-subtitle">You recognized 0 out of 10 paintings</p>
+    <div class="modal-content round-results-simple">
+      <h2 id="round-results-title" class="round-results-title">Round Results</h2>
+      <div class="round-results-score">
+        <span id="round-results-score-text">0/10</span>
       </div>
-      <div class="results-body">
-        <div class="section">
-          <h3 class="section-title"></h3>
-          <div id="round-results-artists-list" class="artists-chips"></div>
-        </div>
-        <div id="round-results-feedback" class="feedback-banner">
-          <span class="feedback-text"></span>
-        </div>
+      <div class="round-results-artists">
+        <h3 class="round-results-artists-title">Painters featured</h3>
+        <div id="round-results-artists-list" class="round-results-artists-list"></div>
       </div>
-      <div class="results-actions">
-        <button id="round-results-play-again" class="btn-primary">
-          <span></span>
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M23 4v6h-6"></path>
-            <path d="M1 20v-6h6"></path>
-            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 9 0 0 0 20.49 15"></path>
-          </svg>
-        </button>
-        <button id="round-results-download" class="btn-secondary" style="display:none;">Share Score</button>
+      <div class="round-results-actions">
+        <button id="round-results-play-again" class="round-results-btn">Play Another Round</button>
       </div>
     </div>
   </div>

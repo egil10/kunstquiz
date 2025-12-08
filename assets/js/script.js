@@ -1113,15 +1113,11 @@ function updateLanguageUI() {
 
   // Update round results modal elements
   const roundResultsTitle = document.getElementById('round-results-title');
-  if (roundResultsTitle) roundResultsTitle.textContent = t('roundStats.title') || 'Round Complete!';
-
-  const roundResultsSectionTitle = document.querySelector('.section .section-title');
-  if (roundResultsSectionTitle) roundResultsSectionTitle.textContent = t('roundStats.artists') || 'Painters in this round';
+  if (roundResultsTitle) roundResultsTitle.textContent = t('roundStats.title') || 'Round Results';
 
   const roundResultsPlayAgainBtn = document.getElementById('round-results-play-again');
-  const roundResultsPlayAgainBtnSpan = roundResultsPlayAgainBtn?.querySelector('span');
-  if (roundResultsPlayAgainBtnSpan) {
-    roundResultsPlayAgainBtnSpan.textContent = t('roundStats.playAgain') || 'Play Another Round';
+  if (roundResultsPlayAgainBtn) {
+    roundResultsPlayAgainBtn.textContent = t('roundStats.playAgain') || 'Play Another Round';
   }
 
   // Update diploma modal elements
@@ -2317,6 +2313,7 @@ function loadQuiz() {
     const isMobile = isMobileDevice();
 
     // Fade out existing buttons smoothly before clearing (desktop only)
+    // MOBILE: Skip fade out - just replace immediately
     const existingButtons = Array.from(optionsDiv.children);
     if (existingButtons.length > 0 && !isMobile) {
       // Set opacity to 0 to fade out, but keep them in place to prevent layout shift
@@ -2341,6 +2338,11 @@ function loadQuiz() {
     artists.forEach(artist => {
       const btn = document.createElement('button');
       btn.textContent = artist;
+      
+      // On mobile, ensure button has no problematic initial styles
+      if (isMobile) {
+        btn.style.cssText = '';
+      }
       // Use event delegation pattern for better performance
       btn.onclick = () => {
         // Use requestAnimationFrame for smooth UI updates
@@ -2433,41 +2435,40 @@ function loadQuiz() {
       fragment.appendChild(btn);
     });
 
-    // Wait for fade out, then replace buttons
-    const fadeDelay = existingButtons.length > 0 ? (isMobile ? 50 : 200) : 0;
-    
-    setTimeout(() => {
-      // Clear old buttons and add new ones
+    // MOBILE: Immediate button creation - no delays, no animations
+    if (isMobile) {
+      // Clear old buttons immediately
       optionsDiv.innerHTML = '';
+      // Add new buttons immediately
       optionsDiv.appendChild(fragment);
-
+      
       const newButtons = Array.from(optionsDiv.children);
+      
+      // Force immediate visibility - no animations, no delays
+      newButtons.forEach(btn => {
+        // Remove ALL inline styles that could interfere
+        btn.style.cssText = '';
+        // Force visibility with !important-level specificity
+        btn.style.setProperty('opacity', '1', 'important');
+        btn.style.setProperty('visibility', 'visible', 'important');
+        btn.style.setProperty('display', 'block', 'important');
+        btn.style.setProperty('pointer-events', 'auto', 'important');
+        btn.style.setProperty('transform', 'none', 'important');
+        btn.style.setProperty('transition', 'none', 'important');
+      });
+      
+      updateStreakBar();
+    } else {
+      // DESKTOP: Fade out existing, then fade in new
+      const fadeDelay = existingButtons.length > 0 ? 200 : 0;
+      
+      setTimeout(() => {
+        // Clear old buttons and add new ones
+        optionsDiv.innerHTML = '';
+        optionsDiv.appendChild(fragment);
 
-      if (isMobile) {
-        // MOBILE: Immediate visibility - no fade animation to prevent rendering issues
-        newButtons.forEach(btn => {
-          // Remove any inline styles that might interfere
-          btn.style.opacity = '';
-          btn.style.visibility = '';
-          btn.style.transition = '';
-          btn.style.transform = '';
-          // Ensure buttons are visible and clickable
-          btn.style.display = '';
-          btn.style.pointerEvents = '';
-        });
-        
-        // Force immediate visibility on mobile
-        requestAnimationFrame(() => {
-          newButtons.forEach(btn => {
-            // Double-check visibility
-            const computed = getComputedStyle(btn);
-            if (computed.opacity !== '1' || computed.visibility === 'hidden') {
-              btn.style.opacity = '1';
-              btn.style.visibility = 'visible';
-            }
-          });
-        });
-      } else {
+        const newButtons = Array.from(optionsDiv.children);
+
         // DESKTOP: Fade in animation for smooth UX
         newButtons.forEach(btn => {
           btn.style.opacity = '0';
@@ -2497,10 +2498,10 @@ function loadQuiz() {
             }
           });
         }, 500);
-      }
 
-      updateStreakBar();
-    }, fadeDelay);
+        updateStreakBar();
+      }, fadeDelay);
+    }
   });
 }
 
@@ -3576,13 +3577,9 @@ function setPlayAgainButtons(show, text, onClick) {
 function showRoundResults() {
   const modal = document.getElementById('round-results-modal');
   const title = document.getElementById('round-results-title');
-  const subtitle = document.getElementById('round-results-subtitle');
-  const scoreCurrent = document.getElementById('round-results-score-current');
+  const scoreText = document.getElementById('round-results-score-text');
   const artistsList = document.getElementById('round-results-artists-list');
-  const feedbackText = document.querySelector('.feedback-text');
   const playAgainBtn = document.getElementById('round-results-play-again');
-  const playAgainBtnSpan = playAgainBtn.querySelector('span');
-  const downloadBtn = document.getElementById('round-results-download');
 
   if (!modal) return;
 
@@ -3596,35 +3593,23 @@ function showRoundResults() {
     return;
   }
 
-  // Update content with proper translations
-  title.textContent = t('roundStats.title') || 'Round Complete!';
-  scoreCurrent.textContent = totalCorrect;
-  
-  // Update subtitle
-  const paintingText = totalCorrect === 1 ? t('painting') : t('paintings');
-  subtitle.textContent = `You recognized ${totalCorrect} out of 10 ${paintingText}`;
+  // Update content
+  if (title) title.textContent = t('roundStats.title') || 'Round Results';
+  if (scoreText) scoreText.textContent = `${totalCorrect}/10`;
 
-  // Update section title for artists
-  const sectionTitle = document.querySelector('.section .section-title');
-  if (sectionTitle) sectionTitle.textContent = t('roundStats.artists') || 'Painters in this round';
-
-  // Populate artists list with chip style
-  artistsList.innerHTML = '';
-  uniqueArtists.forEach(artist => {
-    const chip = document.createElement('span');
-    chip.className = 'chip';
-    chip.textContent = artist;
-    artistsList.appendChild(chip);
-  });
-
-  // Update feedback
-  if (feedbackText) {
-    feedbackText.textContent = getRandomRoundFeedback(totalCorrect);
+  // Populate artists list
+  if (artistsList) {
+    artistsList.innerHTML = '';
+    uniqueArtists.forEach(artist => {
+      const span = document.createElement('span');
+      span.textContent = artist;
+      artistsList.appendChild(span);
+    });
   }
-  
+
   // Update button text
-  if (playAgainBtnSpan) {
-    playAgainBtnSpan.textContent = t('roundStats.playAgain') || 'Play Another Round';
+  if (playAgainBtn) {
+    playAgainBtn.textContent = t('roundStats.playAgain') || 'Play Another Round';
   }
 
   // Show modal
