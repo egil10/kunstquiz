@@ -2405,17 +2405,48 @@ function loadQuiz() {
           optionsDiv._answerHandler = null;
         }
 
+        // Store current painting on optionsDiv for event handler access
+        optionsDiv._currentPainting = painting;
+        console.log('Stored painting data:', painting.artist, 'Question:', currentRound.questionNumber);
+
         // Create unified answer handler
         const handleAnswer = (e) => {
+          console.log('Event fired:', e.type, e.target);
+          
           // Find the button that was clicked/touched
           const button = e.target.closest('button');
-          if (!button || button.disabled || !button.dataset.artist) return;
+          if (!button) {
+            console.log('No button found in event target');
+            return;
+          }
+          if (button.disabled) {
+            console.log('Button is disabled');
+            return;
+          }
+          if (!button.dataset.artist) {
+            console.log('Button has no artist data:', button.textContent, button.dataset);
+            return;
+          }
 
           // Prevent default and stop propagation for mobile
           if (isMobile) {
             e.preventDefault();
             e.stopPropagation();
           }
+
+          // Get current painting from stored reference or global variable
+          // Use stored reference first (most reliable), fallback to global
+          const paintingData = optionsDiv._currentPainting || currentPainting;
+          if (!paintingData || !paintingData.artist) {
+            console.error('No painting data available for answer', { 
+              stored: optionsDiv._currentPainting, 
+              global: currentPainting,
+              questionNumber: currentRound.questionNumber 
+            });
+            return;
+          }
+          
+          console.log('Button clicked:', artist, 'Correct answer:', paintingData.artist);
 
           const artist = button.dataset.artist;
           
@@ -2429,17 +2460,17 @@ function loadQuiz() {
               b.classList.remove('correct', 'wrong');
             });
 
-            const correctBtn = buttons.find(b => b.dataset.artist === painting.artist);
+            const correctBtn = buttons.find(b => b.dataset.artist === paintingData.artist);
             const selectedBtn = button;
 
             // Track this answer
-            const isCorrect = artist === painting.artist;
+            const isCorrect = artist === paintingData.artist;
             currentRound.answers.push({
               question: currentRound.questionNumber,
               correct: isCorrect,
               selectedArtist: artist,
-              correctArtist: painting.artist,
-              painting: painting
+              correctArtist: paintingData.artist,
+              painting: paintingData
             });
 
             if (isCorrect) {
@@ -2449,14 +2480,14 @@ function loadQuiz() {
               selectedBtn.classList.add('correct');
 
               // Track analytics
-              trackAnswer(true, painting.artist, selectedCategory);
+              trackAnswer(true, paintingData.artist, selectedCategory);
 
               // Show correct message
               const correctMessage = getRandomCorrectMessage();
               showMessage(correctMessage, '#388e3c');
 
               // Add artist to set
-              currentRound.artists.add(painting.artist);
+              currentRound.artists.add(paintingData.artist);
 
               // Quick transition for correct answers
               setTimeout(() => {
@@ -2483,11 +2514,11 @@ function loadQuiz() {
               showMessage(incorrectMessage, '#e53935');
 
               // Add correct artist to set (only count the actual featured artist)
-              currentRound.artists.add(painting.artist);
+              currentRound.artists.add(paintingData.artist);
 
               updateStreakBar();
               setTimeout(() => {
-                showArtistPopup(painting, () => {
+                showArtistPopup(paintingData, () => {
                   hideMessage();
                   // Remove loading state and reset buttons
                   buttons.forEach(b => {
@@ -2507,16 +2538,6 @@ function loadQuiz() {
           }
         };
 
-        // Store handler reference for cleanup
-        optionsDiv._answerHandler = handleAnswer;
-
-        // Use touchend on mobile, click on desktop
-        const eventType = isMobile ? 'touchend' : 'click';
-        optionsDiv.addEventListener(eventType, handleAnswer, { 
-          passive: false, // Allow preventDefault on mobile
-          capture: false 
-        });
-
         // MOBILE: Immediate button creation - no delays, no animations
         if (isMobile) {
           // Debug log to verify mobile path
@@ -2526,6 +2547,17 @@ function loadQuiz() {
           optionsDiv.innerHTML = '';
           // Add new buttons immediately
           optionsDiv.appendChild(fragment);
+          
+          // Store handler reference and attach event listener AFTER buttons are in DOM
+          optionsDiv._answerHandler = handleAnswer;
+          
+          // Use touchend on mobile
+          optionsDiv.addEventListener('touchend', handleAnswer, { 
+            passive: false, // Allow preventDefault on mobile
+            capture: false 
+          });
+          
+          console.log('Event listener attached to optionsDiv, buttons count:', optionsDiv.children.length);
 
           const newButtons = Array.from(optionsDiv.children);
 
@@ -2553,6 +2585,17 @@ function loadQuiz() {
             // Clear old buttons and add new ones
             optionsDiv.innerHTML = '';
             optionsDiv.appendChild(fragment);
+            
+            // Store handler reference and attach event listener AFTER buttons are in DOM
+            optionsDiv._answerHandler = handleAnswer;
+            
+            // Use click on desktop
+            optionsDiv.addEventListener('click', handleAnswer, { 
+              passive: false,
+              capture: false 
+            });
+            
+            console.log('Event listener attached to optionsDiv, buttons count:', optionsDiv.children.length);
 
             const newButtons = Array.from(optionsDiv.children);
 
