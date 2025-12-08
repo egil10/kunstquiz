@@ -42,6 +42,98 @@ let galleryPagePaintings = [];
 let galleryPageLoadedCount = 0;
 let galleryPageGrid = null;
 
+// Gallery loading animation state
+let galleryLoadingState = {
+  typewriterInterval: null,
+  dotInterval: null,
+  messageTimeout: null,
+  currentMessageIndex: 0,
+  isAnimating: false
+};
+
+function startGalleryLoadingAnimation(element) {
+  // Clear any existing animation first
+  stopGalleryLoadingAnimation();
+
+  galleryLoadingState.isAnimating = true;
+  // Pick random start
+  galleryLoadingState.currentMessageIndex = Math.floor(Math.random() * loadingMessages.length);
+
+  const animateMessage = () => {
+    if (!galleryLoadingState.isAnimating || !document.contains(element)) {
+      stopGalleryLoadingAnimation();
+      return;
+    }
+
+    const message = loadingMessages[galleryLoadingState.currentMessageIndex][currentLanguage];
+    const fullText = message;
+
+    element.textContent = "";
+    let charIndex = 0;
+
+    // Clear intervals if any exist (should be clear from recursive call but safety first)
+    if (galleryLoadingState.typewriterInterval) clearInterval(galleryLoadingState.typewriterInterval);
+    if (galleryLoadingState.dotInterval) clearInterval(galleryLoadingState.dotInterval);
+
+    // Typewriter effect
+    galleryLoadingState.typewriterInterval = setInterval(() => {
+      if (!galleryLoadingState.isAnimating || !document.contains(element)) {
+        stopGalleryLoadingAnimation();
+        return;
+      }
+
+      if (charIndex < fullText.length) {
+        element.textContent = fullText.substring(0, charIndex + 1);
+        charIndex++;
+      } else {
+        // Typewriter complete, start dots
+        clearInterval(galleryLoadingState.typewriterInterval);
+        galleryLoadingState.typewriterInterval = null;
+
+        let dotCount = 0;
+        galleryLoadingState.dotInterval = setInterval(() => {
+          if (!galleryLoadingState.isAnimating || !document.contains(element)) {
+            stopGalleryLoadingAnimation();
+            return;
+          }
+          const dots = '.'.repeat((dotCount % 3) + 1);
+          element.textContent = fullText + dots;
+          dotCount++;
+        }, 500);
+      }
+    }, 30);
+
+    // Cycle to next message
+    const messageDuration = fullText.length * 30 + 3000;
+    if (galleryLoadingState.messageTimeout) clearTimeout(galleryLoadingState.messageTimeout);
+
+    galleryLoadingState.messageTimeout = setTimeout(() => {
+      if (galleryLoadingState.isAnimating) {
+        galleryLoadingState.currentMessageIndex = (galleryLoadingState.currentMessageIndex + 1) % loadingMessages.length;
+        animateMessage();
+      }
+    }, messageDuration);
+  };
+
+  animateMessage();
+}
+
+function stopGalleryLoadingAnimation() {
+  galleryLoadingState.isAnimating = false;
+  if (galleryLoadingState.typewriterInterval) {
+    clearInterval(galleryLoadingState.typewriterInterval);
+    galleryLoadingState.typewriterInterval = null;
+  }
+  if (galleryLoadingState.dotInterval) {
+    clearInterval(galleryLoadingState.dotInterval);
+    galleryLoadingState.dotInterval = null;
+  }
+  if (galleryLoadingState.messageTimeout) {
+    clearTimeout(galleryLoadingState.messageTimeout);
+    galleryLoadingState.messageTimeout = null;
+  }
+}
+
 // Throttled function wrapper
 function throttle(func, delay) {
   let lastCall = 0;
@@ -4710,7 +4802,7 @@ function renderGalleryPage() {
   // Call directly since grid is already in DOM
   loadMoreGalleryImages(9).then(() => {
     // After first batch loads, ensure button is visible if there are more images
-    const galleryBtn = document.querySelector('.gallery-load-more-btn');
+    const galleryBtn = document.querySelector('.artist-inline-load-more-btn');
     const galleryPage = document.getElementById('gallery-page');
     if (galleryBtn && galleryPage && galleryPage.style.display !== 'none' && galleryPageLoadedCount < galleryPagePaintings.length) {
       galleryBtn.classList.add('visible');
@@ -4773,13 +4865,11 @@ async function loadMoreGalleryImages(count = 9) {
   }
 
   // Create loading indicator with animated text
-  // Create loading indicator - static message to avoid lag
   const loadingIndicator = document.createElement('div');
   loadingIndicator.className = 'gallery-loading-indicator';
 
-  // Pick a random funny message (static, no animation to avoid lag)
-  const randomMessage = loadingMessages[Math.floor(Math.random() * loadingMessages.length)];
-  loadingIndicator.textContent = randomMessage[currentLanguage];
+  // Start animation
+  startGalleryLoadingAnimation(loadingIndicator);
 
   loadingIndicator.style.textAlign = 'center';
   loadingIndicator.style.padding = '2rem';
@@ -4845,6 +4935,7 @@ async function loadMoreGalleryImages(count = 9) {
 
   // If we didn't create any images, something is wrong
   if (imageElements.length === 0) {
+    stopGalleryLoadingAnimation();
     loadingIndicator.remove();
     // Try to load more if we have more paintings available
     if (galleryPageLoadedCount < galleryPagePaintings.length) {
@@ -4905,6 +4996,7 @@ async function loadMoreGalleryImages(count = 9) {
   const results = await Promise.all(loadPromises);
 
   // Remove loading indicator
+  stopGalleryLoadingAnimation();
   loadingIndicator.remove();
 
   // Show all successfully loaded images at once
@@ -4940,7 +5032,7 @@ async function loadMoreGalleryImages(count = 9) {
     // Update load more button (recreate if needed)
     updateLoadMoreButton();
     // Force button to be visible if there are more images (after batch completes)
-    const galleryBtn = document.querySelector('.gallery-load-more-btn');
+    const galleryBtn = document.querySelector('.artist-inline-load-more-btn');
     const galleryPage = document.getElementById('gallery-page');
     if (galleryBtn && galleryPage && galleryPage.style.display !== 'none' && galleryPageLoadedCount < galleryPagePaintings.length) {
       galleryBtn.classList.add('visible');
@@ -4982,21 +5074,23 @@ function updateLoadMoreButtonVisibility() {
     scrollKey = 'window';
   }
 
-  const galleryBtn = document.querySelector('.gallery-load-more-btn');
-  const artistBtn = document.querySelector('.artist-inline-load-more-btn');
+  const btn = document.querySelector('.artist-inline-load-more-btn');
+
+  if (!btn) return;
 
   // For gallery page: show button if there are more images to load
-  if (galleryPage && galleryPage.style.display !== 'none' && galleryBtn) {
+  if (galleryPage && galleryPage.style.display !== 'none') {
     // Check if there are more images to load
     if (galleryPageLoadedCount < galleryPagePaintings.length) {
       // Always show the button if there are more images (user wants it visible after first batch)
-      galleryBtn.classList.add('visible');
-      galleryBtn.classList.remove('hidden');
+      btn.classList.add('visible');
+      btn.classList.remove('hidden');
     } else {
       // No more images - hide button
-      galleryBtn.classList.add('hidden');
-      galleryBtn.classList.remove('visible');
+      btn.classList.add('hidden');
+      btn.classList.remove('visible');
     }
+    return;
   }
 
   // For painters page: show artist button when scrolled down
@@ -5006,14 +5100,12 @@ function updateLoadMoreButtonVisibility() {
     const isNearBottom = (scrollHeight - currentScroll - clientHeight) < 300;
     const hasScrolledDown = currentScroll > 200;
 
-    if (artistBtn) {
-      if (hasScrolledDown || isNearBottom) {
-        artistBtn.classList.add('visible');
-        artistBtn.classList.remove('hidden');
-      } else {
-        artistBtn.classList.add('hidden');
-        artistBtn.classList.remove('visible');
-      }
+    if (hasScrolledDown || isNearBottom) {
+      btn.classList.add('visible');
+      btn.classList.remove('hidden');
+    } else {
+      btn.classList.add('hidden');
+      btn.classList.remove('visible');
     }
   }
 
@@ -5022,8 +5114,13 @@ function updateLoadMoreButtonVisibility() {
 
 function updateLoadMoreButton() {
   // Remove existing button from anywhere (body or container)
-  const existingBtn = document.querySelector('.gallery-load-more-btn');
+  const existingBtn = document.querySelector('.artist-inline-load-more-btn');
   if (existingBtn) {
+    // Only remove if we are recreating it (e.g. to move it or update it)
+    // But actually, we might want to keep it if it exists.
+    // However, the original logic removed it. Let's stick to that pattern for now to ensure clean state.
+    // Wait, if it exists, maybe we just update it?
+    // The previous code removed .gallery-load-more-btn.
     existingBtn.remove();
   }
 
@@ -5034,7 +5131,7 @@ function updateLoadMoreButton() {
     const galleryPage = document.getElementById('gallery-page');
     const isGalleryVisible = galleryPage && galleryPage.style.display !== 'none';
     // Always show button if gallery is visible and there are more images (after first batch loads)
-    loadMoreBtn.className = isGalleryVisible ? 'gallery-load-more-btn visible' : 'gallery-load-more-btn hidden';
+    loadMoreBtn.className = isGalleryVisible ? 'artist-inline-load-more-btn visible' : 'artist-inline-load-more-btn hidden';
     loadMoreBtn.setAttribute('aria-label', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
     loadMoreBtn.setAttribute('title', currentLanguage === 'no' ? 'Vis flere bilder' : 'Load more images');
 
