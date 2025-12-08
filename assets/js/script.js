@@ -155,6 +155,22 @@ function debounce(func, delay) {
   };
 }
 
+// Mobile device detection - reliable across all mobile browsers
+function isMobileDevice() {
+  // Check for touch capability
+  const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  
+  // Check screen width (mobile is typically < 768px)
+  const isSmallScreen = window.innerWidth < 768;
+  
+  // Check user agent for mobile devices
+  const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+  const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
+  
+  // Return true if any mobile indicator is present
+  return (hasTouch && isSmallScreen) || isMobileUA;
+}
+
 // Efficient DOM updates
 function batchDOMUpdates() {
   if (batchUpdateTimer) return;
@@ -2315,9 +2331,12 @@ function loadQuiz() {
     const optionsDiv = document.getElementById('options');
     if (!optionsDiv) return;
 
-    // Fade out existing buttons smoothly before clearing
+    // Detect mobile device once for this function
+    const isMobile = isMobileDevice();
+
+    // Fade out existing buttons smoothly before clearing (desktop only)
     const existingButtons = Array.from(optionsDiv.children);
-    if (existingButtons.length > 0) {
+    if (existingButtons.length > 0 && !isMobile) {
       // Set opacity to 0 to fade out, but keep them in place to prevent layout shift
       existingButtons.forEach(btn => {
         btn.style.opacity = '0';
@@ -2331,7 +2350,7 @@ function loadQuiz() {
       // Wait for fade out, then update
       setTimeout(() => {
         optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
-      }, 200);
+      }, isMobile ? 50 : 200);
       return;
     }
 
@@ -2433,48 +2452,73 @@ function loadQuiz() {
     });
 
     // Wait for fade out, then replace buttons
-    // Wait for fade out, then replace buttons
+    const fadeDelay = existingButtons.length > 0 ? (isMobile ? 50 : 200) : 0;
+    
     setTimeout(() => {
       // Clear old buttons and add new ones
       optionsDiv.innerHTML = '';
       optionsDiv.appendChild(fragment);
 
-      // Fade in new buttons - Robust approach for all devices (especially iOS)
       const newButtons = Array.from(optionsDiv.children);
 
-      // 1. Set initial state immediately
-      newButtons.forEach(btn => {
-        btn.style.opacity = '0';
-        btn.style.visibility = 'visible'; // Force visibility
-        btn.style.transition = 'opacity 0.3s ease';
-        btn.style.transform = 'translateZ(0)'; // Force hardware acceleration
-      });
-
-      // 2. Force reflow
-      void optionsDiv.offsetHeight;
-
-      // 3. Trigger animation
-      requestAnimationFrame(() => {
-        newButtons.forEach((btn, index) => {
-          setTimeout(() => {
-            btn.style.opacity = '1';
-          }, index * 50);
-        });
-      });
-
-      // 4. Safety net: Ensure they are visible after max animation time
-      setTimeout(() => {
+      if (isMobile) {
+        // MOBILE: Immediate visibility - no fade animation to prevent rendering issues
         newButtons.forEach(btn => {
-          // Force it if it's not sticking
-          if (getComputedStyle(btn).opacity !== '1') {
-            btn.style.opacity = '1';
-            btn.style.visibility = 'visible';
-          }
+          // Remove any inline styles that might interfere
+          btn.style.opacity = '';
+          btn.style.visibility = '';
+          btn.style.transition = '';
+          btn.style.transform = '';
+          // Ensure buttons are visible and clickable
+          btn.style.display = '';
+          btn.style.pointerEvents = '';
         });
-      }, 500);
+        
+        // Force immediate visibility on mobile
+        requestAnimationFrame(() => {
+          newButtons.forEach(btn => {
+            // Double-check visibility
+            const computed = getComputedStyle(btn);
+            if (computed.opacity !== '1' || computed.visibility === 'hidden') {
+              btn.style.opacity = '1';
+              btn.style.visibility = 'visible';
+            }
+          });
+        });
+      } else {
+        // DESKTOP: Fade in animation for smooth UX
+        newButtons.forEach(btn => {
+          btn.style.opacity = '0';
+          btn.style.visibility = 'visible';
+          btn.style.transition = 'opacity 0.3s ease';
+          btn.style.transform = 'translateZ(0)';
+        });
+
+        // Force reflow
+        void optionsDiv.offsetHeight;
+
+        // Trigger animation
+        requestAnimationFrame(() => {
+          newButtons.forEach((btn, index) => {
+            setTimeout(() => {
+              btn.style.opacity = '1';
+            }, index * 50);
+          });
+        });
+
+        // Safety net for desktop
+        setTimeout(() => {
+          newButtons.forEach(btn => {
+            if (getComputedStyle(btn).opacity !== '1') {
+              btn.style.opacity = '1';
+              btn.style.visibility = 'visible';
+            }
+          });
+        }, 500);
+      }
 
       updateStreakBar();
-    }, existingButtons.length > 0 ? 200 : 0);
+    }, fadeDelay);
   });
 }
 

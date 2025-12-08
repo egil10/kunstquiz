@@ -1168,7 +1168,7 @@ html.dark-theme #painting {
   /* Performance */
   contain: layout style;
   will-change: contents;
-  /* Smooth option animations */
+  /* Smooth option animations - disabled on mobile via media query */
   animation: fadeInOptions 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   /* Better spacing on mobile */
   padding: 1rem 0;
@@ -4494,6 +4494,8 @@ html.dark-theme .artist-inline-load-more-btn svg {
       flex-direction: column;
       will-change: contents;
       transform: translateZ(0);
+      /* Disable fade animation on mobile to prevent rendering issues */
+      animation: none !important;
     }
 
     #options button {
@@ -4502,8 +4504,9 @@ html.dark-theme .artist-inline-load-more-btn svg {
       font-size: 1rem;
       min-height: 52px;
       /* Force visibility on mobile to prevent fade-in glitches */
-      opacity: 1;
-      visibility: visible;
+      opacity: 1 !important;
+      visibility: visible !important;
+      display: block !important;
       /* Larger touch target on mobile */
       margin-bottom: 0;
       /* Touch optimization */
@@ -4513,6 +4516,8 @@ html.dark-theme .artist-inline-load-more-btn svg {
       /* Performance */
       will-change: transform, background-color;
       transform: translateZ(0);
+      /* Ensure buttons are always visible and clickable on mobile */
+      pointer-events: auto !important;
     }
 
     button {
