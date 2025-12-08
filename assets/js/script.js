@@ -2360,19 +2360,41 @@ function loadQuiz() {
         }
 
         // SIMPLE BUTTON CREATION - No fancy stuff, just make it work
+        // Reset processing flag
+        optionsDiv._processing = false;
         // Clear old buttons
         optionsDiv.innerHTML = '';
 
-        // Create buttons with direct onclick handlers - simplest possible approach
+        // Create buttons with BOTH click and touch handlers for mobile compatibility
         artists.forEach(artist => {
           const btn = document.createElement('button');
           btn.textContent = artist;
           
-          // Direct onclick handler - closure captures painting data
-          btn.onclick = function() {
+          // Shared handler function - works for both click and touch
+          const handleAnswer = function(e) {
+            // Prevent any default behavior
+            if (e) {
+              e.preventDefault();
+              e.stopPropagation();
+            }
+            
+            // Prevent multiple clicks - check both disabled state and a processing flag
+            if (btn.disabled || optionsDiv._processing) {
+              console.log('Button click ignored - already processing');
+              return;
+            }
+            
+            // Set processing flag immediately
+            optionsDiv._processing = true;
+            
+            console.log('Button clicked:', artist, 'Correct:', painting.artist);
+            
             // Disable all buttons immediately
             const allButtons = Array.from(optionsDiv.children);
-            allButtons.forEach(b => b.disabled = true);
+            allButtons.forEach(b => {
+              b.disabled = true;
+              b.style.pointerEvents = 'none';
+            });
 
             const isCorrect = artist === painting.artist;
             const selectedBtn = btn;
@@ -2398,6 +2420,7 @@ function loadQuiz() {
               
               setTimeout(() => {
                 hideMessage();
+                optionsDiv._processing = false; // Reset flag
                 currentRound.questionNumber++;
                 updateStreakBar();
                 loadQuiz();
@@ -2416,6 +2439,7 @@ function loadQuiz() {
               setTimeout(() => {
                 showArtistPopup(painting, () => {
                   hideMessage();
+                  optionsDiv._processing = false; // Reset flag
                   currentRound.questionNumber++;
                   updateStreakBar();
                   loadQuiz();
@@ -2423,6 +2447,60 @@ function loadQuiz() {
               }, 500);
             }
           };
+          
+          // Touch handlers for iOS - prevent scrolling and ensure click fires
+          let touchStartY = 0;
+          let touchStartTime = 0;
+          
+          btn.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+            // Prevent scrolling when touching button
+            e.stopPropagation();
+            // Prevent any default behavior
+            e.preventDefault();
+          }, { passive: false });
+          
+          btn.addEventListener('touchmove', function(e) {
+            // Prevent scrolling
+            e.preventDefault();
+            e.stopPropagation();
+          }, { passive: false });
+          
+          btn.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Check if it was a tap (not a scroll) - allow small movement
+            const touchDuration = Date.now() - touchStartTime;
+            const touchEndY = e.changedTouches[0].clientY;
+            const movement = Math.abs(touchEndY - touchStartY);
+            
+            // Fire if quick tap with minimal movement
+            if (touchDuration < 500 && movement < 10) {
+              btn._touched = true;
+              handleAnswer(e);
+            }
+          }, { passive: false });
+          
+          // Also handle click as backup (for desktop and some mobile browsers)
+          btn.addEventListener('click', function(e) {
+            // Only fire if not already handled by touchend
+            if (!btn._touched) {
+              handleAnswer(e);
+            }
+            btn._touched = false;
+          });
+          
+          // Ensure button is interactive and doesn't scroll
+          btn.style.touchAction = 'manipulation';
+          btn.style.webkitTapHighlightColor = 'transparent';
+          btn.style.webkitUserSelect = 'none';
+          btn.style.userSelect = 'none';
+          btn.style.cursor = 'pointer';
+          btn.style.pointerEvents = 'auto';
+          btn.style.position = 'relative';
+          btn.style.zIndex = '10';
 
           optionsDiv.appendChild(btn);
         });

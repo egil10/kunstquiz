@@ -5132,6 +5132,10 @@ html.dark-theme .artist-inline-load-more-btn svg {
       pointer-events: auto !important;
       position: relative;
       z-index: 1;
+      /* Prevent scrolling when touching buttons */
+      touch-action: none;
+      overflow: visible;
+      -webkit-overflow-scrolling: auto;
     }
     
     /* Make sure no overlay is blocking buttons */
@@ -5146,6 +5150,14 @@ html.dark-theme .artist-inline-load-more-btn svg {
     .quiz-container,
     .main-content {
       pointer-events: auto !important;
+    }
+    
+    /* Prevent buttons from causing page scroll */
+    #options button {
+      touch-action: manipulation !important;
+      -webkit-overflow-scrolling: touch;
+      will-change: auto;
+      transform: none !important;
     }
   }
 
