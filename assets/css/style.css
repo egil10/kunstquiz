@@ -5037,6 +5037,118 @@ html.dark-theme .artist-inline-load-more-btn svg {
     }
   }
 
+  /* =========================================
+   MOBILE BUTTON FIXES - Touch Interaction
+   ========================================= */
+  @media (max-width: 768px) {
+    /* Ensure buttons are always clickable on mobile */
+    .quiz-option-btn,
+    #options button,
+    button {
+      /* Remove any transforms that might interfere */
+      transform: none !important;
+      
+      /* Ensure buttons are always visible and interactive */
+      opacity: 1 !important;
+      visibility: visible !important;
+      pointer-events: auto !important;
+      
+      /* Better touch targets - minimum 44px for iOS */
+      min-height: 44px;
+      min-width: 100%;
+      padding: 12px 20px;
+      
+      /* Prevent text selection and callouts */
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
+      
+      /* Optimize for touch */
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      
+      /* Ensure no transitions interfere with clicks */
+      transition: background-color 0.2s ease, color 0.2s ease !important;
+      
+      /* Remove any animations on mobile */
+      animation: none !important;
+      
+      /* Remove GPU acceleration transforms that can interfere */
+      will-change: auto !important;
+      backface-visibility: visible !important;
+    }
+    
+    /* Ensure disabled state doesn't block interaction permanently */
+    #options button:not(.answered):not(:disabled) {
+      pointer-events: auto !important;
+    }
+    
+    /* Make sure answered class properly disables */
+    #options button.answered,
+    #options button:disabled {
+      pointer-events: none !important;
+    }
+    
+    /* Active state for visual feedback */
+    #options button:active:not(:disabled) {
+      transform: scale(0.98) !important;
+      background-color: rgba(0, 0, 0, 0.05);
+      transition: transform 0.1s ease, background-color 0.1s ease !important;
+    }
+    
+    /* Prevent double-tap zoom on buttons */
+    #options button {
+      touch-action: manipulation;
+    }
+    
+    /* Remove any hover effects on mobile */
+    #options button:hover {
+      transform: none !important;
+    }
+    
+    /* Ensure loading state doesn't permanently disable */
+    #options button.loading:not(.answered):not(:disabled) {
+      pointer-events: none !important;
+      opacity: 0.7 !important;
+    }
+    
+    /* Ensure correct/wrong states show properly */
+    #options button.correct {
+      background-color: #4caf50 !important;
+      color: white !important;
+      pointer-events: none !important;
+    }
+    
+    #options button.wrong {
+      background-color: #f44336 !important;
+      color: white !important;
+      pointer-events: none !important;
+    }
+  }
+
+  /* Ensure options container doesn't block clicks */
+  @media (max-width: 768px) {
+    #options {
+      pointer-events: auto !important;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Make sure no overlay is blocking buttons */
+    #options::before,
+    #options::after {
+      display: none !important;
+      pointer-events: none !important;
+    }
+    
+    /* Prevent any parent elements from blocking clicks */
+    .options-container,
+    .quiz-container,
+    .main-content {
+      pointer-events: auto !important;
+    }
+  }
+
   /* High DPI / Retina Displays - Optimize rendering */
   @media (-webkit-min-device-pixel-ratio: 2),
   (min-resolution: 192dpi) {

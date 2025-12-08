@@ -157,7 +157,7 @@ function debounce(func, delay) {
 
 // Mobile device detection - reliable across all mobile browsers
 function isMobileDevice() {
-  // Check for touch capability
+  // Check for touch capability (most reliable indicator)
   const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 
   // Check screen width (mobile is typically < 768px)
@@ -167,8 +167,9 @@ function isMobileDevice() {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
 
-  // Return true if any mobile indicator is present
-  return (hasTouch && isSmallScreen) || isMobileUA;
+  // Return true if touch capability exists OR mobile UA is detected
+  // Prioritize touch capability for iPhone/iPad even if screen is large
+  return hasTouch || isMobileUA || isSmallScreen;
 }
 
 // Memory cleanup
@@ -2383,56 +2384,111 @@ function loadQuiz() {
         artists.forEach(artist => {
           const btn = document.createElement('button');
           btn.textContent = artist;
+          // Store artist name in data attribute for event delegation
+          btn.dataset.artist = artist;
 
           // On mobile, ensure button has no problematic initial styles
           if (isMobile) {
             btn.className = 'mobile-simple-btn';
             btn.style.cssText = '';
           }
-          // Use event delegation pattern for better performance
-          btn.onclick = () => {
-            try {
-              // Add loading state to prevent multiple clicks
-              const buttons = Array.from(optionsDiv.children);
-              buttons.forEach(b => {
-                b.disabled = true;
-                // Don't add loading class on mobile to keep styling simple
-                if (!isMobile) b.classList.add('loading');
-                b.classList.remove('correct', 'wrong');
-              });
+          fragment.appendChild(btn);
+        });
 
-              const correctBtn = buttons.find(b => b.textContent === painting.artist);
-              const selectedBtn = btn;
+        // Setup event delegation for button clicks
+        // Remove any existing listeners first to prevent duplicates
+        const oldHandler = optionsDiv._answerHandler;
+        if (oldHandler) {
+          // Remove both event types to be safe
+          optionsDiv.removeEventListener('click', oldHandler, { capture: false });
+          optionsDiv.removeEventListener('touchend', oldHandler, { capture: false });
+          optionsDiv._answerHandler = null;
+        }
 
-              // Track this answer
-              const isCorrect = artist === painting.artist;
-              currentRound.answers.push({
-                question: currentRound.questionNumber,
-                correct: isCorrect,
-                selectedArtist: artist,
-                correctArtist: painting.artist,
-                painting: painting
-              });
+        // Create unified answer handler
+        const handleAnswer = (e) => {
+          // Find the button that was clicked/touched
+          const button = e.target.closest('button');
+          if (!button || button.disabled || !button.dataset.artist) return;
 
-              if (isCorrect) {
-                // Correct answer
-                currentRound.correctAnswers++;
-                streak++;
-                selectedBtn.classList.add('correct');
+          // Prevent default and stop propagation for mobile
+          if (isMobile) {
+            e.preventDefault();
+            e.stopPropagation();
+          }
 
-                // Track analytics
-                trackAnswer(true, painting.artist, selectedCategory);
+          const artist = button.dataset.artist;
+          
+          try {
+            // Add loading state to prevent multiple clicks
+            const buttons = Array.from(optionsDiv.children);
+            buttons.forEach(b => {
+              b.disabled = true;
+              // Don't add loading class on mobile to keep styling simple
+              if (!isMobile) b.classList.add('loading');
+              b.classList.remove('correct', 'wrong');
+            });
 
-                // Show correct message
-                const correctMessage = getRandomCorrectMessage();
-                showMessage(correctMessage, '#388e3c');
+            const correctBtn = buttons.find(b => b.dataset.artist === painting.artist);
+            const selectedBtn = button;
 
-                // Add artist to set
-                currentRound.artists.add(painting.artist);
+            // Track this answer
+            const isCorrect = artist === painting.artist;
+            currentRound.answers.push({
+              question: currentRound.questionNumber,
+              correct: isCorrect,
+              selectedArtist: artist,
+              correctArtist: painting.artist,
+              painting: painting
+            });
 
-                // Quick transition for correct answers
-                setTimeout(() => {
-                  hideMessage(); // Hide the correct message
+            if (isCorrect) {
+              // Correct answer
+              currentRound.correctAnswers++;
+              streak++;
+              selectedBtn.classList.add('correct');
+
+              // Track analytics
+              trackAnswer(true, painting.artist, selectedCategory);
+
+              // Show correct message
+              const correctMessage = getRandomCorrectMessage();
+              showMessage(correctMessage, '#388e3c');
+
+              // Add artist to set
+              currentRound.artists.add(painting.artist);
+
+              // Quick transition for correct answers
+              setTimeout(() => {
+                hideMessage(); // Hide the correct message
+                // Remove loading state and reset buttons
+                buttons.forEach(b => {
+                  b.classList.remove('loading', 'correct', 'wrong');
+                  b.disabled = false;
+                });
+                currentRound.questionNumber++;
+                loadQuiz();
+              }, 1000);
+            } else {
+              // Incorrect answer
+              currentRound.incorrectAnswers++;
+              streak = 0;
+              selectedBtn.classList.add('wrong');
+              if (correctBtn) correctBtn.classList.add('correct');
+
+              // Track analytics
+              trackAnswer(false, artist, selectedCategory);
+
+              const incorrectMessage = getRandomIncorrectMessage();
+              showMessage(incorrectMessage, '#e53935');
+
+              // Add correct artist to set (only count the actual featured artist)
+              currentRound.artists.add(painting.artist);
+
+              updateStreakBar();
+              setTimeout(() => {
+                showArtistPopup(painting, () => {
+                  hideMessage();
                   // Remove loading state and reset buttons
                   buttons.forEach(b => {
                     b.classList.remove('loading', 'correct', 'wrong');
@@ -2440,49 +2496,32 @@ function loadQuiz() {
                   });
                   currentRound.questionNumber++;
                   loadQuiz();
-                }, 1000);
-              } else {
-                // Incorrect answer
-                currentRound.incorrectAnswers++;
-                streak = 0;
-                selectedBtn.classList.add('wrong');
-                if (correctBtn) correctBtn.classList.add('correct');
-
-                // Track analytics
-                trackAnswer(false, artist, selectedCategory);
-
-                const incorrectMessage = getRandomIncorrectMessage();
-                showMessage(incorrectMessage, '#e53935');
-
-                // Add correct artist to set (only count the actual featured artist)
-                currentRound.artists.add(painting.artist);
-
-                updateStreakBar();
-                setTimeout(() => {
-                  showArtistPopup(painting, () => {
-                    hideMessage();
-                    // Remove loading state and reset buttons
-                    buttons.forEach(b => {
-                      b.classList.remove('loading', 'correct', 'wrong');
-                      b.disabled = false;
-                    });
-                    currentRound.questionNumber++;
-                    loadQuiz();
-                  });
-                }, 500);
-              }
-              updateStreakBar();
-            } catch (error) {
-              console.error('Error handling button click:', error);
-              // Fallback: reload quiz to consistent state
-              loadQuiz();
+                });
+              }, 500);
             }
-          };
-          fragment.appendChild(btn);
+            updateStreakBar();
+          } catch (error) {
+            console.error('Error handling button click:', error);
+            // Fallback: reload quiz to consistent state
+            loadQuiz();
+          }
+        };
+
+        // Store handler reference for cleanup
+        optionsDiv._answerHandler = handleAnswer;
+
+        // Use touchend on mobile, click on desktop
+        const eventType = isMobile ? 'touchend' : 'click';
+        optionsDiv.addEventListener(eventType, handleAnswer, { 
+          passive: false, // Allow preventDefault on mobile
+          capture: false 
         });
 
         // MOBILE: Immediate button creation - no delays, no animations
         if (isMobile) {
+          // Debug log to verify mobile path
+          console.log('Mobile Path Executed - buttons created immediately');
+          
           // Clear old buttons immediately
           optionsDiv.innerHTML = '';
           // Add new buttons immediately
@@ -2505,6 +2544,8 @@ function loadQuiz() {
 
           updateStreakBar();
         } else {
+          // Debug log to verify desktop path
+          console.log('Desktop Path Executed - buttons with animation');
           // DESKTOP: Fade out existing, then fade in new
           const fadeDelay = existingButtons.length > 0 ? 200 : 0;
 
@@ -2548,6 +2589,16 @@ function loadQuiz() {
             updateStreakBar();
           }, fadeDelay);
         }
+
+        // Re-attach event listener after DOM update (for desktop path)
+        if (!isMobile) {
+          // Event listener is already attached above, but ensure it's active
+          const buttons = Array.from(optionsDiv.children);
+          buttons.forEach(btn => {
+            // Ensure buttons are clickable
+            btn.style.pointerEvents = 'auto';
+          });
+        }
       } catch (e) {
         console.error('Error in loadQuiz button creation:', e);
         // Fallback: try to create buttons anyway
@@ -2582,11 +2633,43 @@ function createButtonsFallback() {
     const artists = generateOptions(painting.artist, validPaintings);
     if (artists.length < 2) return;
 
+    // Set current painting for event handler
+    currentPainting = painting;
+
+    // Setup event delegation (same as main flow)
+    const oldHandler = optionsDiv._answerHandler;
+    if (oldHandler) {
+      optionsDiv.removeEventListener('click', oldHandler);
+      optionsDiv.removeEventListener('touchend', oldHandler);
+    }
+
+    const handleAnswer = (e) => {
+      const button = e.target.closest('button');
+      if (!button || button.disabled || !button.dataset.artist) return;
+
+      if (isMobile) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      console.log('Fallback button clicked:', button.dataset.artist);
+      // Trigger main quiz load
+      loadQuiz();
+    };
+
+    optionsDiv._answerHandler = handleAnswer;
+    const eventType = isMobile ? 'touchend' : 'click';
+    optionsDiv.addEventListener(eventType, handleAnswer, { 
+      passive: false,
+      capture: false 
+    });
+
     // Create buttons immediately
     optionsDiv.innerHTML = '';
     artists.forEach(artist => {
       const btn = document.createElement('button');
       btn.textContent = artist;
+      btn.dataset.artist = artist;
 
       if (isMobile) {
         btn.style.cssText = '';
@@ -2594,12 +2677,9 @@ function createButtonsFallback() {
         btn.style.setProperty('visibility', 'visible', 'important');
         btn.style.setProperty('display', 'block', 'important');
         btn.style.setProperty('pointer-events', 'auto', 'important');
+        btn.style.setProperty('transform', 'none', 'important');
+        btn.style.setProperty('transition', 'none', 'important');
       }
-
-      btn.onclick = () => {
-        // Basic click handler
-        console.log('Button clicked:', artist);
-      };
 
       optionsDiv.appendChild(btn);
     });
