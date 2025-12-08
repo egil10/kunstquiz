@@ -3269,10 +3269,12 @@ html.dark-theme .artist-inline-load-more-btn svg {
       opacity: 0;
       transform: translate(-50%, -50%) scale(0) rotate(0deg);
     }
+
     50% {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
     }
+
     100% {
       opacity: 0;
       transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
@@ -3339,6 +3341,7 @@ html.dark-theme .artist-inline-load-more-btn svg {
       opacity: 0;
       transform: translateY(30px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -3350,9 +3353,11 @@ html.dark-theme .artist-inline-load-more-btn svg {
       transform: scale(0.8);
       opacity: 0;
     }
+
     50% {
       transform: scale(1.1);
     }
+
     100% {
       transform: scale(1);
       opacity: 1;
@@ -3364,10 +3369,12 @@ html.dark-theme .artist-inline-load-more-btn svg {
       opacity: 0;
       transform: translate(-50%, -50%) scale(0) rotate(0deg);
     }
+
     20% {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1.2) rotate(90deg);
     }
+
     100% {
       opacity: 0;
       transform: translate(-80%, -250%) scale(0.3) rotate(720deg);
@@ -3379,10 +3386,12 @@ html.dark-theme .artist-inline-load-more-btn svg {
       opacity: 0;
       transform: translate(-50%, -50%) scale(0) rotate(0deg);
     }
+
     20% {
       opacity: 1;
       transform: translate(-50%, -50%) scale(1.2) rotate(-90deg);
     }
+
     100% {
       opacity: 0;
       transform: translate(-20%, -250%) scale(0.3) rotate(-720deg);
@@ -4542,7 +4551,7 @@ html.dark-theme .artist-inline-load-more-btn svg {
       transform: none !important;
       will-change: auto !important;
     }
-    
+
     /* CRITICAL: Ensure btn-col container doesn't collapse on mobile */
     #btn-col {
       display: flex !important;
@@ -4804,13 +4813,13 @@ html.dark-theme .artist-inline-load-more-btn svg {
       touch-action: manipulation !important;
       -webkit-tap-highlight-color: rgba(76, 175, 80, 0.3) !important;
     }
-    
+
     /* Ensure modal container doesn't overflow */
     .modal {
       padding: 0.5rem !important;
       box-sizing: border-box !important;
     }
-    
+
     .modal-content {
       max-width: 100% !important;
       max-height: 100% !important;
@@ -5288,4 +5297,79 @@ html.dark-theme .artist-inline-load-more-btn svg {
   height: 24px;
   color: inherit;
   stroke-width: 2;
+}
+
+/* Mobile Simple Button - Brutally simple and robust */
+.mobile-simple-btn {
+  display: block;
+  width: 100%;
+  padding: 1.25rem 1rem;
+  /* Large hit area */
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  background-color: #f0f0f0;
+  border: 2px solid #ccc;
+  /* Thicker border */
+  border-radius: 8px;
+  text-align: center;
+  /* Reset all fancy stuff */
+  transform: none !important;
+  transition: none !important;
+  animation: none !important;
+  box-shadow: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  /* Mobile specific */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+/* Active state for instant feedback */
+.mobile-simple-btn:active {
+  background-color: #e0e0e0;
+  border-color: #999;
+}
+
+/* State overrides */
+.mobile-simple-btn.correct {
+  background-color: #d4eec9 !important;
+  /* Pastel Green */
+  border-color: #4caf50 !important;
+  color: #1e4620 !important;
+}
+
+.mobile-simple-btn.wrong {
+  background-color: #fadbd8 !important;
+  /* Pastel Red */
+  border-color: #e74c3c !important;
+  color: #641e16 !important;
+}
+
+/* Dark mode overrides */
+html.dark-theme .mobile-simple-btn {
+  background-color: #333;
+  color: #eee;
+  border-color: #555;
+}
+
+html.dark-theme .mobile-simple-btn:active {
+  background-color: #444;
+  border-color: #777;
+}
+
+html.dark-theme .mobile-simple-btn.correct {
+  background-color: #1e4620 !important;
+  border-color: #4caf50 !important;
+  color: #d4eec9 !important;
+}
+
+html.dark-theme .mobile-simple-btn.wrong {
+  background-color: #641e16 !important;
+  border-color: #e74c3c !important;
+  color: #fadbd8 !important;
 }

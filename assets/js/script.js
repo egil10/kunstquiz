@@ -2386,6 +2386,7 @@ function loadQuiz() {
 
           // On mobile, ensure button has no problematic initial styles
           if (isMobile) {
+            btn.className = 'mobile-simple-btn';
             btn.style.cssText = '';
           }
           // Use event delegation pattern for better performance
@@ -2394,8 +2395,9 @@ function loadQuiz() {
               // Add loading state to prevent multiple clicks
               const buttons = Array.from(optionsDiv.children);
               buttons.forEach(b => {
-                b.classList.add('loading');
                 b.disabled = true;
+                // Don't add loading class on mobile to keep styling simple
+                if (!isMobile) b.classList.add('loading');
                 b.classList.remove('correct', 'wrong');
               });
 
