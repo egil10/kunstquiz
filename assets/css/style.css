@@ -4502,8 +4502,8 @@ html.dark-theme .artist-inline-load-more-btn svg {
       font-size: 1rem;
       min-height: 52px;
       /* Force visibility on mobile to prevent fade-in glitches */
-      opacity: 1 !important;
-      visibility: visible !important;
+      opacity: 1;
+      visibility: visible;
       /* Larger touch target on mobile */
       margin-bottom: 0;
       /* Touch optimization */
@@ -5175,7 +5175,7 @@ html.dark-theme .artist-inline-load-more-btn svg {
 }
 
 .painting-viewer-close {
-  position: absolute;
+  position: fixed;
   top: 2rem;
   right: 2rem;
   width: 56px;

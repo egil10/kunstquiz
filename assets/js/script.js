@@ -2433,23 +2433,45 @@ function loadQuiz() {
     });
 
     // Wait for fade out, then replace buttons
+    // Wait for fade out, then replace buttons
     setTimeout(() => {
       // Clear old buttons and add new ones
       optionsDiv.innerHTML = '';
       optionsDiv.appendChild(fragment);
 
-      // Fade in new buttons
+      // Fade in new buttons - Robust approach for all devices (especially iOS)
       const newButtons = Array.from(optionsDiv.children);
-      newButtons.forEach((btn, index) => {
+
+      // 1. Set initial state immediately
+      newButtons.forEach(btn => {
         btn.style.opacity = '0';
+        btn.style.visibility = 'visible'; // Force visibility
         btn.style.transition = 'opacity 0.3s ease';
-        // Stagger the fade-in slightly for smoother effect
-        requestAnimationFrame(() => {
+        btn.style.transform = 'translateZ(0)'; // Force hardware acceleration
+      });
+
+      // 2. Force reflow
+      void optionsDiv.offsetHeight;
+
+      // 3. Trigger animation
+      requestAnimationFrame(() => {
+        newButtons.forEach((btn, index) => {
           setTimeout(() => {
             btn.style.opacity = '1';
-          }, index * 20);
+          }, index * 50);
         });
       });
+
+      // 4. Safety net: Ensure they are visible after max animation time
+      setTimeout(() => {
+        newButtons.forEach(btn => {
+          // Force it if it's not sticking
+          if (getComputedStyle(btn).opacity !== '1') {
+            btn.style.opacity = '1';
+            btn.style.visibility = 'visible';
+          }
+        });
+      }, 500);
 
       updateStreakBar();
     }, existingButtons.length > 0 ? 200 : 0);
