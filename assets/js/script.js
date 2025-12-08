@@ -2339,20 +2339,7 @@ function loadQuiz() {
         // CRITICAL: Create buttons IMMEDIATELY - don't wait for anything
         // Buttons should appear even if image fails to load
 
-        // Detect mobile device once for this function
-        const isMobile = isMobileDevice();
-
-        // Fade out existing buttons smoothly before clearing (desktop only)
-        // MOBILE: Skip fade out - just replace immediately
-        const existingButtons = Array.from(optionsDiv.children);
-        if (existingButtons.length > 0 && !isMobile) {
-          // Set opacity to 0 to fade out, but keep them in place to prevent layout shift
-          existingButtons.forEach(btn => {
-            btn.style.opacity = '0';
-            btn.style.transition = 'opacity 0.2s ease';
-            btn.style.pointerEvents = 'none';
-          });
-        }
+        // Simple approach - no mobile detection needed, no fade animations
 
         // CRITICAL: Generate options with error handling
         let artists = [];
@@ -2368,280 +2355,79 @@ function loadQuiz() {
         }
 
         if (artists.length < 2) {
-          // Still show something - don't leave blank
-          if (isMobile) {
-            optionsDiv.innerHTML = `<p style="padding: 1rem; color: #666;">${t('notEnoughArtists') || 'Loading options...'}</p>`;
-          } else {
-            setTimeout(() => {
-              optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
-            }, 200);
-          }
+          optionsDiv.innerHTML = `<p>${t('notEnoughArtists') || 'Not enough artists'}</p>`;
           return;
         }
 
-        // Create all buttons at once to reduce DOM operations
-        const fragment = document.createDocumentFragment();
+        // SIMPLE BUTTON CREATION - No fancy stuff, just make it work
+        // Clear old buttons
+        optionsDiv.innerHTML = '';
+
+        // Create buttons with direct onclick handlers - simplest possible approach
         artists.forEach(artist => {
           const btn = document.createElement('button');
           btn.textContent = artist;
-          // Store artist name in data attribute for event delegation
-          btn.dataset.artist = artist;
-
-          // On mobile, ensure button has no problematic initial styles
-          if (isMobile) {
-            btn.className = 'mobile-simple-btn';
-            btn.style.cssText = '';
-          }
-          fragment.appendChild(btn);
-        });
-
-        // Setup event delegation for button clicks
-        // Remove any existing listeners first to prevent duplicates
-        const oldHandler = optionsDiv._answerHandler;
-        if (oldHandler) {
-          // Remove both event types to be safe
-          optionsDiv.removeEventListener('click', oldHandler, { capture: false });
-          optionsDiv.removeEventListener('touchend', oldHandler, { capture: false });
-          optionsDiv._answerHandler = null;
-        }
-
-        // Store current painting on optionsDiv for event handler access
-        optionsDiv._currentPainting = painting;
-        console.log('Stored painting data:', painting.artist, 'Question:', currentRound.questionNumber);
-
-        // Create unified answer handler
-        const handleAnswer = (e) => {
-          console.log('Event fired:', e.type, e.target);
           
-          // Find the button that was clicked/touched
-          const button = e.target.closest('button');
-          if (!button) {
-            console.log('No button found in event target');
-            return;
-          }
-          if (button.disabled) {
-            console.log('Button is disabled');
-            return;
-          }
-          if (!button.dataset.artist) {
-            console.log('Button has no artist data:', button.textContent, button.dataset);
-            return;
-          }
+          // Direct onclick handler - closure captures painting data
+          btn.onclick = function() {
+            // Disable all buttons immediately
+            const allButtons = Array.from(optionsDiv.children);
+            allButtons.forEach(b => b.disabled = true);
 
-          // Prevent default and stop propagation for mobile
-          if (isMobile) {
-            e.preventDefault();
-            e.stopPropagation();
-          }
+            const isCorrect = artist === painting.artist;
+            const selectedBtn = btn;
+            const correctBtn = allButtons.find(b => b.textContent === painting.artist);
 
-          // Get current painting from stored reference or global variable
-          // Use stored reference first (most reliable), fallback to global
-          const paintingData = optionsDiv._currentPainting || currentPainting;
-          if (!paintingData || !paintingData.artist) {
-            console.error('No painting data available for answer', { 
-              stored: optionsDiv._currentPainting, 
-              global: currentPainting,
-              questionNumber: currentRound.questionNumber 
-            });
-            return;
-          }
-          
-          console.log('Button clicked:', artist, 'Correct answer:', paintingData.artist);
-
-          const artist = button.dataset.artist;
-          
-          try {
-            // Add loading state to prevent multiple clicks
-            const buttons = Array.from(optionsDiv.children);
-            buttons.forEach(b => {
-              b.disabled = true;
-              // Don't add loading class on mobile to keep styling simple
-              if (!isMobile) b.classList.add('loading');
-              b.classList.remove('correct', 'wrong');
-            });
-
-            const correctBtn = buttons.find(b => b.dataset.artist === paintingData.artist);
-            const selectedBtn = button;
-
-            // Track this answer
-            const isCorrect = artist === paintingData.artist;
+            // Track answer
             currentRound.answers.push({
               question: currentRound.questionNumber,
               correct: isCorrect,
               selectedArtist: artist,
-              correctArtist: paintingData.artist,
-              painting: paintingData
+              correctArtist: painting.artist,
+              painting: painting
             });
 
             if (isCorrect) {
-              // Correct answer
+              // Correct
               currentRound.correctAnswers++;
               streak++;
               selectedBtn.classList.add('correct');
-
-              // Track analytics
-              trackAnswer(true, paintingData.artist, selectedCategory);
-
-              // Show correct message
-              const correctMessage = getRandomCorrectMessage();
-              showMessage(correctMessage, '#388e3c');
-
-              // Add artist to set
-              currentRound.artists.add(paintingData.artist);
-
-              // Quick transition for correct answers
+              trackAnswer(true, painting.artist, selectedCategory);
+              showMessage(getRandomCorrectMessage(), '#388e3c');
+              currentRound.artists.add(painting.artist);
+              
               setTimeout(() => {
-                hideMessage(); // Hide the correct message
-                // Remove loading state and reset buttons
-                buttons.forEach(b => {
-                  b.classList.remove('loading', 'correct', 'wrong');
-                  b.disabled = false;
-                });
+                hideMessage();
                 currentRound.questionNumber++;
+                updateStreakBar();
                 loadQuiz();
               }, 1000);
             } else {
-              // Incorrect answer
+              // Wrong
               currentRound.incorrectAnswers++;
               streak = 0;
               selectedBtn.classList.add('wrong');
               if (correctBtn) correctBtn.classList.add('correct');
-
-              // Track analytics
               trackAnswer(false, artist, selectedCategory);
-
-              const incorrectMessage = getRandomIncorrectMessage();
-              showMessage(incorrectMessage, '#e53935');
-
-              // Add correct artist to set (only count the actual featured artist)
-              currentRound.artists.add(paintingData.artist);
-
+              showMessage(getRandomIncorrectMessage(), '#e53935');
+              currentRound.artists.add(painting.artist);
+              
               updateStreakBar();
               setTimeout(() => {
-                showArtistPopup(paintingData, () => {
+                showArtistPopup(painting, () => {
                   hideMessage();
-                  // Remove loading state and reset buttons
-                  buttons.forEach(b => {
-                    b.classList.remove('loading', 'correct', 'wrong');
-                    b.disabled = false;
-                  });
                   currentRound.questionNumber++;
+                  updateStreakBar();
                   loadQuiz();
                 });
               }, 500);
             }
-            updateStreakBar();
-          } catch (error) {
-            console.error('Error handling button click:', error);
-            // Fallback: reload quiz to consistent state
-            loadQuiz();
-          }
-        };
+          };
 
-        // MOBILE: Immediate button creation - no delays, no animations
-        if (isMobile) {
-          // Debug log to verify mobile path
-          console.log('Mobile Path Executed - buttons created immediately');
-          
-          // Clear old buttons immediately
-          optionsDiv.innerHTML = '';
-          // Add new buttons immediately
-          optionsDiv.appendChild(fragment);
-          
-          // Store handler reference and attach event listener AFTER buttons are in DOM
-          optionsDiv._answerHandler = handleAnswer;
-          
-          // Use touchend on mobile
-          optionsDiv.addEventListener('touchend', handleAnswer, { 
-            passive: false, // Allow preventDefault on mobile
-            capture: false 
-          });
-          
-          console.log('Event listener attached to optionsDiv, buttons count:', optionsDiv.children.length);
+          optionsDiv.appendChild(btn);
+        });
 
-          const newButtons = Array.from(optionsDiv.children);
-
-          // Force immediate visibility - no animations, no delays
-          newButtons.forEach(btn => {
-            // Remove ALL inline styles that could interfere
-            btn.style.cssText = '';
-            // Force visibility with !important-level specificity
-            btn.style.setProperty('opacity', '1', 'important');
-            btn.style.setProperty('visibility', 'visible', 'important');
-            btn.style.setProperty('display', 'block', 'important');
-            btn.style.setProperty('pointer-events', 'auto', 'important');
-            btn.style.setProperty('transform', 'none', 'important');
-            btn.style.setProperty('transition', 'none', 'important');
-          });
-
-          updateStreakBar();
-        } else {
-          // Debug log to verify desktop path
-          console.log('Desktop Path Executed - buttons with animation');
-          // DESKTOP: Fade out existing, then fade in new
-          const fadeDelay = existingButtons.length > 0 ? 200 : 0;
-
-          setTimeout(() => {
-            // Clear old buttons and add new ones
-            optionsDiv.innerHTML = '';
-            optionsDiv.appendChild(fragment);
-            
-            // Store handler reference and attach event listener AFTER buttons are in DOM
-            optionsDiv._answerHandler = handleAnswer;
-            
-            // Use click on desktop
-            optionsDiv.addEventListener('click', handleAnswer, { 
-              passive: false,
-              capture: false 
-            });
-            
-            console.log('Event listener attached to optionsDiv, buttons count:', optionsDiv.children.length);
-
-            const newButtons = Array.from(optionsDiv.children);
-
-            // DESKTOP: Fade in animation for smooth UX
-            newButtons.forEach(btn => {
-              btn.style.opacity = '0';
-              btn.style.visibility = 'visible';
-              btn.style.transition = 'opacity 0.3s ease';
-              btn.style.transform = 'translateZ(0)';
-            });
-
-            // Force reflow
-            void optionsDiv.offsetHeight;
-
-            // Trigger animation
-            requestAnimationFrame(() => {
-              newButtons.forEach((btn, index) => {
-                setTimeout(() => {
-                  btn.style.opacity = '1';
-                }, index * 50);
-              });
-            });
-
-            // Safety net for desktop
-            setTimeout(() => {
-              newButtons.forEach(btn => {
-                if (getComputedStyle(btn).opacity !== '1') {
-                  btn.style.opacity = '1';
-                  btn.style.visibility = 'visible';
-                }
-              });
-            }, 500);
-
-            updateStreakBar();
-          }, fadeDelay);
-        }
-
-        // Re-attach event listener after DOM update (for desktop path)
-        if (!isMobile) {
-          // Event listener is already attached above, but ensure it's active
-          const buttons = Array.from(optionsDiv.children);
-          buttons.forEach(btn => {
-            // Ensure buttons are clickable
-            btn.style.pointerEvents = 'auto';
-          });
-        }
+        updateStreakBar();
       } catch (e) {
         console.error('Error in loadQuiz button creation:', e);
         // Fallback: try to create buttons anyway
