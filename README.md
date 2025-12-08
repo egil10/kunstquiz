@@ -2,7 +2,8 @@
 
 A fun, modern quiz where you guess the artist behind famous Norwegian paintings. Built for art lovers, students, and anyone curious about Norway's rich visual heritage.
 
-## 🎨 Features
+## Features
+
 - 1000s of paintings from 80+ Norwegian artists
 - Multiple quiz categories: movements, genres, museums, and more
 - Responsive, mobile-friendly UI
@@ -10,15 +11,16 @@ A fun, modern quiz where you guess the artist behind famous Norwegian paintings.
 - Data sourced from open Wikimedia and Wikidata APIs
 - Diagnostics and data health checks
 
-## 🕹️ How to Play
+## How to Play
+
 1. Select a category (e.g., Impressionism, Women Painters, National Museum)
 2. View a painting and choose the correct artist from four options
 3. Get instant feedback and learn about each artist
 4. Try to build a streak and explore the gallery!
 
-## 🛠️ Complete Workflow (6 Steps)
+## Complete Workflow (6 Steps)
 
-The repository now supports a complete 6-step workflow:
+The repository supports a complete 6-step workflow:
 
 1. **Finding new images** → `python scripts/workflow.py --collect`
 2. **Cleaning them and deleting bad ones** → `python scripts/workflow.py --clean`
@@ -27,7 +29,8 @@ The repository now supports a complete 6-step workflow:
 5. **Push to app** → `python scripts/workflow.py --process` + `python scripts/workflow.py --deploy`
 6. **App with working game logic** → Ready to use!
 
-### Quick Start:
+### Quick Start
+
 ```bash
 # Initialize the workflow structure
 python scripts/workflow.py --init
@@ -47,7 +50,8 @@ python scripts/workflow.py --process
 python scripts/workflow.py --deploy
 ```
 
-## 📁 Project Structure
+## Project Structure
+
 ```
 kunstquiz/
 ├── scripts/                    # All Python scripts
@@ -57,22 +61,25 @@ kunstquiz/
 │   ├── stats.py               # All analysis operations
 │   ├── process.py             # All data processing
 │   ├── utils.py               # All utility operations
-│   ├── diagnostics.py         # Comprehensive diagnostics
-│   └── consolidate_data.py    # Data consolidation
+│   └── diagnostics.py         # Comprehensive diagnostics
 ├── data/                      # Data files
-│   ├── paintings_with_inferred_categories.json  # Web app paintings
-│   ├── artist_bios.json       # Web app artists
-│   ├── raw/                   # Raw collected data
-│   ├── processed/             # Clean, processed data
+│   ├── paintings.json         # Web app paintings
+│   ├── artists.json           # Web app artists
+│   ├── app_data.json         # Unified app data
 │   └── config/                # Configuration files
-├── config/                    # Project configuration
 ├── docs/                      # Documentation
+│   └── category_strategy.md   # Collection strategy guide
 ├── assets/                    # Web app assets (CSS, JS)
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── script.js
 ├── index.html                 # Main web app
 └── README.md                  # This file
 ```
 
-## 📊 Scripts Overview
+## Scripts Overview
+
 The repository uses consolidated scripts for better organization:
 
 - **`scripts/workflow.py`** - Complete 6-step workflow management
@@ -81,32 +88,11 @@ The repository uses consolidated scripts for better organization:
 - **`scripts/stats.py`** - All analysis and statistics operations
 - **`scripts/process.py`** - All data processing operations
 - **`scripts/utils.py`** - All utility operations (URLs, backups, health checks)
-- **`scripts/diagnostics.py`** - Comprehensive diagnostics
-- **`scripts/consolidate_data.py`** - Data consolidation and cleanup
+- **`scripts/diagnostics.py`** - Comprehensive diagnostics report generation
 
-## 📊 Diagnostics & Stats
-The `scripts/stats.py --diagnostics` script checks for data consistency, category coverage, and missing info.
+## Diagnostics & Stats
 
-## 🗂️ Categories
-- Full Collection: All paintings
-- Popular Painters: Top 10 artists by painting count
-- Landscape: Landscape paintings (34 artists)
-- Realism: Realist movement (15 artists)
-- Impressionism: Impressionist paintings (12 artists)
-- Romantic Nationalism: Norwegian romantic nationalism (10 artists)
-- Modernism: Modern works (10 artists)
-- Female Artists: Female painters (4 artists)
-
-## 🤝 Contributing
-Pull requests and suggestions are welcome! See [issues](https://github.com/egil10/kunstquiz/issues) or open a PR.
-
-## 📄 License
-MIT. All painting images and artist data are from open Wikimedia/Wikidata sources.
-
----
-
-*Made with ❤️ for Norwegian art lovers.*
-
+The `scripts/stats.py --diagnostics` script checks for data consistency, category coverage, and missing info. It also updates the stats below:
 
 <!-- STATS_START -->
 **Latest Art Quiz Stats**
@@ -123,3 +109,26 @@ MIT. All painting images and artist data are from open Wikimedia/Wikidata source
   - Modernism: 73 paintings, 2 painters
   - Female Artists: 240 paintings, 4 painters
 <!-- STATS_END -->
+
+## Categories
+
+- Full Collection: All paintings
+- Popular Painters: Top 10 artists by painting count
+- Landscape: Landscape paintings (34 artists)
+- Realism: Realist movement (15 artists)
+- Impressionism: Impressionist paintings (12 artists)
+- Romantic Nationalism: Norwegian romantic nationalism (10 artists)
+- Modernism: Modern works (10 artists)
+- Female Artists: Female painters (4 artists)
+
+## Contributing
+
+Pull requests and suggestions are welcome! See [issues](https://github.com/egil10/kunstquiz/issues) or open a PR.
+
+## License
+
+MIT. All painting images and artist data are from open Wikimedia/Wikidata sources.
+
+---
+
+*Made with love for Norwegian art lovers.*

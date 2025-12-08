@@ -171,17 +171,6 @@ function isMobileDevice() {
   return (hasTouch && isSmallScreen) || isMobileUA;
 }
 
-// Efficient DOM updates
-function batchDOMUpdates() {
-  if (batchUpdateTimer) return;
-
-  batchUpdateTimer = requestAnimationFrame(() => {
-    pendingUpdates.forEach(update => update());
-    pendingUpdates.clear();
-    batchUpdateTimer = null;
-  });
-}
-
 // Memory cleanup
 function cleanupMemory() {
   // Clear old cache entries
@@ -217,7 +206,7 @@ function startMemoryCleanup() {
   cleanupTimer = setInterval(cleanupMemory, PERFORMANCE_CONFIG.CLEANUP_INTERVAL);
 }
 
-// Performance monitoring function
+// Performance monitoring function (kept for potential future use)
 function getPerformanceMetrics() {
   const uptime = Date.now() - performanceMetrics.startTime;
   const memoryUsage = performance.memory ? {
@@ -237,38 +226,6 @@ function getPerformanceMetrics() {
     memoryCacheSize: memoryCache.size,
     domCacheSize: domCache.size
   };
-}
-
-// Debug function to log performance metrics
-function logPerformanceMetrics() {
-  const metrics = getPerformanceMetrics();
-  console.log('🎯 Performance Metrics:', metrics);
-  return metrics;
-}
-
-// Image optimization monitoring
-const imageOptimizationMetrics = {
-  totalImages: 0,
-  optimizedImages: 0,
-  webpImages: 0,
-  fallbackImages: 0,
-  averageLoadTime: 0,
-  loadTimes: []
-};
-
-function logImageOptimizationMetrics() {
-  const avgLoadTime = imageOptimizationMetrics.loadTimes.length > 0
-    ? imageOptimizationMetrics.loadTimes.reduce((a, b) => a + b, 0) / imageOptimizationMetrics.loadTimes.length
-    : 0;
-
-  console.log('🖼️ Image Optimization Metrics:', {
-    totalImages: imageOptimizationMetrics.totalImages,
-    optimizedImages: imageOptimizationMetrics.optimizedImages,
-    webpImages: imageOptimizationMetrics.webpImages,
-    fallbackImages: imageOptimizationMetrics.fallbackImages,
-    averageLoadTime: `${avgLoadTime.toFixed(2)}ms`,
-    optimizationRate: `${(imageOptimizationMetrics.optimizedImages / imageOptimizationMetrics.totalImages * 100).toFixed(1)}%`
-  });
 }
 
 // Language support - persist in localStorage
@@ -1156,16 +1113,16 @@ function updateLanguageUI() {
 
   // Update round results modal elements
   const roundResultsTitle = document.getElementById('round-results-title');
-  if (roundResultsTitle) roundResultsTitle.textContent = t('roundStats.title');
+  if (roundResultsTitle) roundResultsTitle.textContent = t('roundStats.title') || 'Round Complete!';
 
-  const roundResultsScoreLabel = document.querySelector('#round-results-modal .stat-label');
-  if (roundResultsScoreLabel) roundResultsScoreLabel.textContent = t('roundStats.score') + ':';
-
-  const roundResultsArtistsLabel = document.querySelector('#round-results-artists .stat-label');
-  if (roundResultsArtistsLabel) roundResultsArtistsLabel.textContent = t('roundStats.artists') + ':';
+  const roundResultsSectionTitle = document.querySelector('.section .section-title');
+  if (roundResultsSectionTitle) roundResultsSectionTitle.textContent = t('roundStats.artists') || 'Painters in this round';
 
   const roundResultsPlayAgainBtn = document.getElementById('round-results-play-again');
-  if (roundResultsPlayAgainBtn) roundResultsPlayAgainBtn.textContent = t('roundStats.playAgain');
+  const roundResultsPlayAgainBtnSpan = roundResultsPlayAgainBtn?.querySelector('span');
+  if (roundResultsPlayAgainBtnSpan) {
+    roundResultsPlayAgainBtnSpan.textContent = t('roundStats.playAgain') || 'Play Another Round';
+  }
 
   // Update diploma modal elements
   const diplomaTitle = document.getElementById('diploma-title');
@@ -1655,7 +1612,13 @@ function createGalleryImage(painting) {
   }
 
   // Check if URL looks like an image URL (has image extension or is from wikimedia)
-  const url = painting.url.trim();
+  let url = painting.url.trim();
+  
+  // Convert HTTP to HTTPS to prevent mixed content warnings
+  if (url.startsWith('http://')) {
+    url = url.replace('http://', 'https://');
+  }
+  
   const isImageUrl = url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) ||
     url.includes('wikimedia.org') ||
     url.includes('upload.wikimedia.org');
@@ -1667,8 +1630,10 @@ function createGalleryImage(painting) {
 
   const img = document.createElement('img');
   // Use preloaded URL if available, otherwise fallback to optimized URL
-  const preloadedUrl = galleryPreloadCache.get(painting.url);
-  const imageUrl = preloadedUrl || optimizeImageUrl(painting.url, 400);
+  // Ensure we use the HTTPS-converted URL for cache lookup
+  const cacheKey = url; // Use the already-converted HTTPS URL
+  const preloadedUrl = galleryPreloadCache.get(cacheKey);
+  const imageUrl = preloadedUrl || optimizeImageUrl(url, 400);
 
   // Final validation of the processed URL
   if (!imageUrl || typeof imageUrl !== 'string' || imageUrl.trim() === '') {
@@ -1705,8 +1670,9 @@ function createGalleryImage(painting) {
 
   // Handle image load errors - try fallback URL first
   img.onerror = function () {
-    // Try original URL as fallback
-    if (this.src !== painting.url) {
+    // Try original URL as fallback (ensure HTTPS)
+    let fallbackUrl = url; // Use the already-converted HTTPS URL
+    if (this.src !== fallbackUrl) {
       const fallbackImg = new Image();
       fallbackImg.onload = () => {
         // Replace the broken image with the working one
@@ -1723,7 +1689,7 @@ function createGalleryImage(painting) {
           // Ignore errors if already removed
         }
       };
-      fallbackImg.src = painting.url;
+      fallbackImg.src = fallbackUrl;
     } else {
       // Original URL also failed - remove from DOM
       try {
@@ -1936,6 +1902,13 @@ async function preloadAndShowGallery() {
 }
 
 async function preloadGalleryImage(url) {
+  if (!url) return url;
+  
+  // Convert HTTP to HTTPS to prevent mixed content warnings
+  if (url.startsWith('http://')) {
+    url = url.replace('http://', 'https://');
+  }
+  
   // Check cache first
   if (galleryPreloadCache.has(url)) {
     return galleryPreloadCache.get(url);
@@ -2283,14 +2256,23 @@ function loadQuiz() {
 
     // Image should already be preloaded - use it instantly
     let imageUrl = painting.url;
+    
+    // Ensure HTTPS to prevent mixed content warnings
+    if (imageUrl && imageUrl.startsWith('http://')) {
+      imageUrl = imageUrl.replace('http://', 'https://');
+    }
 
     if (imageCache.has(painting.url)) {
       // Image is in cache - use cached version
       const cachedImg = imageCache.get(painting.url);
-      imageUrl = cachedImg.src || painting.url;
+      imageUrl = cachedImg.src || imageUrl;
+      // Ensure cached URL is also HTTPS
+      if (imageUrl && imageUrl.startsWith('http://')) {
+        imageUrl = imageUrl.replace('http://', 'https://');
+      }
     } else {
-      // Fallback: try optimized URL
-      imageUrl = optimizeImageUrl(painting.url);
+      // Fallback: try optimized URL (which now handles HTTPS conversion)
+      imageUrl = optimizeImageUrl(imageUrl || painting.url);
     }
 
     // Set image immediately (it's already loaded)
@@ -3416,7 +3398,12 @@ function showPaintingViewer(painting, returnContext = null) {
   modal.dataset.returnContext = returnContext ? JSON.stringify(returnContext) : '';
 
   // Use the painting URL that was passed to the function
-  image.src = painting.url;
+  // Convert HTTP to HTTPS to prevent mixed content warnings
+  let imageUrl = painting.url;
+  if (imageUrl && imageUrl.startsWith('http://')) {
+    imageUrl = imageUrl.replace('http://', 'https://');
+  }
+  image.src = imageUrl;
   image.style.display = 'block';
 
   // Show modal with animation - use fixed positioning to avoid scroll issues
@@ -3562,7 +3549,22 @@ function setPlayAgainButtons(show, text, onClick) {
     if (btn) {
       if (show) {
         if (text) btn.textContent = text;
-        if (onClick) btn.onclick = onClick;
+        
+        // Remove existing listeners and add new one for mobile compatibility
+        if (onClick) {
+          btn.onclick = null;
+          btn.removeEventListener('click', onClick);
+          const handleClick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            onClick(e);
+          };
+          btn.onclick = handleClick;
+          btn.addEventListener('click', handleClick, { passive: true });
+          btn.style.pointerEvents = 'auto';
+          btn.style.cursor = 'pointer';
+        }
+        
         btn.style.display = 'block';
       } else {
         btn.style.display = 'none';
@@ -3574,10 +3576,12 @@ function setPlayAgainButtons(show, text, onClick) {
 function showRoundResults() {
   const modal = document.getElementById('round-results-modal');
   const title = document.getElementById('round-results-title');
-  const score = document.getElementById('round-results-score');
+  const subtitle = document.getElementById('round-results-subtitle');
+  const scoreCurrent = document.getElementById('round-results-score-current');
   const artistsList = document.getElementById('round-results-artists-list');
-  const feedback = document.getElementById('round-results-feedback');
+  const feedbackText = document.querySelector('.feedback-text');
   const playAgainBtn = document.getElementById('round-results-play-again');
+  const playAgainBtnSpan = playAgainBtn.querySelector('span');
   const downloadBtn = document.getElementById('round-results-download');
 
   if (!modal) return;
@@ -3593,37 +3597,59 @@ function showRoundResults() {
   }
 
   // Update content with proper translations
-  title.textContent = t('roundStats.title');
-  score.textContent = `${totalCorrect}/10`;
+  title.textContent = t('roundStats.title') || 'Round Complete!';
+  scoreCurrent.textContent = totalCorrect;
+  
+  // Update subtitle
+  const paintingText = totalCorrect === 1 ? t('painting') : t('paintings');
+  subtitle.textContent = `You recognized ${totalCorrect} out of 10 ${paintingText}`;
 
-  // Update labels
-  const scoreLabel = document.querySelector('#round-results-modal .stat-label');
-  if (scoreLabel) scoreLabel.textContent = t('roundStats.score') + ':';
+  // Update section title for artists
+  const sectionTitle = document.querySelector('.section .section-title');
+  if (sectionTitle) sectionTitle.textContent = t('roundStats.artists') || 'Painters in this round';
 
-  const artistsLabel = document.querySelector('#round-results-artists .stat-label');
-  if (artistsLabel) artistsLabel.textContent = t('roundStats.artists') + ':';
-
-  // Populate artists list
+  // Populate artists list with chip style
   artistsList.innerHTML = '';
   uniqueArtists.forEach(artist => {
-    const artistTag = document.createElement('span');
-    artistTag.className = 'artist-tag-small';
-    artistTag.textContent = artist;
-    artistsList.appendChild(artistTag);
+    const chip = document.createElement('span');
+    chip.className = 'chip';
+    chip.textContent = artist;
+    artistsList.appendChild(chip);
   });
 
-  feedback.textContent = getRandomRoundFeedback(totalCorrect);
-  playAgainBtn.textContent = t('roundStats.playAgain');
+  // Update feedback
+  if (feedbackText) {
+    feedbackText.textContent = getRandomRoundFeedback(totalCorrect);
+  }
+  
+  // Update button text
+  if (playAgainBtnSpan) {
+    playAgainBtnSpan.textContent = t('roundStats.playAgain') || 'Play Another Round';
+  }
 
   // Show modal
   modal.style.display = 'flex';
   modal.focus();
 
-  // Setup event listeners
-  playAgainBtn.onclick = () => {
+  // Setup event listeners - use both onclick and addEventListener for better mobile support
+  const handlePlayAgain = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
     hideRoundResults();
     startNewRound();
   };
+  
+  // Remove any existing listeners
+  playAgainBtn.onclick = null;
+  playAgainBtn.removeEventListener('click', handlePlayAgain);
+  
+  // Add both onclick and addEventListener for maximum compatibility
+  playAgainBtn.onclick = handlePlayAgain;
+  playAgainBtn.addEventListener('click', handlePlayAgain, { passive: true });
+  
+  // Ensure button is clickable
+  playAgainBtn.style.pointerEvents = 'auto';
+  playAgainBtn.style.cursor = 'pointer';
 
   // Show main "Play Again" button on all pages
   setPlayAgainButtons(true, t('roundStats.playAgain'), () => {
@@ -3736,7 +3762,7 @@ function showDiploma() {
   // Setup event listeners
   if (downloadBtn) {
     downloadBtn.onclick = downloadDiploma;
-    console.log('Download button found and configured');
+    // Download button configured
   } else {
     console.error('Download button not found!');
   }
@@ -3746,7 +3772,7 @@ function showDiploma() {
       hideDiploma();
       startNewRound();
     };
-    console.log('Play Again button found and configured');
+    // Play Again button configured
   } else {
     console.error('Play Again button not found!');
   }
@@ -3861,7 +3887,14 @@ function getArtistPortraitUrl(painting) {
 
 // Preload a single artist portrait image with decode for zero-flicker
 function preloadArtistPortrait(url) {
-  if (!url || artistPortraitsPreloaded.has(url)) {
+  if (!url) return Promise.resolve();
+  
+  // Convert HTTP to HTTPS to prevent mixed content warnings
+  if (url.startsWith('http://')) {
+    url = url.replace('http://', 'https://');
+  }
+  
+  if (artistPortraitsPreloaded.has(url)) {
     return Promise.resolve();
   }
 
@@ -4052,7 +4085,12 @@ async function preloadAllRoundImages() {
           updateLoadingText();
           resolve();
         };
-        fallbackImg.src = painting.url;
+        // Convert HTTP to HTTPS for fallback URL
+        let fallbackUrl = painting.url;
+        if (fallbackUrl && fallbackUrl.startsWith('http://')) {
+          fallbackUrl = fallbackUrl.replace('http://', 'https://');
+        }
+        fallbackImg.src = fallbackUrl;
       };
 
       img.src = optimizedUrl;
@@ -4094,7 +4132,14 @@ async function preloadAllRoundImages() {
 
 // Preload a single quiz image - ensure it's fully loaded in cache with decode
 function preloadQuizImage(url) {
-  if (!url || imageCache.has(url)) {
+  if (!url) return Promise.resolve();
+  
+  // Convert HTTP to HTTPS to prevent mixed content warnings
+  if (url.startsWith('http://')) {
+    url = url.replace('http://', 'https://');
+  }
+  
+  if (imageCache.has(url)) {
     upcomingPaintingsPreloaded.add(url);
     return Promise.resolve();
   }
@@ -4134,7 +4179,12 @@ function preloadQuizImage(url) {
         upcomingPaintingsPreloaded.add(url);
         resolve(null);
       };
-      fallbackImg.src = url;
+      // Convert HTTP to HTTPS for fallback URL
+      let fallbackUrl = url;
+      if (fallbackUrl && fallbackUrl.startsWith('http://')) {
+        fallbackUrl = fallbackUrl.replace('http://', 'https://');
+      }
+      fallbackImg.src = fallbackUrl;
     };
 
     img.src = optimizedUrl;
@@ -4318,9 +4368,22 @@ function updateCategorySelector() {
   }
 }
 
+// Helper function to ensure HTTPS for all image URLs
+function ensureHttps(url) {
+  if (!url || typeof url !== 'string') return url;
+  if (url.startsWith('http://')) {
+    return url.replace('http://', 'https://');
+  }
+  return url;
+}
+
 // Image optimization functions
 function optimizeImageUrl(url, targetWidth = 800) {
   if (!url) return '';
+  
+  // Convert HTTP to HTTPS to prevent mixed content warnings
+  url = ensureHttps(url);
+  
   return url; // Return original URL - webp causes 404s
 }
 
@@ -4353,8 +4416,12 @@ function loadImageProgressive(imgElement, url, fallbackUrl = null) {
         // Try fallback URL
         loadImageProgressive(imgElement, fallbackUrl).then(resolve).catch(reject);
       } else {
-        // Use original URL as last resort
-        imgElement.src = url;
+        // Use original URL as last resort (ensure HTTPS)
+        let finalUrl = url;
+        if (finalUrl && finalUrl.startsWith('http://')) {
+          finalUrl = finalUrl.replace('http://', 'https://');
+        }
+        imgElement.src = finalUrl;
         imgElement.classList.add('loaded');
         resolve(img);
       }
@@ -4722,11 +4789,18 @@ function renderArtistInlineGallery(artistName, container) {
   // Clear container first
   container.innerHTML = '';
 
+  // Create title showing artist name and painting count
+  const title = document.createElement('h2');
+  title.className = 'artist-gallery-title';
+  const paintingText = artistPaintings.length === 1 ? t('painting') : t('paintings');
+  title.textContent = `${artistName} (${artistPaintings.length} ${paintingText})`;
+  container.appendChild(title);
+
   // Create grid
   const grid = document.createElement('div');
   grid.className = 'artist-inline-gallery-grid';
 
-  // Append grid to container first
+  // Append grid to container
   container.appendChild(grid);
 
   // Store paintings and loaded count in container dataset
@@ -5282,20 +5356,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupCategoryChangeInfoBar();
 
     // Ensure category selector is properly rendered
-    console.log('Rendering category selector...');
+    // Rendering category selector
     renderCategorySelector();
-    console.log('Category selector rendered');
+    // Category selector rendered
 
     // Test category selector
     setTimeout(() => {
       const customLink = document.getElementById('custom-category-link');
       const selectorDiv = document.querySelector('.category-selector');
-      console.log('Category selector test:', {
-        customLink: !!customLink,
-        selectorDiv: !!selectorDiv,
-        customLinkText: customLink?.textContent,
-        selectorDivChildren: selectorDiv?.children?.length
-      });
+      // Category selector test (debug removed)
     }, 1000);
 
     const resetBtn = document.getElementById('reset-btn');

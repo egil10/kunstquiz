@@ -25,8 +25,6 @@
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="logo.svg">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="shortcut icon" href="favicon.ico">
 
   <link rel="stylesheet" href="assets/css/style.css">
   <meta name="description"
@@ -313,25 +311,36 @@
       <button id="reset-btn"></button>
     </div>
   </div>
-  <div id="round-results-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
+  <div id="round-results-modal" class="modal results-modal" style="display:none;" role="dialog" aria-modal="true"
     aria-labelledby="round-results-title">
-    <div class="modal-content round-results-content">
-      <h2 id="round-results-title"></h2>
-      <div class="round-results-stats">
-        <div class="stat-item">
-          <span class="stat-label"></span>
-          <span id="round-results-score" class="stat-value">0/10</span>
+    <div class="results-card">
+      <div class="results-header">
+        <div class="score-circle">
+          <span id="round-results-score-current" class="score-current">0</span>
+          <span class="score-total">/10</span>
+        </div>
+        <h2 id="round-results-title" class="results-title">Round Complete!</h2>
+        <p id="round-results-subtitle" class="results-subtitle">You recognized 0 out of 10 paintings</p>
+      </div>
+      <div class="results-body">
+        <div class="section">
+          <h3 class="section-title"></h3>
+          <div id="round-results-artists-list" class="artists-chips"></div>
+        </div>
+        <div id="round-results-feedback" class="feedback-banner">
+          <span class="feedback-text"></span>
         </div>
       </div>
-      <div class="round-results-artists">
-        <span class="stat-label"></span>
-        <div id="round-results-artists-list" class="artists-list"></div>
-      </div>
-      <div id="round-results-feedback" class="round-results-feedback">
-      </div>
-      <div class="round-results-buttons">
-        <button id="round-results-play-again" class="primary-btn"></button>
-        <button id="round-results-download" class="secondary-btn" style="display:none;"></button>
+      <div class="results-actions">
+        <button id="round-results-play-again" class="btn-primary">
+          <span></span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M23 4v6h-6"></path>
+            <path d="M1 20v-6h6"></path>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 9 0 0 0 20.49 15"></path>
+          </svg>
+        </button>
+        <button id="round-results-download" class="btn-secondary" style="display:none;">Share Score</button>
       </div>
     </div>
   </div>
