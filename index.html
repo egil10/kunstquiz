@@ -79,7 +79,7 @@
     <div class="main-flex">
       <div class="img-col">
         <div class="painting-container">
-          <img id="painting" src="" alt="" loading="lazy" decoding="async" role="img" aria-label="Painting to identify">
+          <img id="painting" src="" alt="" loading="eager" decoding="async" role="img" aria-label="Painting to identify">
           <div id="loading-indicator" class="loading-indicator" style="display: none;">
             <div class="loading-spinner"></div>
             <p id="loading-text">Loading images... 0/10</p>
@@ -311,20 +311,14 @@
       <button id="reset-btn"></button>
     </div>
   </div>
-  <div id="round-results-modal" class="modal" style="display:none;" role="dialog" aria-modal="true"
-    aria-labelledby="round-results-title">
+  <div id="round-results-modal" class="modal" style="display:none;" role="dialog" aria-modal="true">
     <div class="modal-content round-results-simple">
-      <h2 id="round-results-title" class="round-results-title">Round Results</h2>
-      <div class="round-results-score">
-        <span id="round-results-score-text">0/10</span>
+      <div class="celebration-animation"></div>
+      <div class="round-results-score-simple">
+        <span id="round-results-score-current">0</span>/10
       </div>
-      <div class="round-results-artists">
-        <h3 class="round-results-artists-title">Painters featured</h3>
-        <div id="round-results-artists-list" class="round-results-artists-list"></div>
-      </div>
-      <div class="round-results-actions">
-        <button id="round-results-play-again" class="round-results-btn">Play Another Round</button>
-      </div>
+      <div id="round-results-artists-list" class="round-results-artists-simple"></div>
+      <button id="round-results-play-again" class="round-results-btn-simple">Play Another Round</button>
     </div>
   </div>
 

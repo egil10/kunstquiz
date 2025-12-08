@@ -657,23 +657,9 @@ html.dark-theme .artist-gallery-load-more:hover {
   color: #e0e0e0;
 }
 
-html.dark-theme .round-results-simple {
-  background: #1a1a1a;
-  color: #e0e0e0;
-}
-
-html.dark-theme .round-results-title {
-  color: #e0e0e0;
-}
-
-html.dark-theme .round-results-artists-title {
-  color: #aaa;
-}
-
-html.dark-theme .round-results-artists-list span {
+html.dark-theme .round-results-artists-simple span {
   background: #2d2d2d;
   color: #e0e0e0;
-  border: 1px solid #444;
 }
 
 html.dark-theme .primary-btn {
@@ -3231,70 +3217,100 @@ html.dark-theme .artist-inline-load-more-btn svg {
     }
   }
 
-  /* Round results modal - Simple clean design */
+  /* Round results modal - Simple clean design like message div */
   .round-results-simple {
     min-width: 400px;
     max-width: 500px;
     width: 90vw;
-    padding: 2rem;
+    max-height: 90vh;
+    padding: 2.5rem;
     text-align: center;
+    position: relative;
+    animation: slideUpCelebrate 0.5s ease-out;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
-  .round-results-title {
-    margin: 0 0 1.5rem 0;
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
+  .celebration-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
   }
 
-  .round-results-score {
-    margin: 0 0 2rem 0;
-  }
-
-  .round-results-score span {
+  .celebration-animation::before,
+  .celebration-animation::after {
+    content: '🎉';
+    position: absolute;
     font-size: 3rem;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: confettiBurst 1.2s ease-out 0.3s;
+    opacity: 0;
+  }
+
+  .celebration-animation::before {
+    animation: confetti1 1.2s ease-out 0.3s;
+  }
+
+  .celebration-animation::after {
+    content: '✨';
+    animation: confetti2 1.2s ease-out 0.4s;
+  }
+
+  @keyframes confettiBurst {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    }
+    50% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.5) rotate(180deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.5) rotate(360deg);
+    }
+  }
+
+  .round-results-score-simple {
+    font-size: 3.5rem;
     font-weight: 700;
     color: #4caf50;
-    line-height: 1;
-  }
-
-  .round-results-artists {
     margin: 0 0 2rem 0;
-    text-align: left;
+    line-height: 1;
+    animation: scorePop 0.5s ease-out 0.1s backwards;
   }
 
-  .round-results-artists-title {
-    margin: 0 0 1rem 0;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+  .round-results-score-simple span {
+    color: #4caf50;
   }
 
-  .round-results-artists-list {
+  .round-results-artists-simple {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 0;
+    justify-content: center;
+    margin: 0 0 2rem 0;
   }
 
-  .round-results-artists-list span {
+  .round-results-artists-simple span {
     display: inline-block;
-    padding: 0.5rem 0.875rem;
+    padding: 0.5rem 1rem;
     background: #f5f5f5;
-    color: #444;
+    color: #333;
     border-radius: 6px;
     font-size: 0.875rem;
     font-weight: 500;
   }
 
-  .round-results-actions {
-    margin: 0;
-    padding: 0;
-  }
-
-  .round-results-btn {
+  .round-results-btn-simple {
     width: 100%;
     padding: 0.875rem 1.5rem;
     background: #4caf50;
@@ -3309,12 +3325,68 @@ html.dark-theme .artist-inline-load-more-btn svg {
     pointer-events: auto !important;
   }
 
-  .round-results-btn:hover {
+  .round-results-btn-simple:hover {
     background: #45a049;
   }
 
-  .round-results-btn:active {
+  .round-results-btn-simple:active {
     background: #388e3c;
+  }
+
+  /* Animations */
+  @keyframes slideUpCelebrate {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scorePop {
+    0% {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  @keyframes confetti1 {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    }
+    20% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.2) rotate(90deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-80%, -250%) scale(0.3) rotate(720deg);
+    }
+  }
+
+  @keyframes confetti2 {
+    0% {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0) rotate(0deg);
+    }
+    20% {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.2) rotate(-90deg);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-20%, -250%) scale(0.3) rotate(-720deg);
+    }
   }
 
   .primary-btn {
@@ -4463,6 +4535,21 @@ html.dark-theme .artist-inline-load-more-btn svg {
       /* Ensure container is visible */
       opacity: 1 !important;
       visibility: visible !important;
+      /* CRITICAL: Ensure container is not hidden or clipped */
+      overflow: visible !important;
+      position: relative !important;
+      /* Force layout */
+      transform: none !important;
+      will-change: auto !important;
+    }
+    
+    /* CRITICAL: Ensure btn-col container doesn't collapse on mobile */
+    #btn-col {
+      display: flex !important;
+      flex-direction: column !important;
+      width: 100% !important;
+      min-width: 0 !important;
+      overflow: visible !important;
     }
 
     #options button {
@@ -4485,8 +4572,14 @@ html.dark-theme .artist-inline-load-more-btn svg {
       cursor: pointer;
       /* Ensure buttons are always visible and clickable on mobile */
       pointer-events: auto !important;
-      /* Remove any transforms that could hide buttons */
+      /* CRITICAL: Remove any transforms that could hide buttons on mobile */
       transform: none !important;
+      /* Ensure buttons are not clipped or hidden */
+      overflow: visible !important;
+      position: relative !important;
+      z-index: 10 !important;
+      /* Force layout recalculation */
+      will-change: auto !important;
     }
 
     button {
@@ -4670,49 +4763,58 @@ html.dark-theme .artist-inline-load-more-btn svg {
     /* ===== ROUND RESULTS MODAL - MOBILE ===== */
 
     .round-results-simple {
-      min-width: 0;
-      width: calc(100vw - 2rem);
-      max-width: calc(100vw - 2rem);
-      padding: 1.5rem;
+      min-width: 0 !important;
+      width: calc(100vw - 2rem) !important;
+      max-width: calc(100vw - 2rem) !important;
+      max-height: calc(100vh - 2rem) !important;
+      padding: 1.5rem 1rem !important;
+      margin: 1rem !important;
+      box-sizing: border-box !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
     }
 
-    .round-results-title {
-      font-size: 1.25rem;
-      margin-bottom: 1.25rem;
+    .round-results-score-simple {
+      font-size: 2.5rem !important;
+      margin-bottom: 1.25rem !important;
+      line-height: 1 !important;
     }
 
-    .round-results-score {
-      margin-bottom: 1.5rem;
+    .round-results-artists-simple {
+      gap: 0.5rem !important;
+      margin-bottom: 1.25rem !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
     }
 
-    .round-results-score span {
-      font-size: 2.5rem;
+    .round-results-artists-simple span {
+      font-size: 0.8125rem !important;
+      padding: 0.4375rem 0.75rem !important;
+      max-width: 100% !important;
+      box-sizing: border-box !important;
+      word-break: break-word !important;
     }
 
-    .round-results-artists {
-      margin-bottom: 1.5rem;
+    .round-results-btn-simple {
+      padding: 1rem 1.5rem !important;
+      font-size: 1rem !important;
+      min-height: 48px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+      touch-action: manipulation !important;
+      -webkit-tap-highlight-color: rgba(76, 175, 80, 0.3) !important;
     }
-
-    .round-results-artists-title {
-      font-size: 0.8rem;
-      margin-bottom: 0.875rem;
+    
+    /* Ensure modal container doesn't overflow */
+    .modal {
+      padding: 0.5rem !important;
+      box-sizing: border-box !important;
     }
-
-    .round-results-artists-list {
-      gap: 0.5rem;
-    }
-
-    .round-results-artists-list span {
-      font-size: 0.8125rem;
-      padding: 0.4375rem 0.75rem;
-    }
-
-    .round-results-btn {
-      padding: 1rem 1.5rem;
-      font-size: 1rem;
-      min-height: 48px;
-      touch-action: manipulation;
-      -webkit-tap-highlight-color: rgba(76, 175, 80, 0.3);
+    
+    .modal-content {
+      max-width: 100% !important;
+      max-height: 100% !important;
+      box-sizing: border-box !important;
     }
 
     .primary-btn,

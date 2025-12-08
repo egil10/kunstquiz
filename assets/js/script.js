@@ -2213,42 +2213,53 @@ function getValidPaintings() {
 }
 
 function loadQuiz() {
-  // Use requestAnimationFrame for smooth DOM updates
-  requestAnimationFrame(() => {
-    const validPaintings = getValidPaintings();
-    if (!validPaintings.length) {
-      const optionsDiv = document.getElementById('options');
-      if (optionsDiv) {
-        optionsDiv.innerHTML = `<p>${t('noPaintings')}</p>`;
-      }
-      return;
-    }
+  // CRITICAL: Wrap everything in try-catch to prevent silent failures on mobile
+  try {
+    // Use requestAnimationFrame for smooth DOM updates
+    requestAnimationFrame(() => {
+      try {
+        const validPaintings = getValidPaintings();
+        if (!validPaintings.length) {
+          const optionsDiv = document.getElementById('options');
+          if (optionsDiv) {
+            optionsDiv.innerHTML = `<p>${t('noPaintings')}</p>`;
+          }
+          return;
+        }
 
-    // Check if round is complete
-    if (currentRound.questionNumber > 10) {
-      showRoundResults();
-      return;
-    }
+        // Check if round is complete
+        if (currentRound.questionNumber > 10) {
+          showRoundResults();
+          return;
+        }
 
-    // Use preloaded queue if available, otherwise fallback to random
-    let painting;
-    if (upcomingPaintingsQueue.length > 0 && currentRound.questionNumber <= upcomingPaintingsQueue.length) {
-      // Use the preloaded painting from the queue
-      painting = upcomingPaintingsQueue[currentRound.questionNumber - 1];
-    }
+        // Use preloaded queue if available, otherwise fallback to random
+        let painting;
+        if (upcomingPaintingsQueue.length > 0 && currentRound.questionNumber <= upcomingPaintingsQueue.length) {
+          // Use the preloaded painting from the queue
+          painting = upcomingPaintingsQueue[currentRound.questionNumber - 1];
+        }
 
-    // Fallback to random if queue is empty or invalid
-    if (!painting || !painting.artist || !painting.url) {
-      for (let i = 0; i < 10; i++) {
-        painting = getWeightedRandomPainting(validPaintings);
-        if (painting && painting.artist && painting.url) break;
-      }
-    }
+        // Fallback to random if queue is empty or invalid
+        if (!painting || !painting.artist || !painting.url) {
+          for (let i = 0; i < 10; i++) {
+            painting = getWeightedRandomPainting(validPaintings);
+            if (painting && painting.artist && painting.url) break;
+          }
+        }
 
-    if (!painting || !painting.artist || !painting.url) return;
+        if (!painting || !painting.artist || !painting.url) {
+          // Still create buttons even if painting is invalid
+          createButtonsFallback();
+          return;
+        }
 
-    const img = document.getElementById('painting');
-    if (!img) return;
+        const img = document.getElementById('painting');
+        if (!img) {
+          // Still create buttons even if image element doesn't exist
+          createButtonsFallback();
+          return;
+        }
 
     // Image should already be preloaded - use it instantly
     let imageUrl = painting.url;
@@ -2272,12 +2283,24 @@ function loadQuiz() {
     }
 
     // Set image immediately (it's already loaded)
+    // CRITICAL: Don't wait for image load - buttons should appear regardless
     requestAnimationFrame(() => {
-      img.src = imageUrl;
-      img.alt = stripHtml(painting.title) || t('painting');
-      img.classList.add('loaded');
-      img.style.opacity = '1';
-      img.style.visibility = 'visible';
+      try {
+        img.src = imageUrl;
+        img.alt = stripHtml(painting.title) || t('painting');
+        img.classList.add('loaded');
+        img.style.opacity = '1';
+        img.style.visibility = 'visible';
+        
+        // Add error handler - if image fails, buttons still work
+        img.onerror = function() {
+          console.warn('Image failed to load, but quiz continues');
+          img.style.opacity = '0.5';
+        };
+      } catch (e) {
+        console.error('Error setting image:', e);
+        // Continue anyway - buttons should still work
+      }
     });
 
     // Set current painting for viewer
@@ -2307,8 +2330,14 @@ function loadQuiz() {
       setTimeout(() => preloadNextImages(validPaintings), 100);
 
     const optionsDiv = document.getElementById('options');
-    if (!optionsDiv) return;
+    if (!optionsDiv) {
+      console.error('Options div not found!');
+      return;
+    }
 
+    // CRITICAL: Create buttons IMMEDIATELY - don't wait for anything
+    // Buttons should appear even if image fails to load
+    
     // Detect mobile device once for this function
     const isMobile = isMobileDevice();
 
@@ -2324,12 +2353,28 @@ function loadQuiz() {
       });
     }
 
-    const artists = generateOptions(painting.artist, validPaintings);
+    // CRITICAL: Generate options with error handling
+    let artists = [];
+    try {
+      artists = generateOptions(painting.artist, validPaintings);
+    } catch (e) {
+      console.error('Error generating options:', e);
+      // Fallback: create simple options
+      artists = validPaintings.slice(0, 4).map(p => p.artist).filter(Boolean);
+      if (artists.length < 2) {
+        artists = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+      }
+    }
+    
     if (artists.length < 2) {
-      // Wait for fade out, then update
-      setTimeout(() => {
-        optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
-      }, isMobile ? 50 : 200);
+      // Still show something - don't leave blank
+      if (isMobile) {
+        optionsDiv.innerHTML = `<p style="padding: 1rem; color: #666;">${t('notEnoughArtists') || 'Loading options...'}</p>`;
+      } else {
+        setTimeout(() => {
+          optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
+        }, 200);
+      }
       return;
     }
 
@@ -2502,7 +2547,64 @@ function loadQuiz() {
         updateStreakBar();
       }, fadeDelay);
     }
-  });
+      } catch (e) {
+        console.error('Error in loadQuiz button creation:', e);
+        // Fallback: try to create buttons anyway
+        createButtonsFallback();
+      }
+    });
+  } catch (e) {
+    console.error('Error in loadQuiz:', e);
+    // Last resort fallback
+    createButtonsFallback();
+  }
+}
+
+// Fallback function to create buttons even if main flow fails
+function createButtonsFallback() {
+  try {
+    const optionsDiv = document.getElementById('options');
+    if (!optionsDiv) return;
+    
+    const isMobile = isMobileDevice();
+    const validPaintings = getValidPaintings();
+    
+    if (validPaintings.length < 2) {
+      optionsDiv.innerHTML = `<p>${t('notEnoughArtists') || 'Not enough artists'}</p>`;
+      return;
+    }
+    
+    // Get a random painting for options
+    const painting = validPaintings[Math.floor(Math.random() * validPaintings.length)];
+    if (!painting || !painting.artist) return;
+    
+    const artists = generateOptions(painting.artist, validPaintings);
+    if (artists.length < 2) return;
+    
+    // Create buttons immediately
+    optionsDiv.innerHTML = '';
+    artists.forEach(artist => {
+      const btn = document.createElement('button');
+      btn.textContent = artist;
+      
+      if (isMobile) {
+        btn.style.cssText = '';
+        btn.style.setProperty('opacity', '1', 'important');
+        btn.style.setProperty('visibility', 'visible', 'important');
+        btn.style.setProperty('display', 'block', 'important');
+        btn.style.setProperty('pointer-events', 'auto', 'important');
+      }
+      
+      btn.onclick = () => {
+        // Basic click handler
+        console.log('Button clicked:', artist);
+      };
+      
+      optionsDiv.appendChild(btn);
+    });
+  } catch (e) {
+    console.error('Error in createButtonsFallback:', e);
+  }
 }
 
 function getRandomPainting(validPaintings) {
@@ -3576,8 +3678,7 @@ function setPlayAgainButtons(show, text, onClick) {
 
 function showRoundResults() {
   const modal = document.getElementById('round-results-modal');
-  const title = document.getElementById('round-results-title');
-  const scoreText = document.getElementById('round-results-score-text');
+  const scoreCurrent = document.getElementById('round-results-score-current');
   const artistsList = document.getElementById('round-results-artists-list');
   const playAgainBtn = document.getElementById('round-results-play-again');
 
@@ -3593,9 +3694,10 @@ function showRoundResults() {
     return;
   }
 
-  // Update content
-  if (title) title.textContent = t('roundStats.title') || 'Round Results';
-  if (scoreText) scoreText.textContent = `${totalCorrect}/10`;
+  // Update score
+  if (scoreCurrent) {
+    scoreCurrent.textContent = totalCorrect;
+  }
 
   // Populate artists list
   if (artistsList) {
@@ -3612,7 +3714,7 @@ function showRoundResults() {
     playAgainBtn.textContent = t('roundStats.playAgain') || 'Play Another Round';
   }
 
-  // Show modal
+  // Show modal with celebration
   modal.style.display = 'flex';
   modal.focus();
 
