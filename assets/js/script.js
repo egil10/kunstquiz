@@ -159,14 +159,14 @@ function debounce(func, delay) {
 function isMobileDevice() {
   // Check for touch capability
   const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-  
+
   // Check screen width (mobile is typically < 768px)
   const isSmallScreen = window.innerWidth < 768;
-  
+
   // Check user agent for mobile devices
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
   const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent.toLowerCase());
-  
+
   // Return true if any mobile indicator is present
   return (hasTouch && isSmallScreen) || isMobileUA;
 }
@@ -1609,12 +1609,12 @@ function createGalleryImage(painting) {
 
   // Check if URL looks like an image URL (has image extension or is from wikimedia)
   let url = painting.url.trim();
-  
+
   // Convert HTTP to HTTPS to prevent mixed content warnings
   if (url.startsWith('http://')) {
     url = url.replace('http://', 'https://');
   }
-  
+
   const isImageUrl = url.match(/\.(jpg|jpeg|png|gif|webp|svg)(\?|$|#)/i) ||
     url.includes('wikimedia.org') ||
     url.includes('upload.wikimedia.org');
@@ -1899,12 +1899,12 @@ async function preloadAndShowGallery() {
 
 async function preloadGalleryImage(url) {
   if (!url) return url;
-  
+
   // Convert HTTP to HTTPS to prevent mixed content warnings
   if (url.startsWith('http://')) {
     url = url.replace('http://', 'https://');
   }
-  
+
   // Check cache first
   if (galleryPreloadCache.has(url)) {
     return galleryPreloadCache.get(url);
@@ -2261,208 +2261,176 @@ function loadQuiz() {
           return;
         }
 
-    // Image should already be preloaded - use it instantly
-    let imageUrl = painting.url;
-    
-    // Ensure HTTPS to prevent mixed content warnings
-    if (imageUrl && imageUrl.startsWith('http://')) {
-      imageUrl = imageUrl.replace('http://', 'https://');
-    }
+        // Image should already be preloaded - use it instantly
+        let imageUrl = painting.url;
 
-    if (imageCache.has(painting.url)) {
-      // Image is in cache - use cached version
-      const cachedImg = imageCache.get(painting.url);
-      imageUrl = cachedImg.src || imageUrl;
-      // Ensure cached URL is also HTTPS
-      if (imageUrl && imageUrl.startsWith('http://')) {
-        imageUrl = imageUrl.replace('http://', 'https://');
-      }
-    } else {
-      // Fallback: try optimized URL (which now handles HTTPS conversion)
-      imageUrl = optimizeImageUrl(imageUrl || painting.url);
-    }
+        // Ensure HTTPS to prevent mixed content warnings
+        if (imageUrl && imageUrl.startsWith('http://')) {
+          imageUrl = imageUrl.replace('http://', 'https://');
+        }
 
-    // Set image immediately (it's already loaded)
-    // CRITICAL: Don't wait for image load - buttons should appear regardless
-    requestAnimationFrame(() => {
-      try {
-        img.src = imageUrl;
-        img.alt = stripHtml(painting.title) || t('painting');
-        img.classList.add('loaded');
-        img.style.opacity = '1';
-        img.style.visibility = 'visible';
-        
-        // Add error handler - if image fails, buttons still work
-        img.onerror = function() {
-          console.warn('Image failed to load, but quiz continues');
-          img.style.opacity = '0.5';
-        };
-      } catch (e) {
-        console.error('Error setting image:', e);
-        // Continue anyway - buttons should still work
-      }
-    });
+        if (imageCache.has(painting.url)) {
+          // Image is in cache - use cached version
+          const cachedImg = imageCache.get(painting.url);
+          imageUrl = cachedImg.src || imageUrl;
+          // Ensure cached URL is also HTTPS
+          if (imageUrl && imageUrl.startsWith('http://')) {
+            imageUrl = imageUrl.replace('http://', 'https://');
+          }
+        } else {
+          // Fallback: try optimized URL (which now handles HTTPS conversion)
+          imageUrl = optimizeImageUrl(imageUrl || painting.url);
+        }
 
-    // Set current painting for viewer
-    currentPainting = painting;
+        // Set image immediately (it's already loaded)
+        // CRITICAL: Don't wait for image load - buttons should appear regardless
+        requestAnimationFrame(() => {
+          try {
+            img.src = imageUrl;
+            img.alt = stripHtml(painting.title) || t('painting');
+            img.classList.add('loaded');
+            img.style.opacity = '1';
+            img.style.visibility = 'visible';
 
-    // Setup painting viewer click handler (use event delegation for better performance)
-    const paintingContainer = document.querySelector('.painting-container');
-    if (paintingContainer) {
-      paintingContainer.onclick = function () {
-        if (currentPainting) {
-          requestAnimationFrame(() => {
-            showPaintingViewer(currentPainting);
+            // Add error handler - if image fails, buttons still work
+            img.onerror = function () {
+              console.warn('Image failed to load, but quiz continues');
+              img.style.opacity = '0.5';
+            };
+          } catch (e) {
+            console.error('Error setting image:', e);
+            // Continue anyway - buttons should still work
+          }
+        });
+
+        // Set current painting for viewer
+        currentPainting = painting;
+
+        // Setup painting viewer click handler (use event delegation for better performance)
+        const paintingContainer = document.querySelector('.painting-container');
+        if (paintingContainer) {
+          paintingContainer.onclick = function () {
+            if (currentPainting) {
+              requestAnimationFrame(() => {
+                showPaintingViewer(currentPainting);
+              });
+            }
+          };
+        }
+
+        // Check if we have a preloaded image ready
+        const preloadedUrl = upcomingPaintingsPreloaded.has(painting.url) ? painting.url : null;
+
+        // ✅ Smart predictive preloading: Preload i+2 and self-portrait i+1
+        // Also ensures i+1 is loaded (micro-optimization)
+        predictivePreload(currentRound.questionNumber);
+
+        // Continue preloading more images in background (non-blocking) - legacy fallback
+        requestIdleCallback ? requestIdleCallback(() => preloadNextImages(validPaintings)) :
+          setTimeout(() => preloadNextImages(validPaintings), 100);
+
+        const optionsDiv = document.getElementById('options');
+        if (!optionsDiv) {
+          console.error('Options div not found!');
+          return;
+        }
+
+        // CRITICAL: Create buttons IMMEDIATELY - don't wait for anything
+        // Buttons should appear even if image fails to load
+
+        // Detect mobile device once for this function
+        const isMobile = isMobileDevice();
+
+        // Fade out existing buttons smoothly before clearing (desktop only)
+        // MOBILE: Skip fade out - just replace immediately
+        const existingButtons = Array.from(optionsDiv.children);
+        if (existingButtons.length > 0 && !isMobile) {
+          // Set opacity to 0 to fade out, but keep them in place to prevent layout shift
+          existingButtons.forEach(btn => {
+            btn.style.opacity = '0';
+            btn.style.transition = 'opacity 0.2s ease';
+            btn.style.pointerEvents = 'none';
           });
         }
-      };
-    }
 
-    // Check if we have a preloaded image ready
-    const preloadedUrl = upcomingPaintingsPreloaded.has(painting.url) ? painting.url : null;
+        // CRITICAL: Generate options with error handling
+        let artists = [];
+        try {
+          artists = generateOptions(painting.artist, validPaintings);
+        } catch (e) {
+          console.error('Error generating options:', e);
+          // Fallback: create simple options
+          artists = validPaintings.slice(0, 4).map(p => p.artist).filter(Boolean);
+          if (artists.length < 2) {
+            artists = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
+          }
+        }
 
-    // ✅ Smart predictive preloading: Preload i+2 and self-portrait i+1
-    // Also ensures i+1 is loaded (micro-optimization)
-    predictivePreload(currentRound.questionNumber);
-
-    // Continue preloading more images in background (non-blocking) - legacy fallback
-    requestIdleCallback ? requestIdleCallback(() => preloadNextImages(validPaintings)) :
-      setTimeout(() => preloadNextImages(validPaintings), 100);
-
-    const optionsDiv = document.getElementById('options');
-    if (!optionsDiv) {
-      console.error('Options div not found!');
-      return;
-    }
-
-    // CRITICAL: Create buttons IMMEDIATELY - don't wait for anything
-    // Buttons should appear even if image fails to load
-    
-    // Detect mobile device once for this function
-    const isMobile = isMobileDevice();
-
-    // Fade out existing buttons smoothly before clearing (desktop only)
-    // MOBILE: Skip fade out - just replace immediately
-    const existingButtons = Array.from(optionsDiv.children);
-    if (existingButtons.length > 0 && !isMobile) {
-      // Set opacity to 0 to fade out, but keep them in place to prevent layout shift
-      existingButtons.forEach(btn => {
-        btn.style.opacity = '0';
-        btn.style.transition = 'opacity 0.2s ease';
-        btn.style.pointerEvents = 'none';
-      });
-    }
-
-    // CRITICAL: Generate options with error handling
-    let artists = [];
-    try {
-      artists = generateOptions(painting.artist, validPaintings);
-    } catch (e) {
-      console.error('Error generating options:', e);
-      // Fallback: create simple options
-      artists = validPaintings.slice(0, 4).map(p => p.artist).filter(Boolean);
-      if (artists.length < 2) {
-        artists = ['Option 1', 'Option 2', 'Option 3', 'Option 4'];
-      }
-    }
-    
-    if (artists.length < 2) {
-      // Still show something - don't leave blank
-      if (isMobile) {
-        optionsDiv.innerHTML = `<p style="padding: 1rem; color: #666;">${t('notEnoughArtists') || 'Loading options...'}</p>`;
-      } else {
-        setTimeout(() => {
-          optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
-        }, 200);
-      }
-      return;
-    }
-
-    // Create all buttons at once to reduce DOM operations
-    const fragment = document.createDocumentFragment();
-    artists.forEach(artist => {
-      const btn = document.createElement('button');
-      btn.textContent = artist;
-      
-      // On mobile, ensure button has no problematic initial styles
-      if (isMobile) {
-        btn.style.cssText = '';
-      }
-      // Use event delegation pattern for better performance
-      btn.onclick = () => {
-        // Use requestAnimationFrame for smooth UI updates
-        requestAnimationFrame(() => {
-          // Add loading state to prevent multiple clicks
-          const buttons = Array.from(optionsDiv.children);
-          buttons.forEach(b => {
-            b.classList.add('loading');
-            b.disabled = true;
-            b.classList.remove('correct', 'wrong');
-          });
-
-          const correctBtn = buttons.find(b => b.textContent === painting.artist);
-          const selectedBtn = btn;
-
-          // Track this answer
-          const isCorrect = artist === painting.artist;
-          currentRound.answers.push({
-            question: currentRound.questionNumber,
-            correct: isCorrect,
-            selectedArtist: artist,
-            correctArtist: painting.artist,
-            painting: painting
-          });
-
-          if (isCorrect) {
-            // Correct answer
-            currentRound.correctAnswers++;
-            streak++;
-            selectedBtn.classList.add('correct');
-
-            // Track analytics
-            trackAnswer(true, painting.artist, selectedCategory);
-
-            // Show correct message
-            const correctMessage = getRandomCorrectMessage();
-            showMessage(correctMessage, '#388e3c');
-
-            // Add artist to set
-            currentRound.artists.add(painting.artist);
-
-            // Quick transition for correct answers
-            setTimeout(() => {
-              requestAnimationFrame(() => {
-                hideMessage(); // Hide the correct message
-                // Remove loading state and reset buttons
-                buttons.forEach(b => {
-                  b.classList.remove('loading', 'correct', 'wrong');
-                  b.disabled = false;
-                });
-                currentRound.questionNumber++;
-                loadQuiz();
-              });
-            }, 1000);
+        if (artists.length < 2) {
+          // Still show something - don't leave blank
+          if (isMobile) {
+            optionsDiv.innerHTML = `<p style="padding: 1rem; color: #666;">${t('notEnoughArtists') || 'Loading options...'}</p>`;
           } else {
-            // Incorrect answer
-            currentRound.incorrectAnswers++;
-            streak = 0;
-            selectedBtn.classList.add('wrong');
-            if (correctBtn) correctBtn.classList.add('correct');
-
-            // Track analytics
-            trackAnswer(false, artist, selectedCategory);
-
-            const incorrectMessage = getRandomIncorrectMessage();
-            showMessage(incorrectMessage, '#e53935');
-
-            // Add correct artist to set (only count the actual featured artist)
-            currentRound.artists.add(painting.artist);
-
-            updateStreakBar();
             setTimeout(() => {
-              showArtistPopup(painting, () => {
-                requestAnimationFrame(() => {
-                  hideMessage();
+              optionsDiv.innerHTML = `<p>${t('notEnoughArtists')}</p>`;
+            }, 200);
+          }
+          return;
+        }
+
+        // Create all buttons at once to reduce DOM operations
+        const fragment = document.createDocumentFragment();
+        artists.forEach(artist => {
+          const btn = document.createElement('button');
+          btn.textContent = artist;
+
+          // On mobile, ensure button has no problematic initial styles
+          if (isMobile) {
+            btn.style.cssText = '';
+          }
+          // Use event delegation pattern for better performance
+          btn.onclick = () => {
+            try {
+              // Add loading state to prevent multiple clicks
+              const buttons = Array.from(optionsDiv.children);
+              buttons.forEach(b => {
+                b.classList.add('loading');
+                b.disabled = true;
+                b.classList.remove('correct', 'wrong');
+              });
+
+              const correctBtn = buttons.find(b => b.textContent === painting.artist);
+              const selectedBtn = btn;
+
+              // Track this answer
+              const isCorrect = artist === painting.artist;
+              currentRound.answers.push({
+                question: currentRound.questionNumber,
+                correct: isCorrect,
+                selectedArtist: artist,
+                correctArtist: painting.artist,
+                painting: painting
+              });
+
+              if (isCorrect) {
+                // Correct answer
+                currentRound.correctAnswers++;
+                streak++;
+                selectedBtn.classList.add('correct');
+
+                // Track analytics
+                trackAnswer(true, painting.artist, selectedCategory);
+
+                // Show correct message
+                const correctMessage = getRandomCorrectMessage();
+                showMessage(correctMessage, '#388e3c');
+
+                // Add artist to set
+                currentRound.artists.add(painting.artist);
+
+                // Quick transition for correct answers
+                setTimeout(() => {
+                  hideMessage(); // Hide the correct message
                   // Remove loading state and reset buttons
                   buttons.forEach(b => {
                     b.classList.remove('loading', 'correct', 'wrong');
@@ -2470,83 +2438,114 @@ function loadQuiz() {
                   });
                   currentRound.questionNumber++;
                   loadQuiz();
-                });
+                }, 1000);
+              } else {
+                // Incorrect answer
+                currentRound.incorrectAnswers++;
+                streak = 0;
+                selectedBtn.classList.add('wrong');
+                if (correctBtn) correctBtn.classList.add('correct');
+
+                // Track analytics
+                trackAnswer(false, artist, selectedCategory);
+
+                const incorrectMessage = getRandomIncorrectMessage();
+                showMessage(incorrectMessage, '#e53935');
+
+                // Add correct artist to set (only count the actual featured artist)
+                currentRound.artists.add(painting.artist);
+
+                updateStreakBar();
+                setTimeout(() => {
+                  showArtistPopup(painting, () => {
+                    hideMessage();
+                    // Remove loading state and reset buttons
+                    buttons.forEach(b => {
+                      b.classList.remove('loading', 'correct', 'wrong');
+                      b.disabled = false;
+                    });
+                    currentRound.questionNumber++;
+                    loadQuiz();
+                  });
+                }, 500);
+              }
+              updateStreakBar();
+            } catch (error) {
+              console.error('Error handling button click:', error);
+              // Fallback: reload quiz to consistent state
+              loadQuiz();
+            }
+          };
+          fragment.appendChild(btn);
+        });
+
+        // MOBILE: Immediate button creation - no delays, no animations
+        if (isMobile) {
+          // Clear old buttons immediately
+          optionsDiv.innerHTML = '';
+          // Add new buttons immediately
+          optionsDiv.appendChild(fragment);
+
+          const newButtons = Array.from(optionsDiv.children);
+
+          // Force immediate visibility - no animations, no delays
+          newButtons.forEach(btn => {
+            // Remove ALL inline styles that could interfere
+            btn.style.cssText = '';
+            // Force visibility with !important-level specificity
+            btn.style.setProperty('opacity', '1', 'important');
+            btn.style.setProperty('visibility', 'visible', 'important');
+            btn.style.setProperty('display', 'block', 'important');
+            btn.style.setProperty('pointer-events', 'auto', 'important');
+            btn.style.setProperty('transform', 'none', 'important');
+            btn.style.setProperty('transition', 'none', 'important');
+          });
+
+          updateStreakBar();
+        } else {
+          // DESKTOP: Fade out existing, then fade in new
+          const fadeDelay = existingButtons.length > 0 ? 200 : 0;
+
+          setTimeout(() => {
+            // Clear old buttons and add new ones
+            optionsDiv.innerHTML = '';
+            optionsDiv.appendChild(fragment);
+
+            const newButtons = Array.from(optionsDiv.children);
+
+            // DESKTOP: Fade in animation for smooth UX
+            newButtons.forEach(btn => {
+              btn.style.opacity = '0';
+              btn.style.visibility = 'visible';
+              btn.style.transition = 'opacity 0.3s ease';
+              btn.style.transform = 'translateZ(0)';
+            });
+
+            // Force reflow
+            void optionsDiv.offsetHeight;
+
+            // Trigger animation
+            requestAnimationFrame(() => {
+              newButtons.forEach((btn, index) => {
+                setTimeout(() => {
+                  btn.style.opacity = '1';
+                }, index * 50);
+              });
+            });
+
+            // Safety net for desktop
+            setTimeout(() => {
+              newButtons.forEach(btn => {
+                if (getComputedStyle(btn).opacity !== '1') {
+                  btn.style.opacity = '1';
+                  btn.style.visibility = 'visible';
+                }
               });
             }, 500);
-          }
-          updateStreakBar();
-        });
-      };
-      fragment.appendChild(btn);
-    });
 
-    // MOBILE: Immediate button creation - no delays, no animations
-    if (isMobile) {
-      // Clear old buttons immediately
-      optionsDiv.innerHTML = '';
-      // Add new buttons immediately
-      optionsDiv.appendChild(fragment);
-      
-      const newButtons = Array.from(optionsDiv.children);
-      
-      // Force immediate visibility - no animations, no delays
-      newButtons.forEach(btn => {
-        // Remove ALL inline styles that could interfere
-        btn.style.cssText = '';
-        // Force visibility with !important-level specificity
-        btn.style.setProperty('opacity', '1', 'important');
-        btn.style.setProperty('visibility', 'visible', 'important');
-        btn.style.setProperty('display', 'block', 'important');
-        btn.style.setProperty('pointer-events', 'auto', 'important');
-        btn.style.setProperty('transform', 'none', 'important');
-        btn.style.setProperty('transition', 'none', 'important');
-      });
-      
-      updateStreakBar();
-    } else {
-      // DESKTOP: Fade out existing, then fade in new
-      const fadeDelay = existingButtons.length > 0 ? 200 : 0;
-      
-      setTimeout(() => {
-        // Clear old buttons and add new ones
-        optionsDiv.innerHTML = '';
-        optionsDiv.appendChild(fragment);
-
-        const newButtons = Array.from(optionsDiv.children);
-
-        // DESKTOP: Fade in animation for smooth UX
-        newButtons.forEach(btn => {
-          btn.style.opacity = '0';
-          btn.style.visibility = 'visible';
-          btn.style.transition = 'opacity 0.3s ease';
-          btn.style.transform = 'translateZ(0)';
-        });
-
-        // Force reflow
-        void optionsDiv.offsetHeight;
-
-        // Trigger animation
-        requestAnimationFrame(() => {
-          newButtons.forEach((btn, index) => {
-            setTimeout(() => {
-              btn.style.opacity = '1';
-            }, index * 50);
-          });
-        });
-
-        // Safety net for desktop
-        setTimeout(() => {
-          newButtons.forEach(btn => {
-            if (getComputedStyle(btn).opacity !== '1') {
-              btn.style.opacity = '1';
-              btn.style.visibility = 'visible';
-            }
-          });
-        }, 500);
-
-        updateStreakBar();
-      }, fadeDelay);
-    }
+            updateStreakBar();
+          }, fadeDelay);
+        }
       } catch (e) {
         console.error('Error in loadQuiz button creation:', e);
         // Fallback: try to create buttons anyway
@@ -2565,28 +2564,28 @@ function createButtonsFallback() {
   try {
     const optionsDiv = document.getElementById('options');
     if (!optionsDiv) return;
-    
+
     const isMobile = isMobileDevice();
     const validPaintings = getValidPaintings();
-    
+
     if (validPaintings.length < 2) {
       optionsDiv.innerHTML = `<p>${t('notEnoughArtists') || 'Not enough artists'}</p>`;
       return;
     }
-    
+
     // Get a random painting for options
     const painting = validPaintings[Math.floor(Math.random() * validPaintings.length)];
     if (!painting || !painting.artist) return;
-    
+
     const artists = generateOptions(painting.artist, validPaintings);
     if (artists.length < 2) return;
-    
+
     // Create buttons immediately
     optionsDiv.innerHTML = '';
     artists.forEach(artist => {
       const btn = document.createElement('button');
       btn.textContent = artist;
-      
+
       if (isMobile) {
         btn.style.cssText = '';
         btn.style.setProperty('opacity', '1', 'important');
@@ -2594,12 +2593,12 @@ function createButtonsFallback() {
         btn.style.setProperty('display', 'block', 'important');
         btn.style.setProperty('pointer-events', 'auto', 'important');
       }
-      
+
       btn.onclick = () => {
         // Basic click handler
         console.log('Button clicked:', artist);
       };
-      
+
       optionsDiv.appendChild(btn);
     });
   } catch (e) {
@@ -3652,7 +3651,7 @@ function setPlayAgainButtons(show, text, onClick) {
     if (btn) {
       if (show) {
         if (text) btn.textContent = text;
-        
+
         // Remove existing listeners and add new one for mobile compatibility
         if (onClick) {
           btn.onclick = null;
@@ -3667,7 +3666,7 @@ function setPlayAgainButtons(show, text, onClick) {
           btn.style.pointerEvents = 'auto';
           btn.style.cursor = 'pointer';
         }
-        
+
         btn.style.display = 'block';
       } else {
         btn.style.display = 'none';
@@ -3725,15 +3724,15 @@ function showRoundResults() {
     hideRoundResults();
     startNewRound();
   };
-  
+
   // Remove any existing listeners
   playAgainBtn.onclick = null;
   playAgainBtn.removeEventListener('click', handlePlayAgain);
-  
+
   // Add both onclick and addEventListener for maximum compatibility
   playAgainBtn.onclick = handlePlayAgain;
   playAgainBtn.addEventListener('click', handlePlayAgain, { passive: true });
-  
+
   // Ensure button is clickable
   playAgainBtn.style.pointerEvents = 'auto';
   playAgainBtn.style.cursor = 'pointer';
@@ -3975,12 +3974,12 @@ function getArtistPortraitUrl(painting) {
 // Preload a single artist portrait image with decode for zero-flicker
 function preloadArtistPortrait(url) {
   if (!url) return Promise.resolve();
-  
+
   // Convert HTTP to HTTPS to prevent mixed content warnings
   if (url.startsWith('http://')) {
     url = url.replace('http://', 'https://');
   }
-  
+
   if (artistPortraitsPreloaded.has(url)) {
     return Promise.resolve();
   }
@@ -4220,12 +4219,12 @@ async function preloadAllRoundImages() {
 // Preload a single quiz image - ensure it's fully loaded in cache with decode
 function preloadQuizImage(url) {
   if (!url) return Promise.resolve();
-  
+
   // Convert HTTP to HTTPS to prevent mixed content warnings
   if (url.startsWith('http://')) {
     url = url.replace('http://', 'https://');
   }
-  
+
   if (imageCache.has(url)) {
     upcomingPaintingsPreloaded.add(url);
     return Promise.resolve();
@@ -4467,10 +4466,10 @@ function ensureHttps(url) {
 // Image optimization functions
 function optimizeImageUrl(url, targetWidth = 800) {
   if (!url) return '';
-  
+
   // Convert HTTP to HTTPS to prevent mixed content warnings
   url = ensureHttps(url);
-  
+
   return url; // Return original URL - webp causes 404s
 }
 
