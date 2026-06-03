@@ -3869,30 +3869,46 @@ function hideDiploma() {
   setPlayAgainButtons(false);
 }
 
+// Load html2canvas on demand (only needed for the rare diploma download), so it
+// doesn't block initial page load. Caches the load promise after the first call.
+let html2canvasPromise = null;
+function loadHtml2Canvas() {
+  if (typeof html2canvas !== 'undefined') return Promise.resolve();
+  if (html2canvasPromise) return html2canvasPromise;
+  html2canvasPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+    script.onload = resolve;
+    script.onerror = () => { html2canvasPromise = null; reject(new Error('Failed to load html2canvas')); };
+    document.head.appendChild(script);
+  });
+  return html2canvasPromise;
+}
+
 function downloadDiploma() {
   const diplomaContent = document.querySelector('.diploma-content');
   if (!diplomaContent) return;
 
-  // Use html2canvas to capture just the diploma content (without buttons)
-  if (typeof html2canvas !== 'undefined') {
-    html2canvas(diplomaContent, {
+  // Capture just the diploma content (without buttons)
+  loadHtml2Canvas().then(() => {
+    return html2canvas(diplomaContent, {
       scale: 2,
       backgroundColor: '#ffffff',
       useCORS: true,
       allowTaint: true,
       width: diplomaContent.offsetWidth,
       height: diplomaContent.offsetHeight
-    }).then(canvas => {
-      // Create download link
-      const link = document.createElement('a');
-      link.download = `kunstquiz-diploma-${new Date().toISOString().split('T')[0]}.png`;
-      link.href = canvas.toDataURL('image/png');
-      link.click();
     });
-  } else {
+  }).then(canvas => {
+    // Create download link
+    const link = document.createElement('a');
+    link.download = `kunstquiz-diploma-${new Date().toISOString().split('T')[0]}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }).catch(() => {
     // Fallback: prompt user to take screenshot
     alert('Please take a screenshot of your diploma!');
-  }
+  });
 }
 
 function startNewRound() {
