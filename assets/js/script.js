@@ -2293,10 +2293,20 @@ function loadQuiz() {
             img.style.opacity = '1';
             img.style.visibility = 'visible';
 
-            // Add error handler - if image fails, buttons still work
+            // Add error handler - if the (thumbnail) src fails, fall back to the
+            // original full-res URL once; buttons keep working regardless.
             img.onerror = function () {
-              console.warn('Image failed to load, but quiz continues');
-              img.style.opacity = '0.5';
+              const original = ensureHttps(painting.url);
+              if (img.src !== original) {
+                img.onerror = function () {
+                  console.warn('Image failed to load, but quiz continues');
+                  img.style.opacity = '0.5';
+                };
+                img.src = original;
+              } else {
+                console.warn('Image failed to load, but quiz continues');
+                img.style.opacity = '0.5';
+              }
             };
           } catch (e) {
             console.error('Error setting image:', e);
@@ -2704,9 +2714,14 @@ function cleanWorkTitle(title) {
 
 async function loadArtistBios() {
   try {
-    const res = await fetch('./data/artists.json');
-    if (!res.ok) throw new Error('Failed to load artist bios');
-    artistBios = await res.json();
+    const prefetch = window.__kunstquizData && window.__kunstquizData.artists;
+    if (prefetch) {
+      artistBios = await prefetch;
+    } else {
+      const res = await fetch('./data/artists.json');
+      if (!res.ok) throw new Error('Failed to load artist bios');
+      artistBios = await res.json();
+    }
   } catch (err) {
     console.error(err);
     artistBios = [];
@@ -4468,6 +4483,22 @@ function ensureHttps(url) {
   return url;
 }
 
+// Build a sized Wikimedia thumbnail via the stable Special:FilePath endpoint.
+// Works for both upload.wikimedia.org originals and existing Special:FilePath URLs;
+// Wikimedia snaps the request to an allowed thumbnail width server-side and redirects
+// to the resized image, so we serve ~50-200KB instead of multi-MB museum scans.
+function wikimediaThumbnail(url, width) {
+  if (!url || typeof url !== 'string' || url.indexOf('wikimedia.org') === -1) return url;
+  // Already a Special:FilePath URL -> just (re)set the width.
+  if (url.indexOf('Special:FilePath/') !== -1) {
+    return url.split('?')[0] + '?width=' + width;
+  }
+  // upload.wikimedia.org/wikipedia/<project>/[thumb/]<a>/<ab>/<filename>...
+  const m = url.match(/^https:\/\/upload\.wikimedia\.org\/wikipedia\/[^/]+\/(?:thumb\/)?[0-9a-f]\/[0-9a-f]{2}\/([^/]+)/);
+  if (!m) return url;
+  return 'https://commons.wikimedia.org/wiki/Special:FilePath/' + m[1] + '?width=' + width;
+}
+
 // Image optimization functions
 function optimizeImageUrl(url, targetWidth = 800) {
   if (!url) return '';
@@ -4475,7 +4506,7 @@ function optimizeImageUrl(url, targetWidth = 800) {
   // Convert HTTP to HTTPS to prevent mixed content warnings
   url = ensureHttps(url);
 
-  return url; // Return original URL - webp causes 404s
+  return wikimediaThumbnail(url, targetWidth);
 }
 
 function getResponsiveImageUrl(url, containerWidth = 800) {
@@ -5406,9 +5437,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Start memory cleanup
     startMemoryCleanup();
 
-    const res = await fetch('./data/paintings.json');
-    if (!res.ok) throw new Error('Failed to load paintings');
-    paintings = await res.json();
+    // Use the data fetches kicked off in index.html's <head> (in parallel, pre-script.js).
+    // Fall back to fetching here if that inline script didn't run for any reason.
+    const prefetch = window.__kunstquizData;
+    paintings = prefetch
+      ? await prefetch.paintings
+      : await (await fetch('./data/paintings.json')).json();
     await loadArtistBios();
 
     // Load saved language preference first (before updating UI)

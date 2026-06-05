@@ -8,6 +8,15 @@
   <meta name="theme-color" content="#4caf50">
   <title>Kunstquiz - Norwegian Art Challenge</title>
 
+  <!-- Kick off data fetches during HTML parse, in parallel, before script.js downloads/executes.
+       script.js awaits these promises instead of starting the fetches itself. -->
+  <script>
+    window.__kunstquizData = {
+      paintings: fetch('./data/paintings.json').then(function (r) { return r.json(); }),
+      artists: fetch('./data/artists.json').then(function (r) { return r.json(); })
+    };
+  </script>
+
   <!-- Google Analytics 4 -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-WCCEEJ1H4H"></script>
   <script>
